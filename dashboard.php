@@ -198,7 +198,7 @@ include 'includes/header.php';
         <script src="./js/ccoi-data-model.js"></script>
         <script src="./js/draggable.js"></script>
         <script src="./js/observation.js"></script>
-        <script src="./js/demo.js"></script>
+        <!--<script src="./js/demo.js"></script>-->
         <script src="./js/bootstrap.min.js"></script>
         <script src="./js/zpbccoi.js"></script>
         <script>
