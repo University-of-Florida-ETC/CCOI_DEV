@@ -843,6 +843,8 @@ var ccoiObservation = (function (){
         $(DOM.save_session_button).click(updateData);
         $(DOM.path_go_back).click(pathGoBack);
         $(DOM.launch_video_button).click(launchVideoFromSession);
+        //Revist once implementing IRR correctly.
+        //$(DOM.irr_button).click()
         /*
         * Reorder functionality disabled, as it is not actually used by researchers
         $(DOM.reorder_paths_button).click(function(e) {
