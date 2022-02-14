@@ -38,6 +38,8 @@ function fetchUserObSets(u){
 	xmlHttp.open('GET', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
 }
 
+//PUT LIST OF VIEWABLE OBS SETS ON PAGE
+//=================================================================================
 function transformData(observationSets){
     let list = document.getElementById("obsList");
 
@@ -47,5 +49,6 @@ function transformData(observationSets){
         newLink.setAttribute("href", "obsset?id="+element.id);
 
         list.appendChild(newLink);
+        list.appendChild("br");
     });
 }
