@@ -17,7 +17,7 @@ include 'includes/header.php';
                 if(typeof(jsUserVars) != 'undefined'){
                     userid=jsUserVars['pid'];
                     //setTimeout(function(){ fetchUserObSets2(userid);},500);
-                    setTimeout(function(){ fetchUserObSets2(userid);},50);
+                    setTimeout(function(){ fetchUserObSets(userid);},50);
                     //fetchUserObSets2(userid);
                 }
             }
