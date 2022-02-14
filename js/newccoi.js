@@ -247,8 +247,13 @@ function loadObservationSet(e){				// left side -- fetch the ObS data for this i
 	header_obsetmeta.style.display='none';
 	maybe_videolink.innerHTML='';		maybe_videolink.style.display='none';
 	
+	console.log("id2load = "+id2load);
+	console.log("observationSets = ");
+	console.log(observationSets);
 	var d=observationSets[id2load];
-	
+	console.log("d=observationSets[id2load] =");
+	console.log(d);
+	console.log("d['path']"+d['path']);
 	fetchDaPath(d['path']);			// =========================================== this is HERE because a user can have sets assigned to different paths == dont like it, but unless we restrict based on app or something, we need to fetch -- but we CAN cache it to avoid further fetches
 	fetchDaCodes(d['path']);
 	currentlyLoadedPath=d['path'];
