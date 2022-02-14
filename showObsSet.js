@@ -49,6 +49,6 @@ function transformData(observationSets){
         newLink.setAttribute("href", "obsset?id="+element.id);
 
         list.appendChild(newLink);
-        list.appendChild("br");
+        list.appendChild(document.createElement("br"));
     });
 }
