@@ -56,44 +56,38 @@ function transformData(observationSets){
 //WHAT DOES THIS DO????
 //=================================================================================
 function fetchDaPath(p){
-	if(typeof(fetchedPathData[p]) != 'undefined'){		// did we already fetch this?
-		var bits=fetchedPathData[p].split('|X|');
-		choiceGroups=JSON.parse(bits[0]);
-		observationElements=JSON.parse(bits[1]);		console.log('pulled path data from cache');
-		mirrorPathData();
-		currentlyLoadedPathStartNode=bits[2];
-	}else{
-		var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
-		xmlHttp.onreadystatechange = function() {
-			var data=getHTML(xmlHttp);
-			if(data){ 
-				var bits=data.split('|X|');
-				choiceGroups=JSON.parse(bits[0]);
-				observationElements=JSON.parse(bits[1]);			//console.log('====fetchDaPath===== '+bits[1]);
-				fetchedPathData[p]=data;	// caching for later
-				mirrorPathData();
-				currentlyLoadedPathStartNode=bits[2];
-			}
-		}
-		sendStr='pid2='+p;
-		var url =  encodeURI(derServer+'api/ccoi_ajax.php?'+sendStr);			console.log(url);
-		xmlHttp.open('GET', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
-	}
+    var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
+    xmlHttp.onreadystatechange = function() {
+        var data=getHTML(xmlHttp);
+        if(data){ 
+            var bits=data.split('|X|');
+            console.log("choiceGroups = ");
+            console.log(JSON.parse(bits[0]));
+            console.log("observationElements = ");
+            console.log(JSON.parse(bits[1]));
+            //console.log('====fetchDaPath===== '+bits[1]);
+            console.log("fetchedPathData[p] = ");
+            console.log(data);// caching for later
+            console.log("mirrorPathData();");
+            console.log("currentlyLoadedPathStartNode = ");
+            console.log(bits[2]);
+        }
+    }
+    sendStr='pid2='+p;
+    var url =  encodeURI(derServer+'api/ccoi_ajax.php?'+sendStr);			console.log(url);
+    xmlHttp.open('GET', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
 }
 
 function fetchDaCodes(p){
-	if(typeof(fetchedCodeData[p]) != 'undefined'){		// did we already fetch this?
-		codeData=JSON.parse(fetchedCodeData[p]);
-	}else{
-		var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
-		xmlHttp.onreadystatechange = function() {
-			var data=getHTML(xmlHttp);
-			if(data){ 
-				codeData=JSON.parse(data);
-			}
-		}
-		sendStr='pid3='+p;
-		var url =  encodeURI(derServer+'api/ccoi_ajax.php?'+sendStr);			console.log(url);
-		xmlHttp.open('GET', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
-	}
+    var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
+    xmlHttp.onreadystatechange = function() {
+        var data=getHTML(xmlHttp);
+        if(data){ 
+            console.log("codeData =");
+            console.log(JSON.parse(data));
+        }
+    }
+    sendStr='pid3='+p;
+    var url =  encodeURI(derServer+'api/ccoi_ajax.php?'+sendStr);			console.log(url);
+    xmlHttp.open('GET', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
 }
