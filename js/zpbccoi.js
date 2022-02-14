@@ -39,7 +39,7 @@ function fetchUserObSets2(u){
             console.log(observationSets);
 
             observationSets.forEach((element, index) => {
-                appendSessionLink2(DOM.session_list, index, element.name);
+                appendSessionLink2(DOM.session_list, element.id, element.name);
             });
 
             $('.session-edit').click(function() {
