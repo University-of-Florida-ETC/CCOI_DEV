@@ -18,7 +18,7 @@ include 'includes/header.php';
                         <div class="col-md-8">
                             <div class="row pr-md-5">
                                 <div class="col-md-8 col-12">
-                                    <h1 class="red-font">Demo Observations</h1>
+                                    <h1 class="red-font">Demo Test</h1>
                                     <h5>Demo Session</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
