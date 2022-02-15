@@ -96,7 +96,7 @@ function fetchUserObSets3(u){
 
 
 			if(observationSets[playorreal][id]){
-				let currentObsSet = observationSets[id];
+				let currentObsSet = observationSets[playorreal][id];
 				if(currentObsSet.name){
 					document.getElementById("obsSetTitle").innerText = currentObsSet.name + (isPlayground ? " (Playground)" : " (Research)");
 					document.getElementById("obsset_title").value = currentObsSet.name;
@@ -106,6 +106,9 @@ function fetchUserObSets3(u){
 				}
 				if(currentObsSet.placetime){
 					document.getElementById("obsset_date").value = currentObsSet.placetime;
+				}
+				if(currentObsSet.videoURL){
+					document.getElementById("session_video_title").value = currentObsSet.placetime;
 				}
 			}
 			else
