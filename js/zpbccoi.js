@@ -119,10 +119,10 @@ function fetchUserObSets3(u){
 				if(currentObsSet.notes){
 					document.getElementById("obsset_notes").value = currentObsSet.notes;
 				}
-				if(observations){
-					if(observations.length > 0){
+				if(currentObsSet.observations){
+					if(currentObsSet.observations.length > 0){
 						let destination = document.getElementById("path_list");
-						observations.forEach((element, index) => {
+						currentObsSet.observations.forEach((element, index) => {
 							let obsHTML = `<div class="path-listing-container">
 							<h5 data-index="${index}" class="path-listing-header">${element.name}
 								<a class="btn-link path-edit-icon" href="#" data-index="0"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
