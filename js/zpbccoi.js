@@ -100,9 +100,6 @@ function fetchUserObSets3(u){
             console.log("The observation sets are:");
             console.log(observationSets);
 
-			for(var obsSet in observationSets){
-				appendSessionLink2(DOM.session_list, obsSet, observationSets[obsSet].name);
-			}
 			if(observationSets[URLSearchParams.get('id')]){
 				let currentObsSet = observationSets[URLSearchParams.get('id')];
 				document.getElementById("obsSetTitle").innerText = currentObsSet.name;
