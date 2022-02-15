@@ -82,6 +82,7 @@ function switchPlayState(){
 
 
 function fetchUserObSets(u){
+	console.log("fetchUserObSets()");
 	if(	! ((Object.keys(appVideoList).length>0) && (Object.keys(appPathList).length>0)) ){console.log('not ready to load... try again in half a sec'); setTimeout(function(){ fetchUserObSets(userid);},500);return;}		// if we're not ready -- wait half a second and try again.
 	var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
 	xmlHttp.onreadystatechange = function() {
@@ -178,6 +179,7 @@ function fetchAppPaths(a){
 }
 
 function showObservationSets(){
+	console.log("showObservationSets()");
 	leftSide.style.opacity=0;
 	leftInnerContainer.innerHTML='';			// wipe out all existing child nodes
 	currentlyLoadedObservation=0;
