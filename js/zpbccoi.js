@@ -142,7 +142,7 @@ function fetchUserObSets3(u){
 									notes = " ["+obRespObject.notes+"]";
 								}
 								obsHTML+=`
-								<li>(${minutes}:${seconds}) ${ObRespObject.PNid}-${ObRespObject.SAid}: This is where the decoded name will go${notes}</li>`
+								<li>(${minutes}:${seconds}) ${obRespObject.PNid}-${obRespObject.SAid}: This is where the decoded name will go${notes}</li>`
 							});
 							obsHtml += `
 								</ol>
