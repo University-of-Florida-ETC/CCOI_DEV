@@ -108,7 +108,10 @@ function fetchUserObSets3(u){
 					document.getElementById("obsset_date").value = currentObsSet.placetime;
 				}
 				if(currentObsSet.videoURL){
-					document.getElementById("session_video_title").value = currentObsSet.placetime;
+					document.getElementById("session_video_title").value = currentObsSet.videoURL;
+				}
+				if(currentObsSet.notes){
+					document.getElementById("session_video_title").value = currentObsSet.videoURL;
 				}
 			}
 			else
