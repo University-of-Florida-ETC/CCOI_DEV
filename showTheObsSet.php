@@ -27,7 +27,7 @@ include 'includes/header.php';
                         }
                         ,50);
                     }
-                    ,50);
+                    ,10);
                     
                     //fetchUserObSets2(userid);
                 }
