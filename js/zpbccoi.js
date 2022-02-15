@@ -39,15 +39,7 @@ function fetchUserObSets2(u){
             console.log(observationSets);
 
 			for(var obsSet in observationSets){
-				console.log("obsSet: ");
-				console.log(obsSet);
-				console.log("observationSets[obsSet]: ");
-				console.log(observationSets[obsSet]);
-				console.log("observationSets[obsSet].id: ");
-				console.log(observationSets[obsSet].id);
-				console.log("observationSets[obsSet].name: ");
-				console.log(observationSets[obsSet].name);
-				appendSessionLink2(DOM.session_list, obsSet.id, obsSet.name);
+				appendSessionLink2(DOM.session_list, obsSet, observationSets[obsSet].name);
 			}
 			
             $('.session-edit').click(function() {
