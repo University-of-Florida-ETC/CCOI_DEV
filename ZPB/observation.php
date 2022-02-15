@@ -4,11 +4,12 @@ $dataTarget = "#demo_help_box";
 $dataOffset = "10";
 $dataSpy = "scroll";
 include '../includes/header.php';
+$obsSetTitle = "obsSetTitle";
 ?>
  <main role="main">
     <div class="container-fluid">
         <div class="container">
-            <div id="session_go_back" class="row pt-3 pb-5 d-none">
+            <div id="session_go_back" class="row pt-3 pb-5">
                 <div class="col">
                     <a class="underlined-btn" href="/dashboard"><span class="oi oi-arrow-thick-left mr-2"></span><span class="btn-text">Back to Session Select</span></a>
                 </div>
@@ -17,15 +18,15 @@ include '../includes/header.php';
                 <div class="col-md-8">
                     <div class="row pr-md-5">
                         <div class="col-md-8 col-12">
-                            <h1 class="red-font">Observation Sets</h1>
+                            <h1 class="red-font"><?php echo $obsSetTitle; ?></h1>
                             <h5 style="text-transform: none;">Select an observation to view or edit its responses</h5>
                         </div>
                         <div class="col-md-4 col-12 pt-2">
-                            <button id="save_session_button" type="button" class="btn btn-blue float-right disabled d-none" data-toggle="tooltip" data-html="true" title="Click here to save your session">Save Session</button>
+                            <button id="save_session_button" type="button" class="btn btn-blue float-right disabled" data-toggle="tooltip" data-html="true" title="Click here to save your session">Save Session</button>
                         </div>
                     </div>
                     
-                    <div id="dom_group_1" class="row pt-3 d-none">
+                    <div id="dom_group_1" class="row pt-3">
                         <div id="path_start" class="col-12 pt-3 pr-md-5 accordion">
                             <div class="card">
                                 <div class="card-header" id="session_meta_collapse_heading">
