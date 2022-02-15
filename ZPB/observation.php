@@ -9,7 +9,7 @@ $obsSetTitle = "obsSetTitle";
  <main role="main">
     <div class="container-fluid">
         <div class="container">
-            <div id="session_go_back" class="row pt-3 pb-5">
+            <div id="session_go_back" class="row pt-3">
                 <div class="col">
                     <a class="underlined-btn" href="/dashboard"><span class="oi oi-arrow-thick-left mr-2"></span><span class="btn-text">Back to Session Select</span></a>
                 </div>
@@ -80,9 +80,28 @@ $obsSetTitle = "obsSetTitle";
                         </div>
 
                         <div id="path_listing" class="col-12 pt-4 pr-md-5">
-                            <div id="path_list" class="draggable-container">
-
-                            </div>
+                                    <div id="path_list" class="draggable-container">
+                                        <div class="path-listing-container">
+                                            <h5 data-index="0" class="path-listing-header">Path #1 (ganflgnfa)
+                                                <a class="btn-link path-edit-icon" href="#" data-index="0"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
+                                                <a class="btn-link path-delete-icon" href="#" data-index="0"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
+                                                <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_0" aria-expanded="true"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
+                                            </h5>
+                                            <ol class="collapse show" id="path_drop_0" style="">
+                                                <li>(1:02) 0-2: Student addresses Peer "5" [path notes 1]</li>
+                                                <li>(1:02) 1-15: Student said something that is unclear or inaudible [path notes 2]</li>
+                                                <li>(3:04) 1-35: Interaction terminates [end path] [path notes 3]<b>—END</b></li>
+                                            </ol>
+                                        </div>
+                                        <div class="path-listing-container">
+                                            <h5 data-index="1" class="path-listing-header">Path #2 (hsbhsh)
+                                                <a class="btn-link path-edit-icon" href="#" data-index="1"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
+                                                <a class="btn-link path-delete-icon" href="#" data-index="1"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
+                                                <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_1"><span class="oi oi-chevron-bottom" title="Show Path Steps" aria-hidden="true"></span></button>
+                                            </h5>
+                                            <ol class="collapse" id="path_drop_1"></ol>
+                                        </div>
+                                    </div>
                         </div>
                     </div>
                     <div id="path_input" class="col-12 pt-3 pr-md-5 d-none">
