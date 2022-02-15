@@ -200,7 +200,12 @@ function showObservationSets(){
 		header_loadedobs.className='';
 	header_loadedobs.innerText='';
 	header_loadedobsxofx.innerHTML='Select an observation set to view or edit the set or <span id="playstate" onClick="switchPlayState();">'+maybeplayground+'</span>';
-	if( !viewingPlaygrounds ){observationSets=allObservationSets['playground'];}else{observationSets=allObservationSets['research'];}
+	if( viewingPlaygrounds ){
+		observationSets=allObservationSets['playgrounds'];
+	}
+	else{
+		observationSets=allObservationSets['research'];
+	}
 	console.log("observationSets");
 	console.log(observationSets);
 	for (var e in observationSets){
