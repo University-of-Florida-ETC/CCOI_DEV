@@ -89,6 +89,8 @@ function fetchUserObSets(u){
 		var data=getHTML(xmlHttp);
 		if(data){
 			allObservationSets=JSON.parse(data);
+			console.log("allObservationSets");
+			console.log(allObservationSets);
 			showObservationSets();
 		}
 	}
@@ -199,6 +201,8 @@ function showObservationSets(){
 	header_loadedobs.innerText='';
 	header_loadedobsxofx.innerHTML='Select an observation set to view or edit the set or <span id="playstate" onClick="switchPlayState();">'+maybeplayground+'</span>';
 	if( !viewingPlaygrounds ){observationSets=allObservationSets['playground'];}else{observationSets=allObservationSets['research'];}
+	console.log("observationSets");
+	console.log(observationSets);
 	for (var e in observationSets){
 		if( ( !viewingPlaygrounds && observationSets[e]['isPlayground']==0) || (viewingPlaygrounds && observationSets[e]['isPlayground']==1)){
 			var newNode=platonicObsSet.cloneNode(true);
