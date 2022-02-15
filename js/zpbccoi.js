@@ -77,7 +77,7 @@ function appendSessionLink2(container, i, name) {
                 <a id="session_${i}_name" class="btn-link session-edit" href="#" data-index="${i}">${name}</a>
             </div>
             <div class="col-sm-3 col-12">
-                <a class="btn-link session-edit" href="#" data-index="${i}"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
+                <a class="btn-link session-edit" href="ZPB/observation?isPlayground=1&id=${i}" data-index="${i}"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
                 <a class="btn-link" href="ZPB/observation?isPlayground=1&id=${i}" data-index="${i}"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
                 <a class="btn-link" href="/visualizations?session=${i}"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
             </div>
