@@ -3,7 +3,7 @@ $page = "dashboard";
 $dataTarget = "#demo_help_box";
 $dataOffset = "10";
 $dataSpy = "scroll";
-include '/includes/header.php';
+include '../includes/header.php';
 ?>
  <main role="main">
     <div class="container-fluid">
@@ -181,7 +181,7 @@ include '/includes/header.php';
         </div>
     </div>
 </main>
-        <?php include '/includes/footer.php'; ?>
+        <?php include '../includes/footer.php'; ?>
         <script src="/js/jquery-3.4.1.min.js"></script>
         <script src="/js/utility.js"></script>
         <script src="/js/bootstrap.min.js"></script>
