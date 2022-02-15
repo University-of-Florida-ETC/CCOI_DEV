@@ -211,7 +211,10 @@ include 'includes/header.php';
                     setTimeout(function(){ fetchUserObSets2(userid);},50);
                     //fetchUserObSets2(userid);
                 }
-                console.log("In3");
+                else {
+                    console.log("Need to login!!");
+                }
+                
             }
             catch(error){
                 console.log("In4");

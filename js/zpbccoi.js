@@ -39,6 +39,12 @@ function fetchUserObSets2(u){
             console.log(observationSets);
 
 			for(var obsSet in observationSets){
+				console.log("obsSet: ");
+				console.log(obsSet);
+				console.log("obsSet.id: ");
+				console.log(obsSet.id);
+				console.log("obsSet.name: ");
+				console.log(obsSet.name);
 				appendSessionLink2(DOM.session_list, obsSet.id, obsSet.name);
 			}
 			
@@ -61,14 +67,15 @@ function fetchUserObSets2(u){
 
 function appendSessionLink2(container, i, name) {
     if(name == null) {
+		/*
         if (session.videoURL != null) {
             // If name not explicitly set, use video title
             name = session.videoURL.replace(/\.[^/.]+$/, "");
             name += " ("+session.observer+")";
         }
-        else {
+        else {*/
             name = "Session "+i;
-        }
+        //}
     }
     let template = `
         <div class="row">
