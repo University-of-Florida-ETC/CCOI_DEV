@@ -544,6 +544,7 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2'])){
 			$output['studentID']=$data['s']['studentid'];
 			$output['videoURL']=$data['s']['url'];
 			$output['videoID']=$data['s']['videoid'];
+			$output['observations']=array();		// if someone has an old session with =NO= data, then wew still need to create an empty 'obs' area or the JS will fart
 			foreach($data['a'] as $subid=>$dd){				//	echo "here is subid $subid<br />\n";										// ==== $dd is a group of rows of activity -- might only be one
 				$supertempy=$tempy=array();
 				foreach($dd as $dummy=>$ddd){			//	echo "here is actid {$ddd['id']}<br />\n";								// ==== $ddd is a row of activity
@@ -563,7 +564,7 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2'])){
 				$output['observations'][$subid]['name']=$ddd['ssname'];
 				if(!empty($ddd['ssnotes'])){$output['observations'][$subid]['notes']=$ddd['ssnotes'];}
 			}
-			$finaloutput[]=$output;						// ============================================== NEED TO ADJUST THIS FOR S and P ==================================================
+			$finaloutput[$derid]=$output;						// ============================================== NEED TO ADJUST THIS FOR S and P ==================================================
 		}  // THIS SHOULD BE A CLONE OF THE ABOVE
 		
 		
