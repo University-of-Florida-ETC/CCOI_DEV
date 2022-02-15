@@ -1,5 +1,6 @@
 
 //var derServer='https://ccoi-dev.education.ufl.edu/';		// this is only loaded in newobserve.php which now sets this itself dev/prod
+var allObservationSets=new Object();
 var loadedObservations=new Object();
 var currentlyLoadedObservation=0;
 var observationSets=new Object();
@@ -86,7 +87,7 @@ function fetchUserObSets(u){
 	xmlHttp.onreadystatechange = function() {
 		var data=getHTML(xmlHttp);
 		if(data){
-			observationSets=JSON.parse(data);
+			allObservationSets=JSON.parse(data);
 			showObservationSets();
 		}
 	}
@@ -195,6 +196,7 @@ function showObservationSets(){
 		header_loadedobs.className='';
 	header_loadedobs.innerText='';
 	header_loadedobsxofx.innerHTML='Select an observation set to view or edit the set or <span id="playstate" onClick="switchPlayState();">'+maybeplayground+'</span>';
+	if( !viewingPlaygrounds ){observationSets=allObservationSets['playground'];}else{observationSets=allObservationSets['research'];}
 	for (var e in observationSets){
 		if( ( !viewingPlaygrounds && observationSets[e]['isPlayground']==0) || (viewingPlaygrounds && observationSets[e]['isPlayground']==1)){
 			var newNode=platonicObsSet.cloneNode(true);

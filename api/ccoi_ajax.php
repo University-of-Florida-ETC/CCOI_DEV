@@ -529,7 +529,7 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2'])){
 				if(!empty($ddd['ssnotes'])){$output['observations'][$subid]['notes']=$ddd['ssnotes'];}
 			}
 
-			$finaloutput[$derid]=$output;				// ============================================== NEED TO ADJUST THIS FOR S and P ==================================================
+			$finaloutput['research'][$derid]=$output;				// ============================================== NEED TO ADJUST THIS FOR S and P ==================================================
 		}
 		
 		foreach($playgrounds as $derid=>$data){		// $data is an array of sessions
@@ -564,7 +564,7 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2'])){
 				$output['observations'][$subid]['name']=$ddd['ssname'];
 				if(!empty($ddd['ssnotes'])){$output['observations'][$subid]['notes']=$ddd['ssnotes'];}
 			}
-			$finaloutput[$derid]=$output;						// ============================================== NEED TO ADJUST THIS FOR S and P ==================================================
+			$finaloutput['playgrounds'][$derid]=$output;					// ============================================== NEED TO ADJUST THIS FOR S and P ==================================================
 		}  // THIS SHOULD BE A CLONE OF THE ABOVE
 		
 		
