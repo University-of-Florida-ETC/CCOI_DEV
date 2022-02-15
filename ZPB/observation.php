@@ -11,14 +11,14 @@ $obsSetTitle = "obsSetTitle";
         <div class="container">
             <div id="session_go_back" class="row pt-3">
                 <div class="col">
-                    <a class="underlined-btn" href="/dashboard"><span class="oi oi-arrow-thick-left mr-2"></span><span class="btn-text">Back to Session Select</span></a>
+                    <a class="underlined-btn" href="/dashboard"><span class="oi oi-arrow-thick-left mr-2"></span><span class="btn-text">Back to Observation Set Select</span></a>
                 </div>
             </div>
             <div class="row py-5">
                 <div class="col-md-8">
                     <div class="row pr-md-5">
                         <div class="col-md-8 col-12">
-                            <h1 class="red-font"><?php echo $obsSetTitle; ?></h1>
+                            <h1 class="red-font" id="obsSetTitle"><?php echo $obsSetTitle; ?></h1>
                             <h5 style="text-transform: none;">Select an observation to view or edit its responses</h5>
                         </div>
                         <div class="col-md-4 col-12 pt-2">
@@ -213,7 +213,7 @@ $obsSetTitle = "obsSetTitle";
                     console.log("In2");
                     userid=jsUserVars['pid'];
                     //setTimeout(function(){ fetchUserObSets2(userid);},500);
-                    setTimeout(function(){ fetchUserObSets2(userid);},50);
+                    setTimeout(function(){ fetchUserObSets3(userid);},50);
                     //fetchUserObSets2(userid);
                 }
                 console.log("In3");

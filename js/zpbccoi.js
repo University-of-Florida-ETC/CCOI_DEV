@@ -90,6 +90,30 @@ function appendSessionLink2(container, i, name) {
 	container.appendChild(wrapper);
 }
 
+function fetchUserObSets3(u){
+	//if(	! ((Object.keys(appVideoList).length>0) && (Object.keys(appPathList).length>0)) ){console.log('not ready to load... try again in half a sec'); setTimeout(function(){ fetchUserObSets2(userid);},500);return;}		// if we're not ready -- wait half a second and try again.
+	var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
+	xmlHttp.onreadystatechange = function() {
+		var data=getHTML(xmlHttp);
+		if(data){
+			observationSets=JSON.parse(data);
+            console.log("The observation sets are:");
+            console.log(observationSets);
+
+			for(var obsSet in observationSets){
+				appendSessionLink2(DOM.session_list, obsSet, observationSets[obsSet].name);
+			}
+			if(observationSets[URLSearchParams.get('id')]){
+				let currentObsSet = observationSets[URLSearchParams.get('id')];
+				document.getElementById("obsSetTitle").innerText = currentObsSet.name;
+			}
+		}
+	}
+	sendStr='uid2='+u;
+	var url =  encodeURI(derServer+'api/ccoi_ajax.php?'+sendStr);			console.log(url);
+	xmlHttp.open('GET', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
+}
+
 /*
 function showObservationSets(){
 	leftSide.style.opacity=0;
