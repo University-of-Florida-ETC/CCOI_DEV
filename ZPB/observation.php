@@ -31,7 +31,7 @@ $obsSetTitle = "obsSetTitle";
                             <div class="card">
                                 <div class="card-header" id="session_meta_collapse_heading">
                                     <h5 class="mb-0">
-                                        <button id="session_meta_title" class="btn btn-link" data-toggle="collapse" data-target="#session_meta_collapse" aria-expanded="true" aria-controls="session_meta_collapse">
+                                        <button id="session_meta_title" class="btn btn-link collapsed" data-toggle="collapse" data-target="#session_meta_collapse" aria-expanded="true" aria-controls="session_meta_collapse">
                                         Edit Session Meta Data
                                         </button>
                                     </h5>
@@ -87,7 +87,7 @@ $obsSetTitle = "obsSetTitle";
                                                 <a class="btn-link path-delete-icon" href="#" data-index="0"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
                                                 <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_0" aria-expanded="true"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
                                             </h5>
-                                            <ol class="collapse show" id="path_drop_0" style="">
+                                            <ol class="collapse" id="path_drop_0" style="">
                                                 <li>(1:02) 0-2: Student addresses Peer "5" [path notes 1]</li>
                                                 <li>(1:02) 1-15: Student said something that is unclear or inaudible [path notes 2]</li>
                                                 <li>(3:04) 1-35: Interaction terminates [end path] [path notes 3]<b>—END</b></li>
