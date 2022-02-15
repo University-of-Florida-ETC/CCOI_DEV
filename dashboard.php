@@ -28,10 +28,14 @@ include 'includes/header.php';
                             </div>
                             
                             <div class="row pt-3 pr-md-5">
-                              <div class="col-12 btn-div">
-                                <ul id="obsset_list">
-                                </ul> 
-                              </div>
+                                <div class="col-12 btn-div">
+                                    <h4>Research Observation Sets</h4>
+                                    <ul id="research_obsset_list">
+                                    </ul> 
+                                    <h4>Playgrounds Observation Sets</h4>
+                                    <ul id="playgrounds_obsset_list">
+                                    </ul> 
+                                </div>
                             </div>
 
                         </div>

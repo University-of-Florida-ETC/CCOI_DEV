@@ -38,8 +38,14 @@ function fetchUserObSets2(u){
             console.log("The observation sets are:");
             console.log(observationSets);
 
+			let researchList = document.getElementById("research_obsset_list");
+			for(var obsSet in observationSets['research']){
+				appendSessionLink2(researchList, obsSet, observationSets['research'][obsSet].name);
+			}
+
+			let playgroundsList = document.getElementById("playgrounds_obsset_list");
 			for(var obsSet in observationSets['playgrounds']){
-				appendSessionLink2(document.getElementById("obsset_list"), obsSet, observationSets['playgrounds'][obsSet].name);
+				appendSessionLink2(playgroundsList, obsSet, observationSets['playgrounds'][obsSet].name);
 			}
 		}
 	}
