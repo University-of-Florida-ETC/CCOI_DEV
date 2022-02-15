@@ -29,7 +29,7 @@ include 'includes/header.php';
                             
                             <div class="row pt-3 pr-md-5">
                               <div class="col-12 btn-div">
-                                <ul id="session_list" class="d-none">
+                                <ul id="obsset_list">
                                 </ul> 
                               </div>
                             </div>

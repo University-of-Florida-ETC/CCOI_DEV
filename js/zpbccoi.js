@@ -39,7 +39,7 @@ function fetchUserObSets2(u){
             console.log(observationSets);
 
 			for(var obsSet in observationSets){
-				appendSessionLink2(DOM.session_list, obsSet, observationSets['playgrounds'][obsSet].name);
+				appendSessionLink2(document.getElementById("obsset_list"), obsSet, observationSets['playgrounds'][obsSet].name);
 			}
 		}
 	}
