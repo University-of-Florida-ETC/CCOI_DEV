@@ -41,17 +41,6 @@ function fetchUserObSets2(u){
 			for(var obsSet in observationSets){
 				appendSessionLink2(DOM.session_list, obsSet, observationSets[obsSet].name);
 			}
-			
-            $('.session-edit').click(function() {
-                currentSessionID = $(this).data().index;
-                $(DOM.new_session_button).addClass('d-none');
-                /*
-                // This is used to add new paths to alteredSessionData
-                originalPathsLength = sessions[currentSessionID].paths.length;
-                */
-                goToPathStart(currentSessionID);
-            });
-			//showObservationSets();
 		}
 	}
 	sendStr='uid2='+u;
