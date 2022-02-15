@@ -92,25 +92,21 @@ function fetchUserObSets3(u){
 			let params = new URLSearchParams(document.location.search);
 			let id = params.get("id");
 			let isPlayground = params.get("isPlayground");
+			let playorreal = isPlayground ? 'playgrounds' : 'research';
 
 
-			if(observationSets[id]){
-				if(observationSets[id].isPlayground == isPlayground) {
-					let currentObsSet = observationSets[id];
-					if(currentObsSet.name){
-						document.getElementById("obsSetTitle").innerText = currentObsSet.name + (isPlayground ? " (Playground)" : " (Research)");
-						document.getElementById("obsset_title").value = currentObsSet.name;
-					}
-					if(currentObsSet.studentID){
-						document.getElementById("studentID").value= currentObsSet.studentID;
-					}
-					if(currentObsSet.placetime){
-						document.getElementById("obsset_date").value = currentObsSet.placetime;
-					}
-
+			if(observationSets[playorreal][id]){
+				let currentObsSet = observationSets[id];
+				if(currentObsSet.name){
+					document.getElementById("obsSetTitle").innerText = currentObsSet.name + (isPlayground ? " (Playground)" : " (Research)");
+					document.getElementById("obsset_title").value = currentObsSet.name;
 				}
-				else
-					notAllowedInEditor();
+				if(currentObsSet.studentID){
+					document.getElementById("studentID").value= currentObsSet.studentID;
+				}
+				if(currentObsSet.placetime){
+					document.getElementById("obsset_date").value = currentObsSet.placetime;
+				}
 			}
 			else
 				notAllowedInEditor();
