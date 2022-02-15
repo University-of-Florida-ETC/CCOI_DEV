@@ -38,7 +38,7 @@ function fetchUserObSets2(u){
             console.log("The observation sets are:");
             console.log(observationSets);
 
-			for(var obsSet in observationSets){
+			for(var obsSet in observationSets['playgrounds']){
 				appendSessionLink2(document.getElementById("obsset_list"), obsSet, observationSets['playgrounds'][obsSet].name);
 			}
 		}
