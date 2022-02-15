@@ -100,15 +100,30 @@ function fetchUserObSets3(u){
             console.log("The observation sets are:");
             console.log(observationSets);
 
-			if(observationSets[URLSearchParams.get('id')]){
-				let currentObsSet = observationSets[URLSearchParams.get('id')];
-				document.getElementById("obsSetTitle").innerText = currentObsSet.name;
+			let params = new URLSearchParams(document.location.search);
+			let id = params.get("id");
+			let isPlayground = params.get("isPlayground");
+
+
+			if(observationSets[id]){
+				if(observationSets[id].isPlayground == isPlayground) {
+					let currentObsSet = observationSets[id];
+					document.getElementById("obsSetTitle").innerText = currentObsSet.name + (isPlayground ? " (Playground)" : " (Research)");
+				}
+				else {
+					notAllowedInEditor();
+				}
+				notAllowedInEditor();
 			}
 		}
 	}
 	sendStr='uid2='+u;
 	var url =  encodeURI(derServer+'api/ccoi_ajax.php?'+sendStr);			console.log(url);
 	xmlHttp.open('GET', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
+}
+
+function notAllowedInEditor() {
+	console.log("You would have been kicked out here!");
 }
 
 /*
