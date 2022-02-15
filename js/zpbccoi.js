@@ -38,10 +38,10 @@ function fetchUserObSets2(u){
             console.log("The observation sets are:");
             console.log(observationSets);
 
-            observationSets.forEach((element, index) => {
-                appendSessionLink2(DOM.session_list, element.id, element.name);
-            });
-
+			for(var obsSet in observationSets){
+				appendSessionLink2(DOM.session_list, obsSet.id, obsSet.name);
+			}
+			
             $('.session-edit').click(function() {
                 currentSessionID = $(this).data().index;
                 $(DOM.new_session_button).addClass('d-none');
