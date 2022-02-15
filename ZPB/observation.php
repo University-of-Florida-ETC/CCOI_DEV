@@ -42,18 +42,18 @@ $obsSetTitle = "obsSetTitle";
                                         <form id="session_meta_form" method="post" action="javascript:void(0)">
                                             <div class="row">
                                                 <div class="form-group col">
-                                                    <label for="session_title">Session Name</label>
-                                                    <input placeholder="Session Name" id="session_title" name="name" type="text" class="form-control">
+                                                    <label for="obsset_title">Observation Set Name</label>
+                                                    <input placeholder="Observation Set Name" id="obsset_title" name="obsset_title" type="text" class="form-control">
                                                 </div>
                                                 <div class="form-group col">
-                                                    <label for="session_student">Student ID</label>
-                                                    <input placeholder="Student ID" id="session_student" name="studentID" type="text" class="form-control">
+                                                    <label for="studentID">Student ID</label>
+                                                    <input placeholder="Student ID" id="studentID" name="studentID" type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col">
-                                                    <label for="session_date">Coding Date</label>
-                                                    <input id="session_date" name="date" type="date" class="datepicker">
+                                                    <label for="obsset_date">Coding Date</label>
+                                                    <input id="obsset_date" name="date" type="date" class="datepicker">
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="session_video_title">Video</label>
@@ -63,8 +63,8 @@ $obsSetTitle = "obsSetTitle";
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="block" for="session_notes" id="session_notes_label">Session notes</label>
-                                                <textarea id="session_notes" name="sessionNotes" class="form-control"></textarea>
+                                                <label class="block" for="obsset_notes" id="obsset_notes_label">Observation Set notes</label>
+                                                <textarea id="obsset_notes" name="obsset_notes" class="form-control"></textarea>
                                             </div>
                                         </form>
                                         <button type="button" class="btn btn-outline-blue btn-sm" data-toggle="collapse" data-target="#session_meta_collapse" aria-expanded="true" aria-controls="session_meta_collapse">Close</button>
@@ -73,10 +73,7 @@ $obsSetTitle = "obsSetTitle";
                             </div>
                         </div>
                         <div class="col-12 py-2 pr-md-5">
-                            <button id="add_path_button" type="button" class="btn btn-darkblue" data-toggle="tooltip" data-html="true" title="Click here to add a path">Add Path</button>
-                            <button id="reorder_paths_button" type="button" class="btn btn-outline-darkblue" data-toggle="tooltip" data-html="true" title="Click here to reorder paths">Reorder Paths</button>
-                            <button id="finish_reorder_button" type="button" class="btn btn-outline-darkblue d-none" data-toggle="tooltip" data-html="true" title="Click here when you are done reordering paths">End Reorder</button>
-                            <div class="alert alert-warning path-order-disclaimer mb-0 mt-3 d-none"><small>Note: Save session to complete path reorder process. Path numbers will reflect old path order until the page has been refreshed.</small></div>
+                            <button id="add_path_button" type="button" class="btn btn-darkblue" data-toggle="tooltip" data-html="true" title="Click here to add a path">Add Observation</button>
                         </div>
 
                         <div id="path_listing" class="col-12 pt-4 pr-md-5">

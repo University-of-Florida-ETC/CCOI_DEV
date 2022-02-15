@@ -97,13 +97,23 @@ function fetchUserObSets3(u){
 			if(observationSets[id]){
 				if(observationSets[id].isPlayground == isPlayground) {
 					let currentObsSet = observationSets[id];
-					document.getElementById("obsSetTitle").innerText = currentObsSet.name + (isPlayground ? " (Playground)" : " (Research)");
+					if(currentObsSet.name){
+						document.getElementById("obsSetTitle").innerText = currentObsSet.name + (isPlayground ? " (Playground)" : " (Research)");
+						document.getElementById("obsset_title").value = currentObsSet.name;
+					}
+					if(currentObsSet.studentID){
+						document.getElementById("studentID").value= currentObsSet.studentID;
+					}
+					if(currentObsSet.placetime){
+						document.getElementById("obsset_date").value = currentObsSet.placetime;
+					}
+
 				}
-				else {
+				else
 					notAllowedInEditor();
-				}
-				notAllowedInEditor();
 			}
+			else
+				notAllowedInEditor();
 		}
 	}
 	sendStr='uid2='+u;
