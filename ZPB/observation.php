@@ -4,21 +4,21 @@ $dataTarget = "#demo_help_box";
 $dataOffset = "10";
 $dataSpy = "scroll";
 include '../includes/header.php';
-$obsSetTitle = "obsSetTitle";
+$sessionTitle = "sessionTitle";
 ?>
  <main role="main">
     <div class="container-fluid">
         <div class="container">
             <div id="session_go_back" class="row pt-3">
                 <div class="col">
-                    <a class="underlined-btn" href="/dashboard"><span class="oi oi-arrow-thick-left mr-2"></span><span class="btn-text">Back to Observation Set Select</span></a>
+                    <a class="underlined-btn" href="/dashboard"><span class="oi oi-arrow-thick-left mr-2"></span><span class="btn-text">Back to Session Select</span></a>
                 </div>
             </div>
             <div class="row py-5">
                 <div class="col-md-8">
                     <div class="row pr-md-5">
                         <div class="col-md-8 col-12">
-                            <h1 class="red-font" id="obsSetTitle"><?php echo $obsSetTitle; ?></h1>
+                            <h1 class="red-font" id="sessionTitle"><?php echo $sessionTitle; ?></h1>
                             <h5 style="text-transform: none;">Select an observation to view or edit its responses</h5>
                         </div>
                         <div class="col-md-4 col-12 pt-2">
@@ -42,8 +42,8 @@ $obsSetTitle = "obsSetTitle";
                                         <form id="session_meta_form" method="post" action="javascript:void(0)">
                                             <div class="row">
                                                 <div class="form-group col">
-                                                    <label for="obsset_title">Observation Set Name</label>
-                                                    <input placeholder="Observation Set Name" id="obsset_title" name="obsset_title" type="text" class="form-control">
+                                                    <label for="session_title">Session Name</label>
+                                                    <input placeholder="Session Name" id="session_title" name="session_title" type="text" class="form-control">
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="studentID">Student ID</label>
@@ -52,8 +52,8 @@ $obsSetTitle = "obsSetTitle";
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col">
-                                                    <label for="obsset_date">Coding Date</label>
-                                                    <input id="obsset_date" name="date" type="date" class="datepicker">
+                                                    <label for="session_date">Coding Date</label>
+                                                    <input id="session_date" name="date" type="date" class="datepicker">
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="session_video_title">Video</label>
@@ -63,8 +63,8 @@ $obsSetTitle = "obsSetTitle";
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="block" for="obsset_notes" id="obsset_notes_label">Observation Set notes</label>
-                                                <textarea id="obsset_notes" name="obsset_notes" class="form-control"></textarea>
+                                                <label class="block" for="session_notes" id="session_notes_label">Session Notes</label>
+                                                <textarea id="session_notes" name="session_notes" class="form-control"></textarea>
                                             </div>
                                         </form>
                                         <button type="button" class="btn btn-outline-blue btn-sm" data-toggle="collapse" data-target="#session_meta_collapse" aria-expanded="true" aria-controls="session_meta_collapse">Close</button>
