@@ -482,8 +482,8 @@ function spawnNoob(e,tDR,id,text,code,choicegroup,nextmega,extrainfo){
  	newNode.childNodes[0].childNodes[0].addEventListener('mouseout',function(e){hideChoice(e);},true);
  	
  	newNode.childNodes[2].addEventListener('click',function(e){e.stopPropagation();},false);			// clicking the editor itself should do nothing
- 	newNode.childNodes[2].childNodes[6].addEventListener('click',function(e){flipEditor(e,'hide');e.stopPropagation();},true);		// editor close button
- 	newNode.childNodes[2].childNodes[7].addEventListener('click',function(e){compileUpdatesForNode(e);flipEditor(e,'hide');e.stopPropagation();},true);		// editor submit
+ 	newNode.childNodes[2].childNodes[7].addEventListener('click',function(e){flipEditor(e,'hide');e.stopPropagation();},true);		// editor close button
+ 	newNode.childNodes[2].childNodes[8].addEventListener('click',function(e){compileUpdatesForNode(e);flipEditor(e,'hide');e.stopPropagation();},true);		// editor submit
  	
  	if(superSpawn){
 		newNode.childNodes[0].childNodes[3].className='nexttext next'+megaData[nextmega]['c'];		// set color
