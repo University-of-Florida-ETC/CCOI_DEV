@@ -1,4 +1,4 @@
-var observationSets=new Object();
+var sessionList=new Object();
 var derServer='https://ccoi-dev.education.ufl.edu/';
 
 function GetAjaxReturnObject(mimetype){
@@ -24,7 +24,7 @@ function getHTML(httpRequest) {
 function switchPlayState(){
 	viewingPlaygrounds=!viewingPlaygrounds; // switch true/false
 	if(viewingPlaygrounds){leftAndRight.className=origLeftAndRightClass+' playground';}else{leftAndRight.className=origLeftAndRightClass;}
-	showObservationSets();
+	showsessionList();
 }
 */
 
@@ -34,18 +34,18 @@ function fetchUserObSets2(u){
 	xmlHttp.onreadystatechange = function() {
 		var data=getHTML(xmlHttp);
 		if(data){
-			observationSets=JSON.parse(data);
-            console.log("The observation sets are:");
-            console.log(observationSets);
+			sessionList=JSON.parse(data);
+            console.log("The sessions are:");
+            console.log(sessionList);
 
-			let researchList = document.getElementById("research_obsset_list");
-			for(var obsSet in observationSets['research']){
-				appendSessionLink2(researchList, obsSet, observationSets['research'][obsSet].name);
+			let researchList = document.getElementById("research_session_list");
+			for(var session in sessionList['research']){
+				appendSessionLink2(researchList, session, sessionList['research'][session].name);
 			}
 
-			let playgroundsList = document.getElementById("playgrounds_obsset_list");
-			for(var obsSet in observationSets['playgrounds']){
-				appendSessionLink2(playgroundsList, obsSet, observationSets['playgrounds'][obsSet].name);
+			let playgroundsList = document.getElementById("playgrounds_session_list");
+			for(var session in sessionList['playgrounds']){
+				appendSessionLink2(playgroundsList, session, sessionList['playgrounds'][session].name);
 			}
 		}
 	}
@@ -91,9 +91,9 @@ function fetchUserObSets3(u){
 	xmlHttp.onreadystatechange = function() {
 		var data=getHTML(xmlHttp);
 		if(data){
-			observationSets=JSON.parse(data);
-            console.log("The observation sets are:");
-            console.log(observationSets);
+			sessionList=JSON.parse(data);
+            console.log("The sessions are:");
+            console.log(sessionList);
 
 			let params = new URLSearchParams(document.location.search);
 			let id = params.get("id");
@@ -101,31 +101,31 @@ function fetchUserObSets3(u){
 			let playorreal = isPlayground ? 'playgrounds' : 'research';
 
 
-			if(observationSets[playorreal][id]){
-				let currentObsSet = observationSets[playorreal][id];
-				if(currentObsSet.name){
-					document.getElementById("obsSetTitle").innerText = currentObsSet.name + (isPlayground ? " (Playground)" : " (Research)");
-					document.getElementById("obsset_title").value = currentObsSet.name;
+			if(sessionList[playorreal][id]){
+				let currentsession = sessionList[playorreal][id];
+				if(currentsession.name){
+					document.getElementById("sessionTitle").innerText = currentsession.name + (isPlayground ? " (Playground)" : " (Research)");
+					document.getElementById("session_title").value = currentsession.name;
 				}
-				if(currentObsSet.studentID){
-					document.getElementById("studentID").value= currentObsSet.studentID;
+				if(currentsession.studentID){
+					document.getElementById("studentID").value= currentsession.studentID;
 				}
-				if(currentObsSet.placetime){
-					document.getElementById("obsset_date").value = currentObsSet.placetime;
+				if(currentsession.placetime){
+					document.getElementById("session_date").value = currentsession.placetime;
 				}
-				if(currentObsSet.videoURL){
-					document.getElementById("session_video_title").value = currentObsSet.videoURL;
+				if(currentsession.videoURL){
+					document.getElementById("session_video_title").value = currentsession.videoURL;
 				}
-				if(currentObsSet.notes){
-					document.getElementById("obsset_notes").value = currentObsSet.notes;
+				if(currentsession.notes){
+					document.getElementById("session_notes").value = currentsession.notes;
 				}
-				if(currentObsSet.observations){
-					console.log("currentObsSet.observations");
-					console.log(currentObsSet.observations);
-					if(currentObsSet.observations.length > 0){
+				if(currentsession.observations){
+					console.log("currentsession.observations");
+					console.log(currentsession.observations);
+					if(currentsession.observations.length > 0){
 						let destination = document.getElementById("path_list");
-						currentObsSet.observations.forEach((element, index) => {
-							console.log("currentObsSet.observations.element = ");
+						currentsession.observations.forEach((element, index) => {
+							console.log("currentsession.observations.element = ");
 							console.log(element);
 							let obsHTML = `<div class="path-listing-container">
 							<h5 data-index="${index}" class="path-listing-header">${element.name}
@@ -166,7 +166,7 @@ function notAllowedInEditor() {
 }
 
 /*
-function showObservationSets(){
+function showsessionList(){
 	leftSide.style.opacity=0;
 	leftInnerContainer.innerHTML='';			// wipe out all existing child nodes
 	currentlyLoadedObservation=0;
@@ -180,16 +180,16 @@ function showObservationSets(){
 		if(viewingPlaygrounds){maybeplayground='switch to research'; settext=' Playground Sets';}
 	
 	if(jsUserVars['first'].substring(-1)=='s'){apposS="'";}else{apposS="'s";}
-	header_loadedobsset.innerText=jsUserVars['first']+apposS+settext;
-	header_loadedobsset.className='orange';
+	header_loadedsession.innerText=jsUserVars['first']+apposS+settext;
+	header_loadedsession.className='orange';
 		header_loadedobs.className='';
 	header_loadedobs.innerText='';
 	header_loadedobsxofx.innerHTML='Select an observation set to view or edit the set or <span id="playstate" onClick="switchPlayState();">'+maybeplayground+'</span>';
-	for (var e in observationSets){
-		if( ( !viewingPlaygrounds && observationSets[e]['isPlayground']==0) || (viewingPlaygrounds && observationSets[e]['isPlayground']==1)){
-			var newNode=platonicObsSet.cloneNode(true);
-				newNode.childNodes[0].innerText=observationSets[e]['name'];
-					newNode.setAttribute('title','Path: '+appPathList[observationSets[e]['path']]['name']);		// this is getting called before the AJAX has time to reply with the data... reordered the loading calls
+	for (var e in sessionList){
+		if( ( !viewingPlaygrounds && sessionList[e]['isPlayground']==0) || (viewingPlaygrounds && sessionList[e]['isPlayground']==1)){
+			var newNode=platonicsession.cloneNode(true);
+				newNode.childNodes[0].innerText=sessionList[e]['name'];
+					newNode.setAttribute('title','Path: '+appPathList[sessionList[e]['path']]['name']);		// this is getting called before the AJAX has time to reply with the data... reordered the loading calls
 				newNode.id='obSet_'+e;
 				newNode.addEventListener('click',function(e){loadObservationSet(e);e.stopPropagation();},false);
 				newNode.lastChild.children[0].addEventListener('click',function(e){singleEdit(e);e.stopPropagation();},false);		// rename
@@ -200,7 +200,7 @@ function showObservationSets(){
 		}
 	}
 	// CREATE NEW at bottom =========
-	var newNode=platonicObsSet.cloneNode(true);
+	var newNode=platonicsession.cloneNode(true);
 	newNode.childNodes[0].innerText='Create New Observation Set';
 		newNode.id='obSet_0';		newNode.setAttribute('opitem','dopath');
 		newNode.removeChild(newNode.lastChild);

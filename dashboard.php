@@ -18,8 +18,8 @@ include 'includes/header.php';
                         <div class="col-md-8">
                             <div class="row pr-md-5">
                                 <div class="col-md-8 col-12">
-                                    <h1 class="red-font">Observation Sets</h1>
-                                    <h5 style="text-transform: none;">Select an observation set to view or edit the set</h5>
+                                    <h1 class="red-font">Sessions</h1>
+                                    <h5 style="text-transform: none;">Select a session to view or edit the set</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
                                     <button id="new_session_button" type="button" class="btn btn-gold float-right d-none" data-toggle="tooltip" data-html="true" title="Click here to start">Add Session</button>
@@ -29,11 +29,11 @@ include 'includes/header.php';
                             
                             <div class="row pt-3 pr-md-5">
                                 <div class="col-12 btn-div">
-                                    <h4>Research Observation Sets</h4>
-                                    <ul id="research_obsset_list">
+                                    <h4>Research Sessions</h4>
+                                    <ul id="research_session_list">
                                     </ul> 
-                                    <h4>Playgrounds Observation Sets</h4>
-                                    <ul id="playgrounds_obsset_list">
+                                    <h4>Playgrounds Sessions</h4>
+                                    <ul id="playgrounds_session_list">
                                     </ul> 
                                 </div>
                             </div>
@@ -44,14 +44,14 @@ include 'includes/header.php';
                                 <div class="col">
                                     <button id="launch_video_button" class="btn btn-blue btn-full-width my-2">Open Video <span class="oi oi-external-link px-2" title="Open Session Video"></span></button>
                                     <button id="viz_button" class="btn btn-gold btn-full-width my-2 d-none">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
-                                    <button id="irr_button" class="btn btn-gold btn-full-width my-2 d-none">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
+                                    <button id="irr_button" class="btn btn-gold btn-full-width my-2">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability"></span></button>
                                 </div>
                             </div>
                             <div class="sticky-top">
                                 <div id="demo_help_box" class="row pt-3">
                                     <div class="col">
                                         <div class="md-boxed-content light-blue-background">
-                                            <h4>C-COI Demo Instructions</h4>
+                                            <h4>C-COI Instructions</h4>
                                             <ol id="demo_help_ol">
                                                 <li>Click Add Session button to begin</li>
                                                 <li>Click the Pencil Icon to edit the session</li>
