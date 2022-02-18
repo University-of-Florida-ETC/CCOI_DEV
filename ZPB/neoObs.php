@@ -1,28 +1,34 @@
-
+<!-- PHP Goes HERE
+//
+//
+// !-->
 
 
 <!DOCTYPE HTML>
+<link rel="stylesheet" href="../css/neoObs.css" />
+
+
 <html>
-<link rel="stylesheet" href="../css/neoObs.css"/>
 <div class="grid">
-  <header>
-    Header
-  </header>
+    <header>
+        Header
+    </header>
 
-  <aside class="sidebar-left">
-    Left Sidebar
-  </aside>
+    <aside class="sidebar-left">
+        Left Sidebar
+    </aside>
 
-  <article>
-    Article
-  </article>
+    <article>
+        Article
+    </article>
 
-  <aside class="sidebar-right">
-    Right Sidebar
-  </aside>
-  
-  <footer>
-    Footer
-  </footer>
+    <aside class="sidebar-right">
+        Right Sidebar
+    </aside>
+
+    <footer>
+        Footer
+    </footer>
 </div>
+
 </html>
