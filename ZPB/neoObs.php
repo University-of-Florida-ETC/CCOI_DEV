@@ -210,7 +210,7 @@ $sessionTitle = "sessionTitle";
         </div>
     </div>
 </main>
-        <?php in    lude '../includes/footer.php'; ?>
+        <?php include '../includes/footer.php'; ?>
         <script src="/js/jquery-3.4.1.min.js"></script>
         <script src="/js/utility.js"></script>
         <script src="/js/bootstrap.min.js"></script>
