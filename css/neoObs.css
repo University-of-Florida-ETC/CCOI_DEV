@@ -15,6 +15,7 @@
   .video,
   .meta,
   .observation {
+      padding: repeat(4, 300px);
       background-color: grey;
       color: white;
       text-align: center; 
