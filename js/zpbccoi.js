@@ -122,6 +122,33 @@ function fetchUserObSets3(u){
 				if(currentsession.observations){
 					console.log("currentsession.observations");
 					console.log(currentsession.observations);
+					let destination = document.getElementById("path_list");
+					for(var observation in currentsession.observations){
+						console.log("observation = ");
+						console.log(observation);
+						let obsHTML = `<div class="path-listing-container">
+						<h5 data-index="${index}" class="path-listing-header">${observation.name}
+							<a class="btn-link path-edit-icon" href="#" data-index="0"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
+							<a class="btn-link path-delete-icon" href="#" data-index="0"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
+							<button class="btn-link float-right path-dropdown-btn collapsed" data-toggle="collapse" data-target="#path_drop_0" aria-expanded="false"><span class="oi oi-chevron-bottom" title="Show Observation Nodes" aria-hidden="true"></span></button>
+						</h5>
+						<ol class="collapse" id="path_drop_${index}" style="">`;
+						element.ObResp.forEach(obRespObject => {
+							let minutes = parseInt(obRespObject.seconds) / 60;
+							let seconds = ("0" + (parseInt(obRespObject.seconds) % 60)).slice(-2);
+							let notes = "";
+							if(obRespObject.notes){
+								notes = " ["+obRespObject.notes+"]";
+							}
+							obsHTML+=`
+							<li>(${minutes}:${seconds}) ${obRespObject.PNid}-${obRespObject.SAid}: This is where the decoded name will go${notes}</li>`
+						});
+						obsHtml += `
+							</ol>
+						</div>`;
+						destination.innerHTML += obsHTML;
+					}
+					//This one doesn't work!!
 					if(currentsession.observations.length > 0){
 						let destination = document.getElementById("path_list");
 						currentsession.observations.forEach((element, index) => {
