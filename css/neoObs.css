@@ -10,6 +10,8 @@
         "video video video observation"
         "video video video observation"
         "meta meta meta observation";
+    height: 100vh;
+    width: 100vw; 
   }
 
   .video,
