@@ -9,26 +9,19 @@
 
 
 <html>
-<div class="grid">
-    <header>
-        Header
-    </header>
+<div class="grid-container">
 
-    <aside class="sidebar-left">
-        Left Sidebar
-    </aside>
-
-    <article>
-        Article
-    </article>
-
-    <aside class="sidebar-right">
-        Right Sidebar
-    </aside>
-
-    <footer>
-        Footer
-    </footer>
-</div>
+    <!-- VIDEO AREA HTML !-->
+    <div class="video">
+        Video
+    </div>
+    <!-- OBSERVATION AREA HTML !-->
+    <div class="observation"> 
+        Observation
+    </div>
+    <!-- META AREA HTML !-->
+    <div class="meta"> 
+        Meta
+    </div>
 
 </html>

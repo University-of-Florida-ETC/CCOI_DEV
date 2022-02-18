@@ -1,34 +1,28 @@
-.grid {
+/* create our grid container */ 
+
+.grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 1em;
+    grid-template-rows: repeat(4, 1fr);
+    grid-gap: 0px;
+    grid-template-areas:
+        "video video video observation"
+        "video video video observation"
+        "video video video observation"
+        "meta meta meta observation";
+  }
+
+  .video,
+  .meta,
+  .observation {
+      background-color: grey;
+      color: white;
+      text-align: center; 
   }
   
-  header, footer {
-    grid-column: 1 / 4;
-  }
   
-  @media all and (max-width: 700px) {
-    aside,
-    article {
-      grid-column: 1 /   4;
-    }
-  }
-  
-  /* Demo Specific Styles */
-  body {
-    margin: 0 auto;
-    max-width: 100%;
-    padding: 1em 0;
-  }
-  
-  header,
-  aside,
-  article,
-  footer {
-    background: #eaeaea;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 25vh;
-  }
+  /*assign grid areas to classes*/ 
+.observation { grid-area: observation; }
+.video { grid-area: video ;}
+.meta { grid-area: meta; }
+
