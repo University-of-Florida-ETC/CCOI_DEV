@@ -595,12 +595,12 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 
 		//Get session IDs of playground sessions
 		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
+		echo "return: "; var_dump($return);
 		while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];}
 		$playidstext=implode(',',$playids);
 		echo "\nplayids: "; var_dump($playidstext);
 
 		$return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($sidstext) AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
-		echo "return: "; var_dump($return);
 		while($d=mysqli_fetch_assoc($return)){$sessions[$d['id']]['s']=$d; echo "\nsession: "; var_dump($d);}
 		
 		
