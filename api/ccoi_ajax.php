@@ -580,7 +580,7 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 	echo "debug output will go here, uid2=".$_GET['uid2'];
 	$uid=$_GET['uid2']+0;
 	if(is_numeric($uid)){
-		$return=mysqli_query($db,"SELECT * FROM tbPeople WHERE id='$uid'");		$persondata=mysqli_fetch_assoc($return); echo "\npersondata: ". $persondata;
+		$return=mysqli_query($db,"SELECT * FROM tbPeople WHERE id='$uid'");		$persondata=mysqli_fetch_assoc($return); echo "\npersondata: ". var_dump($persondata);
 	}
 	/*
 	$persondata=mysqli_fetch_assoc($return);
