@@ -216,7 +216,7 @@ function fetchUserObSets4(u){
 			*/
 		}
 	}
-	sendStr='uid2='+u+"&debug=zack";
+	sendStr='debug=1&uid2='+u;
 	var url =  encodeURI(derServer+'api/ccoi_ajax.php?'+sendStr);			console.log(url);
 	xmlHttp.open('GET', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
 }

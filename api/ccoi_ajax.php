@@ -7,7 +7,7 @@ include('./ccoi_dbhookup.php');
 
 
 
-if(!empty($_GET['uid']) && is_numeric($_GET['uid']) && $_GET['debug']!='zack'){
+if(!empty($_GET['uid']) && is_numeric($_GET['uid']) && !isset($_GET['debug'])){
 	$uid=$_GET['uid']+0;
 	if(is_numeric($uid)){
 		$return=mysqli_query($db,"SELECT * FROM tbPeople WHERE id='$uid'");		$persondata=mysqli_fetch_assoc($return);
@@ -149,7 +149,7 @@ if(!empty($_GET['uid']) && is_numeric($_GET['uid']) && $_GET['debug']!='zack'){
 }
 
 //Zack's Debug Stuff
-if(!empty($_GET['uid']) && is_numeric($_GET['uid']) && $_GET['debug']=='zack'){
+if(!empty($_GET['uid']) && is_numeric($_GET['uid']) && isset($_GET['debug'])){
 	$uid=$_GET['uid']+0;
 	if(is_numeric($uid)){
 		$return=mysqli_query($db,"SELECT * FROM tbPeople WHERE id='$uid'"); echo "return1: \n".$return; $persondata=mysqli_fetch_assoc($return); echo "persondata1: \n".$return;
