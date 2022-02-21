@@ -578,6 +578,10 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && !isset($_GET['debug']))
 
 if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 	echo "debug output will go here";
+	$uid=$_GET['uid2']+0;
+	$return=mysqli_query($db,"SELECT * FROM tbPeople WHERE id='$uid'");
+	$persondata=mysqli_fetch_assoc($return);
+	echo $persondata;
 }
 
 if(!empty($_GET['pid2']) && is_numeric($_GET['pid2'])){
