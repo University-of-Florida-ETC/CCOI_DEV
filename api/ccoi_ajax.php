@@ -582,7 +582,7 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 	$return=mysqli_query($db,"SELECT * FROM tbPeople WHERE id='$uid'");
 	echo "return1: ". $return;
 	$persondata=mysqli_fetch_assoc($return);
-	echo $persondata;
+	echo "persondata: ". $persondata;
 	/*
 	$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
 	while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
