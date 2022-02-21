@@ -7,7 +7,7 @@ include('./ccoi_dbhookup.php');
 
 
 
-if(!empty($_GET['uid']) && is_numeric($_GET['uid']) && !isset($_GET['debug'])){
+if(!empty($_GET['uid']) && is_numeric($_GET['uid']) && $_GET['debug']!='zack'){
 	$uid=$_GET['uid']+0;
 	if(is_numeric($uid)){
 		$return=mysqli_query($db,"SELECT * FROM tbPeople WHERE id='$uid'");		$persondata=mysqli_fetch_assoc($return);
@@ -155,7 +155,7 @@ if(!empty($_GET['uid']) && is_numeric($_GET['uid']) && $_GET['debug']=='zack'){
 		$return=mysqli_query($db,"SELECT * FROM tbPeople WHERE id='$uid'"); echo "return1: \n".$return; $persondata=mysqli_fetch_assoc($return); echo "persondata1: \n".$return;
 	
 		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		echo "return2: \n".$return;
-		while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];} echo "d1: \n".$d;
+		while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];} echo "d1: \n".$d;/*
 		$sidstext=implode(',',$sessionids);
 		
  				$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
@@ -287,6 +287,7 @@ if(!empty($_GET['uid']) && is_numeric($_GET['uid']) && $_GET['debug']=='zack'){
 	
 		$final=json_encode($finaloutput);			//echo "<br /><br />\n";
 		echo $final;
+		*/
 	}
 }
 
