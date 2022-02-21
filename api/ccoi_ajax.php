@@ -148,6 +148,148 @@ if(!empty($_GET['uid']) && is_numeric($_GET['uid'])){
 	}
 }
 
+//Zack's Debug Stuff
+if(!empty($_GET['uid']) && is_numeric($_GET['uid']) && $_GET['debug']=='zack'){
+	$uid=$_GET['uid']+0;
+	if(is_numeric($uid)){
+		$return=mysqli_query($db,"SELECT * FROM tbPeople WHERE id='$uid'"); echo "return1: \n".$return; $persondata=mysqli_fetch_assoc($return); echo "persondata1: \n".$return;
+	
+		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		echo "return2: \n".$return;
+		while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];} echo "d1: \n".$d;
+		$sidstext=implode(',',$sessionids);
+		
+ 				$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
+ 				while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];}
+ 				$playidstext=implode(',',$playids);
+	
+		$return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($sidstext) AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
+		while($d=mysqli_fetch_assoc($return)){$sessions[$d['id']]['s']=$d;}
+		
+ 				$return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
+ 				while($d=mysqli_fetch_assoc($return)){$playgrounds[$d['id']]['s']=$d;}		//print_r($playgrounds);
+
+		$return=mysqli_query($db,"SELECT * FROM tbNodes WHERE 1");		
+		while($d=mysqli_fetch_assoc($return)){$nodeData[$d['id']]=$d;}
+
+	//	id		sessionid	subsession	sublabel				extra		nodepathid	seconds	notes	pnid	node1	choice	node2	choicegroup		pathtype	nsubgroup
+	//	887	31			0					some path label	P4		2					65			NuLL	2		1			3			9			NuLL				5				NuLL
+		$return=mysqli_query($db,"SELECT SA.*, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN WHERE SA.sessionid IN ($sidstext) AND SA.nodepathid=PN.id AND SA.inactive IS NULL ORDER BY SA.sessionid, SA.seconds");		
+		while($d=mysqli_fetch_assoc($return)){
+			$sessions[$d['sessionid']]['a'][$d['subsession']][$d['id']]=$d;		//	echo "here we load subsession {$d['subsession']} with {$d['id']}<br />\n";
+			$lasttime[$d['sessionid']]=$d['seconds'];		// gets the highest time value
+			if($d['sublabel'] != $oldsub){	//	echo "''$oldsub'' is not ''{$d['sublabel']}'' -- {$d['sublabel']} gets {$subcount[$d['sessionid']]}<br />\n";
+				$oldsub=$d['sublabel'];$subcount[$d['sessionid']]++;$pathlabels[$d['sublabel']]=($subcount[$d['sessionid']]-1);
+			}		// need to subtract one later
+		}
+		
+				$oldsub='';
+				$return=mysqli_query($db,"SELECT SA.*, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbPlaygroundActivity SA, tbPathNodes PN WHERE SA.sessionid IN ($playidstext) AND SA.nodepathid=PN.id AND SA.inactive IS NULL ORDER BY SA.sessionid, SA.seconds");		
+				while($d=mysqli_fetch_assoc($return)){
+					$playgrounds[$d['sessionid']]['a'][$d['subsession']][$d['id']]=$d;		//	echo "here we load subsession {$d['subsession']} with {$d['id']}<br />\n";
+					$plasttime[$d['sessionid']]=$d['seconds'];		// gets the highest time value
+					if($d['sublabel'] != $oldsub){	//	echo "''$oldsub'' is not ''{$d['sublabel']}'' -- {$d['sublabel']} gets {$subcount[$d['sessionid']]}<br />\n";
+						$oldsub=$d['sublabel'];$subcount[$d['sessionid']]++;$pathlabels[$d['sublabel']]=($subcount[$d['sessionid']]-1);
+					}		// need to subtract one later
+				}
+		
+	
+		//echo "<br /><br />\n";
+	
+		foreach($sessions as $derid=>$data){		// $data is an array of sessions
+			$output=array();
+			$output['_id']=$data['s']['oldid'];
+			$output['id']=$derid;
+			$output['path']=$data['s']['pathid'];
+			$output['observer']=$persondata['oldname'];
+			$output['name']=$data['s']['name'];
+	//			$output['updated_at']=$data['s']['_____'];
+	//			$output['created_at']=$data['s']['_____'];					"created_at":{"$date":{"$numberLong":"1574444989000"}},
+			$output['date']=$data['s']['placetime'];
+			$output['minutes']=floor($lasttime[$derid] / 60);
+			$output['seconds']=$lasttime[$derid] - ($output['minutes']*60);
+		
+			$output['pathLabels']=array_keys($pathlabels);
+			foreach($data['a'] as $subid=>$dd){				//	echo "here is subid $subid<br />\n";										// ==== $dd is a group of rows of activity -- might only be one
+				$supertempy=$tempy=array();
+				foreach($dd as $dummy=>$ddd){			//	echo "here is actid {$ddd['id']}<br />\n";								// ==== $ddd is a row of activity
+					if( !isset($supertempy['label']) ){ if ( isset($pathlabels[$ddd['sublabel']]) ){$supertempy['label']=$pathlabels[$ddd['sublabel']];}else{$supertempy['label']=-1;}}
+						$tempy['subsessionid']=$ddd['subsession'];
+//GO2						$temp_sub=$ddd['subsession'];
+					$tempy['nodeid']=$ddd['node1'];
+					$tempy['node']=$nodeData[$ddd['node1']]['oldid'];
+					$tempy['choiceid']=$ddd['choice'];
+					$tempy['choice']=$nodeData[$ddd['choice']]['oldid'];
+					$tempy['minutes']=floor($ddd['seconds'] / 60);
+					$tempy['seconds']=$ddd['seconds'] - ($tempy['minutes']*60);
+					$tempy['extra']=$ddd['extra'];
+					$tempy['notes']=$ddd['notes'];
+					$supertempy['steps'][]=$tempy;
+				}
+				$output['paths'][]=$supertempy;
+//GO2				$output['subsessionid']=$temp_sub;
+			}
+			$output['prompted']=false;						// ALL sessions are false for this
+			$output['sessionNotes']=$data['s']['notes'];
+			$output['studentID']=$data['s']['studentid'];
+			$output['videoURL']=$data['s']['url'];
+			$output['videoID']=$data['s']['videoid'];
+			$finaloutput[]=$output;				// ============================================== NEED TO ADJUST THIS FOR S and P ==================================================
+		}
+		
+		foreach($playgrounds as $derid=>$data){		// $data is an array of sessions
+			$output=array();
+			
+			$output['isPlayground']=true;
+			
+			$output['_id']=$data['s']['oldid'];
+			$output['id']=$derid;
+			$output['path']=$data['s']['pathid'];
+			$output['observer']=$persondata['oldname'];
+			$output['name']=$data['s']['name'];
+	//			$output['updated_at']=$data['s']['_____'];
+	//			$output['created_at']=$data['s']['_____'];					"created_at":{"$date":{"$numberLong":"1574444989000"}},
+			$output['date']=$data['s']['placetime'];
+			$output['minutes']=floor($lasttime[$derid] / 60);
+			$output['seconds']=$plasttime[$derid] - ($output['minutes']*60);
+		
+			$output['pathLabels']=array_keys($pathlabels);
+			foreach($data['a'] as $subid=>$dd){				//	echo "here is subid $subid<br />\n";										// ==== $dd is a group of rows of activity -- might only be one
+				$supertempy=$tempy=array();
+				foreach($dd as $dummy=>$ddd){			//	echo "here is actid {$ddd['id']}<br />\n";								// ==== $ddd is a row of activity
+					if( !isset($supertempy['label']) ){ if ( isset($pathlabels[$ddd['sublabel']]) ){$supertempy['label']=$pathlabels[$ddd['sublabel']];}else{$supertempy['label']=-1;}}
+						$tempy['subsessionid']=$ddd['subsession'];
+ //GO2						$temp_sub=$ddd['subsession'];
+					$tempy['nodeid']=$ddd['node1'];
+					$tempy['node']=$nodeData[$ddd['node1']]['oldid'];
+					$tempy['choiceid']=$ddd['choice'];
+					$tempy['choice']=$nodeData[$ddd['choice']]['oldid'];
+					$tempy['minutes']=floor($ddd['seconds'] / 60);
+					$tempy['seconds']=$ddd['seconds'] - ($tempy['minutes']*60);
+					$tempy['extra']=$ddd['extra'];
+					$tempy['notes']=$ddd['notes'];
+					$supertempy['steps'][]=$tempy;
+				}
+				$output['paths'][]=$supertempy;
+ //GO2				$output['subsessionid']=$temp_sub;
+			}
+			$output['prompted']=false;						// ALL sessions are false for this
+			$output['sessionNotes']=$data['s']['notes'];
+			$output['studentID']=$data['s']['studentid'];
+			$output['videoURL']=$data['s']['url'];
+			$output['videoID']=$data['s']['videoid'];
+			$finaloutput[]=$output;						// ============================================== NEED TO ADJUST THIS FOR S and P ==================================================
+		}  // THIS SHOULD BE A CLONE OF THE ABOVE
+		
+		
+		
+		
+		
+	
+		$final=json_encode($finaloutput);			//echo "<br /><br />\n";
+		echo $final;
+	}
+}
+
 if(!empty($_GET['pid']) && is_numeric($_GET['pid'])){
 		$pid=$_GET['pid']+0;
 		if(is_numeric($pid)){
