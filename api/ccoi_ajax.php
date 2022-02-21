@@ -577,19 +577,7 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && !isset($_GET['debug']))
 }
 
 if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
-	echo "debug time";
-	
 	$uid=$_GET['uid2']+0;
-
-	$return=mysqli_query($db,"SELECT * FROM tbPeople WHERE id='$uid'"); echo "return1: ".$return;		$persondata=mysqli_fetch_assoc($return); echo "persondata1: ".$persondata;
-	
-		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		echo "return2: ".$return;
-		while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];} echo "d: ".$d;
-		$sidstext=implode(',',$sessionids);
-		
- 				$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		echo "return3: ".$return;
- 				while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];} echo "d: ".$d;
-	/*
 	if(is_numeric($uid)){
 		$return=mysqli_query($db,"SELECT * FROM tbPeople WHERE id='$uid'"); echo "return1: ".$return;		$persondata=mysqli_fetch_assoc($return); echo "persondata1: ".$persondata;
 	
@@ -711,7 +699,7 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 			$final=json_encode($finaloutput);			echo $final;
 		}
 		
-	}*/
+	}
 }
 
 if(!empty($_GET['pid2']) && is_numeric($_GET['pid2'])){
