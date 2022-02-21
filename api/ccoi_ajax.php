@@ -595,8 +595,8 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 
 		//Get session IDs of playground sessions
 		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
-		echo "return: "; var_dump($return);
-		while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];}
+		//echo "return: "; var_dump($return);
+		while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid']; echo "d: "; var_dump($d);}
 		$playidstext=implode(',',$playids);
 		echo "\nplayids: "; var_dump($playidstext);
 
