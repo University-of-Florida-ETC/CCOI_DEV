@@ -577,6 +577,8 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && !isset($_GET['debug']))
 }
 
 if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
+	echo "debug time";
+	/*
 	$uid=$_GET['uid2']+0;
 	if(is_numeric($uid)){
 		$return=mysqli_query($db,"SELECT * FROM tbPeople WHERE id='$uid'"); echo "return1: ".$return;		$persondata=mysqli_fetch_assoc($return); echo "persondata1: ".$persondata;
@@ -586,7 +588,7 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 		$sidstext=implode(',',$sessionids);
 		
  				$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		echo "return3: ".$return;
- 				while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];} echo "d: ".$d;/*
+ 				while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];} echo "d: ".$d;
  				$playidstext=implode(',',$playids);
 	
 		$return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($sidstext) AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
@@ -698,8 +700,8 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 		}else{
 			$final=json_encode($finaloutput);			echo $final;
 		}
-		*/
-	}
+		
+	}*/
 }
 
 if(!empty($_GET['pid2']) && is_numeric($_GET['pid2'])){
