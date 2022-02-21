@@ -593,20 +593,22 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 		$sidstext=implode(',',$sessionids);
 		echo "\nsessionids: "; var_dump($sidstext);
 
+		//Get session IDs of playground sessions
 		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
 		while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];}
 		$playidstext=implode(',',$playids);
 		echo "\nplayids: "; var_dump($playidstext);
-		/*
+
 		$return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($sidstext) AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
-		while($d=mysqli_fetch_assoc($return)){$sessions[$d['id']]['s']=$d;}
+		while($d=mysqli_fetch_assoc($return)){$sessions[$d['id']]['s']=$d; echo "\nsession: "; var_dump($d);}
 		
- 				$return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
- 				while($d=mysqli_fetch_assoc($return)){$playgrounds[$d['id']]['s']=$d;}		//print_r($playgrounds);
+		
+		$return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
+		while($d=mysqli_fetch_assoc($return)){$playgrounds[$d['id']]['s']=$d; echo "\nplayground: "; var_dump($d);}		//print_r($playgrounds);
 
 		$return=mysqli_query($db,"SELECT * FROM tbNodes WHERE 1");		
-		while($d=mysqli_fetch_assoc($return)){$nodeData[$d['id']]=$d;}
-		*/
+		while($d=mysqli_fetch_assoc($return)){$nodeData[$d['id']]=$d; echo "\nnodeData: "; var_dump($d);}
+		
 	}
 	/*
 	$persondata=mysqli_fetch_assoc($return);
