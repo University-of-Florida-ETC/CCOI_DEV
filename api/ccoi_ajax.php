@@ -7,7 +7,7 @@ include('./ccoi_dbhookup.php');
 
 
 
-if(!empty($_GET['uid']) && is_numeric($_GET['uid'])){
+if(!empty($_GET['uid']) && is_numeric($_GET['uid']) && !isset($_GET['debug'])){
 	$uid=$_GET['uid']+0;
 	if(is_numeric($uid)){
 		$return=mysqli_query($db,"SELECT * FROM tbPeople WHERE id='$uid'");		$persondata=mysqli_fetch_assoc($return);
