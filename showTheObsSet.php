@@ -22,6 +22,7 @@ include 'includes/header.php';
                     //setTimeout(function(){ fetchUserObSets2(userid);},500);
                     setTimeout(function(){
                         fetchUserObSets4(userid);
+                        /*
                         setTimeout(function(){
                             console.log("fetchDaPath:")
                             fetchDaPath(userid);
@@ -29,6 +30,7 @@ include 'includes/header.php';
                             fetchDaCodes(userid);
                         }
                         ,50);
+                        */
                     }
                     ,10);
                     
