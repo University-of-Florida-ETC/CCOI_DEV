@@ -11,6 +11,8 @@ $sessions['research'][0]['id']=1;
 $sessions['research'][0]['name']="Test 1";
 $sessions['playground'][0]['id']=3;
 $sessions['playground'][0]['name']="Test 3";
+$testSessions = getSessions();
+echo "<script>console.log(`${testSessions}`);</script>";
 ?>
         <main role="main">
             <div class="container-fluid">
