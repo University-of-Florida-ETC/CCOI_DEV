@@ -601,18 +601,11 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 		//echo "\nplayids: "; var_dump($playidstext);
 
 		$return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($sidstext) AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
-		while($d=mysqli_fetch_assoc($return)){$sessions[$d['id']]['s']=$d; }		//echo "\nsession: "; var_dump($d);
+		while($d=mysqli_fetch_assoc($return)){$allSessions['research'][]=$d; }		//echo "\nsession: "; var_dump($d);
 		
 		
 		$return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
-		while($d=mysqli_fetch_assoc($return)){$playgrounds[$d['id']]['s']=$d;}		//print_r($playgrounds);		//echo "\nplayground: "; var_dump($d);
-		echo "\nplaygrounds: "; var_dump($playgrounds);
-
-		//Node information: path map, not super helpful
-		/*
-		$return=mysqli_query($db,"SELECT * FROM tbNodes WHERE 1");		
-		while($d=mysqli_fetch_assoc($return)){$nodeData[$d['id']]=$d; echo "\nnodeData: "; var_dump($d);}
-		*/
+		while($d=mysqli_fetch_assoc($return)){$allSessions['playground'][]=$d;}		//print_r($playgrounds);		//echo "\nplayground: "; var_dump($d);
 		
 	}
 	/*
