@@ -174,6 +174,9 @@ include 'includes/header.php';
                                             </ol>
                                             <em>Note:</em> If you need further information on how to use the instrument, visit the <a href="/about#learn">CCOI Help Center</a> section or our <a target="_blank" href="/assets/files/CCOI_Code_Book.pdf">code book</a>.
                                         </div>
+                                        <div id="videoFrameContainer" class="embed-responsive embed-responsive-16by9">
+                                            <!-- JS will place our video child here !--> 
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
