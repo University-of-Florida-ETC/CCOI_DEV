@@ -130,6 +130,9 @@ $sessions = getSessions(); //defined below
             }
         </script>
         -->
+        <script>
+            console.log(`<?php var_dump($sessions) ?>`);
+        </script>
     </body> 
 </html>
 
