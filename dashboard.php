@@ -7,10 +7,10 @@ $dataSpy = "scroll";
 include 'includes/header.php';
 include 'api/ccoi_dbhookup.php';
 //$sessions = getSessions(); //defined below
-$sessions['research'][] = (object)['id'=> 1, 'name'=> 'Test 1'];
-$sessions['research'][] = (object)['id'=> 2, 'name'=> 'Test 2'];
-$sessions['playground'][] = (object)['id'=> 3, 'name'=> 'Test 3'];
-$sessions['playground'][] = (object)['id'=> 4, 'name'=> 'Test 4'];
+$sessions['research'][0]['id']=1;
+$sessions['research'][0]['name']="Test 1";
+$sessions['playground'][0]['id']=3;
+$sessions['playground'][0]['name']="Test 3";
 ?>
         <main role="main">
             <div class="container-fluid">
