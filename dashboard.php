@@ -6,7 +6,11 @@ $dataOffset = "10";
 $dataSpy = "scroll";
 include 'includes/header.php';
 include 'api/ccoi_dbhookup.php';
-$sessions = getSessions(); //defined below
+//$sessions = getSessions(); //defined below
+$sessions['research'][] = (object)['id'=> 1, 'name'=> 'Test 1'];
+$sessions['research'][] = (object)['id'=> 2, 'name'=> 'Test 2'];
+$sessions['playground'][] = (object)['id'=> 3, 'name'=> 'Test 3'];
+$sessions['playground'][] = (object)['id'=> 4, 'name'=> 'Test 4'];
 ?>
         <main role="main">
             <div class="container-fluid">
@@ -20,7 +24,7 @@ $sessions = getSessions(); //defined below
                         <div class="col-md-8">
                             <div class="row pr-md-5">
                                 <div class="col-md-8 col-12">
-                                    <h1 class="red-font">Sessions</h1>
+                                    <h1 class="red-font">Sessionss</h1>
                                     <h5 style="text-transform: none;">Select a session to view or edit the set</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
