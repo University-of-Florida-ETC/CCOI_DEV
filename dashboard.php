@@ -5,6 +5,7 @@ $dataTarget = "#demo_help_box";
 $dataOffset = "10";
 $dataSpy = "scroll";
 include 'includes/header.php';
+include 'api/ccoi_dbhookup.php';
 $sessions = getSessions(); //defined below
 ?>
         <main role="main">
