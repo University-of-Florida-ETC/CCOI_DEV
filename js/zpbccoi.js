@@ -192,6 +192,35 @@ function notAllowedInEditor() {
 	console.log("You would have been kicked out here!");
 }
 
+function fetchUserObSets4(u){
+	//if(	! ((Object.keys(appVideoList).length>0) && (Object.keys(appPathList).length>0)) ){console.log('not ready to load... try again in half a sec'); setTimeout(function(){ fetchUserObSets2(userid);},500);return;}		// if we're not ready -- wait half a second and try again.
+	var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
+	xmlHttp.onreadystatechange = function() {
+		var data=getHTML(xmlHttp);
+		if(data){
+			console.log(data);
+			/*
+			sessionList=JSON.parse(data);
+            console.log("The sessions are:");
+            console.log(sessionList);
+
+			let researchList = document.getElementById("research_session_list");
+			for(var session in sessionList['research']){
+				appendSessionLink2(researchList, session, sessionList['research'][session].name);
+			}
+
+			let playgroundsList = document.getElementById("playgrounds_session_list");
+			for(var session in sessionList['playgrounds']){
+				appendSessionLink2(playgroundsList, session, sessionList['playgrounds'][session].name);
+			}
+			*/
+		}
+	}
+	sendStr='debug=1&uid2='+u;
+	var url =  encodeURI(derServer+'api/ccoi_ajax.php?'+sendStr);			console.log(url);
+	xmlHttp.open('GET', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
+}
+
 /*
 function showsessionList(){
 	leftSide.style.opacity=0;
