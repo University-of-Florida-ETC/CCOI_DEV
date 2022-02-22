@@ -157,12 +157,12 @@ function getSessions(){
             $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
             while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
             $sidstext=implode(',',$sessionids);
-    
+
             //Get session IDs of playground sessions
             $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
             while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];}		//echo "d: "; var_dump($d);
             $playidstext=implode(',',$playids);
-    
+
             //Get info (title) of research sessions
             $return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($sidstext) AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
             while($d=mysqli_fetch_assoc($return)){$allSessions['research'][]=$d; }		//echo "\nsession: "; var_dump($d);
@@ -171,7 +171,7 @@ function getSessions(){
             $return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
             while($d=mysqli_fetch_assoc($return)){$allSessions['playground'][]=$d;}		//print_r($playgrounds);		//echo "\nplayground: "; var_dump($d);
 
-            return $playids;
+            return $allSessions;
         }
         else{
             return "UID isn't numberic :(";
