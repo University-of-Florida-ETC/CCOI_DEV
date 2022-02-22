@@ -579,7 +579,7 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && !isset($_GET['debug']))
 //ZACK'S DEBUG STUFF
 //====================================================================================================================================================
 if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
-	echo "debug output will go here, uid2=".$_GET['uid2'];
+	//echo "debug output will go here, uid2=".$_GET['uid2'];
 	$uid=$_GET['uid2']+0;
 	if(is_numeric($uid)){
 
@@ -605,7 +605,7 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 		
 		
 		$return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
-		while($d=mysqli_fetch_assoc($return)){$playgrounds[$d['id']]['s']=$d;}		//print_r($playgrounds);		//echo "\nplayground: "; var_dump($d);
+		while($d=mysqli_fetch_assoc($return)){$playgrounds[$d['id']]['s']=$d; echo "\nplayground: "; var_dump($d);}		//print_r($playgrounds);		
 
 		//Node information: path map, not super helpful
 		/*
