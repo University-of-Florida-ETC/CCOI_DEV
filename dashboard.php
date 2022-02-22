@@ -171,7 +171,12 @@ function getSessions(){
 
             return $playids;
         }
+        else{
+            return "UID isn't numberic :(";
+        }
     }
+    else
+        return "Session isn't valid :(";
 }
 
 ?>
