@@ -820,7 +820,7 @@ var ccoiObservation = (function (){
         let videoID = $('#session_video_url').val();
         
         
-        videoFrame = document.createElement("iframe");
+        let videoFrame = document.createElement("iframe");
         videoFrame.class = "embed-responsive-item";
         
         // popoutWindow = window.open('/video-player'); // to avoid browser pop up blockers, we have to load the pop up window directly in the on click, not in the ajax call.
