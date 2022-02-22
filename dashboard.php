@@ -26,7 +26,7 @@ echo "<script>console.log(`${testSessions}`);</script>";
                         <div class="col-md-8">
                             <div class="row pr-md-5">
                                 <div class="col-md-8 col-12">
-                                    <h1 class="red-font">Sessionss</h1>
+                                    <h1 class="red-font">Sessions</h1>
                                     <h5 style="text-transform: none;">Select a session to view or edit the set</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
@@ -169,7 +169,7 @@ function getSessions(){
             $return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
             while($d=mysqli_fetch_assoc($return)){$allSessions['playground'][]=$d;}		//print_r($playgrounds);		//echo "\nplayground: "; var_dump($d);
 
-            return $allSessions;
+            return $playids;
         }
     }
 }
