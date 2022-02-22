@@ -816,6 +816,45 @@ var ccoiObservation = (function (){
         }
     }
 
+    function launchVideoFrameFromSession () {
+        let videoID = $('#session_video_url').val();
+        
+        
+        videoFrame = document.createElement("iframe");
+        videoFrame.class = "embed-responsive-item";
+        
+        // popoutWindow = window.open('/video-player'); // to avoid browser pop up blockers, we have to load the pop up window directly in the on click, not in the ajax call.
+        // // Add click event to proceed and play button now that we have a video
+        // $(DOM.proceed_and_play_button).click(function () {
+        //     submitBranch();
+        //     popoutWindow.video.play();
+        // });
+        // popoutListeners();
+        if(isDemo) {
+            let videoSRC = '/videofiles/7ccU4vf8zW7bto1s5Ry63qRl.webm';
+            videoFrame.src = videoSRC;
+            videoFrame.videoTitle = 'Demo Session Video'
+            let frameContainer = document.getElementById("videoFrameContainer");
+            frameContainer.appendChild(videoFrame);
+        }
+        else {
+            $.ajax({
+                url: '/api/ccoi_ajax.php?fetchvid=' + videoID,
+                method: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    let videoSRC = data[0];
+                    let videoTitle = $('#session_video_title').val();
+                    videoFrame.src = videoSRC;
+                    videoFrame.videoTitle = videoTitle;
+                }
+            }).fail(function (err) {
+                console.log(err);
+                console.log(this);
+            });
+        }
+    }
+
     function bindSessionMetaForm () {
         $(DOM.session_meta_form).change( function(e) {
             let changedName = e.target.name;
@@ -842,7 +881,8 @@ var ccoiObservation = (function (){
         $(DOM.proceed_button).click(submitBranch);
         $(DOM.save_session_button).click(updateData);
         $(DOM.path_go_back).click(pathGoBack);
-        $(DOM.launch_video_button).click(launchVideoFromSession);
+        //Update the function below to switch between popup window or in window experience
+        $(DOM.launch_video_button).click(launchVideoFrameFromSession);
         //Revist once implementing IRR correctly.
         //$(DOM.irr_button).click()
         /*
