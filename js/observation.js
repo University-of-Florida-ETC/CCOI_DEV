@@ -831,7 +831,7 @@ var ccoiObservation = (function (){
         // });
         // popoutListeners();
         if(isDemo) {
-            let videoSRC = 'https://youtu.be/astISOttCQ0';
+            let videoSRC = 'https://youtube.com/embed/astISOttCQ0';
             videoFrame.src = videoSRC;
             videoFrame.videoTitle = 'Demo Session Video'
             let frameContainer = document.getElementById("videoFrameContainer");
