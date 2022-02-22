@@ -590,6 +590,7 @@ else
 if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 	//echo "debug output will go here, uid2=".$_GET['uid2'];
 	$uid=$_GET['uid2']+0;
+	/*
 	if(is_numeric($uid)){    
 		//Get session IDs of research sessions
 		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
@@ -612,7 +613,8 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 	else{
 		return "UID isn't numberic :(";
 	}
-	/*
+	*/
+	
 	if(is_numeric($uid)){
 
 		//Get info on person, doesn't seem to be used for much aside from "oldname" which is set to observer? Is NULL for me, can probably skip
@@ -640,7 +642,7 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 		while($d=mysqli_fetch_assoc($return)){$allSessions['playground'][]=$d;}		//print_r($playgrounds);		//echo "\nplayground: "; var_dump($d);
 		echo "sessions:"; var_dump($allSessions);
 	}
-	*/
+	
 	/*
 	$persondata=mysqli_fetch_assoc($return);
 	echo "\npersondata: ". $persondata;
