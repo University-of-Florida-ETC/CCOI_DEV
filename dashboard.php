@@ -163,7 +163,7 @@ function getSessions(){
             $return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
             while($d=mysqli_fetch_assoc($return)){$allSessions['playground'][]=$d;}		//print_r($playgrounds);		//echo "\nplayground: "; var_dump($d);
 
-            return json_encode($finaloutput);
+            return $allSessions;
         }
     }
 }
