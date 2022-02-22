@@ -5,6 +5,7 @@ $dataTarget = "#demo_help_box";
 $dataOffset = "10";
 $dataSpy = "scroll";
 include 'includes/header.php';
+$sessions = getSessions(); //defined below
 ?>
         <main role="main">
             <div class="container-fluid">
@@ -31,9 +32,33 @@ include 'includes/header.php';
                                 <div class="col-12 btn-div">
                                     <h4>Research Sessions</h4>
                                     <ul id="research_session_list">
+<?php foreach ($sessions['research'] as $currentSession): ?>
+                                        <div class="row">
+                                                <div class="col-sm-9 col-12">
+                                                    <a class="btn-link session-edit" href="ZPB/observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name']; ?></a>
+                                                </div>
+                                                <div class="col-sm-3 col-12">
+                                                    <a class="btn-link session-edit" href="ZPB/observation?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                </div>
+                                            </div>
+<?php endforeach; ?>
                                     </ul> 
                                     <h4>Playgrounds Sessions</h4>
                                     <ul id="playgrounds_session_list">
+<?php foreach ($sessions['playground'] as $currentSession): ?>
+                                        <div class="row">
+                                                <div class="col-sm-9 col-12">
+                                                    <a class="btn-link session-edit" href="ZPB/observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><?= $currentSession['name']; ?></a>
+                                                </div>
+                                                <div class="col-sm-3 col-12">
+                                                    <a class="btn-link session-edit" href="ZPB/observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                </div>
+                                            </div>
+<?php endforeach; ?>
                                     </ul> 
                                 </div>
                             </div>
@@ -82,7 +107,8 @@ include 'includes/header.php';
         <script src="./js/observation.js"></script>
         <script src="./js/demo.js"></script>-->
         <script src="./js/bootstrap.min.js"></script>
-        <script src="./js/zpbccoi.js"></script>
+        <!--<script src="./js/zpbccoi.js"></script>-->
+        <!--
         <script>
             console.log("In");
             try{
@@ -103,5 +129,39 @@ include 'includes/header.php';
                 error(error);
             }
         </script>
+        -->
     </body> 
 </html>
+
+
+
+<?php
+
+function getSessions(){
+    if( !empty($_SESSION['pid']) && is_numeric($_SESSION['pid']) ){
+        //echo "debug output will go here, uid2=".$_GET['uid2'];
+        $uid=$_SESSION['pid']+0;
+
+        if(is_numeric($uid)){    
+            //Get session IDs of research sessions
+            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
+            while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
+    
+            //Get session IDs of playground sessions
+            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
+            while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];}		//echo "d: "; var_dump($d);
+    
+            //Get info (title) of research sessions
+            $return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($sidstext) AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
+            while($d=mysqli_fetch_assoc($return)){$allSessions['research'][]=$d; }		//echo "\nsession: "; var_dump($d);
+            
+            //Get info (title) of playground sessions
+            $return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
+            while($d=mysqli_fetch_assoc($return)){$allSessions['playground'][]=$d;}		//print_r($playgrounds);		//echo "\nplayground: "; var_dump($d);
+
+            return json_encode($finaloutput);
+        }
+    }
+}
+
+?>
