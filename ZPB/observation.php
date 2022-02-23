@@ -199,6 +199,9 @@ echo "session: "; var_dump($session);
                                     </ol>
                                     <em>Note:</em> If you need further information on how to use the instrument, visit the <a href="/about#learn">CCOI Help Center</a> section or our <a target="_blank" href="/assets/files/CCOI_Code_Book.pdf">code book</a>.
                                 </div>
+                                <div class="embed-responsive embed-responsive-16by9" id="videoFrameContainer">
+                                    
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -218,6 +221,7 @@ echo "session: "; var_dump($session);
         <script src="/js/utility.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/zpbccoi.js"></script>
+        <script src="/js/ccoi.js"></script>
         <script>
             bindListeners();
             console.log("In");

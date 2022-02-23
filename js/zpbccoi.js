@@ -225,7 +225,7 @@ function fetchUserObSets4(u){
 function launchVideoFrameFromSession () {
 	let videoID = $('#session_video_url').val();
 	
-	
+	let isDemo = true;
 	let videoFrame = document.createElement("iframe");
 	videoFrame.class = "embed-responsive-item";
 	
@@ -270,11 +270,11 @@ function bindListeners() {
 			return undefined;
 		}
 	});
-	$(DOM.new_session_button).click(addNewSession);
-	$(DOM.add_path_button).click(startNewPath);
-	$(DOM.proceed_button).click(submitBranch);
-	$(DOM.save_session_button).click(updateData);
-	$(DOM.path_go_back).click(pathGoBack);
+	//$(DOM.new_session_button).click(addNewSession);
+	//$(DOM.add_path_button).click(startNewPath);
+	//$(DOM.proceed_button).click(submitBranch);
+	//$(DOM.save_session_button).click(updateData);
+	//$(DOM.path_go_back).click(pathGoBack);
 	//Update the function below to switch between popup window or in window experience
 	$(DOM.launch_video_button).click(launchVideoFrameFromSession);
 	//Revist once implementing IRR correctly.
