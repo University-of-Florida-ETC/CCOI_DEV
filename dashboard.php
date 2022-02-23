@@ -35,7 +35,8 @@ $sessions = getSessions(); //defined below
                                     <h4>Research Sessions</h4>
                                     <ul id="research_session_list">
 <?php foreach ($sessions['research'] as $currentSession): ?>
-                                        <div class="row">
+                                        <li class="session-listing">
+                                            <div class="row">
                                                 <div class="col-sm-9 col-12">
                                                     <a class="btn-link session-edit" href="ZPB/observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name']; ?></a>
                                                 </div>
@@ -45,12 +46,14 @@ $sessions = getSessions(); //defined below
                                                     <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
                                             </div>
+                                        </li>
 <?php endforeach; ?>
                                     </ul> 
                                     <h4>Playgrounds Sessions</h4>
                                     <ul id="playgrounds_session_list">
 <?php foreach ($sessions['playground'] as $currentSession): ?>
-                                        <div class="row">
+                                        <li class="session-listing">
+                                            <div class="row">
                                                 <div class="col-sm-9 col-12">
                                                     <a class="btn-link session-edit" href="ZPB/observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><?= $currentSession['name']; ?></a>
                                                 </div>
@@ -60,6 +63,7 @@ $sessions = getSessions(); //defined below
                                                     <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
                                             </div>
+                                        </li>
 <?php endforeach; ?>
                                     </ul> 
                                 </div>
@@ -148,13 +152,10 @@ function getSessions(){
         $uid=$_SESSION['pid']+0;
 
         if(is_numeric($uid)){    
-            echo "<br>db in function: "; var_dump($db);
-            echo "<br>uid: "; var_dump($uid);
             //Get session IDs of research sessions
             $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
             while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
             $sidstext=implode(',',$sessionids);
-            echo "<br>sessionids: "; var_dump($sessionids);
 
             //Get session IDs of playground sessions
             $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
@@ -169,7 +170,6 @@ function getSessions(){
             $return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
             while($d=mysqli_fetch_assoc($return)){$allSessions['playground'][]=$d;}		//print_r($playgrounds);		//echo "<br>playground: "; var_dump($d);
 
-            echo "<br>allSessions: "; var_dump($allSessions);
             return $allSessions;
         }
         else{
