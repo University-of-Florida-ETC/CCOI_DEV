@@ -4,7 +4,10 @@ $dataTarget = "#demo_help_box";
 $dataOffset = "10";
 $dataSpy = "scroll";
 include '../includes/header.php';
-$sessionTitle = "sessionTitle";
+include $_SERVER['DOCUMENT_ROOT'].'/api/ccoi_dbhookup.php';
+//TODO: check that they are allowed in here
+$session = getObservation(); //defined below
+echo "session: "; var_dump($session);
 ?>
  <main role="main">
     <div class="container-fluid">
@@ -235,3 +238,29 @@ $sessionTitle = "sessionTitle";
         </script>
     </body> 
 </html>
+
+<?php
+
+function getObservation(){
+    if( !empty($_GET['id']) && is_numeric($_GET['id']) ){
+        $db = $GLOBALS["db"];
+        $id=$_GET['id']+0;
+
+        // If playground observation, pull from playground stuff
+        if( !empty($_GET['isPlayground'])){
+            $return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id = $id AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
+            while($d=mysqli_fetch_assoc($return)){$session=$d;}		//print_r($playgrounds);		//echo "<br>playground: "; var_dump($d);
+        }
+        
+        //If not playgroung observation, pull from research stuff
+        else {
+            $return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id = $id AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
+            while($d=mysqli_fetch_assoc($return)){$session=$d;}		//echo "<br>session: "; var_dump($d);
+        }
+            return $session;
+    }
+    else
+        return "<br>Session isn't valid :(";
+}
+
+?>
