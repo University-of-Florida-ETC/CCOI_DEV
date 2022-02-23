@@ -11,8 +11,9 @@ $sessions['research'][0]['id']=1;
 $sessions['research'][0]['name']="Test 1";
 $sessions['playground'][0]['id']=3;
 $sessions['playground'][0]['name']="Test 3";
+
+echo "db: "; var_dump($db);
 $testSessions = getSessions();
-echo "allSessions: "; var_dump($allSessions);
 echo "testSessions: "; var_dump($testSessions);
 ?>
         <main role="main">
@@ -27,7 +28,7 @@ echo "testSessions: "; var_dump($testSessions);
                         <div class="col-md-8">
                             <div class="row pr-md-5">
                                 <div class="col-md-8 col-12">
-                                    <h1 class="red-font">Sessionss</h1>
+                                    <h1 class="red-font">Sessions</h1>
                                     <h5 style="text-transform: none;">Select a session to view or edit the set</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
@@ -149,7 +150,6 @@ echo "testSessions: "; var_dump($testSessions);
 <?php
 
 function getSessions(){
-    echo "<script>console.log(`db: ".var_dump($db)."`);</script>";
     if( !empty($_SESSION['pid']) && is_numeric($_SESSION['pid']) ){
         //echo "debug output will go here, uid2=".$_GET['uid2'];
         $uid=$_SESSION['pid']+0;
@@ -173,8 +173,7 @@ function getSessions(){
             $return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
             while($d=mysqli_fetch_assoc($return)){$allSessions['playground'][]=$d;}		//print_r($playgrounds);		//echo "\nplayground: "; var_dump($d);
 
-            echo "<script>console.log(`allSessions: ".var_dump($allSessions)."`);</script>";
-
+            echo "allSessions: "; var_dump($allSessions);
             return $allSessions;
         }
         else{
