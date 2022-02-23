@@ -150,7 +150,7 @@ echo "<br>testSessions: "; var_dump($testSessions);
 
 function getSessions(){
     if( !empty($_SESSION['pid']) && is_numeric($_SESSION['pid']) ){
-        //echo "debug output will go here, uid2=".$_GET['uid2'];
+        $db = $GLOBALS["db"];
         $uid=$_SESSION['pid']+0;
 
         if(is_numeric($uid)){    
