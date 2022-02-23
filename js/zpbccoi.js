@@ -225,7 +225,7 @@ function fetchUserObSets4(u){
 function launchVideoFrameFromSession () {
 	let videoID = $('#session_video_url').val();
 	
-	
+	let isDemo = true;
 	let videoFrame = document.createElement("iframe");
 	videoFrame.class = "embed-responsive-item";
 	
