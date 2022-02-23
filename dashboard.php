@@ -12,9 +12,8 @@ $sessions['research'][0]['name']="Test 1";
 $sessions['playground'][0]['id']=3;
 $sessions['playground'][0]['name']="Test 3";
 
-echo "\ndb: "; var_dump($db);
 $testSessions = getSessions();
-echo "\ntestSessions: "; var_dump($testSessions);
+echo "\r\ntestSessions: "; var_dump($testSessions);
 ?>
         <main role="main">
             <div class="container-fluid">
@@ -155,11 +154,13 @@ function getSessions(){
         $uid=$_SESSION['pid']+0;
 
         if(is_numeric($uid)){    
+            echo "\r\ndb: "; var_dump($db);
+            echo "\r\nuid: "; var_dump($uid);
             //Get session IDs of research sessions
             $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
             while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
             $sidstext=implode(',',$sessionids);
-            echo "\nsessionids: "; var_dump($sessionids);
+            echo "\r\nsessionids: "; var_dump($sessionids);
 
             //Get session IDs of playground sessions
             $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
@@ -168,21 +169,21 @@ function getSessions(){
 
             //Get info (title) of research sessions
             $return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($sidstext) AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
-            while($d=mysqli_fetch_assoc($return)){$allSessions['research'][]=$d; }		//echo "\nsession: "; var_dump($d);
+            while($d=mysqli_fetch_assoc($return)){$allSessions['research'][]=$d; }		//echo "\r\nsession: "; var_dump($d);
             
             //Get info (title) of research sessions
             $return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
-            while($d=mysqli_fetch_assoc($return)){$allSessions['playground'][]=$d;}		//print_r($playgrounds);		//echo "\nplayground: "; var_dump($d);
+            while($d=mysqli_fetch_assoc($return)){$allSessions['playground'][]=$d;}		//print_r($playgrounds);		//echo "\r\nplayground: "; var_dump($d);
 
-            echo "\nallSessions: "; var_dump($allSessions);
+            echo "\r\nallSessions: "; var_dump($allSessions);
             return $allSessions;
         }
         else{
-            return "\nUID isn't numberic :(";
+            return "\r\nUID isn't numberic :(";
         }
     }
     else
-        return "\nSession isn't valid :(";
+        return "\r\nSession isn't valid :(";
 }
 
 ?>
