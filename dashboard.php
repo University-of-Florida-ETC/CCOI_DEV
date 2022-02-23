@@ -12,7 +12,8 @@ $sessions['research'][0]['name']="Test 1";
 $sessions['playground'][0]['id']=3;
 $sessions['playground'][0]['name']="Test 3";
 $testSessions = getSessions();
-echo "<script>console.log(`${allSessions}`);</script>";
+echo "allSessions: "; var_dump($allSessions);
+echo "testSessions: "; var_dump($testSessions);
 ?>
         <main role="main">
             <div class="container-fluid">
@@ -26,7 +27,7 @@ echo "<script>console.log(`${allSessions}`);</script>";
                         <div class="col-md-8">
                             <div class="row pr-md-5">
                                 <div class="col-md-8 col-12">
-                                    <h1 class="red-font">Sessions</h1>
+                                    <h1 class="red-font">Sessionss</h1>
                                     <h5 style="text-transform: none;">Select a session to view or edit the set</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
