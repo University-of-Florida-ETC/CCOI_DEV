@@ -14,6 +14,7 @@ $sessions['playground'][0]['name']="Test 3";
 echo "<br>db global: "; var_dump($db);
 $testSessions = getSessions();
 echo "<br>testSessions: "; var_dump($testSessions);
+echo "<br>allSessions global: "; var_dump($allSessions);
 ?>
         <main role="main">
             <div class="container-fluid">
