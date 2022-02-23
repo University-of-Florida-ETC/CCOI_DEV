@@ -52,7 +52,7 @@ $sessions = getSessions(); //defined below
                                     <h4>Playgrounds Sessions</h4>
                                     <ul id="playgrounds_session_list">
 <?php foreach ($sessions['playground'] as $currentSession): ?>
-                                        <li class="session-listing">
+                                        <li class="session-listing my-2">
                                             <div class="row">
                                                 <div class="col-sm-9 col-12">
                                                     <a class="btn-link session-edit" href="ZPB/observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><?= $currentSession['name']; ?></a>
