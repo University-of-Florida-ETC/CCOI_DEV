@@ -270,11 +270,11 @@ function bindListeners() {
 			return undefined;
 		}
 	});
-	$(DOM.new_session_button).click(addNewSession);
-	$(DOM.add_path_button).click(startNewPath);
-	$(DOM.proceed_button).click(submitBranch);
-	$(DOM.save_session_button).click(updateData);
-	$(DOM.path_go_back).click(pathGoBack);
+	//$(DOM.new_session_button).click(addNewSession);
+	//$(DOM.add_path_button).click(startNewPath);
+	//$(DOM.proceed_button).click(submitBranch);
+	//$(DOM.save_session_button).click(updateData);
+	//$(DOM.path_go_back).click(pathGoBack);
 	//Update the function below to switch between popup window or in window experience
 	$(DOM.launch_video_button).click(launchVideoFrameFromSession);
 	//Revist once implementing IRR correctly.
