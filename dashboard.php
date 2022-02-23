@@ -6,15 +6,8 @@ $dataOffset = "10";
 $dataSpy = "scroll";
 include 'includes/header.php';
 include $_SERVER['DOCUMENT_ROOT'].'/api/ccoi_dbhookup.php';
-//$sessions = getSessions(); //defined below
-$sessions['research'][0]['id']=1;
-$sessions['research'][0]['name']="Test 1";
-$sessions['playground'][0]['id']=3;
-$sessions['playground'][0]['name']="Test 3";
-echo "<br>db global: "; var_dump($db);
-$testSessions = getSessions();
-echo "<br>testSessions: "; var_dump($testSessions);
-echo "<br>allSessions global: "; var_dump($allSessions);
+$sessions = getSessions(); //defined below
+
 ?>
         <main role="main">
             <div class="container-fluid">
