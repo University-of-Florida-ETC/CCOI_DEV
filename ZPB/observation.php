@@ -216,6 +216,7 @@ $sessionTitle = "sessionTitle";
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/zpbccoi.js"></script>
         <script>
+            bindListeners();
             console.log("In");
             try{
                 if(typeof(jsUserVars) != 'undefined'){

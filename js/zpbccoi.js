@@ -221,6 +221,84 @@ function fetchUserObSets4(u){
 	xmlHttp.open('GET', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
 }
 
+// This function will *eventually* grab the video path from the DB, and load it up. For now, it loads a static video. 
+function launchVideoFrameFromSession () {
+	let videoID = $('#session_video_url').val();
+	
+	
+	let videoFrame = document.createElement("iframe");
+	videoFrame.class = "embed-responsive-item";
+	
+	// popoutWindow = window.open('/video-player'); // to avoid browser pop up blockers, we have to load the pop up window directly in the on click, not in the ajax call.
+	// // Add click event to proceed and play button now that we have a video
+	// $(DOM.proceed_and_play_button).click(function () {
+	//     submitBranch();
+	//     popoutWindow.video.play();
+	// });
+	// popoutListeners();
+	if(isDemo) {
+		let videoSRC = 'https://youtube.com/embed/astISOttCQ0';
+		videoFrame.src = videoSRC;
+		videoFrame.videoTitle = 'Demo Session Video'
+		let frameContainer = document.getElementById("videoFrameContainer");
+		frameContainer.appendChild(videoFrame);
+	}
+	else {
+		$.ajax({
+			url: '/api/ccoi_ajax.php?fetchvid=' + videoID,
+			method: 'GET',
+			contentType: 'application/json; charset=utf-8',
+			success: function (data) {
+				let videoSRC = data[0];
+				let videoTitle = $('#session_video_title').val();
+				videoFrame.src = videoSRC;
+				videoFrame.videoTitle = videoTitle;
+			}
+		}).fail(function (err) {
+			console.log(err);
+			console.log(this);
+		});
+	}
+}
+
+function bindListeners() {
+	$(window).on('beforeunload', function () {
+		let isDirty = !$(DOM.save_session_button).hasClass('disabled');
+		if (isDirty) {
+			return 'Are you sure you want to leave?';
+		} else {
+			return undefined;
+		}
+	});
+	$(DOM.new_session_button).click(addNewSession);
+	$(DOM.add_path_button).click(startNewPath);
+	$(DOM.proceed_button).click(submitBranch);
+	$(DOM.save_session_button).click(updateData);
+	$(DOM.path_go_back).click(pathGoBack);
+	//Update the function below to switch between popup window or in window experience
+	$(DOM.launch_video_button).click(launchVideoFrameFromSession);
+	//Revist once implementing IRR correctly.
+	//$(DOM.irr_button).click()
+	/*
+	* Reorder functionality disabled, as it is not actually used by researchers
+	$(DOM.reorder_paths_button).click(function(e) {
+		toggleDraggables(true);
+		ccoiDraggables.setDragabbles(document.querySelectorAll('.draggable'), document.querySelectorAll('.draggable-container'));
+		ccoiDraggables.initiateDraggables();
+	});
+	$(DOM.finish_reorder_button).click(function(e) {
+		makeDirty();
+		setNewPathOrder();
+		console.log(alteredSessionData);
+		toggleDraggables(false);
+		$('.path-order-disclaimer').removeClass('d-none');
+	});
+	 */
+	
+	//This function appears to be useless.
+	//bindSessionMetaForm();
+}
+
 /*
 function showsessionList(){
 	leftSide.style.opacity=0;
