@@ -196,6 +196,9 @@ $sessionTitle = "sessionTitle";
                                     </ol>
                                     <em>Note:</em> If you need further information on how to use the instrument, visit the <a href="/about#learn">CCOI Help Center</a> section or our <a target="_blank" href="/assets/files/CCOI_Code_Book.pdf">code book</a>.
                                 </div>
+                                <div class="embed-responsive embed-responsive-16by9" id="videoFrameContainer">
+                                    
+                                </div>
                             </div>
                         </div>
                         <div class="row">
