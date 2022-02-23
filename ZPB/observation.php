@@ -215,6 +215,7 @@ $sessionTitle = "sessionTitle";
         <script src="/js/utility.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/zpbccoi.js"></script>
+        <script src="/js/ccoi.js"></script>
         <script>
             bindListeners();
             console.log("In");
