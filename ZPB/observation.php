@@ -21,7 +21,7 @@ echo "session: "; var_dump($session);
                 <div class="col-md-8">
                     <div class="row pr-md-5">
                         <div class="col-md-8 col-12">
-                            <h1 class="red-font" id="sessionTitle"><?php echo $sessionTitle; ?></h1>
+                            <h1 class="red-font" id="sessionTitle"><?= $session['name']; ?></h1>
                             <h5 style="text-transform: none;">Select an observation to view or edit its responses</h5>
                         </div>
                         <div class="col-md-4 col-12 pt-2">
@@ -46,28 +46,28 @@ echo "session: "; var_dump($session);
                                             <div class="row">
                                                 <div class="form-group col">
                                                     <label for="session_title">Session Name</label>
-                                                    <input placeholder="Session Name" id="session_title" name="session_title" type="text" class="form-control">
+                                                    <input placeholder="Session Name" id="session_title" name="session_title" type="text" class="form-control" value="<?= $session['name'] ?>">
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="studentID">Student ID</label>
-                                                    <input placeholder="Student ID" id="studentID" name="studentID" type="text" class="form-control">
+                                                    <input placeholder="Student ID" id="studentID" name="studentID" type="text" class="form-control" value="<?= $session['studentid'] ?>">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col">
                                                     <label for="session_date">Coding Date</label>
-                                                    <input id="session_date" name="date" type="date" class="datepicker">
+                                                    <input id="session_date" name="date" type="date" class="datepicker" value="<?= $session['placetime'] ?>">
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="session_video_title">Video</label>
-                                                    <input type="text" id="session_video_title" name="session_video_title" value="Demo 2020-5-15 C01" class="fakeInput" placeholder="Demo Video" disabled="">
-                                                    <input type="hidden" id="session_video_url" name="session_video_url" value="Demo_2020-5-15_C01.webm">
+                                                    <input type="text" id="session_video_title" name="session_video_title" value="Demo 2020-5-15 C01" class="fakeInput" placeholder="Demo Video" disabled=""> <!-- TODO: GET VIDEO NAME FROM ID -->
+                                                    <input type="hidden" id="session_video_url" name="session_video_url" value="<?= $session['url'] ?>">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="block" for="session_notes" id="session_notes_label">Session Notes</label>
-                                                <textarea id="session_notes" name="session_notes" class="form-control"></textarea>
+                                                <textarea id="session_notes" name="session_notes" class="form-control" value="<?= $session['notes'] ?>"></textarea>
                                             </div>
                                         </form>
                                         <button type="button" class="btn btn-outline-blue btn-sm" data-toggle="collapse" data-target="#session_meta_collapse" aria-expanded="true" aria-controls="session_meta_collapse">Close</button>
@@ -224,6 +224,7 @@ echo "session: "; var_dump($session);
         <script src="/js/ccoi.js"></script>
         <script>
             bindListeners();
+            /*
             console.log("In");
             try{
                 if(typeof(jsUserVars) != 'undefined'){
@@ -239,6 +240,7 @@ echo "session: "; var_dump($session);
                 console.log("In4");
                 error(error);
             }
+            */
         </script>
     </body> 
 </html>
