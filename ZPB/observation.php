@@ -5,9 +5,31 @@ $dataOffset = "10";
 $dataSpy = "scroll";
 include '../includes/header.php';
 include $_SERVER['DOCUMENT_ROOT'].'/api/ccoi_dbhookup.php';
+
 //TODO: check that they are allowed in here
+
 $session = getObservation(); //defined below
-echo "session: "; var_dump($session);
+
+echo "session: "; print_r($session);
+
+$return=mysqli_query($db,"SELECT * FROM tbNodes WHERE 1");		
+		while($d=mysqli_fetch_assoc($return)){$nodeData[$d['id']]=$d;}
+echo "<br>nodeData: "; print_r($nodeData);
+
+$return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid IN ($sidstext) AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");		
+while($d=mysqli_fetch_assoc($return)){
+    $sessions[$d['sessionid']]['a'][$d['ssid']][$d['id']]=$d;		//	echo "here we load subsession {$d['subsession']} with {$d['id']}<br />\n";
+    $lasttime[$d['sessionid']]=$d['seconds'];		// gets the highest time value
+}
+echo "<br>sessions: "; print_r($sessions);
+echo "<br>lasttime: "; print_r($lasttime);
+		
+$return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbPlaygroundActivity SA, tbPathNodes PN, tbSubPlaygrounds SS WHERE SA.sessionid IN ($playidstext) AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");		
+while($d=mysqli_fetch_assoc($return)){
+    $playgrounds[$d['sessionid']]['a'][$d['ssid']][$d['id']]=$d;		//	echo "here we load subsession {$d['subsession']} with {$d['id']}<br />\n";
+    $plasttime[$d['sessionid']]=$d['seconds'];		// gets the highest time value
+}
+
 ?>
  <main role="main">
     <div class="container-fluid">
