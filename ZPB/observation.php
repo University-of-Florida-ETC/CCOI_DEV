@@ -15,7 +15,7 @@ echo "session: "; print_r($session);
 
 $return=mysqli_query($db,"SELECT * FROM tbNodes WHERE 1");		
 		while($d=mysqli_fetch_assoc($return)){$nodeData[$d['id']]=$d;}
-echo "<br>nodeData: "; print_r($nodeData);
+//echo "<br>nodeData: "; print_r($nodeData);
 
 $return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");		
 while($d=mysqli_fetch_assoc($return)){
@@ -44,7 +44,7 @@ while($d=mysqli_fetch_assoc($return)){
                 <div class="col-md-8">
                     <div class="row pr-md-5">
                         <div class="col-md-8 col-12">
-                            <h1 class="red-font" id="sessionTitle"><?= $session['name']; ?></h1>
+                            <h1 class="red-font" id="sessionTitle"><?php echo $session['name']; ?></h1>
                             <h5 style="text-transform: none;">Select an observation to view or edit its responses</h5>
                         </div>
                         <div class="col-md-4 col-12 pt-2">
@@ -69,28 +69,28 @@ while($d=mysqli_fetch_assoc($return)){
                                             <div class="row">
                                                 <div class="form-group col">
                                                     <label for="session_title">Session Name</label>
-                                                    <input placeholder="Session Name" id="session_title" name="session_title" type="text" class="form-control" value="<?= $session['name'] ?>">
+                                                    <input placeholder="Session Name" id="session_title" name="session_title" type="text" class="form-control" value="<?php echo $session['name'] ?>">
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="studentID">Student ID</label>
-                                                    <input placeholder="Student ID" id="studentID" name="studentID" type="text" class="form-control" value="<?= $session['studentid'] ?>">
+                                                    <input placeholder="Student ID" id="studentID" name="studentID" type="text" class="form-control" value="<?php echo $session['studentid'] ?>">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col">
                                                     <label for="session_date">Coding Date</label>
-                                                    <input id="session_date" name="date" type="date" class="datepicker" value="<?= $session['placetime'] ?>">
+                                                    <input id="session_date" name="date" type="date" class="datepicker" value="<?php echo $session['placetime'] ?>">
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="session_video_title">Video</label>
                                                     <input type="text" id="session_video_title" name="session_video_title" value="Demo 2020-5-15 C01" class="fakeInput" placeholder="Demo Video" disabled=""> <!-- TODO: GET VIDEO NAME FROM ID -->
-                                                    <input type="hidden" id="session_video_url" name="session_video_url" value="<?= $session['url'] ?>">
+                                                    <input type="hidden" id="session_video_url" name="session_video_url" value="<?php echo $session['url'] ?>">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="block" for="session_notes" id="session_notes_label">Session Notes</label>
-                                                <textarea id="session_notes" name="session_notes" class="form-control"><?= $session['notes'] ?></textarea>
+                                                <textarea id="session_notes" name="session_notes" class="form-control"><?php echo $session['notes'] ?></textarea>
                                             </div>
                                         </form>
                                         <button type="button" class="btn btn-outline-blue btn-sm" data-toggle="collapse" data-target="#session_meta_collapse" aria-expanded="true" aria-controls="session_meta_collapse">Close</button>
