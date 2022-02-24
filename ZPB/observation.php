@@ -67,7 +67,7 @@ echo "session: "; var_dump($session);
 
                                             <div class="form-group">
                                                 <label class="block" for="session_notes" id="session_notes_label">Session Notes</label>
-                                                <textarea id="session_notes" name="session_notes" class="form-control" value="<?= $session['notes'] ?>"></textarea>
+                                                <textarea id="session_notes" name="session_notes" class="form-control"><?= $session['notes'] ?></textarea>
                                             </div>
                                         </form>
                                         <button type="button" class="btn btn-outline-blue btn-sm" data-toggle="collapse" data-target="#session_meta_collapse" aria-expanded="true" aria-controls="session_meta_collapse">Close</button>
