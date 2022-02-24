@@ -16,16 +16,18 @@ echo "session: "; print_r($session);
 // Get node data
 $return=mysqli_query($db,"SELECT * FROM tbNodes WHERE 1");		
 		while($d=mysqli_fetch_assoc($return)){$nodeData[$d['id']]=$d;}
-//echo "<br>nodeData: "; print_r($nodeData);
+echo "<br>nodeData: "; print_r($nodeData);
 
 $return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");		
 while($d=mysqli_fetch_assoc($return)){
-    $sessions[$d['ssid']][$d['id']]=$d;		//	echo "here we load subsession {$d['subsession']} with {$d['id']}<br />\n";
+    $subsessions[$d['ssid']][$d['id']]=$d;		//	echo "here we load subsession {$d['subsession']} with {$d['id']}<br />\n";
 }
-echo "<br><br>sessions: ";
-foreach ( $sessions as $item ) {
+echo "<br><br>subessions: "; var_dump($subsessions);
+/*
+foreach ( $subsessions as $item ) {
     var_dump($item); echo "<br><br><br>";
 }
+*/
 //echo "<br>lasttime: "; print_r($lasttime);
 		/*
 $return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbPlaygroundActivity SA, tbPathNodes PN, tbSubPlaygrounds SS WHERE SA.sessionid IN ($playidstext) AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");		
@@ -107,18 +109,7 @@ while($d=mysqli_fetch_assoc($return)){
 
                         <div id="path_listing" class="col-12 pt-4 pr-md-5">
                                     <div id="path_list" class="draggable-container">
-                                        <div class="path-listing-container">
-                                            <h5 data-index="0" class="path-listing-header">Path #1 (ganflgnfa)
-                                                <a class="btn-link path-edit-icon" href="#" data-index="0"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
-                                                <a class="btn-link path-delete-icon" href="#" data-index="0"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
-                                                <button class="btn-link float-right path-dropdown-btn collapsed" data-toggle="collapse" data-target="#path_drop_0" aria-expanded="false"><span class="oi oi-chevron-bottom" title="Show Path Steps" aria-hidden="true"></span></button>
-                                            </h5>
-                                            <ol class="collapse" id="path_drop_0" style="">
-                                                <li>(1:02) 0-2: Student addresses Peer "5" [path notes 1]</li>
-                                                <li>(1:02) 1-15: Student said something that is unclear or inaudible [path notes 2]</li>
-                                                <li>(3:04) 1-35: Interaction terminates [end path] [path notes 3]<b>—END</b></li>
-                                            </ol>
-                                        </div>
+
                                         <div class="path-listing-container">
                                             <h5 data-index="0" class="path-listing-header">Path #1 (ganflgnfa)
                                                 <a class="btn-link path-edit-icon" href="#" data-index="0"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
