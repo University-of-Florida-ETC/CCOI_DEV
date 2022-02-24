@@ -24,7 +24,7 @@ while($d=mysqli_fetch_assoc($return)){
 }
 echo "<br><br>sessions: ";
 foreach ( $sessions as $item ) {
-    var_dump($item); echo "<br/>";
+    var_dump($item); echo "<br><br><br>";
 }
 //echo "<br>lasttime: "; print_r($lasttime);
 		/*
