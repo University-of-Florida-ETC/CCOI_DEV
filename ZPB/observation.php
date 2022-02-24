@@ -10,7 +10,7 @@ $id=$_GET['id']+0;
 //TODO: check that they are allowed in here
 
 $session = getObservation(); //defined below
-/*
+
 echo "session: "; print_r($session);
 
 $return=mysqli_query($db,"SELECT * FROM tbNodes WHERE 1");		
