@@ -9,20 +9,23 @@ $id=$_GET['id']+0;
 
 //TODO: check that they are allowed in here
 
-$session = getObservation($id); //defined below
+$session = getSessionInfo($id); //defined below
 
 echo "session: "; print_r($session);
 
+// Get node data
 $return=mysqli_query($db,"SELECT * FROM tbNodes WHERE 1");		
 		while($d=mysqli_fetch_assoc($return)){$nodeData[$d['id']]=$d;}
 //echo "<br>nodeData: "; print_r($nodeData);
 
 $return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");		
 while($d=mysqli_fetch_assoc($return)){
-    echo "<br><br>d: "; var_dump($d);
     $sessions[$d['ssid']][$d['id']]=$d;		//	echo "here we load subsession {$d['subsession']} with {$d['id']}<br />\n";
 }
-echo "<br><br>sessions: "; var_dump($sessions)
+echo "<br><br>sessions: ";
+foreach ( $sessions as $item ) {
+    var_dump($item); echo "<br/>";
+}
 //echo "<br>lasttime: "; print_r($lasttime);
 		/*
 $return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbPlaygroundActivity SA, tbPathNodes PN, tbSubPlaygrounds SS WHERE SA.sessionid IN ($playidstext) AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");		
@@ -270,7 +273,7 @@ while($d=mysqli_fetch_assoc($return)){
 
 <?php
 
-function getObservation($id){
+function getSessionInfo($id){
     if( !empty($id) && is_numeric($id) ){
         $db = $GLOBALS["db"];
 
