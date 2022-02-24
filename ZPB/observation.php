@@ -9,7 +9,7 @@ $id=$_GET['id']+0;
 
 //TODO: check that they are allowed in here
 
-$session = getObservation(); //defined below
+$session = getObservation($id); //defined below
 
 echo "session: "; print_r($session);
 
@@ -270,7 +270,7 @@ while($d=mysqli_fetch_assoc($return)){
 
 <?php
 
-function getObservation(){
+function getObservation($id){
     if( !empty($id) && is_numeric($id) ){
         $db = $GLOBALS["db"];
 
