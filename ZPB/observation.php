@@ -19,10 +19,11 @@ $return=mysqli_query($db,"SELECT * FROM tbNodes WHERE 1");
 
 $return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");		
 while($d=mysqli_fetch_assoc($return)){
+    echo "<script>console.log(\"sessions: \"+`".var_dump($d)."`);</script>";
     $sessions[$d['sessionid']]['a'][$d['ssid']][$d['id']]=$d;		//	echo "here we load subsession {$d['subsession']} with {$d['id']}<br />\n";
     $lasttime[$d['sessionid']]=$d['seconds'];		// gets the highest time value
 }
-echo "<script>console.log(\"sessions: \"+`".print_r($sessions)."`);</script>";
+echo "<script>console.log(\"sessions: \"+`".var_dump($sessions)."`);</script>";
 //echo "<br>lasttime: "; print_r($lasttime);
 		/*
 $return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbPlaygroundActivity SA, tbPathNodes PN, tbSubPlaygrounds SS WHERE SA.sessionid IN ($playidstext) AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");		
