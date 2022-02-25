@@ -16,13 +16,13 @@ echo "session: "; print_r($session);
 // Get node data
 $return=mysqli_query($db,"SELECT * FROM tbNodes WHERE 1");		
 		while($d=mysqli_fetch_assoc($return)){$nodeData[$d['id']]=$d;}
-echo "<br>nodeData: "; print_r($nodeData);
+//echo "<br>nodeData: "; print_r($nodeData);
 
 $return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");		
 while($d=mysqli_fetch_assoc($return)){
     $subsessions[$d['ssid']][$d['id']]=$d;		//	echo "here we load subsession {$d['subsession']} with {$d['id']}<br />\n";
 }
-echo "<br><br>subessions: "; var_dump($subsessions);
+//echo "<br><br>subessions: "; var_dump($subsessions);
 /*
 foreach ( $subsessions as $item ) {
     var_dump($item); echo "<br><br><br>";
@@ -117,9 +117,6 @@ while($d=mysqli_fetch_assoc($return)){
                                                 <button class="btn-link float-right path-dropdown-btn collapsed" data-toggle="collapse" data-target="#path_drop_<?php echo $currentSub[$firstIndex]['subsession']; ?>" aria-expanded="false"><span class="oi oi-chevron-bottom" title="Show Path Steps" aria-hidden="true"></span></button>
                                             </h5>
                                             <ol class="collapse" id="path_drop_<?php echo $currentSub[$firstIndex]['subsession']; ?>" style="">
-    <?php foreach ($currentSub as $obsElement): $currentNode = $nodeData[intval($obsElement['pnid'])]; $minutes = ( (int)$obsElement['seconds'] )/60; $seconds = ( (int)$obsElement['seconds'] )%60; $time=sprintf('%02d:%02d', $minutes, $seconds); ?>
-                                                <li>(<?php echo $time; ?>) <?php echo $currentNode['code']; ?>: <?php echo $currentNode['title']; ?> <?php if( !empty($obsElement['notes']) ) echo "[".$currentNode['notes']."]"; ?></li>
-    <?php endforeach; ?>
                                             </ol>
                                         </div>
 <?php endforeach; ?>
