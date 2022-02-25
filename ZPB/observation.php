@@ -10,7 +10,6 @@ $id=$_GET['id']+0;
 //TODO: check that they are allowed in here
 
 $session = getSessionInfo($id); //defined below
-
 echo "session: "; print_r($session);
 
 // Get node data
@@ -18,25 +17,13 @@ $return=mysqli_query($db,"SELECT * FROM tbNodes WHERE 1");
 		while($d=mysqli_fetch_assoc($return)){$nodeData[$d['id']]=$d;}
 //echo "<br>nodeData: "; print_r($nodeData);
 
-$return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");		
-while($d=mysqli_fetch_assoc($return)){
-    //$subsessions[$d['ssid']][d['id']]=$d;
-    $subsessions[$d['ssid']][]=$d;		//	echo "here we load subsession {$d['subsession']} with {$d['id']}<br />\n";
-}
-//echo "<br><br>subessions: "; var_dump($subsessions);
-/*
-foreach ( $subsessions as $item ) {
-    var_dump($item); echo "<br><br><br>";
-}
-*/
-//echo "<br>lasttime: "; print_r($lasttime);
-		/*
-$return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbPlaygroundActivity SA, tbPathNodes PN, tbSubPlaygrounds SS WHERE SA.sessionid IN ($playidstext) AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");		
-while($d=mysqli_fetch_assoc($return)){
-    $playgrounds[$d['sessionid']]['a'][$d['ssid']][$d['id']]=$d;		//	echo "here we load subsession {$d['subsession']} with {$d['id']}<br />\n";
-    $plasttime[$d['sessionid']]=$d['seconds'];		// gets the highest time value
-}
-*/
+//If in playgrounds, query playgrounds DB
+if(isset($_GET['isPlayground'])){ $return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbPlaygroundActivity SA, tbPathNodes PN, tbSubPlaygrounds SS WHERE SA.sessionid IN ($playidstext) AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds"); }
+//Otherwise, query research
+else { $return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds"); }		
+//Regardless, populate with observation info
+while($d=mysqli_fetch_assoc($return)){ /*$subsessions[$d['ssid']][d['id']]=$d;*/ $subsessions[$d['ssid']][]=$d; }
+
 ?>
  <main role="main">
     <div class="container-fluid">
