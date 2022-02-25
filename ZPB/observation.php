@@ -107,8 +107,11 @@ while($d=mysqli_fetch_assoc($return)){ /*$subsessions[$d['ssid']][d['id']]=$d;*/
                                                 <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_<?=$count;?>" aria-expanded="true"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
                                             </h5>
                                             <ol class="collapse" id="path_drop_<?=$count;?>" style="">
-<?php foreach ($currentSub as $index=>$currentOE): $minutes = ((int)$currentOE['seconds'])/60; $seconds = ((int)$currentOE['seconds'])%60; $time=sprintf('%02d:%02d', $minutes, $seconds);?>
-                                                <li><?= $time; ?></li>
+<?php foreach ($currentSub as $index=>$currentOE):
+    $currentSeconds = (int)$currentOE['seconds'];
+    $currentNode = $nodeData[(int)$currentOE['pnid']]
+?>
+                                                <li><?php echo sprintf("(%02d:%02d) %s: %s", $currentSeconds/60, $currentSeconds%60, $currentNode['code'], $currentNode['title'], $currentNode['title']); if(isset($currentOE['notes'])) echo sprintf(" [%s]", $currentOE['notes']);?></li>
 <?php endforeach; ?>
                                             </ol>
                                         </div>
