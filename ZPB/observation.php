@@ -20,7 +20,7 @@ $return=mysqli_query($db,"SELECT * FROM tbNodes WHERE 1");
 
 $return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");		
 while($d=mysqli_fetch_assoc($return)){
-    $subsessions[$d['ssid']][$d['id']]=$d;		//	echo "here we load subsession {$d['subsession']} with {$d['id']}<br />\n";
+    $subsessions[$d['ssid']][]=$d;		//	echo "here we load subsession {$d['subsession']} with {$d['id']}<br />\n";
 }
 //echo "<br><br>subessions: "; var_dump($subsessions);
 /*
@@ -109,7 +109,7 @@ while($d=mysqli_fetch_assoc($return)){
 
                         <div id="path_listing" class="col-12 pt-4 pr-md-5">
                                     <div id="path_list" class="draggable-container">
-<?php $count = 1; foreach ($subsessions as $key=>$currentSub): $firstIndex = array_key_first($currentSub);?>
+<?php $count = 1; foreach ($subsessions as $key=>$currentSub): ?>
                                         <div class="path-listing-container">
                                             <h5 data-index="0" class="path-listing-header">Path #<?=$count;?> (ganflgnfa)
                                                 <a class="btn-link path-edit-icon" href="#" data-index="0"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
@@ -117,7 +117,7 @@ while($d=mysqli_fetch_assoc($return)){
                                                 <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_0" aria-expanded="true"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
                                             </h5>
                                             <p class="collapse" id="path_drop_0" style="">
-                                                <?php echo "first key:".var_dump($firstIndex)."<br><br>"; var_dump($currentSub); ?>
+                                                <?php var_dump($currentSub); ?>
                                             </p>
                                         </div>
 <?php $count++; endforeach; ?>
