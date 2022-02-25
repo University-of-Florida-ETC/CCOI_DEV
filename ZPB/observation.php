@@ -102,7 +102,7 @@ echo "subsessions: "; print_r($subsessions);
                                     <div id="path_list" class="draggable-container">
 <?php $count = 1; foreach ($subsessions as $key=>$currentSub): ?>
                                         <div class="path-listing-container">
-                                            <h5 data-index="<?=$count;?>" class="path-listing-header">Path #<?=$count;?> (<?=$currentSub[0]['sublabel'];?>)
+                                            <h5 data-index="<?=$count;?>" class="path-listing-header">Path #<?=$count;?> (<?=$currentSub[0]['ssname'];?>)
                                                 <a class="btn-link path-edit-icon" href="#" data-index="<?=$count;?>"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
                                                 <a class="btn-link path-delete-icon" href="#" data-index="<?=$count;?>"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
                                                 <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_<?=$count;?>" aria-expanded="true"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
@@ -110,7 +110,7 @@ echo "subsessions: "; print_r($subsessions);
                                             <ol class="collapse" id="path_drop_<?=$count;?>" style="">
 <?php foreach ($currentSub as $index=>$currentOE):
     $currentSeconds = (int)$currentOE['seconds'];
-    $currentNode = $nodeData[(int)$currentOE['pnid']]
+    $currentNode = $nodeData[(int)$currentOE['choice']];
 ?>
                                                 <li><?php echo sprintf("(%02d:%02d) %s: %s", $currentSeconds/60, $currentSeconds%60, $currentNode['code'], $currentNode['title'], $currentNode['title']); if(isset($currentOE['notes'])) echo sprintf(" [%s]", $currentOE['notes']);?></li>
 <?php endforeach; ?>
