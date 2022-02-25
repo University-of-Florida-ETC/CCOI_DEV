@@ -109,11 +109,7 @@ while($d=mysqli_fetch_assoc($return)){
 
                         <div id="path_listing" class="col-12 pt-4 pr-md-5">
                                     <div id="path_list" class="draggable-container">
-<?php foreach ($subsessions as $key=>$currentSub):  $firstIndex = array_key_first($currentSub);?>
-<?php echo "<br><br>key: "; var_dump($key); ?>
-<?php echo "<br>firstIndex: "; var_dump($firstIndex); ?>
-<?php echo "<br>currentSub: "; var_dump($currentSub); ?>
-<?php endforeach; ?>
+
                                         <div class="path-listing-container">
                                             <h5 data-index="0" class="path-listing-header">Path #1 (ganflgnfa)
                                                 <a class="btn-link path-edit-icon" href="#" data-index="0"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
