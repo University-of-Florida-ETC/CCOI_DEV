@@ -109,7 +109,20 @@ while($d=mysqli_fetch_assoc($return)){
 
                         <div id="path_listing" class="col-12 pt-4 pr-md-5">
                                     <div id="path_list" class="draggable-container">
-
+<?php foreach ($subsessions as $key=>$currentSub): ?>
+                                        <div class="path-listing-container">
+                                            <h5 data-index="0" class="path-listing-header">Path #1 (ganflgnfa)
+                                                <a class="btn-link path-edit-icon" href="#" data-index="0"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
+                                                <a class="btn-link path-delete-icon" href="#" data-index="0"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
+                                                <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_0" aria-expanded="true"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
+                                            </h5>
+                                            <ol class="collapse" id="path_drop_0" style="">
+                                                <li>(1:02) 0-2: Student addresses Peer "5" [path notes 1]</li>
+                                                <li>(1:02) 1-15: Student said something that is unclear or inaudible [path notes 2]</li>
+                                                <li>(3:04) 1-35: Interaction terminates [end path] [path notes 3]<b>—END</b></li>
+                                            </ol>
+                                        </div>
+<?php endforeach; ?>
                                         <div class="path-listing-container">
                                             <h5 data-index="0" class="path-listing-header">Path #1 (ganflgnfa)
                                                 <a class="btn-link path-edit-icon" href="#" data-index="0"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
