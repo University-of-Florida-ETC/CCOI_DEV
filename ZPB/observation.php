@@ -109,7 +109,7 @@ while($d=mysqli_fetch_assoc($return)){
 
                         <div id="path_listing" class="col-12 pt-4 pr-md-5">
                                     <div id="path_list" class="draggable-container">
-<?php $count = 1; foreach ($subsessions as $key=>$currentSub): ?>
+<?php $count = 1; foreach ($subsessions as $key=>$currentSub): $firstIndex = array_key_first($currentSub);?>
                                         <div class="path-listing-container">
                                             <h5 data-index="0" class="path-listing-header">Path #<?=$count;?> (ganflgnfa)
                                                 <a class="btn-link path-edit-icon" href="#" data-index="0"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
@@ -117,7 +117,7 @@ while($d=mysqli_fetch_assoc($return)){
                                                 <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_0" aria-expanded="true"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
                                             </h5>
                                             <p class="collapse" id="path_drop_0" style="">
-                                                <?php var_dump($currentSub); ?>
+                                                <?php echo "first key:".var_dump($firstIndex)."<br><br>"; var_dump($currentSub); ?>
                                             </p>
                                         </div>
 <?php $count++; endforeach; ?>
