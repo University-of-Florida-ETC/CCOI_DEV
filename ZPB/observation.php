@@ -106,9 +106,11 @@ while($d=mysqli_fetch_assoc($return)){ /*$subsessions[$d['ssid']][d['id']]=$d;*/
                                                 <a class="btn-link path-delete-icon" href="#" data-index="<?=$count;?>"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
                                                 <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_<?=$count;?>" aria-expanded="true"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
                                             </h5>
-                                            <p class="collapse" id="path_drop_<?=$count;?>" style="">
-                                                <?php var_dump($currentSub); ?>
-                                            </p>
+                                            <ol class="collapse" id="path_drop_<?=$count;?>" style="">
+<?php foreach ($currentSub as $index=>$currentOE): ?>
+                                                <li><?= $index; ?></li>
+<?php endforeach; ?>
+                                            </ol>
                                         </div>
 <?php $count++; endforeach; ?>
                                         <div class="path-listing-container">
