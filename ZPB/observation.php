@@ -25,6 +25,7 @@ $return=mysqli_query($db,"SELECT * FROM tbNodes WHERE 1");
 $return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
 //Regardless, populate with observation info
 while($d=mysqli_fetch_assoc($return)){ /*$subsessions[$d['ssid']][d['id']]=$d;*/ $subsessions[$d['ssid']][]=$d; }
+echo "subsessions: "; print_r($subsessions);
 
 ?>
  <main role="main">
