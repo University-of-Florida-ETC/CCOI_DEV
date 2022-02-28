@@ -4,7 +4,7 @@ $dataTarget = "#demo_help_box";
 $dataOffset = "10";
 $dataSpy = "scroll";
 include '../includes/header.php';
-include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
+include '../api/ccoi_dbhookup.php';
 $id=$_GET['id']+0;
 
 //TODO: check that they are allowed in here
