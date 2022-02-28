@@ -4,7 +4,7 @@ $zpbLink = "/ZPB/dashboard";
 $dataTarget = "#demo_help_box";
 $dataOffset = "10";
 $dataSpy = "scroll";
-include 'includes/header.php';
+include $_SERVER['DOCUMENT_ROOT'].'includes/header.php';
 include $_SERVER['DOCUMENT_ROOT'].'/api/ccoi_dbhookup.php';
 $sessions = getSessions(); //defined below
 
