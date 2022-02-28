@@ -4,14 +4,13 @@ $dataTarget = "#demo_help_box";
 $dataOffset = "10";
 $dataSpy = "scroll";
 include '../includes/header.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/api/ccoi_dbhookup.php';
-$id = $_GET['id'] + 0;
+include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
+$id=$_GET['id']+0;
 
 //TODO: check that they are allowed in here
 
 $session = getSessionInfo($id); //defined below
-echo "session: ";
-print_r($session);
+//echo "session: "; print_r($session);
 
 // Get node data
 $return = mysqli_query($db, "SELECT * FROM tbNodes WHERE 1");
