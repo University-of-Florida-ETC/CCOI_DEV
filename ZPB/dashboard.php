@@ -1,6 +1,6 @@
 <?php
 $page = "dashboard";
-$zpbLink = "/dashboard";
+$zpbLink = "/ZPB/dashboard";
 $dataTarget = "#demo_help_box";
 $dataOffset = "10";
 $dataSpy = "scroll";

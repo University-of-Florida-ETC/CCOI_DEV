@@ -67,7 +67,7 @@ else ob_start();
                 <a class="nav-link" href="/contact">Contact</a>
             </li>
             <li class="nav-item <?php echo ($page == "dashboard" ? "active" : "")?>">
-                <a class="nav-link" href="/dashboard">New</a>
+                <a class="nav-link" href="/ZPB/dashboard">New</a>
             </li>
         </ul>
         <ul class="nav navbar-nav ml-auto">
