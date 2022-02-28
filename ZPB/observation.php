@@ -8,7 +8,6 @@ include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
 $id=$_GET['id']+0;
 
 //TODO: check that they are allowed in here
-
 $session = getSessionInfo($id); //defined below
 //echo "session: "; print_r($session);
 
@@ -29,8 +28,8 @@ else
 while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$d;*/
     $subsessions[$d['ssid']][] = $d;
 }
-echo "subsessions: ";
-print_r($subsessions);
+//echo "subsessions: ";
+//print_r($subsessions);
 
 ?>
 <main role="main">
