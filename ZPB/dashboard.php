@@ -7,7 +7,7 @@ $dataSpy = "scroll";
 include $includeroot.$devprodroot.'/includes/header.php';
 include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
 $sessions = getSessions(); //defined below
-
+echo "include header at: ". $includeroot.$devprodroot.'/includes/header.php';
 ?>
         <main role="main">
             <div class="container-fluid">
