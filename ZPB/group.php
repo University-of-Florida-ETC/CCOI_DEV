@@ -6,6 +6,11 @@ $dataOffset = "10";
 $dataSpy = "scroll";
 include '../includes/header.php';
 include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
+$siteAdmins = [
+    42,     //Zack
+    46,     //Brandon
+    32,     //Mark
+];
 $apps = getSessions(); //defined below
 ?>
         <main role="main">
@@ -20,8 +25,8 @@ $apps = getSessions(); //defined below
                         <div class="col-md-8">
                             <div class="row pr-md-5">
                                 <div class="col-md-8 col-12">
-                                    <h1 class="red-font">Sessions</h1>
-                                    <h5 style="text-transform: none;">Select a session to view or edit the set</h5>
+                                    <h1 class="red-font">Research Groups</h1>
+                                    <h5 style="text-transform: none;">Select a research group to enter its dashboard</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
                                     <button id="new_session_button" type="button" class="btn btn-gold float-right d-none" data-toggle="tooltip" data-html="true" title="Click here to start">Add Session</button>
@@ -37,19 +42,16 @@ $apps = getSessions(); //defined below
                                         <li class="session-listing">
                                             <div class="row">
                                                 <div class="col-sm-9 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentApp['id']; ?>"><?= $currentApp['name']; ?></a>
+                                                    <a class="btn-link session-edit" href="dashboard?id=<?= $currentApp['id']; ?>"><?= $currentApp['name']; ?></a>
                                                 </div>
                                                 <div class="col-sm-3 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentApp['shortname']; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link session-edit" href="dashboard?id=<?= $currentApp['shortname']; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
                                                     <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
                                                     <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
                                             </div>
                                         </li>
 <?php endforeach; ?>
-                                    </ul> 
-                                    <h4>Playgrounds Sessions</h4>
-                                    <ul id="playgrounds_session_list">
                                     </ul> 
                                 </div>
                             </div>
@@ -99,28 +101,6 @@ $apps = getSessions(); //defined below
         <script src="./js/demo.js"></script>-->
         <script src="/js/bootstrap.min.js"></script>
         <!--<script src="./js/zpbccoi.js"></script>-->
-        <!--
-        <script>
-            console.log("In");
-            try{
-                if(typeof(jsUserVars) != 'undefined'){
-                    console.log("In2");
-                    userid=jsUserVars['pid'];
-                    //setTimeout(function(){ fetchUserObSets2(userid);},500);
-                    setTimeout(function(){ fetchUserObSets2(userid);},50);
-                    //fetchUserObSets2(userid);
-                }
-                else {
-                    console.log("Need to login!!");
-                }
-                
-            }
-            catch(error){
-                console.log("In4");
-                error(error);
-            }
-        </script>
-        -->
         <script>
             console.log(`<?php var_dump($sessions) ?>`);
         </script>
