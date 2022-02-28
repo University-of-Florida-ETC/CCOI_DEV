@@ -5,7 +5,9 @@ $dataTarget = "#demo_help_box";
 $dataOffset = "10";
 $dataSpy = "scroll";
 include $_SERVER['DOCUMENT_ROOT'].'includes/header.php';
-include $_SERVER['DOCUMENT_ROOT'].'/api/ccoi_dbhookup.php';
+include $_SERVER['DOCUMENT_ROOT'].'api/ccoi_dbhookup.php';
+echo "DOC ROOT: " . $_SERVER['DOCUMENT_ROOT'];
+echo "header at: " . $_SERVER['DOCUMENT_ROOT'].'api/ccoi_dbhookup.php';
 $sessions = getSessions(); //defined below
 
 ?>
