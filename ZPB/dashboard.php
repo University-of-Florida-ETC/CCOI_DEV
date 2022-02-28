@@ -37,10 +37,10 @@ $sessions = getSessions(); //defined below
                                         <li class="session-listing">
                                             <div class="row">
                                                 <div class="col-sm-9 col-12">
-                                                    <a class="btn-link session-edit" href="ZPB/observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name']; ?></a>
+                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name']; ?></a>
                                                 </div>
                                                 <div class="col-sm-3 col-12">
-                                                    <a class="btn-link session-edit" href="ZPB/observation?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
                                                     <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
                                                     <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
@@ -54,10 +54,10 @@ $sessions = getSessions(); //defined below
                                         <li class="session-listing my-2">
                                             <div class="row">
                                                 <div class="col-sm-9 col-12">
-                                                    <a class="btn-link session-edit" href="ZPB/observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><?= $currentSession['name']; ?></a>
+                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><?= $currentSession['name']; ?></a>
                                                 </div>
                                                 <div class="col-sm-3 col-12">
-                                                    <a class="btn-link session-edit" href="ZPB/observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
                                                     <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
                                                     <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
