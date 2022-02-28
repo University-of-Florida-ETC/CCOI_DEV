@@ -8,27 +8,31 @@ include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
 $id=$_GET['id']+0;
 
 //TODO: check that they are allowed in here
-
 $session = getSessionInfo($id); //defined below
 //echo "session: "; print_r($session);
 
 // Get node data
-$return=mysqli_query($db,"SELECT * FROM tbNodes WHERE 1");		
-		while($d=mysqli_fetch_assoc($return)){$nodeData[$d['id']]=$d;}
+$return = mysqli_query($db, "SELECT * FROM tbNodes WHERE 1");
+while ($d = mysqli_fetch_assoc($return)) {
+    $nodeData[$d['id']] = $d;
+}
 //echo "<br>nodeData: "; print_r($nodeData);
 
 //If in playgrounds, query playgrounds DB
-if(isset($_GET['isPlayground']))
-$return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbPlaygroundActivity SA, tbPathNodes PN, tbSubPlaygrounds SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds"); 
+if (isset($_GET['isPlayground']))
+    $return = mysqli_query($db, "SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbPlaygroundActivity SA, tbPathNodes PN, tbSubPlaygrounds SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
 //Otherwise, query research
 else
-$return=mysqli_query($db,"SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
+    $return = mysqli_query($db, "SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
 //Regardless, populate with observation info
-while($d=mysqli_fetch_assoc($return)){ /*$subsessions[$d['ssid']][d['id']]=$d;*/ $subsessions[$d['ssid']][]=$d; }
-echo "subsessions: "; print_r($subsessions);
+while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$d;*/
+    $subsessions[$d['ssid']][] = $d;
+}
+//echo "subsessions: ";
+//print_r($subsessions);
 
 ?>
- <main role="main">
+<main role="main">
     <div class="container-fluid">
         <div class="container">
             <div id="session_go_back" class="row pt-3">
@@ -47,14 +51,14 @@ echo "subsessions: "; print_r($subsessions);
                             <button id="save_session_button" type="button" class="btn btn-blue float-right disabled" data-toggle="tooltip" data-html="true" title="Click here to save your session">Save Session</button>
                         </div>
                     </div>
-                    
+
                     <div id="dom_group_1" class="row pt-3">
                         <div id="path_start" class="col-12 pt-3 pr-md-5 accordion">
                             <div class="card">
                                 <div class="card-header" id="session_meta_collapse_heading">
                                     <h5 class="mb-0">
                                         <button id="session_meta_title" class="btn btn-link collapsed" data-toggle="collapse" data-target="#session_meta_collapse" aria-expanded="true" aria-controls="session_meta_collapse">
-                                        Edit Session Meta Data
+                                            Edit Session Meta Data
                                         </button>
                                     </h5>
                                 </div>
@@ -99,45 +103,48 @@ echo "subsessions: "; print_r($subsessions);
                         </div>
 
                         <div id="path_listing" class="col-12 pt-4 pr-md-5">
-                                    <div id="path_list" class="draggable-container">
-<?php $count = 1; foreach ($subsessions as $key=>$currentSub): ?>
-                                        <div class="path-listing-container">
-                                            <h5 data-index="<?=$count;?>" class="path-listing-header">Path #<?=$count;?> (<?=$currentSub[0]['ssname'];?>)
-                                                <a class="btn-link path-edit-icon" href="#" data-index="<?=$count;?>"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
-                                                <a class="btn-link path-delete-icon" href="#" data-index="<?=$count;?>"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
-                                                <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_<?=$count;?>" aria-expanded="true"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
-                                            </h5>
-                                            <ol class="collapse" id="path_drop_<?=$count;?>" style="">
-<?php foreach ($currentSub as $index=>$currentOE):
-    $currentSeconds = (int)$currentOE['seconds'];
-    $currentNode = $nodeData[(int)$currentOE['choice']];
-?>
-                                                <li><?php echo sprintf("(%02d:%02d) %s: %s", $currentSeconds/60, $currentSeconds%60, $currentNode['code'], $currentNode['title'], $currentNode['title']); if(isset($currentOE['notes'])) echo sprintf(" [%s]", $currentOE['notes']);?></li>
-<?php endforeach; ?>
-                                            </ol>
-                                        </div>
-<?php $count++; endforeach; ?>
-                                        <div class="path-listing-container">
-                                            <h5 data-index="0" class="path-listing-header">Path #1 (ganflgnfa)
-                                                <a class="btn-link path-edit-icon" href="#" data-index="0"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
-                                                <a class="btn-link path-delete-icon" href="#" data-index="0"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
-                                                <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_0" aria-expanded="true"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
-                                            </h5>
-                                            <ol class="collapse" id="path_drop_0" style="">
-                                                <li>(1:02) 0-2: Student addresses Peer "5" [path notes 1]</li>
-                                                <li>(1:02) 1-15: Student said something that is unclear or inaudible [path notes 2]</li>
-                                                <li>(3:04) 1-35: Interaction terminates [end path] [path notes 3]<b>—END</b></li>
-                                            </ol>
-                                        </div>
-                                        <div class="path-listing-container">
-                                            <h5 data-index="1" class="path-listing-header">Path #2 (hsbhsh)
-                                                <a class="btn-link path-edit-icon" href="#" data-index="1"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
-                                                <a class="btn-link path-delete-icon" href="#" data-index="1"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
-                                                <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_1"><span class="oi oi-chevron-bottom" title="Show Path Steps" aria-hidden="true"></span></button>
-                                            </h5>
-                                            <ol class="collapse" id="path_drop_1"></ol>
-                                        </div>
+                            <div id="path_list" class="draggable-container">
+                                <?php $count = 1;
+                                foreach ($subsessions as $key => $currentSub) : ?>
+                                    <div class="path-listing-container">
+                                        <h5 data-index="<?= $count; ?>" class="path-listing-header">Path #<?= $count; ?> (<?= $currentSub[0]['ssname']; ?>)
+                                            <a class="btn-link path-edit-icon" href="#" data-index="<?= $count; ?>"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
+                                            <a class="btn-link path-delete-icon" href="#" data-index="<?= $count; ?>"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
+                                            <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_<?= $count; ?>" aria-expanded="true"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
+                                        </h5>
+                                        <ol class="collapse" id="path_drop_<?= $count; ?>" style="">
+                                            <?php foreach ($currentSub as $index => $currentOE) :
+                                                $currentSeconds = (int)$currentOE['seconds'];
+                                                $currentNode = $nodeData[(int)$currentOE['choice']];
+                                            ?>
+                                                <li><?php echo sprintf("(%02d:%02d) %s: %s", $currentSeconds / 60, $currentSeconds % 60, $currentNode['code'], $currentNode['title'], $currentNode['title']);
+                                                    if (isset($currentOE['notes'])) echo sprintf(" [%s]", $currentOE['notes']); ?></li>
+                                            <?php endforeach; ?>
+                                        </ol>
                                     </div>
+                                <?php $count++;
+                                endforeach; ?>
+                                <div class="path-listing-container">
+                                    <h5 data-index="0" class="path-listing-header">Path #1 (ganflgnfa)
+                                        <a class="btn-link path-edit-icon" href="#" data-index="0"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
+                                        <a class="btn-link path-delete-icon" href="#" data-index="0"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
+                                        <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_0" aria-expanded="true"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
+                                    </h5>
+                                    <ol class="collapse" id="path_drop_0" style="">
+                                        <li>(1:02) 0-2: Student addresses Peer "5" [path notes 1]</li>
+                                        <li>(1:02) 1-15: Student said something that is unclear or inaudible [path notes 2]</li>
+                                        <li>(3:04) 1-35: Interaction terminates [end path] [path notes 3]<b>—END</b></li>
+                                    </ol>
+                                </div>
+                                <div class="path-listing-container">
+                                    <h5 data-index="1" class="path-listing-header">Path #2 (hsbhsh)
+                                        <a class="btn-link path-edit-icon" href="#" data-index="1"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
+                                        <a class="btn-link path-delete-icon" href="#" data-index="1"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
+                                        <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_1"><span class="oi oi-chevron-bottom" title="Show Path Steps" aria-hidden="true"></span></button>
+                                    </h5>
+                                    <ol class="collapse" id="path_drop_1"></ol>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div id="path_input" class="col-12 pt-3 pr-md-5 d-none">
@@ -224,7 +231,7 @@ echo "subsessions: "; print_r($subsessions);
                                     <em>Note:</em> If you need further information on how to use the instrument, visit the <a href="/about#learn">CCOI Help Center</a> section or our <a target="_blank" href="/assets/files/CCOI_Code_Book.pdf">code book</a>.
                                 </div>
                                 <div class="embed-responsive embed-responsive-16by9" id="videoFrameContainer">
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -240,55 +247,60 @@ echo "subsessions: "; print_r($subsessions);
         </div>
     </div>
 </main>
-        <?php include '../includes/footer.php'; ?>
-        <script src="/js/jquery-3.4.1.min.js"></script>
-        <script src="/js/utility.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
-        <script src="/js/zpbccoi.js"></script>
-        <script src="/js/ccoi.js"></script>
-        <script>
-            bindListeners();
-            /*
-            console.log("In");
-            try{
-                if(typeof(jsUserVars) != 'undefined'){
-                    console.log("In2");
-                    userid=jsUserVars['pid'];
-                    //setTimeout(function(){ fetchUserObSets2(userid);},500);
-                    setTimeout(function(){ fetchUserObSets3(userid);},50);
-                    //fetchUserObSets2(userid);
-                }
-                console.log("In3");
-            }
-            catch(error){
-                console.log("In4");
-                error(error);
-            }
-            */
-        </script>
-    </body> 
+<?php include '../includes/footer.php'; ?>
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/utility.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/zpbccoi.js"></script>
+<script src="/js/ccoi.js"></script>
+<script>
+    bindListeners();
+    /*
+    console.log("In");
+    try{
+        if(typeof(jsUserVars) != 'undefined'){
+            console.log("In2");
+            userid=jsUserVars['pid'];
+            //setTimeout(function(){ fetchUserObSets2(userid);},500);
+            setTimeout(function(){ fetchUserObSets3(userid);},50);
+            //fetchUserObSets2(userid);
+        }
+        console.log("In3");
+    }
+    catch(error){
+        console.log("In4");
+        error(error);
+    }
+    */
+</script>
+</body>
+
 </html>
 
 <?php
 
-function getSessionInfo($id){
-    if( !empty($id) && is_numeric($id) ){
+function getSessionInfo($id)
+{
+    if (!empty($id) && is_numeric($id)) {
         $db = $GLOBALS["db"];
 
         // If playground observation, pull from playground stuff
-        if( !empty($_GET['isPlayground'])){
-            $return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id = $id AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
-            while($d=mysqli_fetch_assoc($return)){$session=$d;}		//print_r($playgrounds);		//echo "<br>playground: "; var_dump($d);
+        if (!empty($_GET['isPlayground'])) {
+            $return = mysqli_query($db, "SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id = $id AND s.inactive IS NULL");        // ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
+            while ($d = mysqli_fetch_assoc($return)) {
+                $session = $d;
+            }        //print_r($playgrounds);		//echo "<br>playground: "; var_dump($d);
         }
-        
+
         //If not playgroung observation, pull from research stuff
         else {
-            $return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id = $id AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
-            while($d=mysqli_fetch_assoc($return)){$session=$d;}		//echo "<br>session: "; var_dump($d);
+            $return = mysqli_query($db, "SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id = $id AND s.inactive IS NULL");                // ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
+            while ($d = mysqli_fetch_assoc($return)) {
+                $session = $d;
+            }        //echo "<br>session: "; var_dump($d);
         }
-            return $session;
-    }
-    else
+        return $session;
+    } else
         return "<br>Session isn't valid :(";
 }
 
