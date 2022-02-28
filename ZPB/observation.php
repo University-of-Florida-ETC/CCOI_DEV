@@ -33,7 +33,7 @@ echo "subsessions: "; print_r($subsessions);
         <div class="container">
             <div id="session_go_back" class="row pt-3">
                 <div class="col">
-                    <a class="underlined-btn" href="/dashboard"><span class="oi oi-arrow-thick-left mr-2"></span><span class="btn-text">Back to Session Select</span></a>
+                    <a class="underlined-btn" href="dashboard"><span class="oi oi-arrow-thick-left mr-2"></span><span class="btn-text">Back to Session Select</span></a>
                 </div>
             </div>
             <div class="row py-5">
