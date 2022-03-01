@@ -270,6 +270,10 @@ function bindListeners() {
 			return undefined;
 		}
 	});
+
+
+
+
 	//$(DOM.new_session_button).click(addNewSession);
 	//$(DOM.add_path_button).click(startNewPath);
 	//$(DOM.proceed_button).click(submitBranch);
@@ -277,6 +281,11 @@ function bindListeners() {
 	//$(DOM.path_go_back).click(pathGoBack);
 	//Update the function below to switch between popup window or in window experience
 	$(DOM.launch_video_button).click(launchVideoFrameFromSession);
+	
+	$('.path-dropdown-btn').click(function(e){
+		let classList = $(this)[0].children[0].classList;
+		classList.contains('oi-chevron-bottom') ? classList.replace('oi-chevron-bottom, oi-chevron-bottom')
+			: classList.replace('oi-chevron-top', 'oi-chevron-bottom')});
 	//Revist once implementing IRR correctly.
 	//$(DOM.irr_button).click()
 	/*
