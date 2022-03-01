@@ -284,7 +284,7 @@ function bindListeners() {
 	
 	$('.path-dropdown-btn').click(function(e){
 		let classList = $(this)[0].children[0].classList;
-		classList.contains('oi-chevron-bottom') ? classList.replace('oi-chevron-bottom, oi-chevron-bottom')
+		classList.contains('oi-chevron-bottom') ? classList.replace('oi-chevron-bottom, oi-chevron-top')
 			: classList.replace('oi-chevron-top', 'oi-chevron-bottom')});
 	//Revist once implementing IRR correctly.
 	//$(DOM.irr_button).click()
