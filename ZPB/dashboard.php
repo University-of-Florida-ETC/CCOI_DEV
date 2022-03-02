@@ -7,7 +7,10 @@ $dataSpy = "scroll";
 include '../includes/header.php';
 include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
 $sessions = getSessions(); //defined below
+$appid = getAppID();
+// TO-DO: check if App-ID is correct for the page, if it is, you can stay. If not, Redirect() that person! Epically! 
 ?>
+
         <main role="main">
             <div class="container-fluid">
                 <div class="container">
@@ -178,5 +181,13 @@ function getSessions(){
     else
         return "<br>Session isn't valid :(";
 }
-
+function getAppID() {
+    $id = $_GET['id'];
+    return $id;
+}
+function Redirect($url, $permanent = false) {
+    
+    header('Location: ', $url, true, $permanent ? 301 : 302);
+    exit();
+}
 ?>
