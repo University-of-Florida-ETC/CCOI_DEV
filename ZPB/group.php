@@ -36,7 +36,7 @@ $apps = getSessions(); //defined below
                             
                             <div class="row pt-3 pr-md-5">
                                 <div class="col-12 btn-div">
-                                    <h4>Research Groups</h4>
+                                    <h4>Research Groupss</h4>
                                     <ul id="research_session_list">
 <?php foreach ($apps as $currentApp): ?>
                                         <li class="session-listing">
