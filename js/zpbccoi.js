@@ -1,3 +1,6 @@
+import "./observation";
+import "./observe";
+
 var sessionList=new Object();
 var derServer='https://ccoi-dev.education.ufl.edu/';
 
