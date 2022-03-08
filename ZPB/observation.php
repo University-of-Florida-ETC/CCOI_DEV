@@ -99,7 +99,7 @@ while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$
                             </div>
                         </div>
                         <div class="col-12 py-2 pr-md-5">
-                            <button id="add_path_button" type="button" class="btn btn-darkblue" data-toggle="tooltip" data-html="true" title="Click here to add a path">Add Observation</button>
+                            <button id="add_path_button" type="button" class="btn btn-darkblue" data-toggle="tooltip" data-html="true" title="Click here to add a Observation">Add Observation</button>
                         </div>
 
                         <div id="path_listing" class="col-12 pt-4 pr-md-5">
@@ -253,6 +253,8 @@ while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/zpbccoi.js"></script>
 <script src="/js/ccoi.js"></script>
+<script src="/js/observation.js"></script>
+<script src="/js/observe.js"></script> 
 <script>
     bindListeners();
     /*
