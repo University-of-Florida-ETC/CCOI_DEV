@@ -27,7 +27,7 @@ $appid = getAppID();
                                     <h5 style="text-transform: none;">Select a session to view or edit the set</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
-                                    <button id="new_session_button" type="button" class="btn btn-gold float-right d-none" data-toggle="tooltip" data-html="true" title="Click here to start">Add Session</button>
+                                    <button id="new_session_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Add Session</button>
                                     <button id="save_session_button" type="button" class="btn btn-blue float-right disabled d-none" data-toggle="tooltip" data-html="true" title="Click here to save your session">Save Session</button>
                                 </div>
                             </div>
@@ -35,7 +35,7 @@ $appid = getAppID();
                             <div class="row pt-3 pr-md-5">
                                 <div class="col-12 btn-div">
                                     <h4>Research Sessions</h4>
-                                    <ul id="research_session_list">
+                                    <ul id="research_session_list" class="mb-4">
 <?php foreach ($sessions['research'] as $currentSession): ?>
                                         <li class="session-listing">
                                             <div class="row">
@@ -140,6 +140,15 @@ $appid = getAppID();
         -->
         <script>
             console.log(`<?php var_dump($sessions) ?>`);
+
+            function createNewSession() {
+                let name = prompt("Enter the name of the new session:");
+                
+            }
+
+            window.onload = function() {
+                document.getElementByID("new_session_button").setAttribute("onclick","createNewSession()");
+            }
         </script>
     </body> 
 </html>
