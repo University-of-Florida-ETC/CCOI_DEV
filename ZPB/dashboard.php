@@ -27,7 +27,7 @@ $appid = getAppID();
                                     <h5 style="text-transform: none;">Select a session to view or edit the set</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
-                                    <button id="new_session_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Add Session</button>
+                                    <button id="new_session_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start" onclick="createNewSession()">Add Session</button>
                                     <button id="save_session_button" type="button" class="btn btn-blue float-right disabled d-none" data-toggle="tooltip" data-html="true" title="Click here to save your session">Save Session</button>
                                 </div>
                             </div>
@@ -139,15 +139,42 @@ $appid = getAppID();
         </script>
         -->
         <script>
+            var derServer='https://ccoi-dev.education.ufl.edu/';
+
+            function GetAjaxReturnObject(mimetype){
+                var xmlHttp=null;
+                if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+                    xmlHttp = new XMLHttpRequest();
+                    if (xmlHttp.overrideMimeType) {xmlHttp.overrideMimeType(mimetype);}
+                } else if (window.ActiveXObject) { // IE
+                    try {xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");}catch (e) {try {xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");}catch (e) {}}
+                }
+                return xmlHttp;
+            }
+
+            function getHTML(httpRequest) {
+                if (httpRequest.readyState===4) {
+                    if (httpRequest.status === 200) {			// if buggy, check logs for firefox / OPTIONS instead of POST -- need same domain
+                        return httpRequest.responseText;
+                    }
+                }
+            }
+
             console.log(`<?php var_dump($sessions) ?>`);
 
             function createNewSession() {
                 let name = prompt("Enter the name of the new session:");
                 
-            }
-
-            window.onload = function() {
-                document.getElementByID("new_session_button").setAttribute("onclick","createNewSession()");
+                var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
+                xmlHttp.onreadystatechange = function() {
+                    var data=getHTML(xmlHttp);
+                    if(data){
+                        console.log("Response: "+data);
+                    }
+                }
+                sendStr='newsession=1&name='+name;
+                var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
+                xmlHttp.open('GET', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
             }
         </script>
     </body> 
