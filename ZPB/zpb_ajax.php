@@ -29,6 +29,6 @@ if( !empty($_POST['newSession']) ) {		// we should explicitly require play=0 for
     $query="INSERT INTO tbActivityLog (action, onid, field, details, actby, acton) VALUES ('newobs','{$_POST['pathid']}','new','{$lastid}','{$_SESSION['pid']}',NOW())";
         $return=mysqli_query($db,$query);
 
-    echo $returnData;
+    echo $returnData['id'];
 }
 ?>
