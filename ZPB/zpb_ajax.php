@@ -1,5 +1,5 @@
 <?php
-include('./ccoi_session.php');
+include($_SERVER['DOCUMENT_ROOT'].'/api/ccoi_session.php');
 if( !empty($_POST['newSession']) ) {
     $_POST['pathid'] = 1;
     $_POST['playground'] = 1;
