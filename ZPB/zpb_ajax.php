@@ -1,5 +1,17 @@
 <?php
-if( !empty($_POST['newSession']) ) {		// we should explicitly require play=0 for research data
+if( !empty($_POST['newSession']) ) {
+    $_POST['pathid'] = 1;
+    $_POST['playground'] = 1;
+
+    $query="INSERT INTO tbPlaygrounds (pathid,name,createdon) VALUES ('{$_POST['pathid']}','{$name}',NOW())";
+    echo "Query 1: ".$query."\n";
+    $query="INSERT INTO tbPeopleAppPlaygrounds (personid,appid,sessionid) VALUES ('{$_SESSION['pid']}','{$_SESSION['currentlyloadedapp']}','{$lastid}')";
+    echo "Query 2: ".$query."\n";
+    $query="INSERT INTO tbActivityLog (action, onid, field, details, actby, acton) VALUES ('newobs','{$_POST['pathid']}','new','{$lastid}','{$_SESSION['pid']}',NOW())";
+    echo "Query 3: ".$query."\n";
+
+
+    /*
     $requiredValues = ['name'];     //TODO: pathID and research/playground must be specified, currently no interface for that on front-end
 
     // TEMPORARY, REMOVE LATER
@@ -30,5 +42,6 @@ if( !empty($_POST['newSession']) ) {		// we should explicitly require play=0 for
         $return=mysqli_query($db,$query);
 
     echo $returnData['id'];
+    */
 }
 ?>
