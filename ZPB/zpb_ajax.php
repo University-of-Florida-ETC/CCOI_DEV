@@ -19,7 +19,7 @@ if( !empty($_POST['newSession']) ) {
     // TEMPORARY, REMOVE LATER
     $_POST['pathid'] = 1;
     $_POST['playground'] = 1;
-
+/*
     foreach ($requiredValues as $currentValue){
         if (!isset($_POST[$currentValue])){
             echo "-1";
@@ -28,7 +28,7 @@ if( !empty($_POST['newSession']) ) {
         }
             
     }
-
+*/
     
 
     $query="INSERT INTO tbPlaygrounds (pathid,name,createdon) VALUES ('{$_POST['pathid']}','{$_POST['name']}',NOW())";
