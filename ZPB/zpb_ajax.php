@@ -1,9 +1,10 @@
 <?php
+include('./ccoi_session.php');
 if( !empty($_POST['newSession']) ) {
     $_POST['pathid'] = 1;
     $_POST['playground'] = 1;
 
-    $query="INSERT INTO tbPlaygrounds (pathid,name,createdon) VALUES ('{$_POST['pathid']}','{$name}',NOW())";
+    $query="INSERT INTO tbPlaygrounds (pathid,name,createdon) VALUES ('{$_POST['pathid']}','{$_POST['name']}',NOW())";
     echo "Query 1: ".$query."\n";
     $query="INSERT INTO tbPeopleAppPlaygrounds (personid,appid,sessionid) VALUES ('{$_SESSION['pid']}','{$_SESSION['currentlyloadedapp']}','{$lastid}')";
     echo "Query 2: ".$query."\n";
