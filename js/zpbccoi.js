@@ -300,8 +300,8 @@ function startNewPath() {
 	// Reset path
 	DOM.path_label.value = '';
 	// form new path output
-	let session = sessions[currentSessionID];
-	let paths = session.paths;
+	let session = sessionList['playgrounds'];
+let paths = session.paths;
 	stateIDPath = paths.length;
 	if(isDemo) {
 		alteredSessionData.id = currentSessionID;
