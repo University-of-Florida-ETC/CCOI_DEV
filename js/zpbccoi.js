@@ -243,6 +243,9 @@ function addNewSession() {
 	}
 }
 
+/* -------------------------- BEGIN BRANDON'S COPY AND PASTE SHENANIGANS :CLOWNEMOJI: :CLOWNEMOJI: ------------------- */
+
+
 // This function will *eventually* grab the video path from the DB, and load it up. For now, it loads a static video. 
 function launchVideoFrameFromSession () {
 	let videoID = $('#session_video_url').val();
@@ -328,6 +331,140 @@ let paths = session.paths;
 	stateIDStep = 0;
 
 	preparePath();
+}
+
+function submitBranch () {
+	// reset to true so next branch will pause upon first radio button selection
+	isFirstSelection = true;
+	let choiceIndex = $('input[name="choiceRadio"]:checked', '#branch_radio_form')[0].dataset.oldchoiceindex;
+	let newChoiceIndex = $('input[name="choiceRadio"]:checked', '#branch_radio_form').val();
+	if(choiceIndex === "-1")
+		choiceIndex = -1;
+
+	if (choiceIndex === undefined) {
+		alert('Please select an option.');
+		return false;
+	}
+
+	// process the form data into the structure
+	let session = sessions[currentSessionID];
+	let paths = session.paths;
+	let currentTrace = paths[stateIDPath].steps;
+	let currentStep = currentTrace[stateIDStep];
+	let isPathSwitched = false;
+
+	// Need to make the session dirty
+	makeDirty();
+
+	// if currentStep is defined that means you are retracing an existing path
+	if (currentStep !== undefined && (currentStep.nodeid != newNodeID || currentStep.choiceid != newChoiceIndex)) {
+		// If changing the choice leads to the same node:
+		var currentStepNextNodeID;
+		// catch empty/deleted nodes
+		try {
+			currentStepNextNodeID = currentStep.nextNodeID()
+		}
+		catch(err){
+			currentStepNextNodeID = -1;
+		}
+
+		var newChoice = getNodeFromChoice(newNodeID, newChoiceIndex);
+		if(newChoice && currentStepNextNodeID === newChoice.next_id){
+			// I'm not sure if we actually have to do anything here to get the choice to quietly swap out.
+			console.log("Changing choice, but it should go to the same node?");
+		}
+		else {
+			if (stateIDStep + 1 < currentTrace.length && confirm('Changing your choice will delete the choices made in this path after this choice. Are you sure?') === false) { return false; }
+			originalTraceLength = currentTrace.length;
+			currentTrace.splice(stateIDStep, currentTrace.length - stateIDStep);
+			// We have now switched the route of the path and we will have to make note of that in alteredSessionData later
+			currentStep = undefined;
+			isPathSwitched = true;
+		}
+	}
+
+	let subsessionid = (stateIDPath + 1).toString();
+	let extra = null;
+	let branchExtra = choiceIndex === -1 ? null : getNodeFromChoice(newNodeID, newChoiceIndex).extra;
+	if (branchExtra !== null && branchExtra !== undefined && branchExtra !== '') {
+		let extraText = "\nComma separate if multiple. If unknown, P1, P2, ... or A1, A2, ... as necessary.";
+		extra = prompt('Please enter: ' + branchExtra + extraText, currentStep === undefined ? '' : currentStep.extra);
+	}
+
+	let minutesValue = parseInt(DOM.timestamp_input_minutes.value, 10);
+	if (isNaN(minutesValue)) { DOM.timestamp_input_minutes.value = minutesValue = session.minutes; } else { session.minutes = minutesValue; }
+
+	let secondsValue = parseInt(DOM.timestamp_input_seconds.value, 10);
+	if (isNaN(secondsValue)) { DOM.timestamp_input_seconds.value = secondsValue = session.seconds; } else { session.seconds = secondsValue; }
+
+	let notes = DOM.notes_input.value;
+	DOM.notes_input.value = '';
+
+	// Node ID is a string in the DB
+	let nodeIDString = newNodeID.toString();
+	let step = new CCOI_Step(nodeID, nodeIDString, choiceIndex, newChoiceIndex, subsessionid, minutesValue, secondsValue, extra, notes);
+
+	// TODO: Move this logic into a separate function
+	if (currentStep != undefined) {
+		if (!deepEqual(currentStep,  step)) {
+			console.log("Edited");
+			step.isEdited=true;
+		}
+	} else if (currentStep == undefined && isPathSwitched==true) {
+		console.log("Undefined and path has been edited");
+		step.isEdited=true;
+	} else if (currentStep == undefined && stateIDStep+1>originalTraceLength) {
+		// We know this is a completely new step because we have gone beyond the original length of the trace
+		console.log("Undefined and new");
+		step.isNew=true;
+	} else if (currentStep == undefined && stateIDStep+1<=originalTraceLength) {
+		// We are still within the bounds of the original trace, so we know this is an "edited" step as far as the backend will be concerned
+		console.log("Undefined because step was deleted and then added back. Basically, just edited")
+		step.isEdited=true;
+	}
+
+	currentTrace[stateIDStep] = step;
+	if (alteredSessionData.paths == undefined) alteredSessionData.paths = [];
+	// If there is not currently a path in this ID, we know it hasn't been edited yet
+	if (alteredSessionData.paths[stateIDPath] == undefined) {
+		alteredSessionData.paths[stateIDPath] = sessions[currentSessionID].paths[stateIDPath];
+	}
+	let newID = stateIDPath;
+	if (alteredSessionData.paths[stateIDPath].isDeleted != undefined) {
+		if (alteredSessionData.paths[stateIDPath].isDeleted == true) {
+			newID = sessions[currentSessionID].paths.length;
+		}
+	}
+
+	alteredSessionData.id = sessions[currentSessionID].id;
+	console.log(sessions[currentSessionID]);
+	// Backend is not zero-indexed, so we have to +1 to stateIDPath
+	alteredSessionData.paths[newID].id = stateIDPath + 1;
+	alteredSessionData.paths[newID].isEdited = true;
+	// Before adding this step, we need to see if the index in alteredSessionData is empty
+	// If it is empty, we know that this is a new step and can add it
+	if(alteredSessionData.paths[newID].steps[stateIDStep] == undefined) {
+		alteredSessionData.paths[newID].steps[stateIDStep] = step;
+		alteredSessionData.paths[newID].steps[stateIDStep].isNew = true;
+	} else {
+	}
+	alteredSessionData.paths[newID].steps[stateIDStep] = step;
+	// Backend is not zero-indexed, so we have to +1 to stateIDPath
+	alteredSessionData.paths[newID].steps[stateIDStep].subsessionid = String(stateIDPath + 1);
+	stateIDStep++;
+	console.log(alteredSessionData);
+
+	let nextNodeID = step.nextNodeIDInt();
+
+	if (nextNodeID === null || nextNodeID === undefined || nextNodeID === '') {
+		goToPathStart();
+	} else {
+		if (nextNodeID !== null) {
+			setUpNodeBranches(nextNodeID);
+		}
+
+		if (makingNewPath) { addStepToPathTrace(step, DOM.path_preview_list); } else { refreshPathPreview(); }
+	}
 }
 
 function bindListeners() {
