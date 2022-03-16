@@ -263,6 +263,53 @@ function launchVideoFrameFromSession () {
 	}
 }
 
+function preparePath() {
+
+	$(DOM.dom_group_1).addClass('d-none');
+
+	// set up the branch selection
+	setUpNodeBranches(ccoi.ccoiSchema.firstNodeID);
+
+	refreshPathPreview();
+	$(DOM.path_input).removeClass('d-none');
+	$(DOM.path_preview).removeClass('d-none');
+}
+
+function startNewPath() {
+	makingNewPath = true;
+	// Reset path
+	DOM.path_label.value = '';
+	// form new path output
+	let session = sessions[currentSessionID];
+	let paths = session.paths;
+	stateIDPath = paths.length;
+	if(isDemo) {
+		alteredSessionData.id = currentSessionID;
+		session.id = currentSessionID;
+	} else {
+		alteredSessionData.id = session.id;
+	}
+
+	if (alteredSessionData.paths == undefined) {
+		alteredSessionData.paths = [];
+	}
+	// If the new path is attempting to be placed into a deleted index, we need to
+	// set isEdited to true and isDeleted to false
+	if (alteredSessionData.paths[stateIDPath] != undefined) {
+		if (alteredSessionData.paths[stateIDPath].isDeleted == true) {
+			alteredSessionData.paths[stateIDPath+1] = {label: -1, steps: [], id: stateIDPath+1, isNew: true};
+		}
+	} else {
+		// Else it's a new index and we need to set isNew to true
+		alteredSessionData.paths[stateIDPath] = {label: -1, steps: [], id: stateIDPath+1, isNew: true};
+	}
+	console.log(alteredSessionData);
+	paths.push({label: -1, steps: []});
+	stateIDStep = 0;
+
+	preparePath();
+}
+
 function bindListeners() {
 	$(window).on('beforeunload', function () {
 		let isDirty = !$(DOM.save_session_button).hasClass('disabled');
