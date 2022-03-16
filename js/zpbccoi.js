@@ -223,6 +223,26 @@ function fetchUserObSets4(u){
 	xmlHttp.open('GET', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
 }
 
+function addNewSession() {
+	$(DOM.new_session_button).attr('disabled', true);
+
+	if (isDemo) { $(DOM.new_session_button).addClass('d-none'); }
+	
+	let numSessions = sessions.length + 1;
+	let sessionTitle = 'Session ' + numSessions;
+		
+	if (isDemo) {
+		createSession("Demo Session", "Demo User", 10001);
+		let jsonSessions = JSON.stringify(sessions);
+		localStorage.setItem("sessions", jsonSessions);
+	} else {
+		$('#empty_sessions').addClass('d-none');
+		const observer = jsUserVars['first'] + ' ' + jsUserVars['last'];
+		let sessionNum = sessions.length;
+		createSession("New Session", observer, sessionNum);
+	}
+}
+
 // This function will *eventually* grab the video path from the DB, and load it up. For now, it loads a static video. 
 function launchVideoFrameFromSession () {
 	let videoID = $('#session_video_url').val();
