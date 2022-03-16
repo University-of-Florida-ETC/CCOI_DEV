@@ -1,7 +1,7 @@
 "use strict";
 
 $(function() {
-    ccoi.callToAPI('/storage/ccoi.json').then(function(result) {
+    ccoi.callToAPI('/storage/ccoi-new.json').then(function(result) {
         ccoi.ccoiSchema = ccoi.parseCCOI(result);
     }).then(function(){
         setUpObservation();
