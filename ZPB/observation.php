@@ -237,10 +237,12 @@ while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/zpbccoi.js"></script>
 <script src="/js/ccoi.js"></script>
-<script src="/js/observation.js"></script>
+<script src="/js/observation.js">
+    bindListeners();
+</script>
 <script //src="/js/observe.js"></script> 
 <script>
-    bindListeners();
+
     /*
     console.log("In");
     try{
