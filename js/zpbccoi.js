@@ -244,6 +244,16 @@ function addNewSession() {
 }
 
 /* -------------------------- BEGIN BRANDON'S COPY AND PASTE SHENANIGANS :CLOWNEMOJI: :CLOWNEMOJI: ------------------- */
+//===================================================================================================================================================================================================================================================================================================================================================================================================
+//                                                                                                                                                                                                                                                                                                                                                                                                   
+//  #####   #####    ##   ##  ##   ##                                                                                                                                                                                                                                                                                                                                                              
+//  ##  ##  ##  ##   ##   ##  ##   ##                                                                                                                                                                                                                                                                                                                                                              
+//  #####   #####    ##   ##  #######                                                                                                                                                                                                                                                                                                                                                              
+//  ##  ##  ##  ##   ##   ##  ##   ##                                                                                                                                                                                                                                                                                                                                                              
+//  #####   ##   ##   #####   ##   ##                                                                                                                                                                                                                                                                                                                                                              
+//                                                                                                                                                                                                                                                                                                                                                                                                   
+//===================================================================================================================================================================================================================================================================================================================================================================================================
+/* EVERYTHING BELOW IS NECESSARY IN ORDER TO EDIT PATHS, ALLEGEDLY. STRETCH GOAL: PRUNE THIS HOT GARBAGE... */
 
 
 // This function will *eventually* grab the video path from the DB, and load it up. For now, it loads a static video. 
@@ -332,6 +342,45 @@ let paths = session.paths;
 
 	preparePath();
 }
+
+
+function updateData () {
+	let sessionsToUpdate = [];
+
+	sessions.forEach(function (session) {
+		if (session.dirty) {
+			session.dirty = false;
+			sessionsToUpdate.push(session);
+		}
+	});
+	console.log(JSON.stringify(sessionsToUpdate));
+
+	if (isDemo) {
+		let demoSession = JSON.stringify(sessionsToUpdate);
+		localStorage.setItem("sessions", demoSession);
+		sessionsToUpdate.length = 0;
+		$('#save_session_button').addClass('disabled');
+	} else {
+		console.log(alteredSessionData);
+
+		for(let i=alteredSessionData.paths.length-1; i>=0; i--) {
+			if(alteredSessionData.paths[i] == null) {
+				alteredSessionData.paths.splice(i, 1);
+			}
+		}
+		console.log(alteredSessionData);
+	}
+	for(let i=alteredSessionData.paths.length-1; i>=0; i--) {
+		if(alteredSessionData.paths[i] == null) {
+			alteredSessionData.paths.splice(i, 1);
+		}
+	}
+	//removeEmptyKeys(alteredSessionData);
+	alteredSessionData = removeEmptyAndOld(alteredSessionData);
+	let sendData = JSON.stringify(alteredSessionData);
+	ccoi.callToAPI('/api/ccoi_ajax.php', sendData);
+}
+
 
 function submitBranch () {
 	// reset to true so next branch will pause upon first radio button selection
