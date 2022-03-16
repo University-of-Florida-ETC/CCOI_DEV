@@ -8,7 +8,9 @@ include '../api/ccoi_dbhookup.php';
 $id=$_GET['id']+0;
 
 //TODO: check that they are allowed in here
+echo "getting session info";
 $session = getSessionInfo($id); //defined below
+print_r($session);
 //echo "session: "; print_r($session);
 
 // Get node data
