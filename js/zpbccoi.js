@@ -223,6 +223,21 @@ function fetchUserObSets4(u){
 	xmlHttp.open('GET', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
 }
 
+
+
+
+//======================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+//                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+//    ###    #####     ###    ##     ##  ####     #####   ##     ##  ##      ##    ###    #####    #####                                                                                                                                                                                                                                                                                                                                                              
+//   ## ##   ##  ##   ## ##   ####   ##  ##  ##  ##   ##  ####   ##  ##      ##   ## ##   ##  ##   ##                                                                                                                                                                                                                                                                                                                                                                 
+//  ##   ##  #####   ##   ##  ##  ## ##  ##  ##  ##   ##  ##  ## ##  ##  ##  ##  ##   ##  #####    #####                                                                                                                                                                                                                                                                                                                                                              
+//  #######  ##  ##  #######  ##    ###  ##  ##  ##   ##  ##    ###  ##  ##  ##  #######  ##  ##   ##                                                                                                                                                                                                                                                                                                                                                                 
+//  ##   ##  #####   ##   ##  ##     ##  ####     #####   ##     ##   ###  ###   ##   ##  ##   ##  #####                                                                                                                                                                                                                                                                                                                                                              
+//                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+//======================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+
+/*
 function addNewSession() {
 	$(DOM.new_session_button).attr('disabled', true);
 
@@ -242,369 +257,360 @@ function addNewSession() {
 		createSession("New Session", observer, sessionNum);
 	}
 }
-
+*/
 /* -------------------------- BEGIN BRANDON'S COPY AND PASTE SHENANIGANS :CLOWNEMOJI: :CLOWNEMOJI: ------------------- */
-//===================================================================================================================================================================================================================================================================================================================================================================================================
-//                                                                                                                                                                                                                                                                                                                                                                                                   
-//  #####   #####    ##   ##  ##   ##                                                                                                                                                                                                                                                                                                                                                              
-//  ##  ##  ##  ##   ##   ##  ##   ##                                                                                                                                                                                                                                                                                                                                                              
-//  #####   #####    ##   ##  #######                                                                                                                                                                                                                                                                                                                                                              
-//  ##  ##  ##  ##   ##   ##  ##   ##                                                                                                                                                                                                                                                                                                                                                              
-//  #####   ##   ##   #####   ##   ##                                                                                                                                                                                                                                                                                                                                                              
-//                                                                                                                                                                                                                                                                                                                                                                                                   
-//===================================================================================================================================================================================================================================================================================================================================================================================================
 /* EVERYTHING BELOW IS NECESSARY IN ORDER TO EDIT PATHS, ALLEGEDLY. STRETCH GOAL: PRUNE THIS HOT GARBAGE... */
 
 
 // This function will *eventually* grab the video path from the DB, and load it up. For now, it loads a static video. 
-function launchVideoFrameFromSession () {
-	let videoID = $('#session_video_url').val();
+// function launchVideoFrameFromSession () {
+// 	let videoID = $('#session_video_url').val();
 	
-	let isDemo = true;
-	let videoFrame = document.createElement("iframe");
-	videoFrame.class = "embed-responsive-item";
+// 	let isDemo = true;
+// 	let videoFrame = document.createElement("iframe");
+// 	videoFrame.class = "embed-responsive-item";
 	
-	// popoutWindow = window.open('/video-player'); // to avoid browser pop up blockers, we have to load the pop up window directly in the on click, not in the ajax call.
-	// // Add click event to proceed and play button now that we have a video
-	// $(DOM.proceed_and_play_button).click(function () {
-	//     submitBranch();
-	//     popoutWindow.video.play();
-	// });
-	// popoutListeners();
-	if(isDemo) {
-		let videoSRC = 'https://youtube.com/embed/astISOttCQ0';
-		videoFrame.src = videoSRC;
-		videoFrame.videoTitle = 'Demo Session Video'
-		let frameContainer = document.getElementById("videoFrameContainer");
-		frameContainer.appendChild(videoFrame);
-	}
-	else {
-		$.ajax({
-			url: '/api/ccoi_ajax.php?fetchvid=' + videoID,
-			method: 'GET',
-			contentType: 'application/json; charset=utf-8',
-			success: function (data) {
-				let videoSRC = data[0];
-				let videoTitle = $('#session_video_title').val();
-				videoFrame.src = videoSRC;
-				videoFrame.videoTitle = videoTitle;
-			}
-		}).fail(function (err) {
-			console.log(err);
-			console.log(this);
-		});
-	}
-}
+// 	// popoutWindow = window.open('/video-player'); // to avoid browser pop up blockers, we have to load the pop up window directly in the on click, not in the ajax call.
+// 	// // Add click event to proceed and play button now that we have a video
+// 	// $(DOM.proceed_and_play_button).click(function () {
+// 	//     submitBranch();
+// 	//     popoutWindow.video.play();
+// 	// });
+// 	// popoutListeners();
+// 	if(isDemo) {
+// 		let videoSRC = 'https://youtube.com/embed/astISOttCQ0';
+// 		videoFrame.src = videoSRC;
+// 		videoFrame.videoTitle = 'Demo Session Video'
+// 		let frameContainer = document.getElementById("videoFrameContainer");
+// 		frameContainer.appendChild(videoFrame);
+// 	}
+// 	else {
+// 		$.ajax({
+// 			url: '/api/ccoi_ajax.php?fetchvid=' + videoID,
+// 			method: 'GET',
+// 			contentType: 'application/json; charset=utf-8',
+// 			success: function (data) {
+// 				let videoSRC = data[0];
+// 				let videoTitle = $('#session_video_title').val();
+// 				videoFrame.src = videoSRC;
+// 				videoFrame.videoTitle = videoTitle;
+// 			}
+// 		}).fail(function (err) {
+// 			console.log(err);
+// 			console.log(this);
+// 		});
+// 	}
+// }
 
-function preparePath() {
+// function preparePath() {
 
-	$(DOM.dom_group_1).addClass('d-none');
+// 	$(DOM.dom_group_1).addClass('d-none');
 
-	// set up the branch selection
-	setUpNodeBranches(ccoi.ccoiSchema.firstNodeID);
+// 	// set up the branch selection
+// 	setUpNodeBranches(ccoi.ccoiSchema.firstNodeID);
 
-	refreshPathPreview();
-	$(DOM.path_input).removeClass('d-none');
-	$(DOM.path_preview).removeClass('d-none');
-}
+// 	refreshPathPreview();
+// 	$(DOM.path_input).removeClass('d-none');
+// 	$(DOM.path_preview).removeClass('d-none');
+// }
 
-function startNewPath() {
-	makingNewPath = true;
-	// Reset path
-	DOM.path_label.value = '';
-	// form new path output
-	let session = sessionList['currentSessionID'];
-let paths = session.paths;
-	stateIDPath = paths.length;
-	if(isDemo) {
-		alteredSessionData.id = currentSessionID;
-		session.id = currentSessionID;
-	} else {
-		alteredSessionData.id = session.id;
-	}
+// function startNewPath() {
+// 	makingNewPath = true;
+// 	// Reset path
+// 	DOM.path_label.value = '';
+// 	// form new path output
+// 	let session = sessionList['curre'];
+// let paths = session.paths;
+// 	stateIDPath = paths.length;
+// 	if(isDemo) {
+// 		alteredSessionData.id = currentSessionID;
+// 		session.id = currentSessionID;
+// 	} else {
+// 		alteredSessionData.id = session.id;
+// 	}
 
-	if (alteredSessionData.paths == undefined) {
-		alteredSessionData.paths = [];
-	}
-	// If the new path is attempting to be placed into a deleted index, we need to
-	// set isEdited to true and isDeleted to false
-	if (alteredSessionData.paths[stateIDPath] != undefined) {
-		if (alteredSessionData.paths[stateIDPath].isDeleted == true) {
-			alteredSessionData.paths[stateIDPath+1] = {label: -1, steps: [], id: stateIDPath+1, isNew: true};
-		}
-	} else {
-		// Else it's a new index and we need to set isNew to true
-		alteredSessionData.paths[stateIDPath] = {label: -1, steps: [], id: stateIDPath+1, isNew: true};
-	}
-	console.log(alteredSessionData);
-	paths.push({label: -1, steps: []});
-	stateIDStep = 0;
+// 	if (alteredSessionData.paths == undefined) {
+// 		alteredSessionData.paths = [];
+// 	}
+// 	// If the new path is attempting to be placed into a deleted index, we need to
+// 	// set isEdited to true and isDeleted to false
+// 	if (alteredSessionData.paths[stateIDPath] != undefined) {
+// 		if (alteredSessionData.paths[stateIDPath].isDeleted == true) {
+// 			alteredSessionData.paths[stateIDPath+1] = {label: -1, steps: [], id: stateIDPath+1, isNew: true};
+// 		}
+// 	} else {
+// 		// Else it's a new index and we need to set isNew to true
+// 		alteredSessionData.paths[stateIDPath] = {label: -1, steps: [], id: stateIDPath+1, isNew: true};
+// 	}
+// 	console.log(alteredSessionData);
+// 	paths.push({label: -1, steps: []});
+// 	stateIDStep = 0;
 
-	preparePath();
-}
-
-
-function updateData () {
-	let sessionsToUpdate = [];
-
-	sessions.forEach(function (session) {
-		if (session.dirty) {
-			session.dirty = false;
-			sessionsToUpdate.push(session);
-		}
-	});
-	console.log(JSON.stringify(sessionsToUpdate));
-
-	if (isDemo) {
-		let demoSession = JSON.stringify(sessionsToUpdate);
-		localStorage.setItem("sessions", demoSession);
-		sessionsToUpdate.length = 0;
-		$('#save_session_button').addClass('disabled');
-	} else {
-		console.log(alteredSessionData);
-
-		for(let i=alteredSessionData.paths.length-1; i>=0; i--) {
-			if(alteredSessionData.paths[i] == null) {
-				alteredSessionData.paths.splice(i, 1);
-			}
-		}
-		console.log(alteredSessionData);
-	}
-	for(let i=alteredSessionData.paths.length-1; i>=0; i--) {
-		if(alteredSessionData.paths[i] == null) {
-			alteredSessionData.paths.splice(i, 1);
-		}
-	}
-	//removeEmptyKeys(alteredSessionData);
-	alteredSessionData = removeEmptyAndOld(alteredSessionData);
-	let sendData = JSON.stringify(alteredSessionData);
-	ccoi.callToAPI('/api/ccoi_ajax.php', sendData);
-}
+// 	preparePath();
+// }
 
 
-function submitBranch () {
-	// reset to true so next branch will pause upon first radio button selection
-	isFirstSelection = true;
-	let choiceIndex = $('input[name="choiceRadio"]:checked', '#branch_radio_form')[0].dataset.oldchoiceindex;
-	let newChoiceIndex = $('input[name="choiceRadio"]:checked', '#branch_radio_form').val();
-	if(choiceIndex === "-1")
-		choiceIndex = -1;
+// function updateData () {
+// 	let sessionsToUpdate = [];
 
-	if (choiceIndex === undefined) {
-		alert('Please select an option.');
-		return false;
-	}
+// 	sessions.forEach(function (session) {
+// 		if (session.dirty) {
+// 			session.dirty = false;
+// 			sessionsToUpdate.push(session);
+// 		}
+// 	});
+// 	console.log(JSON.stringify(sessionsToUpdate));
 
-	// process the form data into the structure
-	let session = sessions[currentSessionID];
-	let paths = session.paths;
-	let currentTrace = paths[stateIDPath].steps;
-	let currentStep = currentTrace[stateIDStep];
-	let isPathSwitched = false;
+// 	if (isDemo) {
+// 		let demoSession = JSON.stringify(sessionsToUpdate);
+// 		localStorage.setItem("sessions", demoSession);
+// 		sessionsToUpdate.length = 0;
+// 		$('#save_session_button').addClass('disabled');
+// 	} else {
+// 		console.log(alteredSessionData);
 
-	// Need to make the session dirty
-	makeDirty();
-
-	// if currentStep is defined that means you are retracing an existing path
-	if (currentStep !== undefined && (currentStep.nodeid != newNodeID || currentStep.choiceid != newChoiceIndex)) {
-		// If changing the choice leads to the same node:
-		var currentStepNextNodeID;
-		// catch empty/deleted nodes
-		try {
-			currentStepNextNodeID = currentStep.nextNodeID()
-		}
-		catch(err){
-			currentStepNextNodeID = -1;
-		}
-
-		var newChoice = getNodeFromChoice(newNodeID, newChoiceIndex);
-		if(newChoice && currentStepNextNodeID === newChoice.next_id){
-			// I'm not sure if we actually have to do anything here to get the choice to quietly swap out.
-			console.log("Changing choice, but it should go to the same node?");
-		}
-		else {
-			if (stateIDStep + 1 < currentTrace.length && confirm('Changing your choice will delete the choices made in this path after this choice. Are you sure?') === false) { return false; }
-			originalTraceLength = currentTrace.length;
-			currentTrace.splice(stateIDStep, currentTrace.length - stateIDStep);
-			// We have now switched the route of the path and we will have to make note of that in alteredSessionData later
-			currentStep = undefined;
-			isPathSwitched = true;
-		}
-	}
-
-	let subsessionid = (stateIDPath + 1).toString();
-	let extra = null;
-	let branchExtra = choiceIndex === -1 ? null : getNodeFromChoice(newNodeID, newChoiceIndex).extra;
-	if (branchExtra !== null && branchExtra !== undefined && branchExtra !== '') {
-		let extraText = "\nComma separate if multiple. If unknown, P1, P2, ... or A1, A2, ... as necessary.";
-		extra = prompt('Please enter: ' + branchExtra + extraText, currentStep === undefined ? '' : currentStep.extra);
-	}
-
-	let minutesValue = parseInt(DOM.timestamp_input_minutes.value, 10);
-	if (isNaN(minutesValue)) { DOM.timestamp_input_minutes.value = minutesValue = session.minutes; } else { session.minutes = minutesValue; }
-
-	let secondsValue = parseInt(DOM.timestamp_input_seconds.value, 10);
-	if (isNaN(secondsValue)) { DOM.timestamp_input_seconds.value = secondsValue = session.seconds; } else { session.seconds = secondsValue; }
-
-	let notes = DOM.notes_input.value;
-	DOM.notes_input.value = '';
-
-	// Node ID is a string in the DB
-	let nodeIDString = newNodeID.toString();
-	let step = new CCOI_Step(nodeID, nodeIDString, choiceIndex, newChoiceIndex, subsessionid, minutesValue, secondsValue, extra, notes);
-
-	// TODO: Move this logic into a separate function
-	if (currentStep != undefined) {
-		if (!deepEqual(currentStep,  step)) {
-			console.log("Edited");
-			step.isEdited=true;
-		}
-	} else if (currentStep == undefined && isPathSwitched==true) {
-		console.log("Undefined and path has been edited");
-		step.isEdited=true;
-	} else if (currentStep == undefined && stateIDStep+1>originalTraceLength) {
-		// We know this is a completely new step because we have gone beyond the original length of the trace
-		console.log("Undefined and new");
-		step.isNew=true;
-	} else if (currentStep == undefined && stateIDStep+1<=originalTraceLength) {
-		// We are still within the bounds of the original trace, so we know this is an "edited" step as far as the backend will be concerned
-		console.log("Undefined because step was deleted and then added back. Basically, just edited")
-		step.isEdited=true;
-	}
-
-	currentTrace[stateIDStep] = step;
-	if (alteredSessionData.paths == undefined) alteredSessionData.paths = [];
-	// If there is not currently a path in this ID, we know it hasn't been edited yet
-	if (alteredSessionData.paths[stateIDPath] == undefined) {
-		alteredSessionData.paths[stateIDPath] = sessions[currentSessionID].paths[stateIDPath];
-	}
-	let newID = stateIDPath;
-	if (alteredSessionData.paths[stateIDPath].isDeleted != undefined) {
-		if (alteredSessionData.paths[stateIDPath].isDeleted == true) {
-			newID = sessions[currentSessionID].paths.length;
-		}
-	}
-
-	alteredSessionData.id = sessions[currentSessionID].id;
-	console.log(sessions[currentSessionID]);
-	// Backend is not zero-indexed, so we have to +1 to stateIDPath
-	alteredSessionData.paths[newID].id = stateIDPath + 1;
-	alteredSessionData.paths[newID].isEdited = true;
-	// Before adding this step, we need to see if the index in alteredSessionData is empty
-	// If it is empty, we know that this is a new step and can add it
-	if(alteredSessionData.paths[newID].steps[stateIDStep] == undefined) {
-		alteredSessionData.paths[newID].steps[stateIDStep] = step;
-		alteredSessionData.paths[newID].steps[stateIDStep].isNew = true;
-	} else {
-	}
-	alteredSessionData.paths[newID].steps[stateIDStep] = step;
-	// Backend is not zero-indexed, so we have to +1 to stateIDPath
-	alteredSessionData.paths[newID].steps[stateIDStep].subsessionid = String(stateIDPath + 1);
-	stateIDStep++;
-	console.log(alteredSessionData);
-
-	let nextNodeID = step.nextNodeIDInt();
-
-	if (nextNodeID === null || nextNodeID === undefined || nextNodeID === '') {
-		goToPathStart();
-	} else {
-		if (nextNodeID !== null) {
-			setUpNodeBranches(nextNodeID);
-		}
-
-		if (makingNewPath) { addStepToPathTrace(step, DOM.path_preview_list); } else { refreshPathPreview(); }
-	}
-}
-
-function bindListeners() {
-	$(window).on('beforeunload', function () {
-		let isDirty = !$(DOM.save_session_button).hasClass('disabled');
-		if (isDirty) {
-			return 'Are you sure you want to leave?';
-		} else {
-			return undefined;
-		}
-	});
+// 		for(let i=alteredSessionData.paths.length-1; i>=0; i--) {
+// 			if(alteredSessionData.paths[i] == null) {
+// 				alteredSessionData.paths.splice(i, 1);
+// 			}
+// 		}
+// 		console.log(alteredSessionData);
+// 	}
+// 	for(let i=alteredSessionData.paths.length-1; i>=0; i--) {
+// 		if(alteredSessionData.paths[i] == null) {
+// 			alteredSessionData.paths.splice(i, 1);
+// 		}
+// 	}
+// 	//removeEmptyKeys(alteredSessionData);
+// 	alteredSessionData = removeEmptyAndOld(alteredSessionData);
+// 	let sendData = JSON.stringify(alteredSessionData);
+// 	ccoi.callToAPI('/api/ccoi_ajax.php', sendData);
+// }
 
 
+// function submitBranch () {
+// 	// reset to true so next branch will pause upon first radio button selection
+// 	isFirstSelection = true;
+// 	let choiceIndex = $('input[name="choiceRadio"]:checked', '#branch_radio_form')[0].dataset.oldchoiceindex;
+// 	let newChoiceIndex = $('input[name="choiceRadio"]:checked', '#branch_radio_form').val();
+// 	if(choiceIndex === "-1")
+// 		choiceIndex = -1;
+
+// 	if (choiceIndex === undefined) {
+// 		alert('Please select an option.');
+// 		return false;
+// 	}
+
+// 	// process the form data into the structure
+// 	let session = sessions[currentSessionID];
+// 	let paths = session.paths;
+// 	let currentTrace = paths[stateIDPath].steps;
+// 	let currentStep = currentTrace[stateIDStep];
+// 	let isPathSwitched = false;
+
+// 	// Need to make the session dirty
+// 	makeDirty();
+
+// 	// if currentStep is defined that means you are retracing an existing path
+// 	if (currentStep !== undefined && (currentStep.nodeid != newNodeID || currentStep.choiceid != newChoiceIndex)) {
+// 		// If changing the choice leads to the same node:
+// 		var currentStepNextNodeID;
+// 		// catch empty/deleted nodes
+// 		try {
+// 			currentStepNextNodeID = currentStep.nextNodeID()
+// 		}
+// 		catch(err){
+// 			currentStepNextNodeID = -1;
+// 		}
+
+// 		var newChoice = getNodeFromChoice(newNodeID, newChoiceIndex);
+// 		if(newChoice && currentStepNextNodeID === newChoice.next_id){
+// 			// I'm not sure if we actually have to do anything here to get the choice to quietly swap out.
+// 			console.log("Changing choice, but it should go to the same node?");
+// 		}
+// 		else {
+// 			if (stateIDStep + 1 < currentTrace.length && confirm('Changing your choice will delete the choices made in this path after this choice. Are you sure?') === false) { return false; }
+// 			originalTraceLength = currentTrace.length;
+// 			currentTrace.splice(stateIDStep, currentTrace.length - stateIDStep);
+// 			// We have now switched the route of the path and we will have to make note of that in alteredSessionData later
+// 			currentStep = undefined;
+// 			isPathSwitched = true;
+// 		}
+// 	}
+
+// 	let subsessionid = (stateIDPath + 1).toString();
+// 	let extra = null;
+// 	let branchExtra = choiceIndex === -1 ? null : getNodeFromChoice(newNodeID, newChoiceIndex).extra;
+// 	if (branchExtra !== null && branchExtra !== undefined && branchExtra !== '') {
+// 		let extraText = "\nComma separate if multiple. If unknown, P1, P2, ... or A1, A2, ... as necessary.";
+// 		extra = prompt('Please enter: ' + branchExtra + extraText, currentStep === undefined ? '' : currentStep.extra);
+// 	}
+
+// 	let minutesValue = parseInt(DOM.timestamp_input_minutes.value, 10);
+// 	if (isNaN(minutesValue)) { DOM.timestamp_input_minutes.value = minutesValue = session.minutes; } else { session.minutes = minutesValue; }
+
+// 	let secondsValue = parseInt(DOM.timestamp_input_seconds.value, 10);
+// 	if (isNaN(secondsValue)) { DOM.timestamp_input_seconds.value = secondsValue = session.seconds; } else { session.seconds = secondsValue; }
+
+// 	let notes = DOM.notes_input.value;
+// 	DOM.notes_input.value = '';
+
+// 	// Node ID is a string in the DB
+// 	let nodeIDString = newNodeID.toString();
+// 	let step = new CCOI_Step(nodeID, nodeIDString, choiceIndex, newChoiceIndex, subsessionid, minutesValue, secondsValue, extra, notes);
+
+// 	// TODO: Move this logic into a separate function
+// 	if (currentStep != undefined) {
+// 		if (!deepEqual(currentStep,  step)) {
+// 			console.log("Edited");
+// 			step.isEdited=true;
+// 		}
+// 	} else if (currentStep == undefined && isPathSwitched==true) {
+// 		console.log("Undefined and path has been edited");
+// 		step.isEdited=true;
+// 	} else if (currentStep == undefined && stateIDStep+1>originalTraceLength) {
+// 		// We know this is a completely new step because we have gone beyond the original length of the trace
+// 		console.log("Undefined and new");
+// 		step.isNew=true;
+// 	} else if (currentStep == undefined && stateIDStep+1<=originalTraceLength) {
+// 		// We are still within the bounds of the original trace, so we know this is an "edited" step as far as the backend will be concerned
+// 		console.log("Undefined because step was deleted and then added back. Basically, just edited")
+// 		step.isEdited=true;
+// 	}
+
+// 	currentTrace[stateIDStep] = step;
+// 	if (alteredSessionData.paths == undefined) alteredSessionData.paths = [];
+// 	// If there is not currently a path in this ID, we know it hasn't been edited yet
+// 	if (alteredSessionData.paths[stateIDPath] == undefined) {
+// 		alteredSessionData.paths[stateIDPath] = sessions[currentSessionID].paths[stateIDPath];
+// 	}
+// 	let newID = stateIDPath;
+// 	if (alteredSessionData.paths[stateIDPath].isDeleted != undefined) {
+// 		if (alteredSessionData.paths[stateIDPath].isDeleted == true) {
+// 			newID = sessions[currentSessionID].paths.length;
+// 		}
+// 	}
+
+// 	alteredSessionData.id = sessions[currentSessionID].id;
+// 	console.log(sessions[currentSessionID]);
+// 	// Backend is not zero-indexed, so we have to +1 to stateIDPath
+// 	alteredSessionData.paths[newID].id = stateIDPath + 1;
+// 	alteredSessionData.paths[newID].isEdited = true;
+// 	// Before adding this step, we need to see if the index in alteredSessionData is empty
+// 	// If it is empty, we know that this is a new step and can add it
+// 	if(alteredSessionData.paths[newID].steps[stateIDStep] == undefined) {
+// 		alteredSessionData.paths[newID].steps[stateIDStep] = step;
+// 		alteredSessionData.paths[newID].steps[stateIDStep].isNew = true;
+// 	} else {
+// 	}
+// 	alteredSessionData.paths[newID].steps[stateIDStep] = step;
+// 	// Backend is not zero-indexed, so we have to +1 to stateIDPath
+// 	alteredSessionData.paths[newID].steps[stateIDStep].subsessionid = String(stateIDPath + 1);
+// 	stateIDStep++;
+// 	console.log(alteredSessionData);
+
+// 	let nextNodeID = step.nextNodeIDInt();
+
+// 	if (nextNodeID === null || nextNodeID === undefined || nextNodeID === '') {
+// 		goToPathStart();
+// 	} else {
+// 		if (nextNodeID !== null) {
+// 			setUpNodeBranches(nextNodeID);
+// 		}
+
+// 		if (makingNewPath) { addStepToPathTrace(step, DOM.path_preview_list); } else { refreshPathPreview(); }
+// 	}
+// }
+
+// function bindListeners() {
+// 	$(window).on('beforeunload', function () {
+// 		let isDirty = !$(DOM.save_session_button).hasClass('disabled');
+// 		if (isDirty) {
+// 			return 'Are you sure you want to leave?';
+// 		} else {
+// 			return undefined;
+// 		}
+// 	});
 
 
-	$(DOM.new_session_button).click(addNewSession);
-	$(DOM.add_path_button).click(startNewPath);
-	$(DOM.proceed_button).click(submitBranch);
-	$(DOM.save_session_button).click(updateData);
-	$(DOM.path_go_back).click(pathGoBack);
-	//Update the function below to switch between popup window or in window experience
-	$(DOM.launch_video_button).click(launchVideoFrameFromSession);
+
+
+// 	$(DOM.new_session_button).click(addNewSession);
+// 	$(DOM.add_path_button).click(startNewPath);
+// 	$(DOM.proceed_button).click(submitBranch);
+// 	$(DOM.save_session_button).click(updateData);
+// 	$(DOM.path_go_back).click(pathGoBack);
+// 	//Update the function below to switch between popup window or in window experience
+// 	$(DOM.launch_video_button).click(launchVideoFrameFromSession);
 	
-	$('.path-dropdown-btn').click(function(e){
-		let classList = $(this)[0].children[0].classList;
-		classList.contains('oi-chevron-bottom') ? classList.replace('oi-chevron-bottom', 'oi-chevron-top')
-			: classList.replace('oi-chevron-top', 'oi-chevron-bottom')});
-	//Revist once implementing IRR correctly.
-	//$(DOM.irr_button).click()
-	/*
-	* Reorder functionality disabled, as it is not actually used by researchers
-	$(DOM.reorder_paths_button).click(function(e) {
-		toggleDraggables(true);
-		ccoiDraggables.setDragabbles(document.querySelectorAll('.draggable'), document.querySelectorAll('.draggable-container'));
-		ccoiDraggables.initiateDraggables();
-	});
-	$(DOM.finish_reorder_button).click(function(e) {
-		makeDirty();
-		setNewPathOrder();
-		console.log(alteredSessionData);
-		toggleDraggables(false);
-		$('.path-order-disclaimer').removeClass('d-none');
-	});
-	 */
+// 	$('.path-dropdown-btn').click(function(e){
+// 		let classList = $(this)[0].children[0].classList;
+// 		classList.contains('oi-chevron-bottom') ? classList.replace('oi-chevron-bottom', 'oi-chevron-top')
+// 			: classList.replace('oi-chevron-top', 'oi-chevron-bottom')});
+// 	//Revist once implementing IRR correctly.
+// 	//$(DOM.irr_button).click()
+// 	/*
+// 	* Reorder functionality disabled, as it is not actually used by researchers
+// 	$(DOM.reorder_paths_button).click(function(e) {
+// 		toggleDraggables(true);
+// 		ccoiDraggables.setDragabbles(document.querySelectorAll('.draggable'), document.querySelectorAll('.draggable-container'));
+// 		ccoiDraggables.initiateDraggables();
+// 	});
+// 	$(DOM.finish_reorder_button).click(function(e) {
+// 		makeDirty();
+// 		setNewPathOrder();
+// 		console.log(alteredSessionData);
+// 		toggleDraggables(false);
+// 		$('.path-order-disclaimer').removeClass('d-none');
+// 	});
+// 	 */
 	
-	//This function appears to be useless.
-	//bindSessionMetaForm();
-}
+// 	//This function appears to be useless.
+// 	//bindSessionMetaForm();
+// }
 
-/*
-function showsessionList(){
-	leftSide.style.opacity=0;
-	leftInnerContainer.innerHTML='';			// wipe out all existing child nodes
-	currentlyLoadedObservation=0;
-	currentlyLoadedObservationSet=0;
-	header_usersets.innerText='';
-	header_obsetmeta.innerHTML='';
-	header_obsetmeta.style.display='none';
-	maybe_videolink.innerHTML='';		maybe_videolink.style.display='none';
-	header_highlevelnotes.style.display='none';
-	var maybeplayground='switch to the playground';		var settext=' Observation Sets';
-		if(viewingPlaygrounds){maybeplayground='switch to research'; settext=' Playground Sets';}
+// /*
+// function showsessionList(){
+// 	leftSide.style.opacity=0;
+// 	leftInnerContainer.innerHTML='';			// wipe out all existing child nodes
+// 	currentlyLoadedObservation=0;
+// 	currentlyLoadedObservationSet=0;
+// 	header_usersets.innerText='';
+// 	header_obsetmeta.innerHTML='';
+// 	header_obsetmeta.style.display='none';
+// 	maybe_videolink.innerHTML='';		maybe_videolink.style.display='none';
+// 	header_highlevelnotes.style.display='none';
+// 	var maybeplayground='switch to the playground';		var settext=' Observation Sets';
+// 		if(viewingPlaygrounds){maybeplayground='switch to research'; settext=' Playground Sets';}
 	
-	if(jsUserVars['first'].substring(-1)=='s'){apposS="'";}else{apposS="'s";}
-	header_loadedsession.innerText=jsUserVars['first']+apposS+settext;
-	header_loadedsession.className='orange';
-		header_loadedobs.className='';
-	header_loadedobs.innerText='';
-	header_loadedobsxofx.innerHTML='Select an observation set to view or edit the set or <span id="playstate" onClick="switchPlayState();">'+maybeplayground+'</span>';
-	for (var e in sessionList){
-		if( ( !viewingPlaygrounds && sessionList[e]['isPlayground']==0) || (viewingPlaygrounds && sessionList[e]['isPlayground']==1)){
-			var newNode=platonicsession.cloneNode(true);
-				newNode.childNodes[0].innerText=sessionList[e]['name'];
-					newNode.setAttribute('title','Path: '+appPathList[sessionList[e]['path']]['name']);		// this is getting called before the AJAX has time to reply with the data... reordered the loading calls
-				newNode.id='obSet_'+e;
-				newNode.addEventListener('click',function(e){loadObservationSet(e);e.stopPropagation();},false);
-				newNode.lastChild.children[0].addEventListener('click',function(e){singleEdit(e);e.stopPropagation();},false);		// rename
-					newNode.lastChild.children[0].setAttribute('opitem','name');
-				newNode.lastChild.children[1].addEventListener('click',function(e){if(confirm("\nDELETING OBSERVATION SET\n===================================\n\nYou are about to delete an existing Observation Set.\nAre you sure about this?\n\n===================================\n")){nukeObSet(e);}e.stopPropagation();},false);	// nuke
-				newNode.lastChild.children[2].addEventListener('click',function(e){visualize(e);e.stopPropagation();},false);		// visualize
-			leftInnerContainer.appendChild(newNode);
-		}
-	}
-	// CREATE NEW at bottom =========
-	var newNode=platonicsession.cloneNode(true);
-	newNode.childNodes[0].innerText='Create New Observation Set';
-		newNode.id='obSet_0';		newNode.setAttribute('opitem','dopath');
-		newNode.removeChild(newNode.lastChild);
-		newNode.addEventListener('click',function(e){doDrop(e);e.stopPropagation();},true);
-	leftInnerContainer.appendChild(newNode);
-	fadeInLS();
+// 	if(jsUserVars['first'].substring(-1)=='s'){apposS="'";}else{apposS="'s";}
+// 	header_loadedsession.innerText=jsUserVars['first']+apposS+settext;
+// 	header_loadedsession.className='orange';
+// 		header_loadedobs.className='';
+// 	header_loadedobs.innerText='';
+// 	header_loadedobsxofx.innerHTML='Select an observation set to view or edit the set or <span id="playstate" onClick="switchPlayState();">'+maybeplayground+'</span>';
+// 	for (var e in sessionList){
+// 		if( ( !viewingPlaygrounds && sessionList[e]['isPlayground']==0) || (viewingPlaygrounds && sessionList[e]['isPlayground']==1)){
+// 			var newNode=platonicsession.cloneNode(true);
+// 				newNode.childNodes[0].innerText=sessionList[e]['name'];
+// 					newNode.setAttribute('title','Path: '+appPathList[sessionList[e]['path']]['name']);		// this is getting called before the AJAX has time to reply with the data... reordered the loading calls
+// 				newNode.id='obSet_'+e;
+// 				newNode.addEventListener('click',function(e){loadObservationSet(e);e.stopPropagation();},false);
+// 				newNode.lastChild.children[0].addEventListener('click',function(e){singleEdit(e);e.stopPropagation();},false);		// rename
+// 					newNode.lastChild.children[0].setAttribute('opitem','name');
+// 				newNode.lastChild.children[1].addEventListener('click',function(e){if(confirm("\nDELETING OBSERVATION SET\n===================================\n\nYou are about to delete an existing Observation Set.\nAre you sure about this?\n\n===================================\n")){nukeObSet(e);}e.stopPropagation();},false);	// nuke
+// 				newNode.lastChild.children[2].addEventListener('click',function(e){visualize(e);e.stopPropagation();},false);		// visualize
+// 			leftInnerContainer.appendChild(newNode);
+// 		}
+// 	}
+// 	// CREATE NEW at bottom =========
+// 	var newNode=platonicsession.cloneNode(true);
+// 	newNode.childNodes[0].innerText='Create New Observation Set';
+// 		newNode.id='obSet_0';		newNode.setAttribute('opitem','dopath');
+// 		newNode.removeChild(newNode.lastChild);
+// 		newNode.addEventListener('click',function(e){doDrop(e);e.stopPropagation();},true);
+// 	leftInnerContainer.appendChild(newNode);
+// 	fadeInLS();
 	
-}
-*/
+// }
+// */
