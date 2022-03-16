@@ -402,6 +402,7 @@ var ccoiObservation = (function (){
         DOM.path_label.value = '';
         // form new path output
         let session = sessions[currentSessionID];
+        console.log(sessions[currentSessionID] + "\n This is the current session... is it?");
         let paths = session.paths;
         stateIDPath = paths.length;
         if(isDemo) {
