@@ -12,6 +12,8 @@
  * @param {string} observer
  * @param {string} sessionNotes
  */
+
+console.log("loaded");
 function CCOI_Session (name, date, studentID, prompted, paths, minutes, seconds, observer, sessionNotes) {
   if (arguments.length === 1 && name.hasOwnProperty('id')) {
     var obj = name;
