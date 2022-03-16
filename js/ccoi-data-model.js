@@ -57,9 +57,9 @@ function CCOI_Session (name, date, studentID, prompted, paths, minutes, seconds,
     this.prompted = prompted || false;
     this.sessionNotes = sessionNotes || '';
     this.dirty = false;
-
+	
     this.paths = paths || [];
-
+	console.log(this.paths);
     // the last "valid" values for this session
     this.minutes = minutes || 0;
     this.seconds = seconds || 0;
