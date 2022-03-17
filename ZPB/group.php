@@ -29,14 +29,14 @@ $apps = getSessions(); //defined below
                                     <h5 style="text-transform: none;">Select a research group to enter its dashboard</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
-                                    <button id="new_session_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Add Group</button>
+                                    <button id="new_session_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start" onclick="createNewApp()">Add Group</button>
                                     <button id="save_session_button" type="button" class="btn btn-blue float-right disabled d-none" data-toggle="tooltip" data-html="true" title="Click here to save your session">Save Session</button>
                                 </div>
                             </div>
                             
                             <div class="row pt-3 pr-md-5">
                                 <div class="col-12 btn-div">
-                                    <h4>Research Groupss</h4>
+                                    <h4>Research Groups</h4>
                                     <ul id="research_session_list">
 <?php foreach ($apps as $currentApp): ?>
                                         <li class="session-listing">
@@ -102,8 +102,6 @@ $apps = getSessions(); //defined below
         <script src="/js/bootstrap.min.js"></script>
         <!--<script src="./js/zpbccoi.js"></script>-->
         <script>
-            console.log(`<?php var_dump($sessions) ?>`);
-
             function createNewApp() {
                 let name = prompt("Enter the name of the new group:");
                 
