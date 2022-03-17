@@ -103,6 +103,40 @@ $apps = getSessions(); //defined below
         <!--<script src="./js/zpbccoi.js"></script>-->
         <script>
             console.log(`<?php var_dump($sessions) ?>`);
+
+            function createNewApp() {
+                let name = prompt("Enter the name of the new group:");
+                
+                var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
+                xmlHttp.onreadystatechange = function() {
+                    var data=getHTML(xmlHttp);
+                    if(data){
+                        let returnedInt = parseInt(data);
+                        if (returnedInt == -1) {
+                            console.error("Missing required data");
+                        }
+                        else {
+                            let newEntry = document.createElement("li");
+                            newEntry.setAttribute("class", "session-listing my-2");
+                            newEntry.innerHTML = `<div class="row">
+                                                <div class="col-sm-9 col-12">
+                                                    <a class="btn-link session-edit" href="dashboard">${name}</a>
+                                                </div>
+                                                <div class="col-sm-3 col-12">
+                                                    <a class="btn-link session-edit" href="dashboard"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                </div>
+                                            </div>`;
+                            let playgroundList = document.getElementById("research_session_list");
+                            playgroundList.appendChild(newEntry);
+                        }
+                    }
+                }
+                sendStr='newApp=1&name='+name;
+                var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
+                xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
+            }
         </script>
     </body> 
 </html>
