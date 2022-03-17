@@ -114,7 +114,7 @@ $appid = getAppID();
         <script src="./js/demo.js"></script> -->
         <script src="/js/observation.js"></script>
         <script src="/js/bootstrap.min.js"></script>
-        <script src="/js/zpbdash.js"></script>
+        <!--cript src="/js/zpbdash.js"></script>-->
         <script src="/js/ccoi.js"></script>
         <script src="/js/ccoi-data-model.js"></script>
         <!--<script src="./js/zpbccoi.js"></script>-->
@@ -188,7 +188,7 @@ $appid = getAppID();
                                                     <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
                                             </div>`;
-                            let playgroundList = document.getElementByID("playgrounds_session_list");
+                            let playgroundList = document.getElementById("playgrounds_session_list");
                             playgroundList.appendChild(newEntry);
                         }
                     }
