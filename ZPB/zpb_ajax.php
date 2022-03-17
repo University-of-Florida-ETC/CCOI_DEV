@@ -49,8 +49,7 @@ if( !empty($_POST['newSession']) ) {
 }
 
 if( !empty($_POST['newApp']) ) {
-    
-    
+
     $requiredValues = ['name'];     //TODO: pathID and research/playground must be specified, currently no interface for that on front-end
 
 /*
@@ -63,6 +62,7 @@ if( !empty($_POST['newApp']) ) {
             
     }
 */
+
     $_POST['name'] = substr($_POST['name'], 0, 100);
     $shortName = substr($_POST['name'], 0, 30);
 
