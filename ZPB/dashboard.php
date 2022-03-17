@@ -188,7 +188,8 @@ $appid = getAppID();
                                                     <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
                                             </div>`;
-                            document.playgrounds_session_list.appendChild(newEntry);
+                            let playgroundList = document.getElementByID("playgrounds_session_list");
+                            playgroundList.appendChild(newEntry);
                         }
                     }
                 }
