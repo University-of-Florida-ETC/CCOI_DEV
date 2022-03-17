@@ -29,7 +29,7 @@ $apps = getSessions(); //defined below
                                     <h5 style="text-transform: none;">Select a research group to enter its dashboard</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
-                                    <button id="new_session_button" type="button" class="btn btn-gold float-right d-none" data-toggle="tooltip" data-html="true" title="Click here to start">Add Session</button>
+                                    <button id="new_session_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Add Group</button>
                                     <button id="save_session_button" type="button" class="btn btn-blue float-right disabled d-none" data-toggle="tooltip" data-html="true" title="Click here to save your session">Save Session</button>
                                 </div>
                             </div>
