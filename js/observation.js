@@ -401,6 +401,7 @@ var ccoiObservation = (function (){
         // Reset path
         DOM.path_label.value = '';
         // form new path output
+        console.log("This is the gamer variable: " + sessionID);
         let session = sessions[sessionID];
         console.log(sessions[sessionID] + "\n This is the current session... is it?");
         let paths = session.paths;
