@@ -36,6 +36,7 @@ while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$
 //print_r($subsessions);
 
 ?>
+<script>let sessionID = <?php echo $id; ?></script>
 <main role="main">
     <div class="container-fluid">
         <div class="container">
