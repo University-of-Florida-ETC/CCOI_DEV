@@ -47,4 +47,34 @@ if( !empty($_POST['newSession']) ) {
     echo $returnData['id'];
     
 }
+
+if( !empty($_POST['newApp']) ) {
+    
+    
+    $requiredValues = ['name'];     //TODO: pathID and research/playground must be specified, currently no interface for that on front-end
+
+/*
+    foreach ($requiredValues as $currentValue){
+        if (!isset($_POST[$currentValue])){
+            echo "-1";
+            return;
+
+        }
+            
+    }
+*/
+    $_POST['name'] = substr($_POST['name'], 0, 100);
+    $shortName = substr($_POST['name'], 0, 30);
+
+    $query="INSERT INTO tbApps (name,shortname) VALUES ('{$_POST['name']}','{$shortName}')";
+        $return=mysqli_query($db,$query);
+        $lastid=mysqli_insert_id($db);
+        $returnData['id'] = $lastid;
+
+    $query="INSERT INTO tbPersonAppRoles (personid,appid,role) VALUES ('{$_SESSION['pid']}','{$lastid}','admin')";
+        $return=mysqli_query($db,$query);
+
+    echo $returnData['id'];
+    
+}
 ?>
