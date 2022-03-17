@@ -171,8 +171,25 @@ $appid = getAppID();
                 xmlHttp.onreadystatechange = function() {
                     var data=getHTML(xmlHttp);
                     if(data){
-                        console.log("Response:");
-                        console.log(data);
+                        let returnedInt = parseInt(data);
+                        if (returnedInt == -1) {
+                            console.error("Missing required data");
+                        }
+                        else {
+                            let newEntry = document.createElement("li");
+                            newEntry.setAttribute("class", "session-listing my-2");
+                            newEntry.innerHTML = `<div class="row">
+                                                <div class="col-sm-9 col-12">
+                                                    <a class="btn-link session-edit" href="observation?id=${returnedInt}&isPlayground=1">${name}</a>
+                                                </div>
+                                                <div class="col-sm-3 col-12">
+                                                    <a class="btn-link session-edit" href="observation?id=${returnedInt}&isPlayground=1"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                </div>
+                                            </div>`;
+                            document.playgrounds_session_list.appendChild(newEntry);
+                        }
                     }
                 }
                 sendStr='newSession=1&name='+name;
