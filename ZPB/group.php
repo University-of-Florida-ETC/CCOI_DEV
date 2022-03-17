@@ -102,6 +102,19 @@ $apps = getSessions(); //defined below
         <script src="/js/bootstrap.min.js"></script>
         <!--<script src="./js/zpbccoi.js"></script>-->
         <script>
+            var derServer='https://ccoi-dev.education.ufl.edu/';
+
+            function GetAjaxReturnObject(mimetype){
+                var xmlHttp=null;
+                if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+                    xmlHttp = new XMLHttpRequest();
+                    if (xmlHttp.overrideMimeType) {xmlHttp.overrideMimeType(mimetype);}
+                } else if (window.ActiveXObject) { // IE
+                    try {xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");}catch (e) {try {xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");}catch (e) {}}
+                }
+                return xmlHttp;
+            }
+
             function createNewApp() {
                 let name = prompt("Enter the name of the new group:");
                 
