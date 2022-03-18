@@ -53,6 +53,7 @@ if( !empty($_POST['newApp']) ) {
     }
 */
 
+    //TODO: strip name of bad characters
     $_POST['name'] = substr($_POST['name'], 0, 100);
     $shortName = substr($_POST['name'], 0, 30);
 
@@ -64,8 +65,9 @@ if( !empty($_POST['newApp']) ) {
     $query="INSERT INTO tbPersonAppRoles (personid,appid,role) VALUES ('{$_SESSION['pid']}','{$lastid}','admin')";
         $return=mysqli_query($db,$query);
 
+    $_SESSION['myappids'][] = $returnData['id'];
+    $_SESSION['myappnames'][] = $_POST['name'];
     echo $returnData['id'];
-    
 }
 
 if( !empty($_POST['changeCurrentApp']) ) {
