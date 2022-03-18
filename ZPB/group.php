@@ -11,7 +11,7 @@ $siteAdmins = [
     46,     //Brandon
     32,     //Mark
 ];
-$apps = getSessions(); //defined below
+//$apps = getSessions(); //defined below
 echo "myappids: "; var_dump($_SESSION['myappids']);
 echo "<br>myappnames: "; var_dump($_SESSION['myappnames']);
 echo "<br>currentlyloadedapp:";
@@ -42,20 +42,6 @@ var_dump($_SESSION['currentlyloadedapp']);
                                 <div class="col-12 btn-div">
                                     <h4>Research Groups</h4>
                                     <ul id="research_session_list">
-<?php foreach ($apps as $currentApp): ?>
-                                        <li class="session-listing my-2">
-                                            <div class="row">
-                                                <div class="col-sm-9 col-12">
-                                                    <a class="btn-link session-edit" href="javascript:void(0)" onclick="changeCurrentSession(<?= $currentApp['id']; ?>)"><?= $currentApp['name']; ?></a>
-                                                </div>
-                                                <div class="col-sm-3 col-12">
-                                                    <a class="btn-link session-edit" href="dashboard?id=<?= $currentApp['shortname']; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
-                                                </div>
-                                            </div>
-                                        </li>
-<?php endforeach; ?>
 <?php $numApps = count($_SESSION['myappids']); for ($i = 0; $i < $numApps; $i++): ?>
                                         <li class="session-listing my-2">
                                             <div class="row">
