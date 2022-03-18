@@ -581,7 +581,9 @@ var ccoiObservation = (function (){
             goToPathStart(currentSessionID);
         });*/
 
-        $('.session-edit').click(function() { 
+        $('.session-edit').click(function() {
+            console.log("Refreshing current variables");
+            console.log("Found session index: " + findSessionIndexById(sessions, sessionID)); 
             currentSessionID = findSessionIndexById(sessions, sessionID);
             $(DOM.new_session_button).addClass('d-none');
             originalPathsLength = sessions[currentSessionID].paths.length;
