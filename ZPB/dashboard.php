@@ -212,12 +212,12 @@ function getSessions(){
 
         if(is_numeric($uid)){    
             //Get session IDs of research sessions
-            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
+            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
             while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
             $sidstext=implode(',',$sessionids);
 
             //Get session IDs of playground sessions
-            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
+            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
             while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];}		//echo "d: "; var_dump($d);
             $playidstext=implode(',',$playids);
 
