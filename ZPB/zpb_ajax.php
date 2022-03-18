@@ -71,7 +71,7 @@ if( !empty($_POST['newApp']) ) {
 if( !empty($_POST['changeCurrentApp']) ) {
 
     //If this is a valid appID to change to
-    if( in_array( $_POST['changeTo'], $_SESSION['myapps'] ) ) {
+    if( in_array( $_POST['changeTo'], $_SESSION['myappids'] ) ) {
         $_SESSION['currentlyloadedapp'] = $_POST['changeTo'];
         echo "y";
     }
