@@ -115,6 +115,14 @@ $apps = getSessions(); //defined below
                 return xmlHttp;
             }
 
+            function getHTML(httpRequest) {
+                if (httpRequest.readyState===4) {
+                    if (httpRequest.status === 200) {			// if buggy, check logs for firefox / OPTIONS instead of POST -- need same domain
+                        return httpRequest.responseText;
+                    }
+                }
+            }
+
             function createNewApp() {
                 let name = prompt("Enter the name of the new group:");
                 
