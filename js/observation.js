@@ -55,7 +55,7 @@ var ccoiObservation = (function (){
         $('#branch_container').append('<form id="branch_radio_form" class="col-12 pt-3" action="javascript:void(0)"></form>');
 
         let selectedChoice = null;
-        let currentStep = sessions[sessionID].paths[stateIDPath].steps[stateIDStep];
+        let currentStep = sessions[currentSessionID].paths[stateIDPath].steps[stateIDStep];
         // contains backstop for old ID system
         if (currentStep !== undefined && (newNodeID == currentStep.nodeid || prettyID == currentStep.node)) {
             DOM.timestamp_input_minutes.value = currentStep.minutes;
