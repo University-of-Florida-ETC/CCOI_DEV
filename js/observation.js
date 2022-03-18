@@ -612,8 +612,10 @@ var ccoiObservation = (function (){
         if(isDemo) {
             getDemoSessions();
         } else {
+            console.log("starting getSessions for pid: " + jsUserVars['pid']);
             if (jsUserVars['pid'] != undefined) {
                 ccoi.callToAPI('/api/ccoi_ajax.php?uid='+jsUserVars['pid']).then(function(responseText){
+                    console.log(responseText);
                     sessions = [];
                     $(DOM.new_session_button).removeClass('d-none');
                     if (responseText != null && responseText != "null") {
