@@ -45,12 +45,11 @@ var_dump($_SESSION['currentlyloadedapp']);
 <?php $numApps = count($_SESSION['myappids']); for ($i = 0; $i < $numApps; $i++): ?>
                                         <li class="session-listing my-2">
                                             <div class="row">
-                                                <div class="col-sm-9 col-12">
+                                                <div class="col-sm-11 col-12">
                                                     <a class="btn-link session-edit" href="javascript:void(0)" onclick="changeCurrentSession(<?= $_SESSION['myappids'][$i]; ?>)"><?= $_SESSION['myappnames'][$i]; ?></a>
                                                 </div>
-                                                <div class="col-sm-3 col-12">
-                                                    <a class="btn-link session-edit" href="admin?id=<?= $_SESSION['myappids'][$i]; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
+                                                <div class="col-sm-1 col-12">
+                                                    <a class="btn-link session-edit" href="admin?id=<?= $_SESSION['myappids'][$i]; ?>"><span class="oi oi-pencil px-2" title="Edit Research Group" aria-hidden="true"></span></a>
                                                 </div>
                                             </div>
                                         </li>
