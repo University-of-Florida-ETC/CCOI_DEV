@@ -12,8 +12,9 @@ $siteAdmins = [
     32,     //Mark
 ];
 $apps = getSessions(); //defined below
-echo "myapps: ".var_dump($_SESSION['myapps']);
-echo "\n\rcurrentlyloadedapp:".var_dump($_SESSION['currentlyloadedapp']);
+echo "myapps: "; var_dump($_SESSION['myapps']);
+echo "<br>currentlyloadedapp:";
+var_dump($_SESSION['currentlyloadedapp']);
 ?>
         <main role="main">
             <div class="container-fluid">
