@@ -55,6 +55,7 @@ var ccoiObservation = (function (){
         $('#branch_container').append('<form id="branch_radio_form" class="col-12 pt-3" action="javascript:void(0)"></form>');
 
         let selectedChoice = null;
+        console.log(currentSessionID)
         console.log("SetUpNodeBranches: CurrentSession is: " + sessions[currentSessionID]);
         let currentStep = sessions[currentSessionID].paths[stateIDPath].steps[stateIDStep];
         // contains backstop for old ID system
