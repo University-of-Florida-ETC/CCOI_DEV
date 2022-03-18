@@ -39,7 +39,7 @@ $apps = getSessions(); //defined below
                                     <h4>Research Groups</h4>
                                     <ul id="research_session_list">
 <?php foreach ($apps as $currentApp): ?>
-                                        <li class="session-listing">
+                                        <li class="session-listing my-2">
                                             <div class="row">
                                                 <div class="col-sm-9 col-12">
                                                     <a class="btn-link session-edit" href="dashboard?id=<?= $currentApp['id']; ?>"><?= $currentApp['name']; ?></a>
