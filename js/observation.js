@@ -55,7 +55,9 @@ var ccoiObservation = (function (){
         $('#branch_container').append('<form id="branch_radio_form" class="col-12 pt-3" action="javascript:void(0)"></form>');
 
         let selectedChoice = null;
-        let currentStep = sessions[sessionID].paths[stateIDPath].steps[stateIDStep];
+        console.log("this is the current session number in setupNode Branches: " + currentSessionID)
+        console.log("SetUpNodeBranches: CurrentSession is: " + sessions[currentSessionID]);
+        let currentStep = sessions[currentSessionID].paths[stateIDPath].steps[stateIDStep];
         // contains backstop for old ID system
         if (currentStep !== undefined && (newNodeID == currentStep.nodeid || prettyID == currentStep.node)) {
             DOM.timestamp_input_minutes.value = currentStep.minutes;
@@ -395,6 +397,14 @@ var ccoiObservation = (function (){
         $(DOM.path_input).removeClass('d-none');
         $(DOM.path_preview).removeClass('d-none');
     }
+
+    function findSessionIndexById(arr, id) {
+        const requiredIndex = arr.findIndex(el => {
+            return el.id === id
+        }) 
+
+        return requiredIndex;
+    }
     
     function startNewPath() {
         makingNewPath = true;
@@ -402,8 +412,9 @@ var ccoiObservation = (function (){
         DOM.path_label.value = '';
         // form new path output
         console.log("This is the gamer variable: " + sessionID);
-        let session = sessions[sessionID];
-        console.log(sessions[sessionID] + "\n This is the current session... is it?");
+        let sessionIndex = findSessionIndexById(sessions, sessionID);
+        let session = sessions[sessionIndex];
+        console.log(sessions[sessionIndex] + "\n This is the current session... is it?");
         let paths = session.paths;
         stateIDPath = paths.length;
         if(isDemo) {
@@ -539,43 +550,57 @@ var ccoiObservation = (function (){
     }
     
     function refreshSessionList () {
-        if (DOM.session_list === null) {
-            return;
-        }
-        removeAllChildren(DOM.session_list);
-        $(DOM.session_list).removeClass('d-none');
-        $(DOM.irr_button).removeClass('d-none');
 
-        let sessionsLength = sessions.length;
-        for (let i = 0; i < sessionsLength; i++) {
-            let session = sessions[i];
-            appendSessionLink(DOM.session_list, i, isDemo);
-            if (isDemo) $('#session_'+i+'_name').text("Demo Session")
-            else if (session.name != null) $('#session_'+i+'_name').text(session.name);
-            else if (session.videoURL != null) {
-                // If name not explicitly set, use video title
-                let name = session.videoURL.replace(/\.[^/.]+$/, "");
-                name += " ("+session.observer+")";
-                $('#session_' + i + '_name').text(name);
-            } else {
-                $('#session_'+i+'_name').text("Session "+i);
-            }
-        }
+        currentSessionID = findSessionIndexbyId(sessions, sessionID);
+        console.log ("Here's yo current session id: " + currentSessionID);
+        // if (DOM.session_list === null) {
+        //     console.log("BURP!");
+        //     return;
+        // }
+        // removeAllChildren(DOM.session_list);
+        // $(DOM.session_list).removeClass('d-none');
+        // $(DOM.irr_button).removeClass('d-none');
+
+        // let sessionsLength = sessions.length;
+        // for (let i = 0; i < sessionsLength; i++) {
+        //     let session = sessions[i];
+        //     appendSessionLink(DOM.session_list, i, isDemo);
+        //     if (isDemo) $('#session_'+i+'_name').text("Demo Session")
+        //     else if (session.name != null) $('#session_'+i+'_name').text(session.name);
+        //     else if (session.videoURL != null) {
+        //         // If name not explicitly set, use video title
+        //         let name = session.videoURL.replace(/\.[^/.]+$/, "");
+        //         name += " ("+session.observer+")";
+        //         $('#session_' + i + '_name').text(name);
+        //     } else {
+        //         $('#session_'+i+'_name').text("Session "+i);
+        //     }
+        // }
         
-        $('.session-edit').click(function() {
-            currentSessionID = $(this).data().index;
-            $(DOM.new_session_button).addClass('d-none');
-            // This is used to add new paths to alteredSessionData
-            originalPathsLength = sessions[currentSessionID].paths.length;
-            goToPathStart(currentSessionID);
-        });
+        // /*$('.session-edit').click(function() {
+        //     currentSessionID = $(this).data().index;
+        //     $(DOM.new_session_button).addClass('d-none');
+        //     // This is used to add new paths to alteredSessionData
+        //     originalPathsLength = sessions[currentSessionID].paths.length;
+        //     goToPathStart(currentSessionID);
+        // });*/
+
+        // $('.session-edit').click(function() {
+        //     console.log("Refreshing current variables");
+        //     console.log("Found session index: " + findSessionIndexById(sessions, sessionID)); 
+        //     currentSessionID = findSessionIndexById(sessions, sessionID);
+        //     $(DOM.new_session_button).addClass('d-none');
+        //     originalPathsLength = sessions[currentSessionID].paths.length;
+        //     goToPathStart(currentSessionID);
+
+        }
 
         /*
         $('.sessionDeleteIcon').click(function () {
             deleteSession($(this).data().index);
         });
         */
-    }
+    
     
     function getDemoSessions() {
         let localSessions = localStorage.getItem("sessions");
@@ -612,8 +637,10 @@ var ccoiObservation = (function (){
         if(isDemo) {
             getDemoSessions();
         } else {
+            console.log("starting getSessions for pid: " + jsUserVars['pid']);
             if (jsUserVars['pid'] != undefined) {
                 ccoi.callToAPI('/api/ccoi_ajax.php?uid='+jsUserVars['pid']).then(function(responseText){
+                    console.log(responseText);
                     sessions = [];
                     $(DOM.new_session_button).removeClass('d-none');
                     if (responseText != null && responseText != "null") {
