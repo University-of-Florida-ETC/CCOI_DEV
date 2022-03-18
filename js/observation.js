@@ -551,6 +551,7 @@ var ccoiObservation = (function (){
     
     function refreshSessionList () {
         if (DOM.session_list === null) {
+            console.log("BURP!");
             return;
         }
         removeAllChildren(DOM.session_list);
@@ -589,7 +590,7 @@ var ccoiObservation = (function (){
             originalPathsLength = sessions[currentSessionID].paths.length;
             goToPathStart(currentSessionID);
 
-        })
+        });
 
         /*
         $('.sessionDeleteIcon').click(function () {
