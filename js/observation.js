@@ -550,54 +550,57 @@ var ccoiObservation = (function (){
     }
     
     function refreshSessionList () {
-        if (DOM.session_list === null) {
-            console.log("BURP!");
-            return;
-        }
-        removeAllChildren(DOM.session_list);
-        $(DOM.session_list).removeClass('d-none');
-        $(DOM.irr_button).removeClass('d-none');
 
-        let sessionsLength = sessions.length;
-        for (let i = 0; i < sessionsLength; i++) {
-            let session = sessions[i];
-            appendSessionLink(DOM.session_list, i, isDemo);
-            if (isDemo) $('#session_'+i+'_name').text("Demo Session")
-            else if (session.name != null) $('#session_'+i+'_name').text(session.name);
-            else if (session.videoURL != null) {
-                // If name not explicitly set, use video title
-                let name = session.videoURL.replace(/\.[^/.]+$/, "");
-                name += " ("+session.observer+")";
-                $('#session_' + i + '_name').text(name);
-            } else {
-                $('#session_'+i+'_name').text("Session "+i);
-            }
-        }
+        currentSessionID = findSessionIndexbyId(sessions, sessionID);
+        console.log ("Here's yo current session id: " + currentSessionID);
+        // if (DOM.session_list === null) {
+        //     console.log("BURP!");
+        //     return;
+        // }
+        // removeAllChildren(DOM.session_list);
+        // $(DOM.session_list).removeClass('d-none');
+        // $(DOM.irr_button).removeClass('d-none');
+
+        // let sessionsLength = sessions.length;
+        // for (let i = 0; i < sessionsLength; i++) {
+        //     let session = sessions[i];
+        //     appendSessionLink(DOM.session_list, i, isDemo);
+        //     if (isDemo) $('#session_'+i+'_name').text("Demo Session")
+        //     else if (session.name != null) $('#session_'+i+'_name').text(session.name);
+        //     else if (session.videoURL != null) {
+        //         // If name not explicitly set, use video title
+        //         let name = session.videoURL.replace(/\.[^/.]+$/, "");
+        //         name += " ("+session.observer+")";
+        //         $('#session_' + i + '_name').text(name);
+        //     } else {
+        //         $('#session_'+i+'_name').text("Session "+i);
+        //     }
+        // }
         
-        /*$('.session-edit').click(function() {
-            currentSessionID = $(this).data().index;
-            $(DOM.new_session_button).addClass('d-none');
-            // This is used to add new paths to alteredSessionData
-            originalPathsLength = sessions[currentSessionID].paths.length;
-            goToPathStart(currentSessionID);
-        });*/
+        // /*$('.session-edit').click(function() {
+        //     currentSessionID = $(this).data().index;
+        //     $(DOM.new_session_button).addClass('d-none');
+        //     // This is used to add new paths to alteredSessionData
+        //     originalPathsLength = sessions[currentSessionID].paths.length;
+        //     goToPathStart(currentSessionID);
+        // });*/
 
-        $('.session-edit').click(function() {
-            console.log("Refreshing current variables");
-            console.log("Found session index: " + findSessionIndexById(sessions, sessionID)); 
-            currentSessionID = findSessionIndexById(sessions, sessionID);
-            $(DOM.new_session_button).addClass('d-none');
-            originalPathsLength = sessions[currentSessionID].paths.length;
-            goToPathStart(currentSessionID);
+        // $('.session-edit').click(function() {
+        //     console.log("Refreshing current variables");
+        //     console.log("Found session index: " + findSessionIndexById(sessions, sessionID)); 
+        //     currentSessionID = findSessionIndexById(sessions, sessionID);
+        //     $(DOM.new_session_button).addClass('d-none');
+        //     originalPathsLength = sessions[currentSessionID].paths.length;
+        //     goToPathStart(currentSessionID);
 
-        });
+        }
 
         /*
         $('.sessionDeleteIcon').click(function () {
             deleteSession($(this).data().index);
         });
         */
-    }
+    
     
     function getDemoSessions() {
         let localSessions = localStorage.getItem("sessions");
