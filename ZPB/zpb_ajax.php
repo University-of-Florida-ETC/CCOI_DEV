@@ -1,26 +1,16 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'].'/api/ccoi_session.php');
 include($_SERVER['DOCUMENT_ROOT'].'/api/ccoi_dbhookup.php');
+
 if( !empty($_POST['newSession']) ) {
-    /*
-    $_POST['pathid'] = 1;
-    $_POST['playground'] = 1;
 
-    $query="INSERT INTO tbPlaygrounds (pathid,name,createdon) VALUES ('{$_POST['pathid']}','{$_POST['name']}',NOW())";
-    echo "Query 1: ".$query."\n";
-    $query="INSERT INTO tbPeopleAppPlaygrounds (personid,appid,sessionid) VALUES ('{$_SESSION['pid']}','{$_SESSION['currentlyloadedapp']}','{$lastid}')";
-    echo "Query 2: ".$query."\n";
-    $query="INSERT INTO tbActivityLog (action, onid, field, details, actby, acton) VALUES ('newobs','{$_POST['pathid']}','new','{$lastid}','{$_SESSION['pid']}',NOW())";
-    echo "Query 3: ".$query."\n";
-    */
-
-    
     $requiredValues = ['name'];     //TODO: pathID and research/playground must be specified, currently no interface for that on front-end
 
     // TEMPORARY, REMOVE LATER
     $_POST['pathid'] = 1;
     $_POST['playground'] = 1;
 /*
+    // Double check that all required values are present
     foreach ($requiredValues as $currentValue){
         if (!isset($_POST[$currentValue])){
             echo "-1";
@@ -30,7 +20,6 @@ if( !empty($_POST['newSession']) ) {
             
     }
 */
-    
 
     $query="INSERT INTO tbPlaygrounds (pathid,name,createdon) VALUES ('{$_POST['pathid']}','{$_POST['name']}',NOW())";
         $return=mysqli_query($db,$query);
@@ -53,6 +42,7 @@ if( !empty($_POST['newApp']) ) {
     $requiredValues = ['name'];     //TODO: pathID and research/playground must be specified, currently no interface for that on front-end
 
 /*
+    //Double check that all required values are present
     foreach ($requiredValues as $currentValue){
         if (!isset($_POST[$currentValue])){
             echo "-1";
@@ -76,5 +66,17 @@ if( !empty($_POST['newApp']) ) {
 
     echo $returnData['id'];
     
+}
+
+if( !empty($_POST['changeCurrentApp']) ) {
+
+    //If this is a valid appID to change to
+    if( in_array( $_POST['changeTo'], $_SESSION['myapps'] ) ) {
+        $_SESSION['currentlyloadedapp'] = $_POST['changeTo'];
+        echo "y";
+    }
+    else{
+        echo "n";
+    }    
 }
 ?>

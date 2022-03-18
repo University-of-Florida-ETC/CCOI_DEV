@@ -42,7 +42,7 @@ $apps = getSessions(); //defined below
                                         <li class="session-listing my-2">
                                             <div class="row">
                                                 <div class="col-sm-9 col-12">
-                                                    <a class="btn-link session-edit" href="dashboard?id=<?= $currentApp['id']; ?>"><?= $currentApp['name']; ?></a>
+                                                    <a class="btn-link session-edit" href="javascript:void(0)" onclick="changeCurrentSession(<?= $currentApp['id']; ?>)"><?= $currentApp['name']; ?></a>
                                                 </div>
                                                 <div class="col-sm-3 col-12">
                                                     <a class="btn-link session-edit" href="dashboard?id=<?= $currentApp['shortname']; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
@@ -123,6 +123,7 @@ $apps = getSessions(); //defined below
                 }
             }
 
+            //Function to create new app
             function createNewApp() {
                 let name = prompt("Enter the name of the new group:");
                 
@@ -153,6 +154,26 @@ $apps = getSessions(); //defined below
                     }
                 }
                 sendStr='newApp=1&name='+name;
+                var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
+                xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
+            }
+
+            //Function to change current app to different app
+            function changeCurrentSession(newSessionID) {
+                var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
+                xmlHttp.onreadystatechange = function() {
+                    var data=getHTML(xmlHttp);
+                    if(data){
+                        if(data=="y"){
+                            window.location.href = '/ZPB/dashboard';
+                        }
+                        else {
+                            console.error("invalid new app id");
+                            alert("Could not verify that new group is valid. Please refresh the page.");
+                        }
+                    }
+                }
+                sendStr='changeCurrentApp=1&changeTo='+newSessionID;
                 var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
                 xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
             }
