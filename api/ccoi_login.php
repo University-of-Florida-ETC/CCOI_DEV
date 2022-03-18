@@ -15,7 +15,7 @@
 			$return=mysqli_query($db,"SELECT * FROM tbPersonAppRoles WHERE personid='{$persondata['id']}'");		// need to add      AND inactive IS NULL
 			while($roledata=mysqli_fetch_assoc($return)){
 		//		$_SESSION['roles'][$roledata['role']]=true;
-				$_SESSION['myapps'][] = $roledata['appid'];
+				$_SESSION['myappids'][] = $roledata['appid'];
 				switch($roledata['role']){
 					case 'superadmin': 	$_SESSION['roles'][$roledata['appid']]['superadmin']=true;		// highest level gets all lower levels -- no "break" for cases
 					case 'admin': 			$_SESSION['roles'][$roledata['appid']]['admin']=true;
@@ -25,6 +25,11 @@
 		//			case 'superadmin': 	$_SESSION['roles']['superadmin']=true;
 				}
 	//			if($roledata['role']=='admin'){$_SESSION['roles']['coder']=true;$_SESSION['roles']['usermgr']=true;$_SESSION['roles']['videosync']=true;}
+			}
+
+			$return=mysqli_query($db,"SELECT * FROM tbApps WHERE personid='{$persondata['id']}'");		// need to add      AND inactive IS NULL
+			while($appdata=mysqli_fetch_assoc($return)){
+				$_SESSION['myappnames'][]=$appdata['name'];
 			}
 			
 			$return=mysqli_query($db,"SELECT pas.*, s.* FROM tbPeopleAppSessions pas, tbSessions s WHERE pas.personid='{$persondata['id']}' AND pas.inactive IS NULL AND pas.sessionid=s.id AND s.inactive IS NULL");
@@ -38,7 +43,7 @@
 			$_SESSION['last']=$persondata['last'];
 			$_SESSION['email']=$persondata['email'];
 			
-			if(count($_SESSION['myapps'])==1){
+			if(count($_SESSION['myappids'])==1){
 				$_SESSION['currentlyloadedapp']=$_SESSION['myapps'][0];
 			}
 			else {

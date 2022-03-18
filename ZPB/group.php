@@ -12,7 +12,7 @@ $siteAdmins = [
     32,     //Mark
 ];
 $apps = getSessions(); //defined below
-echo "myapps: "; var_dump($_SESSION['myapps']);
+echo "myapps: "; var_dump($_SESSION['myappids']);
 echo "<br>currentlyloadedapp:";
 var_dump($_SESSION['currentlyloadedapp']);
 ?>
@@ -51,6 +51,19 @@ var_dump($_SESSION['currentlyloadedapp']);
                                                     <a class="btn-link session-edit" href="dashboard?id=<?= $currentApp['shortname']; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
                                                     <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
                                                     <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                </div>
+                                            </div>
+                                        </li>
+<?php endforeach; ?>
+<?php $numApps = count($_SESSION['myappids']); for ($i = 0; $i < $numApps; $i++): ?>
+                                        <li class="session-listing my-2">
+                                            <div class="row">
+                                                <div class="col-sm-9 col-12">
+                                                    <a class="btn-link session-edit" href="javascript:void(0)" onclick="changeCurrentSession(<?= $_SESSION['myappids'][$i]; ?>)"><?= $_SESSION['myappnames'][$i]; ?></a>
+                                                </div>
+                                                <div class="col-sm-3 col-12">
+                                                    <a class="btn-link session-edit" href="admin?id=<?= $_SESSION['myappids'][$i]; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
                                                 </div>
                                             </div>
                                         </li>
