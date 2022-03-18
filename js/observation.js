@@ -571,13 +571,21 @@ var ccoiObservation = (function (){
             }
         }
         
-        $('.session-edit').click(function() {
+        /*$('.session-edit').click(function() {
             currentSessionID = $(this).data().index;
             $(DOM.new_session_button).addClass('d-none');
             // This is used to add new paths to alteredSessionData
             originalPathsLength = sessions[currentSessionID].paths.length;
             goToPathStart(currentSessionID);
-        });
+        });*/
+
+        $('.session-edit').click(function() { 
+            currentSessionID = findSessionIndexById(sessions, sessionID);
+            $(DOM.new_session_button).addClass('d-none');
+            originalPathsLength = sessions[currentSessionID].paths.length;
+            goToPathStart(currentSessionID);
+
+        })
 
         /*
         $('.sessionDeleteIcon').click(function () {
