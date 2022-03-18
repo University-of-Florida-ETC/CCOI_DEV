@@ -67,7 +67,7 @@ var_dump($_SESSION['currentlyloadedapp']);
                                                 </div>
                                             </div>
                                         </li>
-<?php endforeach; ?>
+<?php endfor; ?>
                                     </ul> 
                                 </div>
                             </div>
