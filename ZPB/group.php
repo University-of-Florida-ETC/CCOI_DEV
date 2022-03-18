@@ -49,7 +49,9 @@ var_dump($_SESSION['currentlyloadedapp']);
                                                     <a class="btn-link session-edit" href="javascript:void(0)" onclick="changeCurrentSession(<?= $_SESSION['myappids'][$i]; ?>)"><?= $_SESSION['myappnames'][$i]; ?></a>
                                                 </div>
                                                 <div class="col-sm-1 col-12">
+<?php if ($_SESSION['roles'][$_SESSION['myappids'][$i]]['admin']==true): ?>
                                                     <a class="btn-link session-edit" href="admin?id=<?= $_SESSION['myappids'][$i]; ?>"><span class="oi oi-pencil px-2" title="Edit Research Group" aria-hidden="true"></span></a>
+<?php endif; ?>
                                                 </div>
                                             </div>
                                         </li>
