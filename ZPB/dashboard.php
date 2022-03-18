@@ -23,7 +23,7 @@ $appid = getAppID();
                         <div class="col-md-8">
                             <div class="row pr-md-5">
                                 <div class="col-md-8 col-12">
-                                    <h1 class="red-font">Sessions</h1>
+                                    <h1 class="red-font">Sessionss</h1>
                                     <h5 style="text-transform: none;">Select a session to view or edit the set</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
