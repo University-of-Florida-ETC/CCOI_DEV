@@ -15,6 +15,7 @@
 			$return=mysqli_query($db,"SELECT * FROM tbPersonAppRoles WHERE personid='{$persondata['id']}'");		// need to add      AND inactive IS NULL
 			while($roledata=mysqli_fetch_assoc($return)){
 		//		$_SESSION['roles'][$roledata['role']]=true;
+				$_SESSION['myapps'][] = $roledata['appid'];
 				switch($roledata['role']){
 					case 'superadmin': 	$_SESSION['roles'][$roledata['appid']]['superadmin']=true;		// highest level gets all lower levels -- no "break" for cases
 					case 'admin': 			$_SESSION['roles'][$roledata['appid']]['admin']=true;
@@ -37,7 +38,13 @@
 			$_SESSION['last']=$persondata['last'];
 			$_SESSION['email']=$persondata['email'];
 			
-			$_SESSION['currentlyloadedapp']=1;		// CCOI is it for now
+			if(count($_SESSION['myapps'])==1){
+				$_SESSION['currentlyloadedapp']=$_SESSION['myapps'][0];
+			}
+			else {
+				$_SESSION['currentlyloadedapp']=1;
+			}
+			//$_SESSION['currentlyloadedapp']=1;		// CCOI is it for now
 			
 	//		$_SESSION['myapps'][1]=true;
 			
