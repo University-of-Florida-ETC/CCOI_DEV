@@ -29,7 +29,7 @@
 	//			if($roledata['role']=='admin'){$_SESSION['roles']['coder']=true;$_SESSION['roles']['usermgr']=true;$_SESSION['roles']['videosync']=true;}
 			}
 
-			$allAppIds = implode(','$_SESSION['myappids']);
+			$allAppIds = implode(',',$_SESSION['myappids']);
 			$return=mysqli_query($db,"SELECT name FROM tbApps WHERE appid IN'{$allAppIds}'");		// need to add      AND inactive IS NULL
 			while($appdata=mysqli_fetch_assoc($return)){
 				$_SESSION['myappnames'][]=$appdata['name'];
