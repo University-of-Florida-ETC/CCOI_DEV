@@ -47,10 +47,10 @@
 			$_SESSION['email']=$persondata['email'];
 			
 			if(count($_SESSION['myappids'])==1){
-				$_SESSION['currentlyloadedapp']=$_SESSION['myapps'][0];
+				$_SESSION['currentlyloadedapp']=$_SESSION['myappids'][0];
 			}
 			else {
-				$_SESSION['currentlyloadedapp']=1;
+				$_SESSION['currentlyloadedapp']=-1;
 			}
 			//$_SESSION['currentlyloadedapp']=1;		// CCOI is it for now
 			
