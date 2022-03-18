@@ -12,7 +12,8 @@ $siteAdmins = [
     32,     //Mark
 ];
 $apps = getSessions(); //defined below
-echo "myapps: "; var_dump($_SESSION['myappids']);
+echo "myappids: "; var_dump($_SESSION['myappids']);
+echo "<br>myappnames: "; var_dump($_SESSION['myappnames']);
 echo "<br>currentlyloadedapp:";
 var_dump($_SESSION['currentlyloadedapp']);
 ?>
