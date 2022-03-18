@@ -395,6 +395,14 @@ var ccoiObservation = (function (){
         $(DOM.path_input).removeClass('d-none');
         $(DOM.path_preview).removeClass('d-none');
     }
+
+    function findSessionIndexById(arr, id) {
+        const requiredIndex = arr.findIndex(el => {
+            return el.id === id
+        }) 
+
+        return requiredIndex;
+    }
     
     function startNewPath() {
         makingNewPath = true;
@@ -402,8 +410,9 @@ var ccoiObservation = (function (){
         DOM.path_label.value = '';
         // form new path output
         console.log("This is the gamer variable: " + sessionID);
-        let session = sessions[sessionID];
-        console.log(sessions[sessionID] + "\n This is the current session... is it?");
+        let sessionIndex = findSessionIndexById(sessions, sessionID);
+        let session = sessions[sessionIndex];
+        console.log(sessions[sessionIndex] + "\n This is the current session... is it?");
         let paths = session.paths;
         stateIDPath = paths.length;
         if(isDemo) {
