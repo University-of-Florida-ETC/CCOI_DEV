@@ -5,17 +5,19 @@ $dataTarget = "#demo_help_box";
 $dataOffset = "10";
 $dataSpy = "scroll";
 include '../includes/header.php';
-include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
+//include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
 $siteAdmins = [
     42,     //Zack
     46,     //Brandon
     32,     //Mark
 ];
 //$apps = getSessions(); //defined below
+/*
 echo "myappids: "; var_dump($_SESSION['myappids']);
 echo "<br>myappnames: "; var_dump($_SESSION['myappnames']);
 echo "<br>currentlyloadedapp:";
 var_dump($_SESSION['currentlyloadedapp']);
+*/
 ?>
         <main role="main">
             <div class="container-fluid">
@@ -33,8 +35,9 @@ var_dump($_SESSION['currentlyloadedapp']);
                                     <h5 style="text-transform: none;">Select a research group to enter its dashboard</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
+<?php if (in_array($_SESSION['pid'], $siteAdmins)): ?>
                                     <button id="new_session_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start" onclick="createNewApp()">Add Group</button>
-                                    <button id="save_session_button" type="button" class="btn btn-blue float-right disabled d-none" data-toggle="tooltip" data-html="true" title="Click here to save your session">Save Session</button>
+<?php endif; ?>
                                 </div>
                             </div>
                             
@@ -61,7 +64,7 @@ var_dump($_SESSION['currentlyloadedapp']);
                             </div>
 
                         </div>
-                        <div class="col-md-4 col-12">
+                        <div class="col-md-4 col-12 d-none">
                             <div class="row">
                                 <div class="col">
                                     <button id="launch_video_button" class="btn btn-blue btn-full-width my-2">Open Video <span class="oi oi-external-link px-2" title="Open Session Video"></span></button>
