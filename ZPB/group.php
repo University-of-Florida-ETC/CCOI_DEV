@@ -187,34 +187,3 @@ var_dump($_SESSION['currentlyloadedapp']);
         </script>
     </body> 
 </html>
-
-
-
-<?php
-
-function getSessions(){
-    if( !empty($_SESSION['pid']) && is_numeric($_SESSION['pid']) ){
-        $db = $GLOBALS["db"];
-        $uid=$_SESSION['pid']+0;
-
-        if(is_numeric($uid)){    
-            //Get all appIDs user is in
-            $return=mysqli_query($db,"SELECT appid FROM tbPersonAppRoles WHERE personid='$uid'");		
-            while($d=mysqli_fetch_assoc($return)){$appids[]=$d['appid'];}
-            $appidstext=implode(',',$appids);
-
-            //Get names of all apps
-            $return=mysqli_query($db,"SELECT * FROM tbApps WHERE id IN ($appidstext) ");		
-            while($d=mysqli_fetch_assoc($return)){$appList[]=$d;}		//echo "d: "; var_dump($d);
-
-            return $appList;
-        }
-        else{
-            return "<br>UID isn't numberic :(";
-        }
-    }
-    else
-        return "<br>Session isn't valid :(";
-}
-
-?>
