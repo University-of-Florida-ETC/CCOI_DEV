@@ -20,15 +20,22 @@ $appid = getAppID();
                         </div>
                     </div>
                    <div class="row py-5">
-                        <div class="col-md-8">
-                            <div class="row pr-md-5">
-                                <div class="col-md-6 col-12">
+                        <div class="col-md-12">
+                        <div class="row">
+                                <div class="col-md-8 col-12">
                                     <h1 class="red-font">User Management</h1>
                                 </div>
-                                <div class="col-md-6 col-12 pt-2">
+                                <div class="col-md-4 col-12 pt-2">
                                     <button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Create New User</button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 col-12">
                                     <button id="admin_perms_button" type="button" class="btn btn-blue float-right" data-toggle="tooltip" data-html="true" title="Click here to save your session">Admin Permissions</button>
-                                    <button id="admin_perms_button" type="button" class="btn btn-blue float-right" data-toggle="tooltip" data-html="true" title="Click here to save your session">Remove User</button>
+                                </div>
+                                <div class="col-md-6 col-12 pt-2">
+                                    <button id="remove_user_button" type="button" class="btn btn-blue float-right" data-toggle="tooltip" data-html="true" title="Click here to save your session">Remove User</button>
                                 </div>
                             </div>
                             
