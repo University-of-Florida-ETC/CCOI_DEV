@@ -18,7 +18,7 @@ if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedap
             <div class="container-fluid">
                 <div class="container">
 <?php if ( count($_SESSION['myappids']) > 1): ?>
-                    <div id="session_go_back" class="row pt-3 pb-5">
+                    <div id="session_go_back" class="row pt-3">
                         <div class="col">
                             <a class="underlined-btn" href="group"><span class="oi oi-arrow-thick-left mr-2"></span><span class="btn-text">Select a Different Research Group</span></a>
                         </div>
@@ -39,7 +39,7 @@ if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedap
                             
                             <div class="row pt-3 pr-md-5">
                                 <div class="col-12 btn-div">
-                                    <h4>Research Sessions</h4>
+                                    <h4>Your Sessions</h4>
                                     <ul id="research_session_list" class="mb-4">
 <?php foreach ($sessions['research'] as $currentSession): ?>
                                         <li class="session-listing">
@@ -56,7 +56,7 @@ if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedap
                                         </li>
 <?php endforeach; ?>
                                     </ul> 
-                                    <h4>Playgrounds Sessions</h4>
+                                    <h4>Your Playground Sessions (for testing)</h4>
                                     <ul id="playgrounds_session_list">
 <?php foreach ($sessions['playground'] as $currentSession): ?>
                                         <li class="session-listing my-2">
@@ -80,7 +80,7 @@ if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedap
                         <div class="col-md-4 col-12">
                             <div class="row">
                                 <div class="col">
-                                    <button id="launch_video_button" class="btn btn-blue btn-full-width my-2">Open Video <span class="oi oi-external-link px-2" title="Open Session Video"></span></button>
+                                    <button id="launch_video_button" class="btn btn-blue btn-full-width my-2 d-none">Open Video <span class="oi oi-external-link px-2" title="Open Session Video"></span></button>
                                     <button id="viz_button" class="btn btn-gold btn-full-width my-2 d-none">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
                                     <button id="irr_button" class="btn btn-gold btn-full-width my-2">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability"></span></button>
                                 </div>
