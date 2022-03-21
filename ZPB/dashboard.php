@@ -8,6 +8,9 @@ include '../includes/header.php';
 include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
 $sessions = getSessions(); //defined below
 $appid = getAppID();
+if($currentlyLoadedApp < 1 || !in_array($currentlyLoadedApp, $_SESSION['myappids'])){
+    header("Location: $includeroot/ZPB/group");
+}
 // TO-DO: check if App-ID is correct for the page, if it is, you can stay. If not, Redirect() that person! Epically! 
 ?>
 
