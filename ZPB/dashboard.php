@@ -19,9 +19,11 @@ if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedap
                 <div class="container">
                    <div class="row py-5">
 <?php if ( count($_SESSION['myappids']) > 1): ?>
-                    <div id="session_go_back" class="row pt-3 pb-2">
-                        <div class="col">
-                            <a class="underlined-btn" href="group"><span class="oi oi-arrow-thick-left mr-2"></span><span class="btn-text">Select a Different Research Group</span></a>
+                    <div class="col-md-12">
+                        <div id="session_go_back" class="row pt-3 pb-2">
+                            <div class="col">
+                                <a class="underlined-btn" href="group"><span class="oi oi-arrow-thick-left mr-2"></span><span class="btn-text">Select a Different Research Group</span></a>
+                            </div>
                         </div>
                     </div>
 <?php endif; ?>
