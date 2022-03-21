@@ -727,7 +727,7 @@ var ccoiObservation = (function (){
         //removeEmptyKeys(alteredSessionData);
         alteredSessionData = removeEmptyAndOld(alteredSessionData);
         let sendData = JSON.stringify(alteredSessionData);
-        ccoi.callToAPI('/api/ccoi_ajax.php', sendData);
+        ccoi.callToAPI('/api/ccoi_update2.php', sendData);
     }
 
     /*
