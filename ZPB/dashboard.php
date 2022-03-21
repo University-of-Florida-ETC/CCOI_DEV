@@ -7,7 +7,7 @@ $dataSpy = "scroll";
 include '../includes/header.php';
 include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
 $sessions = getSessions(); //defined below
-$appid = getAppID();
+$id = $_GET['id'];
 if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedapp'], $_SESSION['myappids'])){
     header("Location: group");
 }
@@ -244,14 +244,5 @@ function getSessions(){
     }
     else
         return "<br>Session isn't valid :(";
-}
-function getAppID() {
-    $id = $_GET['id'];
-    return $id;
-}
-function Redirect($url, $permanent = false) {
-    
-    header('Location: ', $url, true, $permanent ? 301 : 302);
-    exit();
 }
 ?>
