@@ -71,14 +71,31 @@ if( !empty($_POST['newApp']) ) {
 }
 
 if( !empty($_POST['changeCurrentApp']) ) {
-
     //If this is a valid appID to change to
     if( in_array( $_POST['changeTo'], $_SESSION['myappids'] ) ) {
         $_SESSION['currentlyloadedapp'] = $_POST['changeTo'];
         echo "y";
     }
+    //If not
     else{
         echo "n";
     }    
+}
+
+if( !empty($_POST['updateObsEl']) ) {
+    //TODO: Verify that it's an observation that you can modify
+    
+    foreach ($_POST['paths'] as $currentObservation) {
+        foreach ($currentObservation['steps'] as $currentNode) {
+            if( isset($currentNode['isNew']) ){
+                //TODO: Check that this node doesn't exist
+                //TODO: Add this node to db
+            }
+            if( isset($currentNode['isEdited']) ){
+                //TODO: Check that this node exists
+                //TODO: Edit node in db
+            }    
+        }
+    }
 }
 ?>
