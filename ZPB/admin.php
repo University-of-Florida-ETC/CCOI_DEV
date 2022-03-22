@@ -7,9 +7,6 @@ $dataSpy = "scroll";
 include '../includes/header.php';
 include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
 $id = $_GET['id'];
-if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedapp'], $_SESSION['myappids'])){
-    header("Location: group");
-}
 ?>
 
         <main role="main">
