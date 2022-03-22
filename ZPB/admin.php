@@ -6,7 +6,11 @@ $dataOffset = "10";
 $dataSpy = "scroll";
 include '../includes/header.php';
 include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
-$id = $_GET['id'];
+$appid = $_GET['id'];
+if( !in_array($appid, $_SESSION['myappids'])){
+    header("Location: group");
+}
+$users = getUsers();
 ?>
 
         <main role="main">
@@ -41,7 +45,7 @@ $id = $_GET['id'];
                                 <div class="col-12 btn-div">
                                     <h4>Research Sessions</h4>
                                     <ul id="research_session_list" class="mb-4">
-<?php foreach ($sessions['research'] as $currentSession): ?>
+<?php foreach ($users as $currentUser): ?>
                                         <li class="session-listing">
                                             <div class="row">
                                                 <div class="col-sm-1 col-12">
@@ -192,38 +196,32 @@ $id = $_GET['id'];
 
 
 <?php
-
-function getSessions(){
-    if( !empty($_SESSION['pid']) && is_numeric($_SESSION['pid']) ){
+function getUsers(){
+    $id = $GLOBALS["id"];
+    echo "<br>getting users for app with id: ".$id;
+    if( !empty($id) && is_numeric($id) ){
         $db = $GLOBALS["db"];
-        $uid=$_SESSION['pid']+0;
 
-        if(is_numeric($uid)){    
-            //Get session IDs of research sessions
-            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
-            while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
-            $sidstext=implode(',',$sessionids);
-
-            //Get session IDs of playground sessions
-            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
-            while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];}		//echo "d: "; var_dump($d);
-            $playidstext=implode(',',$playids);
-
-            //Get info (title) of research sessions
-            $return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($sidstext) AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
-            while($d=mysqli_fetch_assoc($return)){$allSessions['research'][]=$d; }		//echo "<br>session: "; var_dump($d);
-            
-            //Get info (title) of research sessions
-            $return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
-            while($d=mysqli_fetch_assoc($return)){$allSessions['playground'][]=$d;}		//print_r($playgrounds);		//echo "<br>playground: "; var_dump($d);
-
-            return $allSessions;
+        echo "<br>first query statement: "."SELECT personid, role FROM tbPersonAppRoles WHERE appid='$id'";
+        $return=mysqli_query($db,"SELECT personid, role FROM tbPersonAppRoles WHERE appid='$id'");		
+        while($d=mysqli_fetch_assoc($return)){
+            $userData[$d['personid']][]=$d['role'];
         }
-        else{
-            return "<br>UID isn't numberic :(";
+        $useridsarray = $array_keys($userData);
+        $useridstext=implode(',',$useridsarray);
+        echo "<br>first query returned: ".$useridstext;
+
+        echo "<br>second query statement: "."SELECT first, last, email FROM tbPeople WHERE id IN ($id)";
+        $return=mysqli_query($db,"SELECT id, first, last, email FROM tbPeople WHERE id IN ($useridstext)");		
+        while($d=mysqli_fetch_assoc($return)){
+            $d['roles'] = $userData[$d['id']];
+            $returnData[]=$d;
         }
+        echo "<br>second query returned: "; var_dump($returnData);
+
+        return $returnData;
     }
     else
-        return "<br>Session isn't valid :(";
+        return NULL;
 }
 ?>
