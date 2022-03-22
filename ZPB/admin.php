@@ -25,7 +25,7 @@ $users = getUsers();
                         <div class="col-md-12">
                         <div class="row">
                                 <div class="col-md-8 col-12">
-                                    <h1 class="red-font">User Managements</h1>
+                                    <h1 class="red-font">User Management</h1>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
                                     <button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Create New User</button>
