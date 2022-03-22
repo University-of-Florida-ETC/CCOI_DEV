@@ -138,6 +138,7 @@ function getNodeFromChoice (nodeID, choice) {
 	console.log("This is your node ID:" + nodeID); 
 	if(Number.isInteger(choice) || choice < 100000){
 		var node = ccoi.ccoiSchema.getNode(nodeID);
+		console.log("Here's the resulting node from getNode..." + node);
 		if(!node.branches){
 			throw "Error in getNodeFromChoice(): No branches in node "+nodeID;
 		}

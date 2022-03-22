@@ -161,7 +161,8 @@ var ccoi = (function (){
         }
 
         // Returns the choice for a given branch ID (hex IDs only)
-        schema.getChoiceFromID = function(id) {				
+        schema.getChoiceFromID = function(id) {		
+            console.log("Here's the id we handed to getchoicefromID:" + id);		
             // New hex-id numbering system
             if(schema.branches[id]) return schema.branches[id];
 
