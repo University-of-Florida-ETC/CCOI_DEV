@@ -142,7 +142,6 @@ function getNodeFromChoice (nodeID, choice) {
 	if(Number.isInteger(choice) || choice < 100000){
 		var node = ccoi.ccoiSchema.getNode(nodeID);
 		let printableNode = JSON.stringify(node);
-		console.log("Here's the resulting node from getNode..." + printableNode);
 		if(!node.branches){
 			throw "Error in getNodeFromChoice(): No branches in node "+nodeID;
 		}
@@ -167,8 +166,7 @@ function getNodeFromChoice (nodeID, choice) {
 function CCOI_Step_nextNodeID () {
 	console.log("nextNodeID print beginning:");
 	console.log(this.nodeid);
-	console.log(this.choiceid);
-	console.log( getNodeFromChoice(this.nodeid, this.choiceid).next);
+	console.log(this.choiceid);222
 	return this.choiceid === -1 ? null : getNodeFromChoice(this.nodeid, this.choiceid).next;
 }
 
@@ -179,7 +177,6 @@ function CCOI_Step_nextNodeID_int () {
 	console.log("beginning nextNodeID_int print: ")
 	console.log(this.nodeid);
 	console.log(this.choiceid);
-	console.log(this.choiceid === -1 ? null : getNodeFromChoice(this.nodeid, this.choiceid).next_id);
 	return this.choiceid === -1 ? null : getNodeFromChoice(this.nodeid, this.choiceid).next_id;
 }
 
