@@ -37,12 +37,12 @@ var ccoiObservation = (function (){
     // This is called to set up the radio button choices
     function setUpNodeBranches (nextNodeID) {
         var node = ccoi.ccoiSchema.getNode(nextNodeID);
-        nodeID = node.nodeid;
+        nodeID = node.node_id;
         newNodeID = node.node_id;
 
-        console.log(nextNodeID);
-        console.log(nodeID);
-        console.log(nextNodeID);
+        console.log("Next node id:" + nextNodeID);
+        console.log("node id:" + nodeID);
+        //console.log(nextNodeID);
 
         // Backstop for old ID system
         let prettyID = parseInt(node.id);
