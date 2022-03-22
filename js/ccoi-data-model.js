@@ -134,9 +134,12 @@ function concatPaths () {
  */
 function getNodeFromChoice (nodeID, choice) {	
 	// new ID system that Mark setup
-	console.log("This is your node and choice ID:" + nodeID + choice); 
+	console.log(choice);
+	console.log("This is your node ID:" + nodeID); 
 	if(Number.isInteger(choice) || choice < 100000){
 		var node = ccoi.ccoiSchema.getNode(nodeID);
+		let printableNode = JSON.stringify(node);
+		console.log("Here's the resulting node from getNode..." + printableNode);
 		if(!node.branches){
 			throw "Error in getNodeFromChoice(): No branches in node "+nodeID;
 		}
