@@ -44,6 +44,20 @@ $id = $_GET['id'];
 <?php foreach ($sessions['research'] as $currentSession): ?>
                                         <li class="session-listing">
                                             <div class="row">
+                                                <div class="col-sm-1 col-12">
+                                                    <input type="checkbox" id="user" name="user" value="user">
+                                                </div>
+                                                <div class="col-sm-4 col-12">
+                                                    <input type="text" id="fname" name="fname">
+                                                </div>
+                                                <div class="col-sm-4 col-12">
+                                                    <input type="text" id="lname" name="lname">
+                                                </div>
+                                                <div class="col-sm-3 col-12">
+                                                    <input type="email" id="email" pattern=".+@globex\.com">
+                                                </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-sm-9 col-12">
                                                     <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name']; ?></a>
                                                 </div>
