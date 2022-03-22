@@ -31,52 +31,43 @@ $users = getUsers();
                                     <button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Create New User</button>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-6 col-12">
-                                    <button id="admin_perms_button" type="button" class="btn btn-blue float-right" data-toggle="tooltip" data-html="true" title="Click here to save your session">Admin Permissions</button>
-                                </div>
-                                <div class="col-md-6 col-12 pt-2">
-                                    <button id="remove_user_button" type="button" class="btn btn-blue float-right" data-toggle="tooltip" data-html="true" title="Click here to save your session">Remove User</button>
-                                </div>
-                            </div>
                             
                             <div class="row pt-3 pr-md-5">
                                 <div class="col-12 btn-div">
                                     <div class="row">
-                                        <div class="col-sm-3 col-12">
+                                        <div class="col-sm-3">
                                             <p>First Name</p>
                                         </div>
-                                        <div class="col-sm-3 col-12">
+                                        <div class="col-sm-3">
                                             <p>Last Name</p>
                                         </div>
-                                        <div class="col-sm-4 col-12">
+                                        <div class="col-sm-4">
                                             <p>Email</p>
                                         </div>
-                                        <div class="col-sm-1 col-12">
+                                        <div class="col-sm-1">
                                             <p>Admin?</p>
                                         </div>
-                                        <div class="col-sm-1 col-12">
+                                        <div class="col-sm-1">
                                             <p>Remove</p>
                                         </div>
                                     </div>
                                     <ul id="research_session_list" class="mb-4">
 <?php foreach ($users as $currentUser): ?>
                                         <li class="user-listing">
-                                            <div class="row">
-                                                <div class="col-sm-3 col-12">
+                                            <div class="row user">
+                                                <div class="col-sm-3">
                                                     <input type="text" id="fname<?= $currentUser['id'] ?>" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
                                                 </div>
-                                                <div class="col-sm-3 col-12">
+                                                <div class="col-sm-3">
                                                     <input type="text" id="lname<?= $currentUser['id'] ?>" name="lname" style="width: 100%;" value="<?= $currentUser['last'] ?>">
                                                 </div>
-                                                <div class="col-sm-4 col-12">
+                                                <div class="col-sm-4">
                                                     <input type="email" id="email<?= $currentUser['id'] ?>" pattern=".+@globex\.com" style="width: 100%;" value="<?= $currentUser['email'] ?>">
                                                 </div>
-                                                <div class="col-sm-1 col-12">
+                                                <div class="col-sm-1">
                                                     <input type="checkbox" id="admin<?= $currentUser['id'] ?>" name="admin" value="admin"<?php if( in_array('admin', $currentUser['roles']) ) echo " checked"; ?> >
                                                 </div>
-                                                <div class="col-sm-1 col-12">
+                                                <div class="col-sm-1">
                                                     <span class="oi oi-trash px-2" title="Delete User" aria-hidden="true"></span>
                                                 </div>
                                             </div>
@@ -198,6 +189,13 @@ $users = getUsers();
                 var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
                 xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
             }
+        </script>
+        <script language='javascript'>
+            var users=document.getElementsByClassName('user');
+            if(users){for(e=0;e<users.length;e++){
+                for(var n=0; n<users[e].childNodes.length; n++){
+                    users[e].childNodes[n].addEventListener('change',function(e){doUpdate(e);e.stopPropagation();},true);
+            }}}
         </script>
     </body> 
 </html>
