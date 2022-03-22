@@ -43,32 +43,34 @@ $users = getUsers();
                             
                             <div class="row pt-3 pr-md-5">
                                 <div class="col-12 btn-div">
-                                    <h4>Research Sessions</h4>
+                                    <div class="row">
+                                        <div class="col-sm-1 col-12">
+                                        </div>
+                                        <div class="col-sm-4 col-12">
+                                            <p>Last Name</p>
+                                        </div>
+                                        <div class="col-sm-4 col-12">
+                                            <p>First Name</p>
+                                        </div>
+                                        <div class="col-sm-3 col-12">
+                                            <p>Email</p>
+                                        </div>
+                                    </div>
                                     <ul id="research_session_list" class="mb-4">
 <?php foreach ($users as $currentUser): ?>
-                                        <li class="session-listing">
+                                        <li class="user-listing">
                                             <div class="row">
                                                 <div class="col-sm-1 col-12">
                                                     <input type="checkbox" id="user" name="user" value="user">
                                                 </div>
                                                 <div class="col-sm-4 col-12">
-                                                    <input type="text" id="fname" name="fname">
+                                                    <input type="text" id="fname" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
                                                 </div>
                                                 <div class="col-sm-4 col-12">
-                                                    <input type="text" id="lname" name="lname">
+                                                    <input type="text" id="lname" name="lname" style="width: 100%;" value="<?= $currentUser['last'] ?>">
                                                 </div>
                                                 <div class="col-sm-3 col-12">
-                                                    <input type="email" id="email" pattern=".+@globex\.com">
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-9 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name']; ?></a>
-                                                </div>
-                                                <div class="col-sm-3 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                    <input type="email" id="email" pattern=".+@globex\.com" style="width: 100%;" value="<?= $currentUser['email'] ?>">
                                                 </div>
                                             </div>
                                         </li>
