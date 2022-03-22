@@ -197,7 +197,7 @@ $users = getUsers();
 
 <?php
 function getUsers(){
-    $appid = $GLOBALS["id"];
+    $appid = $GLOBALS["appid"];
     echo "<br>getting users for app with id: ".$appid;
     if( !empty($appid) && is_numeric($appid) ){
         $db = $GLOBALS["db"];
