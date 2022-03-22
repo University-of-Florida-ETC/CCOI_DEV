@@ -74,14 +74,13 @@ function CCOI_Session (name, date, studentID, prompted, paths, minutes, seconds,
 // can't overload functions in JS so using janky arg.len check with renaming first param
 /**
  *
- * @param {*} node
- * @param {*} choice
  * @param {int} minutes
  * @param {int} seconds
+ * @param {int} totalSeconds
  * @param {string} extra
  * @param {string} notes
  */
-function CCOI_Step (node, node_ID, choice, choice_ID, subsession_ID, minutes, seconds, extra, notes) {
+function CCOI_Step (node_ID, choice_ID, subsession_ID, minutes, seconds, totalSeconds, extra, notes) {
   if (arguments.length === 1) {
     var obj = node;
     for (var prop in obj) {
@@ -97,12 +96,11 @@ function CCOI_Step (node, node_ID, choice, choice_ID, subsession_ID, minutes, se
     this.output = CCOI_Step_output;
   } else {
   	this.subsessionid = subsession_ID || 0;
-    this.node = node || 0;
     this.nodeid = node_ID || 0;
-    this.choice = choice || 0;
     this.choiceid = choice_ID || 0;
-    this.minutes = minutes || 0;
-    this.seconds = seconds || 0;
+    //this.minutes = minutes || 0;
+    //this.seconds = seconds || 0;
+	this.totalSeconds = totalSeconds || 0;
     this.extra = extra || null;
     this.notes = notes || null;
 

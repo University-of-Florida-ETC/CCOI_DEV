@@ -298,12 +298,14 @@ var ccoiObservation = (function (){
         let secondsValue = parseInt(DOM.timestamp_input_seconds.value, 10);
         if (isNaN(secondsValue)) { DOM.timestamp_input_seconds.value = secondsValue = session.seconds; } else { session.seconds = secondsValue; }
 
+        let totalTime = (minutesValue * 60) + secondsValue;
+
         let notes = DOM.notes_input.value;
         DOM.notes_input.value = '';
 
         // Node ID is a string in the DB
         let nodeIDString = newNodeID.toString();
-        let step = new CCOI_Step(nodeID, nodeIDString, choiceIndex, newChoiceIndex, subsessionid, minutesValue, secondsValue, extra, notes);
+        let step = new CCOI_Step(nodeID, nodeIDString, choiceIndex, newChoiceIndex, subsessionid, minutesValue, secondsValue, totalTime, extra, notes);
 
         // TODO: Move this logic into a separate function
         if (currentStep != undefined) {
