@@ -54,7 +54,7 @@ $users = getUsers();
                                     <ul id="research_session_list" class="mb-4">
 <?php foreach ($users as $currentUser): ?>
                                         <li class="user-listing">
-                                            <div class="row user">
+                                            <div class="row user pb-1">
                                                 <div class="col-sm-3">
                                                     <input class="saveOnEdit" type="text" id="fname<?= $currentUser['id'] ?>" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
                                                 </div>
