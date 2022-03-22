@@ -44,8 +44,6 @@ $users = getUsers();
                             <div class="row pt-3 pr-md-5">
                                 <div class="col-12 btn-div">
                                     <div class="row">
-                                        <div class="col-sm-1 col-12">
-                                        </div>
                                         <div class="col-sm-3 col-12">
                                             <p>First Name</p>
                                         </div>
@@ -55,28 +53,31 @@ $users = getUsers();
                                         <div class="col-sm-4 col-12">
                                             <p>Email</p>
                                         </div>
-                                        <div class="col-sm-4 col-12">
+                                        <div class="col-sm-1 col-12">
                                             <p>Admin?</p>
+                                        </div>
+                                        <div class="col-sm-1 col-12">
+                                            <p>Remove</p>
                                         </div>
                                     </div>
                                     <ul id="research_session_list" class="mb-4">
 <?php foreach ($users as $currentUser): ?>
                                         <li class="user-listing">
                                             <div class="row">
-                                                <div class="col-sm-1 col-12">
-                                                    <input type="checkbox" id="select<?= $currentUser['id'] ?>" name="selected">
+                                                <div class="col-sm-3 col-12">
+                                                    <input type="text" id="fname<?= $currentUser['id'] ?>" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
                                                 </div>
                                                 <div class="col-sm-3 col-12">
-                                                    <input type="text" id="fname<?= $currentUser['first'] ?>" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
-                                                </div>
-                                                <div class="col-sm-3 col-12">
-                                                    <input type="text" id="lname<?= $currentUser['first'] ?>" name="lname" style="width: 100%;" value="<?= $currentUser['last'] ?>">
+                                                    <input type="text" id="lname<?= $currentUser['id'] ?>" name="lname" style="width: 100%;" value="<?= $currentUser['last'] ?>">
                                                 </div>
                                                 <div class="col-sm-4 col-12">
-                                                    <input type="email" id="email<?= $currentUser['first'] ?>" pattern=".+@globex\.com" style="width: 100%;" value="<?= $currentUser['email'] ?>">
+                                                    <input type="email" id="email<?= $currentUser['id'] ?>" pattern=".+@globex\.com" style="width: 100%;" value="<?= $currentUser['email'] ?>">
                                                 </div>
                                                 <div class="col-sm-1 col-12">
-                                                    <input type="checkbox" id="admin<?= $currentUser['first'] ?>" name="admin" value="admin"<?php if( in_array('admin', $currentUser['roles']) ) echo " checked"; ?> >
+                                                    <input type="checkbox" id="admin<?= $currentUser['id'] ?>" name="admin" value="admin"<?php if( in_array('admin', $currentUser['roles']) ) echo " checked"; ?> >
+                                                </div>
+                                                <div class="col-sm-1 col-12">
+                                                    <span class="oi oi-trash px-2" title="Delete User" aria-hidden="true"></span>
                                                 </div>
                                             </div>
                                         </li>
