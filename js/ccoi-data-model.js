@@ -134,6 +134,7 @@ function concatPaths () {
  */
 function getNodeFromChoice (nodeID, choice) {	
 	// new ID system that Mark setup
+	console.log("This is your node and choice ID:" + nodeID + choice); 
 	if(Number.isInteger(choice) || choice < 100000){
 		var node = ccoi.ccoiSchema.getNode(nodeID);
 		if(!node.branches){
