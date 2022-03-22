@@ -200,7 +200,7 @@ $users = getUsers();
                     }
                 }
                 var bit;		if(e.target.type=='checkbox'){bit=e.target.checked;}else{bit=encodeURIComponent(e.target.value);}
-                var sendStr = 'updateUser=1&<?= $appid?>'+e.target.id+'='+bit;
+                var sendStr = 'updateUser=1&appid=<?= $appid?>&'+e.target.id+'='+bit;
                 console.log("sendStr = "+sendStr);
                 var url = derServer+'ZPB/zpb_ajax.php?'+sendStr;					console.log(url);
                 xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
