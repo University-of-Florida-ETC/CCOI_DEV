@@ -46,13 +46,13 @@ $users = getUsers();
                                     <div class="row">
                                         <div class="col-sm-1 col-12">
                                         </div>
-                                        <div class="col-sm-4 col-12">
+                                        <div class="col-sm-3 col-12">
                                             <p>First Name</p>
                                         </div>
-                                        <div class="col-sm-4 col-12">
+                                        <div class="col-sm-3 col-12">
                                             <p>Last Name</p>
                                         </div>
-                                        <div class="col-sm-3 col-12">
+                                        <div class="col-sm-5 col-12">
                                             <p>Email</p>
                                         </div>
                                     </div>
