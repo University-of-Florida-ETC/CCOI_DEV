@@ -71,21 +71,31 @@ if( !empty($_POST['newApp']) ) {
 }
 
 if( !empty($_POST['changeCurrentApp']) ) {
-    //If this is a valid appID to change to
-    if( in_array( $_POST['changeTo'], $_SESSION['myappids'] ) ) {
-        $_SESSION['currentlyloadedapp'] = $_POST['changeTo'];
-        echo "y";
+    if( in_array( $_POST['changeTo'], $_SESSION['myappids'] ) ) {   //If this is a valid appID to change to
+        $_SESSION['currentlyloadedapp'] = $_POST['changeTo'];       //Change to that appid
+        echo "y";                                                   //Yes, that happened
     }
-    //If not
-    else{
-        echo "n";
+    else{                                                           //If not a valid appid
+        echo "n";                                                   //No, that didn't happen
     }    
 }
 
 if( !empty($_POST['updateObsEl']) ) {
     //TODO: Verify that it's an observation that you can modify
     
+
+    //TODO: grab ssids of session
+    $return=mysqli_query($db,"SELECT id FROM tbSubPlaygrounds WHERE sessid='{$_POST['id']}'");
+        while($d=mysqli_fetch_assoc($return)){$observationids[]=$d['id'];}
+ 		$observationidstext=implode(',',$observationids);
+
     foreach ($_POST['paths'] as $currentObservation) {
+        //Read in current observation
+        	
+        //TODO: If any non-node values have changed, update them
+
+        
+
         foreach ($currentObservation['steps'] as $currentNode) {
             if( isset($currentNode['isNew']) ){
                 //TODO: Check that this node doesn't exist
