@@ -146,6 +146,7 @@ var ccoi = (function (){
         schema.getNode = function(id) {
             // New ID system that Mark setup
             if(Number.isInteger(id)){
+                console.log("Passed is integer\n \n");
                 for(var key in schema.nodes){
                     if(schema.nodes[key].node_id == id) {
                         return schema.nodes[key]
