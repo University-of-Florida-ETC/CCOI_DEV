@@ -205,10 +205,10 @@ function getUsers(){
         echo "<br>first query statement: "."SELECT personid, role FROM tbPersonAppRoles WHERE appid='$appid'";
         $return=mysqli_query($db,"SELECT personid, role FROM tbPersonAppRoles WHERE appid='$appid'");		
         while($d=mysqli_fetch_assoc($return)){
-            echo "d: ".$d;
             $userData[$d['personid']][]=$d['role'];
         }
-        $useridsarray = $array_keys($userData);
+        echo "userData: "; var_dump($userData);
+        $useridsarray = array_keys($userData);
         $useridstext=implode(',',$useridsarray);
         echo "<br>first query returned: ".$useridstext;
 
