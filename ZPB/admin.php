@@ -197,13 +197,13 @@ $users = getUsers();
 
 <?php
 function getUsers(){
-    $id = $GLOBALS["id"];
-    echo "<br>getting users for app with id: ".$id;
-    if( !empty($id) && is_numeric($id) ){
+    $appid = $GLOBALS["id"];
+    echo "<br>getting users for app with id: ".$appid;
+    if( !empty($appid) && is_numeric($appid) ){
         $db = $GLOBALS["db"];
 
-        echo "<br>first query statement: "."SELECT personid, role FROM tbPersonAppRoles WHERE appid='$id'";
-        $return=mysqli_query($db,"SELECT personid, role FROM tbPersonAppRoles WHERE appid='$id'");		
+        echo "<br>first query statement: "."SELECT personid, role FROM tbPersonAppRoles WHERE appid='$appid'";
+        $return=mysqli_query($db,"SELECT personid, role FROM tbPersonAppRoles WHERE appid='$appid'");		
         while($d=mysqli_fetch_assoc($return)){
             $userData[$d['personid']][]=$d['role'];
         }
@@ -211,7 +211,7 @@ function getUsers(){
         $useridstext=implode(',',$useridsarray);
         echo "<br>first query returned: ".$useridstext;
 
-        echo "<br>second query statement: "."SELECT first, last, email FROM tbPeople WHERE id IN ($id)";
+        echo "<br>second query statement: "."SELECT first, last, email FROM tbPeople WHERE id IN ($appid)";
         $return=mysqli_query($db,"SELECT id, first, last, email FROM tbPeople WHERE id IN ($useridstext)");		
         while($d=mysqli_fetch_assoc($return)){
             $d['roles'] = $userData[$d['id']];
