@@ -37,7 +37,7 @@ var ccoiObservation = (function (){
     // This is called to set up the radio button choices
     function setUpNodeBranches (nextNodeID) {
         var node = ccoi.ccoiSchema.getNode(nextNodeID);
-        nodeID = node.node_id;
+        nodeID = node.nodeid;
         newNodeID = node.node_id;
 
         console.log(nextNodeID);
