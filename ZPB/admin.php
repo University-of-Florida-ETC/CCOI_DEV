@@ -55,21 +55,11 @@ $users = getUsers();
 <?php foreach ($users as $currentUser): ?>
                                         <li class="user-listing">
                                             <div class="row user">
-                                                <div class="col-sm-3">
-                                                    <input type="text" id="fname<?= $currentUser['id'] ?>" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input type="text" id="lname<?= $currentUser['id'] ?>" name="lname" style="width: 100%;" value="<?= $currentUser['last'] ?>">
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <input type="email" id="email<?= $currentUser['id'] ?>" pattern=".+@globex\.com" style="width: 100%;" value="<?= $currentUser['email'] ?>">
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <input type="checkbox" id="admin<?= $currentUser['id'] ?>" name="admin" value="admin"<?php if( in_array('admin', $currentUser['roles']) ) echo " checked"; ?> >
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <span class="oi oi-trash px-2" title="Delete User" aria-hidden="true"></span>
-                                                </div>
+                                                <input type="text" id="fname<?= $currentUser['id'] ?>" name="fname" class="col-sm-3" value="<?= $currentUser['first'] ?>">
+                                                <input type="text" id="lname<?= $currentUser['id'] ?>" name="lname" class="col-sm-3" value="<?= $currentUser['last'] ?>">
+                                                <input type="email" id="email<?= $currentUser['id'] ?>" pattern=".+@globex\.com" class="col-sm-4" value="<?= $currentUser['email'] ?>">
+                                                <input type="checkbox" id="admin<?= $currentUser['id'] ?>" name="admin" class="col-sm-1" value="admin"<?php if( in_array('admin', $currentUser['roles']) ) echo " checked"; ?> >
+                                                <a class="col-sm-1 btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete User" aria-hidden="true"></span></a>
                                             </div>
                                         </li>
 <?php endforeach; ?>
