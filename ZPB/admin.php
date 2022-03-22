@@ -199,8 +199,9 @@ $users = getUsers();
                         console.log(data);
                     }
                 }
+                let components = e.target.id.split("-");
                 var bit;		if(e.target.type=='checkbox'){bit=e.target.checked;}else{bit=encodeURIComponent(e.target.value);}
-                var sendStr = 'updateUser=1&appid=<?= $appid?>&'+e.target.id+'='+bit;
+                var sendStr = 'updateUser=1&appid=<?= $appid ?>&userid='+component[1]+'&toChange='+component[0]+'newValue='+bit;
                 console.log("sendStr = "+sendStr);
                 var url = derServer+'ZPB/zpb_ajax.php?'+sendStr;					console.log(url);
                 xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
