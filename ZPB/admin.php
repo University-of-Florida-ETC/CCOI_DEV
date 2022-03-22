@@ -47,10 +47,10 @@ $users = getUsers();
                                         <div class="col-sm-1 col-12">
                                         </div>
                                         <div class="col-sm-4 col-12">
-                                            <p>Last Name</p>
+                                            <p>First Name</p>
                                         </div>
                                         <div class="col-sm-4 col-12">
-                                            <p>First Name</p>
+                                            <p>Last Name</p>
                                         </div>
                                         <div class="col-sm-3 col-12">
                                             <p>Email</p>
@@ -63,13 +63,13 @@ $users = getUsers();
                                                 <div class="col-sm-1 col-12">
                                                     <input type="checkbox" id="user" name="user" value="user">
                                                 </div>
-                                                <div class="col-sm-4 col-12">
+                                                <div class="col-sm-3 col-12">
                                                     <input type="text" id="fname" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
                                                 </div>
-                                                <div class="col-sm-4 col-12">
+                                                <div class="col-sm-3 col-12">
                                                     <input type="text" id="lname" name="lname" style="width: 100%;" value="<?= $currentUser['last'] ?>">
                                                 </div>
-                                                <div class="col-sm-3 col-12">
+                                                <div class="col-sm-5 col-12">
                                                     <input type="email" id="email" pattern=".+@globex\.com" style="width: 100%;" value="<?= $currentUser['email'] ?>">
                                                 </div>
                                             </div>
@@ -200,27 +200,27 @@ $users = getUsers();
 <?php
 function getUsers(){
     $appid = $GLOBALS["appid"];
-    echo "<br>getting users for app with id: ".$appid;
+    //echo "<br>getting users for app with id: ".$appid;
     if( !empty($appid) && is_numeric($appid) ){
         $db = $GLOBALS["db"];
 
-        echo "<br>first query statement: "."SELECT personid, role FROM tbPersonAppRoles WHERE appid='$appid'";
+        //echo "<br>first query statement: "."SELECT personid, role FROM tbPersonAppRoles WHERE appid='$appid'";
         $return=mysqli_query($db,"SELECT personid, role FROM tbPersonAppRoles WHERE appid='$appid'");		
         while($d=mysqli_fetch_assoc($return)){
             $userData[$d['personid']][]=$d['role'];
         }
-        echo "userData: "; var_dump($userData);
+        //echo "userData: "; var_dump($userData);
         $useridsarray = array_keys($userData);
         $useridstext=implode(',',$useridsarray);
-        echo "<br>first query returned: ".$useridstext;
+        //echo "<br>first query returned: ".$useridstext;
 
-        echo "<br>second query statement: "."SELECT first, last, email FROM tbPeople WHERE id IN ($appid)";
+        //echo "<br>second query statement: "."SELECT first, last, email FROM tbPeople WHERE id IN ($appid)";
         $return=mysqli_query($db,"SELECT id, first, last, email FROM tbPeople WHERE id IN ($useridstext)");		
         while($d=mysqli_fetch_assoc($return)){
             $d['roles'] = $userData[$d['id']];
             $returnData[]=$d;
         }
-        echo "<br>second query returned: "; var_dump($returnData);
+        //echo "<br>second query returned: "; var_dump($returnData);
 
         return $returnData;
     }
