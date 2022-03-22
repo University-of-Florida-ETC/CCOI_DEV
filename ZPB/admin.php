@@ -6,9 +6,10 @@ $dataOffset = "10";
 $dataSpy = "scroll";
 include '../includes/header.php';
 include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
-$sessions = getSessions(); //defined below
-$appid = getAppID();
-// TO-DO: check if App-ID is correct for the page, if it is, you can stay. If not, Redirect() that person! Epically! 
+$id = $_GET['id'];
+if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedapp'], $_SESSION['myappids'])){
+    header("Location: group");
+}
 ?>
 
         <main role="main">
@@ -115,38 +116,7 @@ $appid = getAppID();
         </main>
         <?php include 'includes/footer.php'; ?>
         <script src="/js/jquery-3.4.1.min.js"></script>
-        <script src="/js/utility.js"></script>
-        <!--
-        <script src="./js/draggable.js"></script>
-        <script src="./js/demo.js"></script> -->
-        <script src="/js/observation.js"></script>
         <script src="/js/bootstrap.min.js"></script>
-        <!--cript src="/js/zpbdash.js"></script>-->
-        <script src="/js/ccoi.js"></script>
-        <script src="/js/ccoi-data-model.js"></script>
-        <!--<script src="./js/zpbccoi.js"></script>-->
-        <!--
-        <script>
-            console.log("In");
-            try{
-                if(typeof(jsUserVars) != 'undefined'){
-                    console.log("In2");
-                    userid=jsUserVars['pid'];
-                    //setTimeout(function(){ fetchUserObSets2(userid);},500);
-                    setTimeout(function(){ fetchUserObSets2(userid);},50);
-                    //fetchUserObSets2(userid);
-                }
-                else {
-                    console.log("Need to login!!");
-                }
-                
-            }
-            catch(error){
-                console.log("In4");
-                error(error);
-            }
-        </script>
-        -->
         <script>
             var derServer='https://ccoi-dev.education.ufl.edu/';
 
@@ -244,14 +214,5 @@ function getSessions(){
     }
     else
         return "<br>Session isn't valid :(";
-}
-function getAppID() {
-    $id = $_GET['id'];
-    return $id;
-}
-function Redirect($url, $permanent = false) {
-    
-    header('Location: ', $url, true, $permanent ? 301 : 302);
-    exit();
 }
 ?>
