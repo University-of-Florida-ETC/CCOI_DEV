@@ -56,16 +56,16 @@ $users = getUsers();
                                         <li class="user-listing">
                                             <div class="row user pb-1">
                                                 <div class="col-sm-3">
-                                                    <input class="saveOnEdit" type="text" id="fname<?= $currentUser['id'] ?>" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
+                                                    <input class="saveOnEdit" type="text" id="fname-<?= $currentUser['id'] ?>" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <input class="saveOnEdit" type="text" id="lname<?= $currentUser['id'] ?>" name="lname" style="width: 100%;" value="<?= $currentUser['last'] ?>">
+                                                    <input class="saveOnEdit" type="text" id="lname-<?= $currentUser['id'] ?>" name="lname" style="width: 100%;" value="<?= $currentUser['last'] ?>">
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <input class="saveOnEdit" type="email" id="email<?= $currentUser['id'] ?>" pattern=".+@globex\.com" style="width: 100%;" value="<?= $currentUser['email'] ?>">
+                                                    <input class="saveOnEdit" type="email" id="email-<?= $currentUser['id'] ?>" pattern=".+@globex\.com" style="width: 100%;" value="<?= $currentUser['email'] ?>">
                                                 </div>
                                                 <div class="col-sm-1">
-                                                    <input class="saveOnEdit" type="checkbox" id="admin<?= $currentUser['id'] ?>" name="admin" value="admin"<?php if( in_array('admin', $currentUser['roles']) ) echo " checked"; ?> >
+                                                    <input class="saveOnEdit" type="checkbox" id="admin-<?= $currentUser['id'] ?>" name="admin" value="admin"<?php if( in_array('admin', $currentUser['roles']) ) echo " checked"; ?> >
                                                 </div>
                                                 <div class="col-sm-1">
                                                     <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete User" aria-hidden="true"></span></a>
