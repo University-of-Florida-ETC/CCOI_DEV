@@ -56,10 +56,10 @@ $users = getUsers();
                                         <li class="user-listing">
                                             <div class="row user pb-1">
                                                 <div class="col-sm-3">
-                                                    <input class="saveOnEdit" type="text" id="fname-<?= $currentUser['id'] ?>" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
+                                                    <input class="saveOnEdit" type="text" id="first-<?= $currentUser['id'] ?>" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <input class="saveOnEdit" type="text" id="lname-<?= $currentUser['id'] ?>" name="lname" style="width: 100%;" value="<?= $currentUser['last'] ?>">
+                                                    <input class="saveOnEdit" type="text" id="last-<?= $currentUser['id'] ?>" name="lname" style="width: 100%;" value="<?= $currentUser['last'] ?>">
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <input class="saveOnEdit" type="email" id="email-<?= $currentUser['id'] ?>" pattern=".+@globex\.com" style="width: 100%;" value="<?= $currentUser['email'] ?>">
