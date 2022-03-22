@@ -25,7 +25,7 @@ $users = getUsers();
                         <div class="col-md-12">
                         <div class="row">
                                 <div class="col-md-8 col-12">
-                                    <h1 class="red-font">User Management</h1>
+                                    <h1 class="red-font">User Managements</h1>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
                                     <button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Create New User</button>
@@ -191,11 +191,26 @@ $users = getUsers();
             }
         </script>
         <script language='javascript'>
-            var users=document.getElementsByClassName('user');
-            if(users){for(e=0;e<users.length;e++){
-                for(var n=0; n<users[e].childNodes.length; n++){
-                    users[e].childNodes[n].addEventListener('change',function(e){doUpdate(e);e.stopPropagation();},true);
-            }}}
+            function doUpdate(e){
+                var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
+                xmlHttp.onreadystatechange = function() {var data=getHTML(xmlHttp);
+                    if(data){
+                        console.log("data:");
+                        console.log(data);
+                    }
+                }
+                var bit;		if(e.target.type=='checkbox'){bit=e.target.checked;}else{bit=encodeURIComponent(e.target.value);}
+                var sendStr = 'updateUser=1&'+e.target.id+'='+bit;
+                console.log("sendStr = "+sendStr);
+                var url = derServer+'ZPB/zpb_ajax.php?'+sendStr;					console.log(url);
+                xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
+            }
+
+            var elementsThatSave=document.getElementsByClassName('saveOnEdit');
+            for (var i = 0; i < elementsThatSave.length; i++) {
+                elementsThatSave[i].addEventListener('change',function(e){doUpdate(e);e.stopPropagation();},true);
+            }
+
         </script>
     </body> 
 </html>

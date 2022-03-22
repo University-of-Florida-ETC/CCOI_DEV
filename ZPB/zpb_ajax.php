@@ -108,4 +108,8 @@ if( !empty($_POST['updateObsEl']) ) {
         }
     }
 }
+
+if( !empty($_POST['updateUser']) ) {
+    var_dump($_POST);
+}
 ?>
