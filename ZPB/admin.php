@@ -21,7 +21,7 @@ $users = getUsers();
                             <a class="underlined-btn" href=<?php echo $zpbLink; ?>><span class="oi oi-arrow-thick-left mr-2"></span><span class="btn-text">Back to Session Select</span></a>
                         </div>
                     </div>
-                   <div class="row py-5">
+                   <div class="row py-5" style="min-width: 600px;">
                         <div class="col-md-12">
                         <div class="row">
                                 <div class="col-md-8 col-12">
@@ -52,8 +52,11 @@ $users = getUsers();
                                         <div class="col-sm-3 col-12">
                                             <p>Last Name</p>
                                         </div>
-                                        <div class="col-sm-5 col-12">
+                                        <div class="col-sm-4 col-12">
                                             <p>Email</p>
+                                        </div>
+                                        <div class="col-sm-4 col-12">
+                                            <p>Admin?</p>
                                         </div>
                                     </div>
                                     <ul id="research_session_list" class="mb-4">
@@ -61,16 +64,19 @@ $users = getUsers();
                                         <li class="user-listing">
                                             <div class="row">
                                                 <div class="col-sm-1 col-12">
-                                                    <input type="checkbox" id="user" name="user" value="user">
+                                                    <input type="checkbox" id="select<?= $currentUser['id'] ?>" name="selected">
                                                 </div>
                                                 <div class="col-sm-3 col-12">
-                                                    <input type="text" id="fname" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
+                                                    <input type="text" id="fname<?= $currentUser['first'] ?>" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
                                                 </div>
                                                 <div class="col-sm-3 col-12">
-                                                    <input type="text" id="lname" name="lname" style="width: 100%;" value="<?= $currentUser['last'] ?>">
+                                                    <input type="text" id="lname<?= $currentUser['first'] ?>" name="lname" style="width: 100%;" value="<?= $currentUser['last'] ?>">
                                                 </div>
-                                                <div class="col-sm-5 col-12">
-                                                    <input type="email" id="email" pattern=".+@globex\.com" style="width: 100%;" value="<?= $currentUser['email'] ?>">
+                                                <div class="col-sm-4 col-12">
+                                                    <input type="email" id="email<?= $currentUser['first'] ?>" pattern=".+@globex\.com" style="width: 100%;" value="<?= $currentUser['email'] ?>">
+                                                </div>
+                                                <div class="col-sm-1 col-12">
+                                                    <input type="checkbox" id="admin<?= $currentUser['first'] ?>" name="admin" value="admin"<?php if( in_array('admin', $currentUser['roles']) ) echo " checked"; ?> >
                                                 </div>
                                             </div>
                                         </li>
