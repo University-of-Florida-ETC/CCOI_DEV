@@ -1,0 +1,878 @@
+{
+  "version": "20181705",
+  "firstNodeID": 1,
+  "nodeGroups": [
+    {
+      "machine_name": "start",
+      "label": "Starting Node",
+      "labelPosition": "top",
+      "fill": "fff"
+    },
+    {
+      "machine_name": "independent",
+      "label": "Independent",
+      "labelPosition": "bottom",
+      "fill": "ddd"
+    },
+    {
+      "machine_name": "independent_computing",
+      "label": "Independent Problem Solving",
+      "labelPosition": "bottom",
+      "fill": "fff",
+      "hide_from_graph": "1",
+      "chart_fill": "2196f3"
+    },
+    {
+      "machine_name": "independent_non_computing",
+      "label": "Non-Computing Independent",
+      "labelPosition": "bottom",
+      "fill": "fff",
+      "hide_from_graph": "1",
+      "chart_fill": "009688"
+    },
+    {
+      "machine_name": "interactive",
+      "label": "Non-Computing Interaction",
+      "labelPosition": "top",
+      "fill": "ddd"
+    },
+    {
+      "machine_name": "problem_solving",
+      "label": "Collaborative Problem Solving",
+      "labelPosition": "top",
+      "parent": "5",
+      "fill": "ccc",
+      "chart_fill": "ff5722"
+    },
+    {
+      "machine_name": "computing_communication",
+      "label": "Computing Discussion (Non-Problem Solving)",
+      "labelPosition": "bottom",
+      "parent": "5",
+      "fill": "ccc",
+      "chart_fill": "ffc107"
+    },
+    {
+      "machine_name": "non_computing_communication",
+      "label": "Non-Computing Interaction",
+      "labelArray": [
+        "Non-computing",
+        "Interaction"
+      ],
+      "labelPosition": "bottom",
+      "parent": "5",
+      "fill": "ccc",
+      "chart_fill": "8bc34a"
+    }
+  ],
+  "nodes": [
+    {
+      "id": 0,
+      "node_id": 1,
+      "nodeid": "2789f0",
+      "title": "How does the event begin?",
+      "groups": [
+        "start"
+      ],
+      "group_hex": [
+        "06bf1b"
+      ],
+      "should_group_choices": false,
+      "branches": [
+        [
+          {
+            "description": "Student addresses Peer",
+            "next_id": "9",
+            "extra": "Peer ID",
+            "path_type": "Interactive",
+            "branch_new_id": "2"
+          },
+          {
+            "description": "Peer addresses Student",
+            "next_id": "9",
+            "extra": "Peer ID",
+            "path_type": "Interactive",
+            "branch_new_id": "3"
+          },
+          {
+            "description": "Student addresses Adult",
+            "next_id": "9",
+            "extra": "Adult ID",
+            "path_type": "Interactive",
+            "branch_new_id": "4"
+          },
+          {
+            "description": "Adult addresses Student",
+            "next_id": "9",
+            "extra": "Adult ID",
+            "path_type": "Interactive",
+            "branch_new_id": "5"
+          },
+          {
+            "description": "Student works independently on a computing related task",
+            "next_id": "128",
+            "path_type": "Independent",
+            "branch_new_id": "6",
+            "node_sub_group": "independent_computing"
+          },
+          {
+            "description": "Student works independently on a non computing task",
+            "next_id": "128",
+            "path_type": "Independent",
+            "branch_new_id": "7",
+            "node_sub_group": "independent_non_computing"
+          },
+          {
+            "description": "Student joins peer conversation",
+            "next_id": "9",
+            "path_type": "Interactive",
+            "branch_new_id": "8"
+          }
+        ]
+      ]
+    },
+    {
+      "id": 1,
+      "node_id": 9,
+      "nodeid": "effa06",
+      "title": "How does the interaction with the peer or adult begin or continue?",
+      "groups": [
+        "interactive"
+      ],
+      "group_hex": [
+        "aaaaaa"
+      ],
+      "should_group_choices": true,
+      "branches": [
+        [
+          {
+            "description": "Student clearly expresses how he or she needs help with a difficulty or problem",
+            "next_id": "38",
+            "branch_new_id": "10"
+          },
+          {
+            "description": "Student expresses a need for help, but is not explicit to the difficulty or problem ",
+            "next_id": "38",
+            "branch_new_id": "11"
+          },
+          {
+            "description": "Student discusses computing (not problem solving)",
+            "next_id": "97",
+            "branch_new_id": "12"
+          },
+          {
+            "description": "Student engages in non-computing conversation",
+            "next_id": "117",
+            "branch_new_id": "13"
+          },
+          {
+            "description": "Student offers support to peer (the peer did not specifically ask for help)",
+            "next_id": "46",
+            "branch_new_id": "14"
+          },
+          {
+            "description": "Student said something that is unclear or inaudible",
+            "next_id": "9",
+            "branch_new_id": "15"
+          },
+          {
+            "description": "Student verbally addresses a person without expressing the offer or need for help, curiosity, excitement, accomplishment or non-computing conversation (e.g., \"Hey you...\" or \"Mrs. S...\" or \"Stop that!\")",
+            "next_id": "9",
+            "branch_new_id": "16"
+          }
+        ],
+        [
+          {
+            "description": "Peer offers self-regulation support to student",
+            "aside": "Describe the support in the field notes.",
+            "next_id": "9",
+            "branch_new_id": "17"
+          },
+          {
+            "description": "Peer offers support to student who was working collaboratively on a problem or topic",
+            "next_id": "38",
+            "branch_new_id": "18"
+          },
+          {
+            "description": "Peer offers support to student who was working independently on a problem or topic",
+            "next_id": "38",
+            "branch_new_id": "19"
+          },
+          {
+            "description": "Peer discusses computing (not problem solving)",
+            "next_id": "97",
+            "branch_new_id": "20"
+          },
+          {
+            "description": "Peer engages student in non-computing conversation (heard on student's computer)",
+            "next_id": "117",
+            "branch_new_id": "21"
+          },
+          {
+            "description": "Peer asks student for help",
+            "next_id": "46",
+            "branch_new_id": "22"
+          },
+          {
+            "description": "Peer said something that is unclear or inaudible",
+            "next_id": "9",
+            "branch_new_id": "23"
+          },
+          {
+            "description": "Peer verbally addresses the student without expressing the need\/offer for help, curiosity, excitement, accomplishment or non-computing conversation (e.g. \"Hey you...\" or \"Can you stop that!\")",
+            "next_id": "9",
+            "branch_new_id": "24"
+          }
+        ],
+        [
+          {
+            "description": "Adult offers self-regulation support to student",
+            "aside": "Describe the support in the field notes.",
+            "next_id": "9",
+            "branch_new_id": "25"
+          },
+          {
+            "description": "Adult offers support to student who was working collaboratively on a problem or topic",
+            "next_id": "38",
+            "branch_new_id": "26"
+          },
+          {
+            "description": "Adult offers support to student who was working independently on a problem or topic",
+            "next_id": "38",
+            "branch_new_id": "27"
+          },
+          {
+            "description": "Adult talks to student about a non-computing task (e.g., student has to finish a math problem, check recording, go to another room)",
+            "next_id": "9",
+            "branch_new_id": "28"
+          },
+          {
+            "description": "Adult verbally comments on student's work [heard on student's computer]",
+            "next_id": "9",
+            "branch_new_id": "29"
+          },
+          {
+            "description": "Adult engages in non-computing conversation [heard on student's computer]",
+            "next_id": "9",
+            "branch_new_id": "30"
+          },
+          {
+            "description": "Adult said something that is unclear or inaudible",
+            "next_id": "9",
+            "branch_new_id": "31"
+          },
+          {
+            "description": "Adult verbally addresses the student without expressing the offer for help, curiosity, excitement, accomplishment or non-computing conversation (e.g., \"Can you please stop that!\")",
+            "next_id": "9",
+            "branch_new_id": "32"
+          },
+          {
+            "description": "Adult directs student to computing task",
+            "next_id": "9",
+            "branch_new_id": "33"
+          }
+        ],
+        [
+          {
+            "description": "Student's cursor stopped moving for more than 30 seconds, or the student leaves station (> 30 seconds) and returns to independently work [end path]",
+            "branch_new_id": "34"
+          },
+          {
+            "description": "Interaction terminates [end path]",
+            "branch_new_id": "35"
+          },
+          {
+            "description": "The video record ends [end path]",
+            "branch_new_id": "36"
+          }
+        ]
+      ],
+      "branch_group_names": [
+        "Student Driven",
+        "Peer Driven",
+        "Adult Driven",
+        "General"
+      ]
+    },
+    {
+      "id": 2,
+      "node_id": 38,
+      "nodeid": "73ae21",
+      "title": "What was the problem? (This is referring to the difficulty not the subtask)",
+      "groups": [
+        "problem_solving"
+      ],
+      "group_hex": [
+        "0676be"
+      ],
+      "should_group_choices": false,
+      "branches": [
+        [
+          {
+            "description": "Difficulty or problem or topic is related to computing\/programming",
+            "next_id": "46",
+            "branch_new_id": "39"
+          },
+          {
+            "description": "Difficulty or problem or topic is related to academic content",
+            "next_id": "46",
+            "branch_new_id": "40"
+          },
+          {
+            "description": "Difficulty or problem or topic is related to navigating software (e.g. logging in, changing levels)",
+            "next_id": "46",
+            "branch_new_id": "41"
+          },
+          {
+            "description": "Difficulty or problem or topic is related to asset creation and management (e.g. creating\/modifying\/resizing images, recording\/editing audio)",
+            "next_id": "46",
+            "branch_new_id": "42"
+          },
+          {
+            "description": "Difficulty or problem or topic is related to general computer technology (e.g., mouse, monitor, adapter)",
+            "next_id": "46",
+            "branch_new_id": "43"
+          },
+          {
+            "description": "Difficulty or problem or topic is related to multiple of the above categories",
+            "aside": "Indicate the relevant categories in the field notes using the following keywords: \"computing\/programming\", \"academic content\", \"navigating software\", \"asset creation\/management\", \"general computer technology\", \"other\"",
+            "next_id": "46",
+            "branch_new_id": "44"
+          },
+          {
+            "description": "Other (Please add addtional notes)",
+            "next_id": "46",
+            "branch_new_id": "45"
+          }
+        ]
+      ]
+    },
+    {
+      "id": 3,
+      "node_id": 46,
+      "nodeid": "645409",
+      "title": "What did the interaction between the Peer or Adult and the student look like?",
+      "groups": [
+        "problem_solving"
+      ],
+      "group_hex": [
+        "0676be"
+      ],
+      "should_group_choices": true,
+      "branches": [
+        [
+          {
+            "description": "Peer and student discuss the difficulty or problem",
+            "next_id": "94",
+            "branch_new_id": "47"
+          },
+          {
+            "description": "Peer and student discuss the difficulty or problem, and another person(s) joins the discussion",
+            "next_id": "94",
+            "branch_new_id": "48"
+          },
+          {
+            "description": "Peer recites all steps of the solution",
+            "next_id": "94",
+            "branch_new_id": "49"
+          },
+          {
+            "description": "Peer recites all steps of the solution, and another person(s) joins",
+            "next_id": "94",
+            "branch_new_id": "50"
+          },
+          {
+            "description": "Peer physically shows by taking over the student's computer, and no discussions are occurring",
+            "next_id": "94",
+            "branch_new_id": "51"
+          },
+          {
+            "description": "Peer physically shows by taking over the student's computer, no discussions are occurring, and another person(s) joins",
+            "next_id": "94",
+            "branch_new_id": "52"
+          },
+          {
+            "description": "Peer physically shows by taking over the student's computer, and discussions are occurring",
+            "next_id": "94",
+            "branch_new_id": "53"
+          },
+          {
+            "description": "Peer physically shows by taking over the student's computer, discussions are occurring, and another person (s) joins",
+            "next_id": "94",
+            "branch_new_id": "54"
+          },
+          {
+            "description": "Peer and student discuss the difficulty or problem, and then Peer directs student to another peer or adult",
+            "next_id": "9",
+            "branch_new_id": "55"
+          }
+        ],
+        [
+          {
+            "description": "Adult and student discuss the difficulty or problem",
+            "next_id": "94",
+            "branch_new_id": "56"
+          },
+          {
+            "description": "Adult and student discuss the difficulty or problem, and another person(s) joins the discussion",
+            "next_id": "94",
+            "branch_new_id": "57"
+          },
+          {
+            "description": "Adult recites all steps of the solution",
+            "next_id": "94",
+            "branch_new_id": "58"
+          },
+          {
+            "description": "Adult recites all steps of the solution, and another person(s) joins",
+            "next_id": "94",
+            "branch_new_id": "59"
+          },
+          {
+            "description": "Adult physically shows by taking over the student's computer, and no discussions are occurring",
+            "next_id": "94",
+            "branch_new_id": "60"
+          },
+          {
+            "description": "Adult physically shows by taking over the student's computer, no discussions are occurring, and another person(s) joins",
+            "next_id": "94",
+            "branch_new_id": "61"
+          },
+          {
+            "description": "Adult physically shows by taking over the student's computer, and discussions are occurring",
+            "next_id": "94",
+            "branch_new_id": "62"
+          },
+          {
+            "description": "Adult physically shows by taking over the student's computer, discussions are occurring, and another person (s) joins",
+            "next_id": "94",
+            "branch_new_id": "63"
+          },
+          {
+            "description": "Adult and student discuss the difficulty or problem, and then Adult directs student to another peer or adult",
+            "next_id": "9",
+            "branch_new_id": "64"
+          }
+        ],
+        [
+          {
+            "description": "Peer directs student to talk to another peer or adult",
+            "next_id": "9",
+            "branch_new_id": "65"
+          },
+          {
+            "description": "Peer clearly states that he or she does not know how to help",
+            "next_id": "9",
+            "branch_new_id": "66"
+          },
+          {
+            "description": "Peer clearly states that he or she does not want to help",
+            "next_id": "9",
+            "branch_new_id": "67"
+          }
+        ],
+        [
+          {
+            "description": "Adult directs student to talk to another peer or adult",
+            "next_id": "9",
+            "branch_new_id": "68"
+          },
+          {
+            "description": "Adult clearly states that he or she does not know how to help",
+            "next_id": "9",
+            "branch_new_id": "69"
+          },
+          {
+            "description": "Adult is unwilling to help",
+            "next_id": "9",
+            "branch_new_id": "70"
+          },
+          {
+            "description": "Adult verbally comments on student's work",
+            "next_id": "94",
+            "branch_new_id": "71"
+          }
+        ],
+        [
+          {
+            "description": "Student dismisses his or her attempt for interacting (e.g. student does not call the person again) [end path]",
+            "branch_new_id": "72"
+          },
+          {
+            "description": "Peer dismisses his or her attempt for interacting (e.g. peer does not call the student again) [end path]",
+            "branch_new_id": "73"
+          },
+          {
+            "description": "Adult dismisses his or her attempt for interacting (e.g. adult does not call the student again) [end path]",
+            "branch_new_id": "74"
+          },
+          {
+            "description": "Student ignored or cannot hear or code student's response to peer",
+            "next_id": "9",
+            "branch_new_id": "75"
+          },
+          {
+            "description": "Student ignored or cannot hear or code student's response to adult",
+            "next_id": "9",
+            "branch_new_id": "76"
+          },
+          {
+            "description": "Peer ignored or cannot hear or code peer's response to student",
+            "next_id": "9",
+            "branch_new_id": "77"
+          },
+          {
+            "description": "Adult ignored or cannot hear or code adult's response to student",
+            "next_id": "9",
+            "branch_new_id": "78"
+          },
+          {
+            "description": "Can't code interaction [end path]",
+            "branch_new_id": "79"
+          }
+        ],
+        [
+          {
+            "description": "Student and peer discuss a difficulty or problem",
+            "next_id": "94",
+            "branch_new_id": "80"
+          },
+          {
+            "description": "Student and peer discuss a difficulty or problem, and another person(s) joins the discussion",
+            "next_id": "94",
+            "branch_new_id": "81"
+          },
+          {
+            "description": "Student recites all steps of the solution",
+            "next_id": "94",
+            "branch_new_id": "82"
+          },
+          {
+            "description": "Student recites all steps of the solution, and another person(s) joins",
+            "next_id": "94",
+            "branch_new_id": "83"
+          },
+          {
+            "description": "Student physically shows by taking over the peer's computer, and no discussions are occurring",
+            "next_id": "94",
+            "branch_new_id": "84"
+          },
+          {
+            "description": "Student physically shows by taking over the peer's computer, no discussions are occurring, and another person(s) joins",
+            "next_id": "94",
+            "branch_new_id": "85"
+          },
+          {
+            "description": "Student physically shows by taking over the peer's computer, and discussions are occurring",
+            "next_id": "94",
+            "branch_new_id": "86"
+          },
+          {
+            "description": "Student physically shows by taking over the peer's computer, discussions are occurring, and another person (s) joins",
+            "next_id": "94",
+            "branch_new_id": "87"
+          },
+          {
+            "description": "Student and peer discuss a difficulty or problem, and then student directs peer to another peer or adult",
+            "next_id": "9",
+            "branch_new_id": "88"
+          }
+        ],
+        [
+          {
+            "description": "Student directs peer to talk to another peer or adult",
+            "next_id": "9",
+            "branch_new_id": "89"
+          },
+          {
+            "description": "Student clearly states that he or she does not know how to help",
+            "next_id": "9",
+            "branch_new_id": "90"
+          },
+          {
+            "description": "Student clearly states that he or she does not want to help",
+            "next_id": "9",
+            "branch_new_id": "91"
+          }
+        ],
+        [
+          {
+            "description": "Student's cursor stopped moving for more than 30 seconds, or the student leaves station (> 30 seconds) and returns to independently work [end path]",
+            "branch_new_id": "92"
+          },
+          {
+            "description": "Interaction terminates [end path]",
+            "branch_new_id": "93"
+          }
+        ]
+      ],
+      "branch_group_names": [
+        "Peer - Problem Discussed",
+        "Adult - Problem Discussed",
+        "Peer - Unable or Unwilling to Help",
+        "Adult - Unable or Unwilling to Help",
+        "Ignored",
+        "Student - Problem Discussed",
+        "Student - Unable or Unwilling to Help",
+        "General"
+      ]
+    },
+    {
+      "id": 4,
+      "node_id": 94,
+      "nodeid": "125cd7",
+      "title": "Was the problem solved or not solved? (Was the difficulty solved?)",
+      "groups": [
+        "problem_solving"
+      ],
+      "group_hex": [
+        "0676be"
+      ],
+      "should_group_choices": false,
+      "branches": [
+        [
+          {
+            "description": "Problem was not solved",
+            "next_id": "9",
+            "branch_new_id": "95"
+          },
+          {
+            "description": "Problem was solved",
+            "next_id": "9",
+            "branch_new_id": "96"
+          }
+        ]
+      ]
+    },
+    {
+      "id": 5,
+      "node_id": 97,
+      "nodeid": "3710bb",
+      "title": "What is the nature of the student's computing-related communication with the peer or adult?",
+      "groups": [
+        "computing_communication"
+      ],
+      "group_hex": [
+        "db8409"
+      ],
+      "assumes_previous_timestamp": "1",
+      "should_group_choices": true,
+      "branches": [
+        [
+          {
+            "description": "Student questions peer about something associated with peer's work",
+            "next_id": "108",
+            "branch_new_id": "98"
+          },
+          {
+            "description": "Student verbally comments about his\/her own work, e.g. accomplishment",
+            "next_id": "108",
+            "branch_new_id": "99"
+          },
+          {
+            "description": "Student verbally comments about something associated with peer's work",
+            "next_id": "108",
+            "branch_new_id": "100"
+          },
+          {
+            "description": "Student expresses dissatisfaction or frustration",
+            "next_id": "108",
+            "branch_new_id": "101"
+          },
+          {
+            "description": "Student said something that is unclear or inaudible",
+            "next_id": "9",
+            "branch_new_id": "102"
+          }
+        ],
+        [
+          {
+            "description": "Peer questions student about something associated with student's work",
+            "next_id": "108",
+            "branch_new_id": "103"
+          },
+          {
+            "description": "Peer verbally comments about something associated with his\/her own work, e.g. accomplishment",
+            "next_id": "108",
+            "branch_new_id": "104"
+          },
+          {
+            "description": "Peer verbally comments about something associated with student's work",
+            "next_id": "108",
+            "branch_new_id": "105"
+          },
+          {
+            "description": "Peer expresses dissatisfaction or frustration",
+            "next_id": "108",
+            "branch_new_id": "106"
+          },
+          {
+            "description": "Peer said something that is unclear or inaudible",
+            "next_id": "9",
+            "branch_new_id": "107"
+          }
+        ]
+      ],
+      "branch_group_names": [
+        "Student Driven",
+        "Peer Driven"
+      ]
+    },
+    {
+      "id": 6,
+      "node_id": 108,
+      "nodeid": "e7d1ec",
+      "title": "What is the student\/peer\/adult's response to the initial computing-related communication?",
+      "groups": [
+        "computing_communication"
+      ],
+      "group_hex": [
+        "db8409"
+      ],
+      "assumes_previous_timestamp": "1",
+      "should_group_choices": false,
+      "branches": [
+        [
+          {
+            "description": "Peer verbally responds to the student's curiosity, excitement, or frustration",
+            "next_id": "9",
+            "branch_new_id": "109"
+          },
+          {
+            "description": "Adult verbally responds to the student's curiosity, excitement, or frustration",
+            "next_id": "9",
+            "branch_new_id": "110"
+          },
+          {
+            "description": "Interaction terminates [end path]",
+            "branch_new_id": "111"
+          },
+          {
+            "description": "Student\/peer\/adult ignored or cannot hear or code the response",
+            "next_id": "9",
+            "branch_new_id": "112"
+          },
+          {
+            "description": "Student\/peer\/adult said something that is unclear or inaudible",
+            "next_id": "9",
+            "branch_new_id": "113"
+          },
+          {
+            "description": "Student verbally responds to the peer's curiosity, excitement, or frustration",
+            "next_id": "9",
+            "branch_new_id": "114"
+          },
+          {
+            "description": "Student offers support to peer (the peer did not specifically ask for help)",
+            "next_id": "46",
+            "branch_new_id": "115"
+          }
+        ]
+      ]
+    },
+    {
+      "id": 7,
+      "node_id": 117,
+      "nodeid": "9da550",
+      "title": "How did the student\/peer respond to the non-computing conversation?",
+      "groups": [
+        "non_computing_communication"
+      ],
+      "group_hex": [
+        "320ead"
+      ],
+      "assumes_previous_timestamp": "1",
+      "should_group_choices": false,
+      "branches": [
+        [
+          {
+            "description": "Peer verbally responds to student's non-computing conversation",
+            "next_id": "9",
+            "branch_new_id": "118"
+          },
+          {
+            "description": "Adult verbally responds to student's non-computing conversation",
+            "next_id": "9",
+            "branch_new_id": "119"
+          },
+          {
+            "description": "Interaction terminates [end path]",
+            "branch_new_id": "120"
+          },
+          {
+            "description": "Student\/peer\/adult ignored or cannot hear or code response",
+            "next_id": "9",
+            "branch_new_id": "121"
+          },
+          {
+            "description": "Peer or adult redirects student to the computing task",
+            "next_id": "9",
+            "branch_new_id": "122"
+          },
+          {
+            "description": "Student\/peer\/adult said something that is unclear or inaudible",
+            "next_id": "9",
+            "branch_new_id": "123"
+          },
+          {
+            "description": "Student verbally responds to peer's non-computing conversation",
+            "next_id": "9",
+            "branch_new_id": "124"
+          },
+          {
+            "description": "Student redirects peer to the computing task",
+            "next_id": "9",
+            "branch_new_id": "125"
+          }
+        ]
+      ]
+    },
+    {
+      "id": 8,
+      "node_id": 128,
+      "nodeid": "9591c0",
+      "title": "How does the event end or continue? (Independent Path)",
+      "groups": [
+        "independent"
+      ],
+      "group_hex": [
+        "c4414f"
+      ],
+      "should_group_choices": false,
+      "branches": [
+        [
+          {
+            "description": "Student's cursor stopped moving for more than 30 seconds, or the student leaves station (> 30 seconds) and returns to independently work [end path]",
+            "aside": "Timestamp this code at the point where the student leaves the station or the student's cursor stops moving. Begin the next path at the point where the student returns to their station or the cursor begins moving.",
+            "branch_new_id": "129"
+          },
+          {
+            "description": "The video record ends [end path]",
+            "branch_new_id": "130"
+          },
+          {
+            "description": "Student solves a problem previously discussed during an interaction [end path]",
+            "branch_new_id": "131"
+          },
+          {
+            "description": "Interaction begins [end path]",
+            "aside": "Timestamp this code when the interaction begins. Create a new path for the interaction and start it ",
+            "branch_new_id": "132"
+          },
+          {
+            "description": "Student switches to a computing related task while working independently [self loop]",
+            "next_id": "128",
+            "branch_new_id": "133",
+            "node_sub_group": "independent_computing"
+          },
+          {
+            "description": "Student switches to a non computing task while working independently [self loop]",
+            "next_id": "128",
+            "branch_new_id": "134",
+            "node_sub_group": "independent_non_computing"
+          }
+        ]
+      ]
+    }
+  ]
+}
