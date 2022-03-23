@@ -46,7 +46,7 @@ if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedap
                                         <li class="session-listing my-2">
                                             <div class="row">
                                                 <div class="col-sm-9 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= clean($currentSession['name']); ?></a>
+                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
                                                 </div>
                                                 <div class="col-sm-3 col-12">
                                                     <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
@@ -63,7 +63,7 @@ if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedap
                                         <li class="session-listing my-2">
                                             <div class="row">
                                                 <div class="col-sm-11 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= clean($currentSession['name']); ?></a>
+                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
                                                 </div>
                                                 <div class="col-sm-1 col-12">
                                                     <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
@@ -78,7 +78,7 @@ if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedap
                                         <li class="session-listing my-2">
                                             <div class="row">
                                                 <div class="col-sm-9 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><?= clean($currentSession['name']); ?></a>
+                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><?= $currentSession['name'] ?></a>
                                                 </div>
                                                 <div class="col-sm-3 col-12">
                                                     <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
@@ -305,8 +305,4 @@ function getSessions(){
     else
         return "<br>Session isn't valid :(";
 }
-
-function clean($string) {
-    return preg_match('/^[a-z0-9 .\-]+$/i', $string);
- }
 ?>
