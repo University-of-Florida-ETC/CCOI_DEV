@@ -250,9 +250,13 @@ function NodeChoice (ccoiStep) {
  * @returns {string} A given step in a path
  */
 function CCOI_Step_output (plaintext) {
-	var outputText = '(' + this.minutes + ':';
+	
+	/*This output text is old and crusty. Real output text should have total seconds, not minutes seconds. Epic fail!*/
+	/*var outputText = '(' + this.minutes + ':';
 	if (this.seconds < 10) { outputText += '0'; }
-	outputText += this.seconds + ') ';
+	outputText += this.seconds + ') ';*/
+
+	var outputText = '(' + this.totalSeconds + ')';
 
 	var nodeChoice = NodeChoice(this);
 	if(nodeChoice)
