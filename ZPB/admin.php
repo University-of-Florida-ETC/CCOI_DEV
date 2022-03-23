@@ -24,109 +24,107 @@ echo "<br>\$videos:"; var_dump($videos);
                             <a class="underlined-btn" href=<?php echo $zpbLink; ?>><span class="oi oi-arrow-thick-left mr-2"></span><span class="btn-text">Back to Session Select</span></a>
                         </div>
                     </div>
-                   <div class="row py-5" style="min-width: 600px;">
+                    <div class="row py-5" style="min-width: 600px;">
                         <div class="col-md-12">
                         <div class="row">
-                                <div class="col-md-8 col-12">
-                                    <h1 class="red-font">User Management</h1>
-                                </div>
-                                <div class="col-md-4 col-12 pt-2">
-                                    <button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Add User</button>
-                                </div>
+                            <div class="col-md-8 col-12">
+                                <h1 class="red-font">User Management</h1>
                             </div>
-                            
-                            <div class="row pt-3 pr-md-5">
-                                <div class="col-12 btn-div">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <p>First Name</p>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <p>Last Name</p>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <p>Email</p>
-                                        </div>
-                                        <div class="col-sm-1">
-                                            <p>Admin?</p>
-                                        </div>
-                                        <div class="col-sm-1">
-                                            <p>Remove</p>
-                                        </div>
-                                    </div>
-                                    <ul id="research_session_list" class="mb-4">
-<?php foreach ($users as $currentUser): ?>
-                                        <li class="user-listing">
-                                            <div class="row user pb-1">
-                                                <div class="col-sm-3">
-                                                    <input class="saveOnEdit" type="text" id="first-<?= $currentUser['id'] ?>" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input class="saveOnEdit" type="text" id="last-<?= $currentUser['id'] ?>" name="lname" style="width: 100%;" value="<?= $currentUser['last'] ?>">
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <input class="saveOnEdit" type="email" id="email-<?= $currentUser['id'] ?>" pattern=".+@globex\.com" style="width: 100%;" value="<?= $currentUser['email'] ?>">
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <input class="saveOnEdit" type="checkbox" id="admin-<?= $currentUser['id'] ?>" name="admin" value="admin"<?php if( in_array('admin', $currentUser['roles']) ) echo " checked"; ?><?php if( in_array('superadmin', $currentUser['roles']) ) echo " disabled"; ?> >
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete User" aria-hidden="true"></span></a>
-                                                </div>
-                                            </div>
-                                        </li>
-<?php endforeach; ?>
-                                    </ul> 
-                                </div>
+                            <div class="col-md-4 col-12 pt-2">
+                                <button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Add User</button>
                             </div>
-
                         </div>
-                    </div>
-                </div>
-                <div class="row py-5" style="min-width: 600px;">
-                        <div class="col-md-6">
-                        <div class="row">
-                                <div class="col-md-8 col-12">
-                                    <h1 class="red-font">Videos</h1>
-                                </div>
-                                <div class="col-md-4 col-12 pt-2">
-                                    <button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Add Video</button>
-                                </div>
-                            </div>
                             
-                            <div class="row pt-3 pr-md-5">
-                                <div class="col-12 btn-div">
-                                    <div class="row">
-                                        <div class="col-sm-10">
-                                            <p>Video Name</p>
-                                        </div>
-                                        <div class="col-sm-1">
-                                            <p>Edit</p>
-                                        </div>
-                                        <div class="col-sm-1">
-                                            <p>Delete</p>
-                                        </div>
+                        <div class="row pt-3 pr-md-5">
+                            <div class="col-12 btn-div">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p>First Name</p>
                                     </div>
-                                    <ul id="research_session_list" class="mb-4">
-<?php foreach ($videos as $index => $currentVideo): ?>
-                                        <li class="video-listing">
-                                            <div class="row user pb-1">
-                                                <div class="col-sm-10">
-                                                    <input type="text" id="vidname-<?= $index ?>" name="vidname" style="width: 100%;" value="<?= $currentVideo ?>">
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <a class="btn-link session-edit" href="javascript:void(0)"><span class="oi oi-pencil px-2" title="Edit Video Name" aria-hidden="true"></span></a>
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete User" aria-hidden="true"></span></a>
-                                                </div>
+                                    <div class="col-sm-3">
+                                        <p>Last Name</p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p>Email</p>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <p>Admin?</p>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <p>Remove</p>
+                                    </div>
+                                </div>
+                                <ul id="research_session_list" class="mb-4">
+<?php foreach ($users as $currentUser): ?>
+                                    <li class="user-listing">
+                                        <div class="row user pb-1">
+                                            <div class="col-sm-3">
+                                                <input class="saveOnEdit" type="text" id="first-<?= $currentUser['id'] ?>" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
                                             </div>
-                                        </li>
+                                            <div class="col-sm-3">
+                                                <input class="saveOnEdit" type="text" id="last-<?= $currentUser['id'] ?>" name="lname" style="width: 100%;" value="<?= $currentUser['last'] ?>">
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <input class="saveOnEdit" type="email" id="email-<?= $currentUser['id'] ?>" pattern=".+@globex\.com" style="width: 100%;" value="<?= $currentUser['email'] ?>">
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <input class="saveOnEdit" type="checkbox" id="admin-<?= $currentUser['id'] ?>" name="admin" value="admin"<?php if( in_array('admin', $currentUser['roles']) ) echo " checked"; ?><?php if( in_array('superadmin', $currentUser['roles']) ) echo " disabled"; ?> >
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete User" aria-hidden="true"></span></a>
+                                            </div>
+                                        </div>
+                                    </li>
 <?php endforeach; ?>
-                                    </ul> 
+                                </ul> 
+                            </div>
+                        </div>
+
+
+                        <div class="row py-5" style="min-width: 600px;">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-8 col-12">
+                                        <h1 class="red-font">Videos</h1>
+                                    </div>
+                                    <div class="col-md-4 col-12 pt-2">
+                                        <button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Add Video</button>
+                                    </div>
+                                </div>
+
+                                <div class="row pt-3 pr-md-5">
+                                    <div class="col-12 btn-div">
+                                        <div class="row">
+                                            <div class="col-sm-10">
+                                                <p>Video Name</p>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <p>Edit</p>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <p>Delete</p>
+                                            </div>
+                                        </div>
+                                        <ul id="research_session_list" class="mb-4">
+<?php foreach ($videos as $index => $currentVideo): ?>
+                                            <li class="video-listing">
+                                                <div class="row user pb-1">
+                                                    <div class="col-sm-10">
+                                                        <input type="text" id="vidname-<?= $index ?>" name="vidname" style="width: 100%;" value="<?= $currentVideo ?>">
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <a class="btn-link session-edit" href="javascript:void(0)"><span class="oi oi-pencil px-2" title="Edit Video Name" aria-hidden="true"></span></a>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete User" aria-hidden="true"></span></a>
+                                                    </div>
+                                                </div>
+                                            </li>
+<?php endforeach; ?>
+                                        </ul> 
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
