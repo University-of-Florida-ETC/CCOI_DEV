@@ -29,7 +29,7 @@ if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedap
                         <div class="col-md-8">
                             <div class="row pr-md-5">
                                 <div class="col-md-8 col-12">
-                                    <h1 class="red-font">Sessions</h1>
+                                    <h1 class="red-font">Sessionss</h1>
                                     <h5 style="text-transform: none;">Select a session to view or edit the set</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
@@ -272,7 +272,7 @@ function getSessions(){
             $sidstext=implode(',',$sessionids);
 
             //Get session IDs of research sessions
-            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid!='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL AND id != 132");		
+            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid!='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL AND id != '132'");		
             while($d=mysqli_fetch_assoc($return)){$othersessionids[]=$d['sessionid'];}
             $othersidstext=implode(',',$othersessionids);
 
