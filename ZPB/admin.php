@@ -11,6 +11,9 @@ if( !in_array($appid, $_SESSION['myappids'])){
     header("Location: group");
 }
 $users = getUsers();
+$videos = getVideos();
+echo "<br>\$videos:"; var_dump($videos);
+//$paths = getPaths();
 ?>
 
         <main role="main">
@@ -28,7 +31,7 @@ $users = getUsers();
                                     <h1 class="red-font">User Management</h1>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
-                                    <button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Create New User</button>
+                                    <button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Add User</button>
                                 </div>
                             </div>
                             
@@ -74,18 +77,54 @@ $users = getUsers();
                                         </li>
 <?php endforeach; ?>
                                     </ul> 
-                                    <h4>Playgrounds Sessions</h4>
-                                    <ul id="playgrounds_session_list">
-<?php foreach ($sessions['playground'] as $currentSession): ?>
-                                        <li class="session-listing my-2">
-                                            <div class="row">
-                                                <div class="col-sm-9 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><?= $currentSession['name']; ?></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-5" style="min-width: 600px;">
+                        <div class="col-md-6">
+                        <div class="row">
+                                <div class="col-md-8 col-12">
+                                    <h1 class="red-font">Videos</h1>
+                                </div>
+                                <div class="col-md-4 col-12 pt-2">
+                                    <button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Add Video</button>
+                                </div>
+                            </div>
+                            
+                            <div class="row pt-3 pr-md-5">
+                                <div class="col-12 btn-div">
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <p>Video Name</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>Edit</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>Delete</p>
+                                        </div>
+                                    </div>
+                                    <ul id="research_session_list" class="mb-4">
+<?php foreach ($users as $currentUser): ?>
+                                        <li class="user-listing">
+                                            <div class="row user pb-1">
+                                                <div class="col-sm-3">
+                                                    <input class="saveOnEdit" type="text" id="first-<?= $currentUser['id'] ?>" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
                                                 </div>
-                                                <div class="col-sm-3 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                <div class="col-sm-3">
+                                                    <input class="saveOnEdit" type="text" id="last-<?= $currentUser['id'] ?>" name="lname" style="width: 100%;" value="<?= $currentUser['last'] ?>">
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <input class="saveOnEdit" type="email" id="email-<?= $currentUser['id'] ?>" pattern=".+@globex\.com" style="width: 100%;" value="<?= $currentUser['email'] ?>">
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <input class="saveOnEdit" type="checkbox" id="admin-<?= $currentUser['id'] ?>" name="admin" value="admin"<?php if( in_array('admin', $currentUser['roles']) ) echo " checked"; ?> >
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete User" aria-hidden="true"></span></a>
                                                 </div>
                                             </div>
                                         </li>
@@ -94,36 +133,6 @@ $users = getUsers();
                                 </div>
                             </div>
 
-                        </div>
-                        <div class="col-md-4 col-12">
-                            <div class="row">
-                                <div class="col">
-                                    <button id="launch_video_button" class="btn btn-blue btn-full-width my-2">Open Video <span class="oi oi-external-link px-2" title="Open Session Video"></span></button>
-                                    <button id="viz_button" class="btn btn-gold btn-full-width my-2 d-none">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
-                                    <button id="irr_button" class="btn btn-gold btn-full-width my-2">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability"></span></button>
-                                </div>
-                            </div>
-                            <div class="sticky-top">
-                                <div id="demo_help_box" class="row pt-3">
-                                    <div class="col">
-                                        <div class="md-boxed-content light-blue-background">
-                                            <h4>C-COI Instructions</h4>
-                                            <ol id="demo_help_ol">
-                                                <li>Click Add Session button to begin</li>
-                                                <li>Click the Pencil Icon to edit the session</li>
-                                                <li>Open video above and begin observing</li>
-                                            </ol>
-                                            <em>Note:</em> If you need further information on how to use the instrument, visit the <a href="/about#learn">CCOI Help Center</a> section or our <a target="_blank" href="/assets/files/CCOI_Code_Book.pdf">code book</a>.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div id="path_preview" class="col pt-3 pr-md-5 d-none">
-                                        <h4 id="path_preview_heading"></h4>
-                                        <ol id="path_preview_list"></ol>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -242,6 +251,25 @@ function getUsers(){
             $returnData[]=$d;
         }
         //echo "<br>second query returned: "; var_dump($returnData);
+
+        return $returnData;
+    }
+    else
+        return NULL;
+}
+
+function getVideos(){
+    echo "<br>appid: ".$appid;
+    //echo "<br>getting users for app with id: ".$appid;
+    if( !empty($appid) && is_numeric($appid) ){
+        $db = $GLOBALS["db"];
+
+        echo "<br>first query statement: "."SELECT id, name FROM tbVideos WHERE appid='$appid'";
+        $return=mysqli_query($db,"SELECT id, name FROM tbVideos WHERE appid='$appid'");		
+        while($d=mysqli_fetch_assoc($return)){
+            $returnData[$d['id']]=$d['name'];
+        }
+        echo "<br>returnData: "; var_dump($returnData);
 
         return $returnData;
     }
