@@ -68,7 +68,7 @@ echo "<br>\$videos:"; var_dump($videos);
                                                     <input class="saveOnEdit" type="email" id="email-<?= $currentUser['id'] ?>" pattern=".+@globex\.com" style="width: 100%;" value="<?= $currentUser['email'] ?>">
                                                 </div>
                                                 <div class="col-sm-1">
-                                                    <input class="saveOnEdit" type="checkbox" id="admin-<?= $currentUser['id'] ?>" name="admin" value="admin"<?php if( in_array('admin', $currentUser['roles']) ) echo " checked"; ?> >
+                                                    <input class="saveOnEdit" type="checkbox" id="admin-<?= $currentUser['id'] ?>" name="admin" value="admin"<?php if( in_array('admin', $currentUser['roles']) ) echo " checked"; ?><?php if( in_array('superadmin', $currentUser['roles']) ) echo " disabled"; ?> >
                                                 </div>
                                                 <div class="col-sm-1">
                                                     <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete User" aria-hidden="true"></span></a>
@@ -108,20 +108,14 @@ echo "<br>\$videos:"; var_dump($videos);
                                         </div>
                                     </div>
                                     <ul id="research_session_list" class="mb-4">
-<?php foreach ($users as $currentUser): ?>
-                                        <li class="user-listing">
+<?php foreach ($videos as $index => $currentVideo): ?>
+                                        <li class="video-listing">
                                             <div class="row user pb-1">
-                                                <div class="col-sm-3">
-                                                    <input class="saveOnEdit" type="text" id="first-<?= $currentUser['id'] ?>" name="fname" style="width: 100%;" value="<?= $currentUser['first'] ?>">
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input class="saveOnEdit" type="text" id="last-<?= $currentUser['id'] ?>" name="lname" style="width: 100%;" value="<?= $currentUser['last'] ?>">
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <input class="saveOnEdit" type="email" id="email-<?= $currentUser['id'] ?>" pattern=".+@globex\.com" style="width: 100%;" value="<?= $currentUser['email'] ?>">
+                                                <div class="col-sm-10">
+                                                    <input type="text" id="vidname-<?= $index ?>" name="vidname" style="width: 100%;" value="<?= $currentVideo ?>">
                                                 </div>
                                                 <div class="col-sm-1">
-                                                    <input class="saveOnEdit" type="checkbox" id="admin-<?= $currentUser['id'] ?>" name="admin" value="admin"<?php if( in_array('admin', $currentUser['roles']) ) echo " checked"; ?> >
+                                                    <a class="btn-link session-edit" href="javascript:void(0)"><span class="oi oi-pencil px-2" title="Edit Video Name" aria-hidden="true"></span></a>
                                                 </div>
                                                 <div class="col-sm-1">
                                                     <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete User" aria-hidden="true"></span></a>
@@ -259,17 +253,18 @@ function getUsers(){
 }
 
 function getVideos(){
-    echo "<br>appid: ".$appid;
+    $appid = $GLOBALS["appid"];
+    //echo "<br>appid: ".$appid;
     //echo "<br>getting users for app with id: ".$appid;
     if( !empty($appid) && is_numeric($appid) ){
         $db = $GLOBALS["db"];
 
-        echo "<br>first query statement: "."SELECT id, name FROM tbVideos WHERE appid='$appid'";
+        //echo "<br>first query statement: "."SELECT id, name FROM tbVideos WHERE appid='$appid'";
         $return=mysqli_query($db,"SELECT id, name FROM tbVideos WHERE appid='$appid'");		
         while($d=mysqli_fetch_assoc($return)){
             $returnData[$d['id']]=$d['name'];
         }
-        echo "<br>returnData: "; var_dump($returnData);
+        //echo "<br>returnData: "; var_dump($returnData);
 
         return $returnData;
     }
