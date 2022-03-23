@@ -29,7 +29,7 @@ if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedap
                         <div class="col-md-8">
                             <div class="row pr-md-5">
                                 <div class="col-md-8 col-12">
-                                    <h1 class="red-font">Sessionss</h1>
+                                    <h1 class="red-font">Sessions</h1>
                                     <h5 style="text-transform: none;">Select a session to view or edit the set</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
@@ -288,7 +288,6 @@ function getSessions(){
             //Get info (title) of other people's research sessions
             $return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($othersidstext) AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
             while($d=mysqli_fetch_assoc($return)){
-                $d['name'] = htmlspecialchars($d['names'], ENT_QUOTES);
                 $allSessions['others'][]=$d;
             }		//echo "<br>session: "; var_dump($d);
             
