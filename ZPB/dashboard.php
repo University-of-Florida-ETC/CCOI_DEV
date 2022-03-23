@@ -287,7 +287,10 @@ function getSessions(){
 
             //Get info (title) of other people's research sessions
             $return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($othersidstext) AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
-            while($d=mysqli_fetch_assoc($return)){$allSessions['others'][]=$d; }		//echo "<br>session: "; var_dump($d);
+            while($d=mysqli_fetch_assoc($return)){
+                $d['name'] = htmlspecialchars($d['names'], ENT_QUOTES);
+                $allSessions['others'][]=$d;
+            }		//echo "<br>session: "; var_dump($d);
             
             //Get info (title) of research sessions
             $return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
