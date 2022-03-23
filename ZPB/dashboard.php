@@ -304,6 +304,6 @@ function getSessions(){
 }
 
 function clean($string) {
-    return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+    return preg_match('/^[a-z0-9 .\-]+$/i', $string);
  }
 ?>
