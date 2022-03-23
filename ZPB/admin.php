@@ -269,4 +269,31 @@ function getVideos(){
     else
         return NULL;
 }
+
+function getPaths(){
+    $appid = $GLOBALS["appid"];
+    //echo "<br>getting users for app with id: ".$appid;
+    if( !empty($appid) && is_numeric($appid) ){
+        $db = $GLOBALS["db"];
+
+        //echo "<br>first query statement: "."SELECT personid, role FROM tbPersonAppRoles WHERE appid='$appid'";
+        $return=mysqli_query($db,"SELECT pathid FROM tbAppPaths WHERE appid='$appid'");		
+        while($d=mysqli_fetch_assoc($return)){
+            $pathids[] = $d['pathid'];
+        }
+        $pathidstext=implode(',',$pathids);
+        //echo "<br>first query returned: ".$useridstext;
+
+        //echo "<br>second query statement: "."SELECT first, last, email FROM tbPeople WHERE id IN ($appid)";
+        $return=mysqli_query($db,"SELECT id, name, invalid FROM tbApps WHERE id IN ($pathidstext)");		
+        while($d=mysqli_fetch_assoc($return)){
+            $returnData[]=$d;
+        }
+        //echo "<br>second query returned: "; var_dump($returnData);
+
+        return $returnData;
+    }
+    else
+        return NULL;
+}
 ?>
