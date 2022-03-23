@@ -81,7 +81,7 @@ function CCOI_Session (name, date, studentID, prompted, paths, minutes, seconds,
  * @param {string} extra
  * @param {string} notes
  */
-function CCOI_Step (node, node_ID, choice, choice_ID, subsession_ID, minutes, seconds, totalSeconds, extra, notes) {
+function CCOI_Step (pathNodeID, node, node_ID, choice, choice_ID, ssnum, minutes, seconds, totalSeconds, extra, notes) {
   if (arguments.length === 1) {
     var obj = node;
     for (var prop in obj) {
@@ -96,7 +96,7 @@ function CCOI_Step (node, node_ID, choice, choice_ID, subsession_ID, minutes, se
     this.extraType = CCOI_Step_extraType;
     this.output = CCOI_Step_output;
   } else {
-  	this.subsessionid = subsession_ID || 0;
+  	this.ssnum = ssnum || 0;
 	this.node = node || 0;
     this.nodeid = node_ID || 0;
 	this.choice = choice || 0;
@@ -112,6 +112,7 @@ function CCOI_Step (node, node_ID, choice, choice_ID, subsession_ID, minutes, se
     this.branchDescription = CCOI_Step_branchDescription;
     this.extraType = CCOI_Step_extraType;
     this.output = CCOI_Step_output;
+	this.pathNodeID = CCOI_Step_PathNodeID;
   }
 
   this.timeInSeconds = function () {
@@ -193,6 +194,15 @@ function CCOI_Step_branchDescription () {
 		return "";
 	}
 	return branchDescription;
+}
+function CCOI_Step_PathNodeID () { 
+	let pathNodeID;
+	try {
+		pathNodeID = this.choiceid === -1 ? 'Other:' : getNodeFromChoice(this.nodeid, this.choiceid).branch_new_id; 
+	}
+	catch (err) {
+		return "Bruh this ain't workin like u thought it would!!!! FIX YO SHIZ!"
+	}
 }
 
 /**
