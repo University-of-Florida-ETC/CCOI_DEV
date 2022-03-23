@@ -137,7 +137,7 @@ function concatPaths () {
  */
 function getNodeFromChoice (nodeID, choice) {	
 	// new ID system that Mark setup
-	console.log(choice);
+	console.log("Get node from choice:" + choice);
 	console.log("This is your node ID:" + nodeID); 
 	if(Number.isInteger(choice) || choice < 100000){
 		var node = ccoi.ccoiSchema.getNode(nodeID);
@@ -149,7 +149,7 @@ function getNodeFromChoice (nodeID, choice) {
 			return ccoi.ccoiSchema.branches[choice];
 		}
 		else
-			throw "Error in getNodeFromChoice(): No branch found with id "+choice;
+			throw "Error in getNodeFromChoice(): No branch found with id " + choice;
 	}
 	
 	// old hex-choice system
