@@ -284,7 +284,7 @@ var ccoiObservation = (function (){
             }
         }
 
-        let subsessionid = (stateIDPath + 1).toString();
+        let ssnum = (stateIDPath + 1).toString();
         let extra = null;
         let branchExtra = choiceIndex === -1 ? null : getNodeFromChoice(newNodeID, newChoiceIndex).extra;
         if (branchExtra !== null && branchExtra !== undefined && branchExtra !== '') {
@@ -305,7 +305,7 @@ var ccoiObservation = (function (){
 
         // Node ID is a string in the DB
         let nodeIDString = newNodeID.toString();
-        let step = new CCOI_Step(nodeID, nodeIDString, choiceIndex, newChoiceIndex, subsessionid, minutesValue, secondsValue, totalTime, extra, notes);
+        let step = new CCOI_Step(nodeID, nodeIDString, choiceIndex, newChoiceIndex, ssnum, minutesValue, secondsValue, totalTime, extra, notes);
 
         // TODO: Move this logic into a separate function
         if (currentStep != undefined) {
@@ -353,7 +353,7 @@ var ccoiObservation = (function (){
         }
         alteredSessionData.paths[newID].steps[stateIDStep] = step;
         // Backend is not zero-indexed, so we have to +1 to stateIDPath
-        alteredSessionData.paths[newID].steps[stateIDStep].subsessionid = String(stateIDPath + 1);
+        alteredSessionData.paths[newID].steps[stateIDStep].ssnum = String(stateIDPath + 1);
         stateIDStep++;
         console.log(alteredSessionData);
 
