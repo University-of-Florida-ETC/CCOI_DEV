@@ -43,7 +43,7 @@ if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedap
                                     <h4>Your Sessions</h4>
                                     <ul id="research_session_list" class="mb-4">
 <?php foreach ($sessions['research'] as $currentSession): ?>
-                                        <li class="session-listing">
+                                        <li class="session-listing my-2">
                                             <div class="row">
                                                 <div class="col-sm-9 col-12">
                                                     <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name']; ?></a>
@@ -58,9 +58,9 @@ if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedap
 <?php endforeach; ?>
                                     </ul> 
                                     <h4>Other's Sessions</h4>
-                                    <ul id="others_session_list">
+                                    <ul id="others_session_list" class="mb-4">
 <?php foreach ($sessions['others'] as $currentSession): ?>
-                                        <li class="session-listing">
+                                        <li class="session-listing my-2">
                                             <div class="row">
                                                 <div class="col-sm-11 col-12">
                                                     <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name']; ?></a>
@@ -73,7 +73,7 @@ if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedap
 <?php endforeach; ?>
                                     </ul> 
                                     <h4>Your Playground Sessions (for testing)</h4>
-                                    <ul id="playgrounds_session_list">
+                                    <ul id="playgrounds_session_list" class="mb-4">
 <?php foreach ($sessions['playground'] as $currentSession): ?>
                                         <li class="session-listing my-2">
                                             <div class="row">
