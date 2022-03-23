@@ -110,16 +110,19 @@ if( !empty($_POST['updateObsEl']) ) {
 }
 
 if( !empty($_POST['updateUser']) ) {
-    var_dump($_POST);
+    //var_dump($_POST);
 
     if ($_SESSION['roles'][$_POST['appid']]['admin']==true){
+        echo "i'm in";
         if($_POST['toChange']=='admin'){
+            echo "change admin status";
             $return=mysqli_query($db,"SELECT role FROM PersonAppRoles WHERE personid='{$_POST['userid']}' AND appid='{$_POST['appid']}'");
             while($d=mysqli_fetch_assoc($return)){
                 echo "\n\rd: "; var_dump($d);
             }
         }
         else{
+            echo "change other thing";
             $return=mysqli_query($db,"SELECT {$_POST['toChange']} FROM tbPeople WHERE personid='{$_POST['userid']}'");
             while($d=mysqli_fetch_assoc($return)){
                 echo "\n\rd: "; var_dump($d);
