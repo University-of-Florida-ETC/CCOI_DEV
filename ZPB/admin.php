@@ -12,7 +12,7 @@ if( !in_array($appid, $_SESSION['myappids'])){
 }
 $users = getUsers();
 $videos = getVideos();
-echo "<br>\$videos:"; var_dump($videos);
+//echo "<br>\$videos:"; var_dump($videos);
 //$paths = getPaths();
 ?>
 
