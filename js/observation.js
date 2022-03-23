@@ -734,7 +734,7 @@ var ccoiObservation = (function (){
         alteredSessionData = removeEmptyAndOld(alteredSessionData);
         let sendData = JSON.stringify(alteredSessionData);
         console.log("Data being transmitted to save:");
-        console.log("sendData");
+        console.log(sendData);
         ccoi.callToAPI('/api/ccoi_ajax.php', sendData);
     }
 
