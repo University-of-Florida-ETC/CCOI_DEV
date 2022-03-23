@@ -272,7 +272,7 @@ function getSessions(){
             $sidstext=implode(',',$sessionids);
 
             //Get session IDs of research sessions
-            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid!='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
+            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid!='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL AND id != 132");		
             while($d=mysqli_fetch_assoc($return)){$othersessionids[]=$d['sessionid'];}
             $othersidstext=implode(',',$othersessionids);
 
