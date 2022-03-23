@@ -11,7 +11,6 @@ $id = $_GET['id'];
 if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedapp'], $_SESSION['myappids'])){
     header("Location: group");
 }
-// TO-DO: check if App-ID is correct for the page, if it is, you can stay. If not, Redirect() that person! Epically! 
 ?>
 
         <main role="main">
@@ -52,6 +51,21 @@ if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedap
                                                 <div class="col-sm-3 col-12">
                                                     <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
                                                     <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                </div>
+                                            </div>
+                                        </li>
+<?php endforeach; ?>
+                                    </ul> 
+                                    <h4>Other's Sessions</h4>
+                                    <ul id="others_session_list">
+<?php foreach ($sessions['others'] as $currentSession): ?>
+                                        <li class="session-listing">
+                                            <div class="row">
+                                                <div class="col-sm-11 col-12">
+                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name']; ?></a>
+                                                </div>
+                                                <div class="col-sm-1 col-12">
                                                     <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
                                             </div>
@@ -212,7 +226,7 @@ if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedap
 
 <?php
 
-function getSessions(){
+function getSessionsOld(){
     if( !empty($_SESSION['pid']) && is_numeric($_SESSION['pid']) ){
         $db = $GLOBALS["db"];
         $uid=$_SESSION['pid']+0;
@@ -231,6 +245,49 @@ function getSessions(){
             //Get info (title) of research sessions
             $return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($sidstext) AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
             while($d=mysqli_fetch_assoc($return)){$allSessions['research'][]=$d; }		//echo "<br>session: "; var_dump($d);
+            
+            //Get info (title) of research sessions
+            $return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
+            while($d=mysqli_fetch_assoc($return)){$allSessions['playground'][]=$d;}		//print_r($playgrounds);		//echo "<br>playground: "; var_dump($d);
+
+            return $allSessions;
+        }
+        else{
+            return "<br>UID isn't numberic :(";
+        }
+    }
+    else
+        return "<br>Session isn't valid :(";
+}
+
+function getSessions(){
+    if( !empty($_SESSION['pid']) && is_numeric($_SESSION['pid']) ){
+        $db = $GLOBALS["db"];
+        $uid=$_SESSION['pid']+0;
+
+        if(is_numeric($uid)){    
+            //Get session IDs of research sessions
+            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
+            while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
+            $sidstext=implode(',',$sessionids);
+
+            //Get session IDs of research sessions
+            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid!='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
+            while($d=mysqli_fetch_assoc($return)){$othersessionids[]=$d['sessionid'];}
+            $othersidstext=implode(',',$othersessionids);
+
+            //Get session IDs of playground sessions
+            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
+            while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];}		//echo "d: "; var_dump($d);
+            $playidstext=implode(',',$playids);
+
+            //Get info (title) of research sessions
+            $return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($sidstext) AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
+            while($d=mysqli_fetch_assoc($return)){$allSessions['research'][]=$d; }		//echo "<br>session: "; var_dump($d);
+
+            //Get info (title) of other people's research sessions
+            $return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($othersidstext) AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
+            while($d=mysqli_fetch_assoc($return)){$allSessions['others'][]=$d; }		//echo "<br>session: "; var_dump($d);
             
             //Get info (title) of research sessions
             $return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
