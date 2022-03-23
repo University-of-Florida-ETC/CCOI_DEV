@@ -108,7 +108,7 @@ echo "<br>\$videos:"; var_dump($videos);
                                         </div>
                                     </div>
                                     <ul id="research_session_list" class="mb-4">
-<?php foreach ($users as $currentUser): ?>
+<?php foreach ($videos as $index => $currentVideo): ?>
                                         <li class="user-listing">
                                             <div class="row user pb-1">
                                                 <div class="col-sm-3">
@@ -259,6 +259,7 @@ function getUsers(){
 }
 
 function getVideos(){
+    $appid = $GLOBALS["appid"];
     echo "<br>appid: ".$appid;
     //echo "<br>getting users for app with id: ".$appid;
     if( !empty($appid) && is_numeric($appid) ){
