@@ -571,7 +571,7 @@ var ccoiObservation = (function (){
     function refreshSessionList () {
 
         currentSessionID = findSessionIndexById(sessions, sessionID);
-        console.log ("Here's yo current session id: " + currentSessionID);
+        //console.log ("Here's yo current session id: " + currentSessionID);
         // if (DOM.session_list === null) {
         //     console.log("BURP!");
         //     return;
