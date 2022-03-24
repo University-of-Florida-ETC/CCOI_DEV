@@ -15,6 +15,8 @@ var DOM = {};
         'add_path_button',
         'reorder_paths_button',
         'finish_reorder_button',
+        //Brandon's addition of node_preview_list
+        'node_preview_list',
         'path_start',
         'path_choices',
         'path_select',
