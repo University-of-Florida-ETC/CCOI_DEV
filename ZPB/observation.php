@@ -8,17 +8,15 @@ include '../api/ccoi_dbhookup.php';
 $id=$_GET['id']+0;
 
 //TODO: check that they are allowed in here
-echo "getting session info";
 $session = getSessionInfo($id); //defined below
-print_r($session);
-//echo "session: "; print_r($session);
+echo "<br>session: "; print_r($session);
 
 // Get node data
-$return = mysqli_query($db, "SELECT * FROM tbNodes WHERE 1");
+$return = mysqli_query($db, "SELECT * FROM tbNodes WHERE pathid = '{$session['pathid']}'");
 while ($d = mysqli_fetch_assoc($return)) {
     $nodeData[$d['id']] = $d;
 }
-//echo "<br>nodeData: "; print_r($nodeData);
+echo "<br>nodeData: "; print_r($nodeData);
 
 //If in playgrounds, query playgrounds DB
 if (isset($_GET['isPlayground'])){
@@ -35,7 +33,7 @@ while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$
 //echo "subsessions: ";
 //print_r($subsessions);
 //TODO: stuff to make old node editor work with new backend
-/*
+
 $jsonReplacement['firstNodeID']=1;
 $return=mysqli_query($db,"SELECT * FROM tbNodeGroups WHERE pathid = '{$session['pathid']}'");		
 while($d=mysqli_fetch_assoc($return)){
@@ -50,9 +48,18 @@ $count = 0;
 $nodeids = [];
 $return=mysqli_query($db,"SELECT * FROM tbPathNodes WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");		
 while($d=mysqli_fetch_assoc($return)){
+    if( in_array($d['node1'], $nodeids) ){
 
+    }
+    else{
+        $nodeids[] = $d['node1'];
+        $jsonReplacement['nodes'][] = [
+            "id" => count($jsonReplacement['nodes']),
+            "node_id" => $d['node1']
+
+        ];
+    }
 }
-        */
 ?>
 <script>let sessionID = <?php echo $id; ?></script>
 <main role="main">
