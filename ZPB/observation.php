@@ -33,7 +33,7 @@ else {
 }
 
 // Get pathnode data
-$return = mysqli_query($db, $pnquery);
+$return = mysqli_query($db, $nodequery);
 while ($d = mysqli_fetch_assoc($return)) {
     $nodeData[$d['id']] = $d;
 }
@@ -55,7 +55,7 @@ while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$
 //print_r($subsessions);
 //TODO: stuff to make old node editor work with new backend
 /*
-$jsonReplacement['firstNodeID']=1;
+$jsonReplacement['firstNodeID']=$currentPathStartsAt;
 $return=mysqli_query($db,"SELECT * FROM tbNodeGroups WHERE pathid = '{$session['pathid']}'");		
 while($d=mysqli_fetch_assoc($return)){
     $jsonReplacement['nodeGroups'][] = [
