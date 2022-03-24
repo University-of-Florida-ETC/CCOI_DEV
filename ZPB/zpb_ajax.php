@@ -87,8 +87,15 @@ if( !empty($_POST['updateObsEl']) ) {
     /*
     //TODO: grab ssids of session
     $return=mysqli_query($db,"SELECT id FROM tbSubPlaygrounds WHERE sessid='{$_POST['id']}'");
-        while($d=mysqli_fetch_assoc($return)){$observationids[]=$d['id'];}
- 		$observationidstext=implode(',',$observationids);
+    while($d=mysqli_fetch_assoc($return)){
+        $observationids[]=$d['id'];
+    }
+ 	$observationidstext=implode(',',$observationids);
+
+    $return=mysqli_query($db,"SELECT * FROM tbPlaygroundActivity WHERE ssid IN ($observationidstext) AND inactive IS NULL");
+    while($d=mysqli_fetch_assoc($return)){
+    }
+ 	$observationidstext=implode(',',$observationids);
 
     foreach ($_POST['paths'] as $currentObservation) {
         //Read in current observation
