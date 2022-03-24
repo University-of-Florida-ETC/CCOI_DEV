@@ -65,7 +65,7 @@ while($d=mysqli_fetch_assoc($return)){
         "fill" =>  $d['fill']
     ];
 }
-echo "<br>jsonReplacement['nodeGroups']: "; print_r($jsonReplacement['nodeGroups']);
+//echo "<br>jsonReplacement['nodeGroups']: "; print_r($jsonReplacement['nodeGroups']);
 $nodeids = [];
 $return=mysqli_query($db,"SELECT * FROM tbPathNodes WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");		
 while($d=mysqli_fetch_assoc($return)){
@@ -105,7 +105,7 @@ while($d=mysqli_fetch_assoc($return)){
 ?>
 <script>
     var sessionID = <?php echo $id; ?>;
-    var jsonReplacement = <?php echo $jsonReplacement; ?>
+    var jsonReplacement = <?php echo json_encode($jsonReplacement); ?>
     console.log(jsonReplacement);
 </script>
 <main role="main">
