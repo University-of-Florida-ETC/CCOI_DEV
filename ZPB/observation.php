@@ -25,24 +25,20 @@ while ($d = mysqli_fetch_assoc($return)) {
 }
 if( isset($currentPathEndsAt) ){
     echo "<br>current path ends at nodeid: ". $currentPathEndsAt;
+    $pnquery = "SELECT * FROM tbPathNodes WHERE id >= {$currentPathStartsAt} AND id < {$currentPathEndsAt}";
 }
 else {
     echo "<br>current path is last by id";
+    $pnquery = "SELECT * FROM tbPathNodes WHERE id >= {$currentPathStartsAt}";
 }
 
-//Grab pathnode ids in range
-
-//$nodeData[$d['id']] = $d;
-echo "<br>nodeData: "; //print_r($nodeData);
-
-/*
-// Get node data
-$return = mysqli_query($db, "SELECT * FROM tbNodes WHERE pathid = '{$session['pathid']}'");
+// Get pathnode data
+$return = mysqli_query($db, $pnquery);
 while ($d = mysqli_fetch_assoc($return)) {
-    $nodeData[$d['id']] = $d;
+    $pnData[$d['id']] = $d;
 }
-echo "<br>nodeData: "; print_r($nodeData);
-*/
+echo "<br>pnData: "; print_r($pnData);
+
 //If in playgrounds, query playgrounds DB
 if (isset($_GET['isPlayground'])){
     echo "It's a playground";
