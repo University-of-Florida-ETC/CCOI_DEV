@@ -37,7 +37,7 @@ $return = mysqli_query($db, $pnquery);
 while ($d = mysqli_fetch_assoc($return)) {
     $nodeData[$d['id']] = $d;
 }
-echo "<br>pnData: "; print_r($pnData);
+echo "<br>nodeData: "; print_r($nodeData);
 
 //If in playgrounds, query playgrounds DB
 if (isset($_GET['isPlayground'])){
