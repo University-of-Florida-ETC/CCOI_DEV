@@ -25,17 +25,17 @@ while ($d = mysqli_fetch_assoc($return)) {
 }
 if( isset($currentPathEndsAt) ){
     echo "<br>current path ends at nodeid: ". $currentPathEndsAt;
-    $pnquery = "SELECT * FROM tbPathNodes WHERE id >= {$currentPathStartsAt} AND id < {$currentPathEndsAt}";
+    $nodequery = "SELECT * FROM tbNodes WHERE id >= {$currentPathStartsAt} AND id < {$currentPathEndsAt}";
 }
 else {
     echo "<br>current path is last by id";
-    $pnquery = "SELECT * FROM tbPathNodes WHERE id >= {$currentPathStartsAt}";
+    $nodequery = "SELECT * FROM tbNodes WHERE id >= {$currentPathStartsAt}";
 }
 
 // Get pathnode data
 $return = mysqli_query($db, $pnquery);
 while ($d = mysqli_fetch_assoc($return)) {
-    $pnData[$d['id']] = $d;
+    $nodeData[$d['id']] = $d;
 }
 echo "<br>pnData: "; print_r($pnData);
 
