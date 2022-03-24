@@ -310,19 +310,19 @@ function getVideos(){
 
 function getPaths(){
     $appid = $GLOBALS["appid"];
-    echo "<br>getting paths for app with id: ".$appid;
+    //echo "<br>getting paths for app with id: ".$appid;
     if( !empty($appid) && is_numeric($appid) ){
         $db = $GLOBALS["db"];
 
-        echo "<br>first query statement: "."SELECT pathid FROM tbAppPaths WHERE appid='$appid'";
+        //echo "<br>first query statement: "."SELECT pathid FROM tbAppPaths WHERE appid='$appid'";
         $return=mysqli_query($db,"SELECT pathid FROM tbAppPaths WHERE appid='$appid'");		
         while($d=mysqli_fetch_assoc($return)){
             $pathids[] = $d['pathid'];
         }
         $pathidstext=implode(',',$pathids);
-        echo "<br>first query returned: ".$pathidstext;
+        //echo "<br>first query returned: ".$pathidstext;
 
-        echo "<br>second query statement: "."SELECT first, last, email FROM tbPeople WHERE id IN ($appid)";
+        //echo "<br>second query statement: "."SELECT first, last, email FROM tbPeople WHERE id IN ($appid)";
         $return=mysqli_query($db,"SELECT id, name FROM tbPaths WHERE id IN ($pathidstext)");		
         while($d=mysqli_fetch_assoc($return)){
             $returnData[$d['id']]=$d['name'];
