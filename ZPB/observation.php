@@ -17,7 +17,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 }
 echo "<br>current path starts ats nodeid: ". $currentPathStartsAt;
 $endid = intval($session['pathid']) + 1;
-echo "<br>endid: ". $endid;
+echo "<br>endids: ". $endid;
 echo "<br>find ending pnid query: ". "SELECT * FROM tbPaths WHERE id = '{$endid}'";
 $return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$endid}'");
 while ($d = mysqli_fetch_assoc($return)) {
