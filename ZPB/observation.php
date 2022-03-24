@@ -69,6 +69,9 @@ echo "<br>jsonReplacement['nodeGroups']: "; print_r($jsonReplacement['nodeGroups
 $nodeids = [];
 $return=mysqli_query($db,"SELECT * FROM tbPathNodes WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");		
 while($d=mysqli_fetch_assoc($return)){
+    if($d['choice']==0){
+        continue;
+    }
     $nodeIndex = array_search($d['node1'], $nodeids);
     if( $nodeIndex === false ){
         $nodeIndex = array_push($nodeids, $d['node1'])-1;
@@ -98,11 +101,11 @@ while($d=mysqli_fetch_assoc($return)){
     }
     $jsonReplacement['nodes'][$nodeIndex]['branches'][] = $toInsert;
 }
-echo "<br>jsonReplacement['nodes']: "; print_r($jsonReplacement['nodes']);
+//echo "<br>jsonReplacement['nodes']: "; print_r($jsonReplacement['nodes']);
 ?>
 <script>
-    let sessionID = <?php echo $id; ?>;
-    let jsonReplacement = <?php echo $jsonReplacement; ?>
+    var sessionID = <?php echo $id; ?>;
+    var jsonReplacement = <?php echo $jsonReplacement; ?>
     console.log(jsonReplacement);
 </script>
 <main role="main">
