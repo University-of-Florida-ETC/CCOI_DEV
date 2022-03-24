@@ -58,7 +58,7 @@ while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$
 $jsonReplacement['firstNodeID']=$currentPathStartsAt;
 $return=mysqli_query($db,"SELECT * FROM tbNodeGroups WHERE pathid = '{$session['pathid']}'");		
 while($d=mysqli_fetch_assoc($return)){
-    $jsonReplacement['nodeGroups'][] = [
+    $jsonReplacement['nodeGroups'][$d['derorder']] = [
         "machine_name" => $d['name'],
         "label" => $d['humanname'],
         "labelposition" =>  $d['labelpos'],
@@ -66,22 +66,39 @@ while($d=mysqli_fetch_assoc($return)){
     ];
 }
 echo "<br>jsonReplacement['nodeGroups']: "; print_r($jsonReplacement['nodeGroups']);
-$count = 0;
 $nodeids = [];
 $return=mysqli_query($db,"SELECT * FROM tbPathNodes WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");		
 while($d=mysqli_fetch_assoc($return)){
-    if( !in_array($d['node1'], $nodeids) ){
-        $nodeids[] = $d['node1'];
+    $nodeIndex = array_search($d['node1'], $nodeids);
+    if( $nodeIndex === false ){
+        $nodeIndex = array_push($nodeids, $d['node1'])-1;
         $jsonReplacement['nodes'][] = [
-            "id" => count($jsonReplacement['nodes']),
+            "id" => $nodeIndex,
             "node_id" => $d['node1'],
             "nodeid" => $nodeData[$d['node1']]['oldid'],
             "title" => $nodeData[$d['node1']]['title']
             //"groups" => $jsonReplacement['nodeGroups'][$nodeData[$d['node1']]['nodegroup']],
         ];
     }
+    $toInsert = [
+        "description" => $nodeData[$d['choice']]['title'],
+        "next" => $nodeData[$d['node2']]['oldid'],
+        "next_id" => $d['node2'],
+        "branch_id" => $d['choice'],
+        "branch_new_id" => $nodeData[$d['choice']]['oldid']
+    ];
+    if( isset($nodeData[$d['choice']]['extra']) ){
+        $toInsert['extra'] = $nodeData[$d['choice']]['extra'];
+    }
+    if( isset($d['pathtype']) ){
+        $toInsert['path_type'] = $jsonReplacement[$d['pathtype']]['label'];
+    }
+    if( isset($nodeData[$d['choice']]['aside']) ){
+        $toInsert['aside'] = $nodeData[$d['choice']]['aside'];
+    }
+    $jsonReplacement['nodes'][$nodeIndex]['branches'][] = $toInsert;
 }
-
+echo "<br>jsonReplacement['nodes']: "; print_r($jsonReplacement['nodes']);
 ?>
 <script>let sessionID = <?php echo $id; ?></script>
 <main role="main">
