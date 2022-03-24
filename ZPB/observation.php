@@ -16,12 +16,14 @@ while ($d = mysqli_fetch_assoc($return)) {
     $currentPathStartsAt = $d['startpnid'];
     echo "<br>current path starts ats nodeid: ". $currentPathStartsAt;
     $endid = intval($session['pathid']) + 1;
+    echo "<br>endid: ". $endid;
     $return2 = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$endid}'");
-    if (mysql_num_rows($result)==0) {
+    if (mysql_num_rows($return2)==0) {
         //Grab pathnode ids to end of table
+        echo "<br>current path is last one by id";
     }
     else{
-        while ($d = mysqli_fetch_assoc($return)) {
+        while ($d = mysqli_fetch_assoc($return2)) {
             $currentPathEndsAt = $d['startpnid'];
         }
         echo "<br>current path ends at nodeid: ". $currentPathEndsAt;
