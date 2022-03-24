@@ -98,7 +98,7 @@ while($d=mysqli_fetch_assoc($return)){
         $toInsert['path_type'] = $jsonReplacement[$d['pathtype']]['label'];
     }
     if( isset($nodeData[$d['choice']]['aside']) ){
-        $toInsert['aside'] = $nodeData[$d['choice']]['aside'];
+        $toInsert['aside'] = htmlspecialchars($nodeData[$d['choice']]['aside'], ENT_QUOTES);
     }
     $jsonReplacement['nodes'][$nodeIndex]['branches'][0][] = $toInsert;
 }
