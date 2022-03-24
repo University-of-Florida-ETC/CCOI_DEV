@@ -37,7 +37,7 @@ $return = mysqli_query($db, $nodequery);
 while ($d = mysqli_fetch_assoc($return)) {
     $nodeData[$d['id']] = $d;
 }
-echo "<br>nodeData: "; print_r($nodeData);
+//echo "<br>nodeData: "; print_r($nodeData);
 
 //If in playgrounds, query playgrounds DB
 if (isset($_GET['isPlayground'])){
@@ -54,7 +54,7 @@ while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$
 //echo "subsessions: ";
 //print_r($subsessions);
 //TODO: stuff to make old node editor work with new backend
-/*
+
 $jsonReplacement['firstNodeID']=$currentPathStartsAt;
 $return=mysqli_query($db,"SELECT * FROM tbNodeGroups WHERE pathid = '{$session['pathid']}'");		
 while($d=mysqli_fetch_assoc($return)){
@@ -65,23 +65,23 @@ while($d=mysqli_fetch_assoc($return)){
         "fill" =>  $d['fill']
     ];
 }
+echo "<br>jsonReplacement['nodeGroups']: "; print_r($jsonReplacement['nodeGroups']);
 $count = 0;
 $nodeids = [];
 $return=mysqli_query($db,"SELECT * FROM tbPathNodes WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");		
 while($d=mysqli_fetch_assoc($return)){
-    if( in_array($d['node1'], $nodeids) ){
-
-    }
-    else{
+    if( !in_array($d['node1'], $nodeids) ){
         $nodeids[] = $d['node1'];
         $jsonReplacement['nodes'][] = [
             "id" => count($jsonReplacement['nodes']),
-            "node_id" => $d['node1']
-
+            "node_id" => $d['node1'],
+            "nodeid" => $nodeData[$d['node1']]['oldid'],
+            "title" => $nodeData[$d['node1']]['title']
+            //"groups" => $jsonReplacement['nodeGroups'][$nodeData[$d['node1']]['nodegroup']],
         ];
     }
 }
-*/
+
 ?>
 <script>let sessionID = <?php echo $id; ?></script>
 <main role="main">
