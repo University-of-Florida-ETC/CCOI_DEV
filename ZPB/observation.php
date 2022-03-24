@@ -31,13 +31,14 @@ while ($d = mysqli_fetch_assoc($return)) {
 }
 echo "<br>nodeData: "; //print_r($nodeData);
 
+/*
 // Get node data
 $return = mysqli_query($db, "SELECT * FROM tbNodes WHERE pathid = '{$session['pathid']}'");
 while ($d = mysqli_fetch_assoc($return)) {
     $nodeData[$d['id']] = $d;
 }
 echo "<br>nodeData: "; print_r($nodeData);
-
+*/
 //If in playgrounds, query playgrounds DB
 if (isset($_GET['isPlayground'])){
     echo "It's a playground";
@@ -53,7 +54,7 @@ while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$
 //echo "subsessions: ";
 //print_r($subsessions);
 //TODO: stuff to make old node editor work with new backend
-
+/*
 $jsonReplacement['firstNodeID']=1;
 $return=mysqli_query($db,"SELECT * FROM tbNodeGroups WHERE pathid = '{$session['pathid']}'");		
 while($d=mysqli_fetch_assoc($return)){
@@ -80,6 +81,7 @@ while($d=mysqli_fetch_assoc($return)){
         ];
     }
 }
+*/
 ?>
 <script>let sessionID = <?php echo $id; ?></script>
 <main role="main">
