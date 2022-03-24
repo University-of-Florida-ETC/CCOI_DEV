@@ -123,17 +123,23 @@ if( !empty($_POST['updateUser']) ) {
         }
         else{
             echo " change other thing";
+            
+            $query="UPDATE tbPeople SET {$_POST['toChange']} = {$_POST['newValue']} WHERE id='{$_POST['userid']}' LIMIT 1";
+            $return=mysqli_query($db,$query);
+            if(mysqli_affected_rows($db)==1){
+                echo "y";
+            }
+            else{
+                echo 'n';
+            }
+            //echo "$post||$ischeckbox||$query";
             /*
-            $query="UPDATE tbPeople SET $_POST['toChange'] = $_POST['newValue'] WHERE id='$_POST['userid']' LIMIT 1";
-						$return=mysqli_query($db,$query);
-						if(mysqli_affected_rows($db)==1){echo "$post||$ischeckbox";}else{echo 'X';}
-						echo "$post||$ischeckbox||$query";
-                        */
             echo "query: "."SELECT {$_POST['toChange']} FROM tbPeople WHERE id='{$_POST['userid']}'";
             $return=mysqli_query($db,"SELECT {$_POST['toChange']} FROM tbPeople WHERE id='{$_POST['userid']}'");
             while($d=mysqli_fetch_assoc($return)){
                 echo " d: "; var_dump($d);
             }
+            */
         }
     }
     else {
