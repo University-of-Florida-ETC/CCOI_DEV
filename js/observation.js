@@ -673,7 +673,7 @@ var ccoiObservation = (function (){
                                 console.log(data);
                             }
                         }
-                        sendStr='updateObsEl=1&'+responseText;
+                        var sendStr='updateObsEl=1&'+responseText;
                         var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
                         xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
 
