@@ -14,23 +14,24 @@ echo "<br>session: "; print_r($session);
 $return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$session['pathid']}'");
 while ($d = mysqli_fetch_assoc($return)) {
     $currentPathStartsAt = $d['startpnid'];
-    echo "<br>current path starts ats nodeid: ". $currentPathStartsAt;
-    $endid = intval($session['pathid']) + 1;
-    echo "<br>endid: ". $endid;
-    $return2 = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$endid}'");
-    if (mysql_num_rows($return2)==0) {
-        //Grab pathnode ids to end of table
-        echo "<br>current path is last one by id";
-    }
-    else{
-        while ($d = mysqli_fetch_assoc($return2)) {
-            $currentPathEndsAt = $d['startpnid'];
-        }
-        echo "<br>current path ends at nodeid: ". $currentPathEndsAt;
-        //Grab pathnode ids in range
-    }
-    //$nodeData[$d['id']] = $d;
 }
+echo "<br>current path starts ats nodeid: ". $currentPathStartsAt;
+$endid = intval($session['pathid']) + 1;
+echo "<br>endid: ". $endid;
+echo "<br>find ending pnid query: ". "SELECT * FROM tbPaths WHERE id = '{$endid}'";
+$return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$endid}'");
+if (mysql_num_rows($return)==0) {
+    //Grab pathnode ids to end of table
+    echo "<br>current path is last one by id";
+}
+else{
+    while ($d = mysqli_fetch_assoc($return)) {
+        $currentPathEndsAt = $d['startpnid'];
+    }
+    echo "<br>current path ends at nodeid: ". $currentPathEndsAt;
+    //Grab pathnode ids in range
+}
+//$nodeData[$d['id']] = $d;
 echo "<br>nodeData: "; //print_r($nodeData);
 
 /*
