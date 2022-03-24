@@ -102,7 +102,8 @@ echo "<br>jsonReplacement['nodes']: "; print_r($jsonReplacement['nodes']);
 ?>
 <script>
     let sessionID = <?php echo $id; ?>;
-    let jsonReplacement = <?php echo $jsonReplacement; ?>;
+    let jsonReplacement = <?php echo $jsonReplacement; ?>
+    console.log(jsonReplacement);
 </script>
 <main role="main">
     <div class="container-fluid">
