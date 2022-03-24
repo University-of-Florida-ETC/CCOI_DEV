@@ -9,26 +9,26 @@ $id=$_GET['id']+0;
 
 //TODO: check that they are allowed in here
 $session = getSessionInfo($id); //defined below
-echo "<br>session: "; print_r($session);
+//echo "<br>session: "; print_r($session);
 
 $return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$session['pathid']}'");
 while ($d = mysqli_fetch_assoc($return)) {
     $currentPathStartsAt = $d['startpnid'];
 }
-echo "<br>current path starts ats nodeid: ". $currentPathStartsAt;
+//echo "<br>current path starts ats nodeid: ". $currentPathStartsAt;
 $endid = intval($session['pathid']) + 1;
-echo "<br>endids: ". $endid;
-echo "<br>find ending pnid query: ". "SELECT * FROM tbPaths WHERE id = '{$endid}'";
+//echo "<br>endids: ". $endid;
+//echo "<br>find ending pnid query: ". "SELECT * FROM tbPaths WHERE id = '{$endid}'";
 $return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$endid}'");
 while ($d = mysqli_fetch_assoc($return)) {
     $currentPathEndsAt = $d['startpnid'];
 }
 if( isset($currentPathEndsAt) ){
-    echo "<br>current path ends at nodeid: ". $currentPathEndsAt;
+    //echo "<br>current path ends at nodeid: ". $currentPathEndsAt;
     $nodequery = "SELECT * FROM tbNodes WHERE id >= {$currentPathStartsAt} AND id < {$currentPathEndsAt}";
 }
 else {
-    echo "<br>current path is last by id";
+    //echo "<br>current path is last by id";
     $nodequery = "SELECT * FROM tbNodes WHERE id >= {$currentPathStartsAt}";
 }
 
@@ -41,7 +41,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 
 //If in playgrounds, query playgrounds DB
 if (isset($_GET['isPlayground'])){
-    echo "It's a playground";
+    //echo "It's a playground";
     $return = mysqli_query($db, "SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbPlaygroundActivity SA, tbPathNodes PN, tbSubPlaygrounds SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
 }
 //Otherwise, query research
