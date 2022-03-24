@@ -391,6 +391,14 @@ var ccoiObservation = (function (){
 
         bindPathEvents();
     }
+
+    function refreshNodePreview () { 
+        removeAllChildren(/* DOM.node_preview_list */ );
+
+        console.log(sessions[currentSessionID]); 
+        let nodes = sessions[currentSessionID].nodes; 
+        let paths = sessions[currentSessionID].paths;
+    }
     
     function preparePath() {
 
