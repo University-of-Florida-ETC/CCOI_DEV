@@ -2,7 +2,7 @@
 
 $(function() {
     if (typeof jsonReplacement !== 'undefined') {
-        result = jsonReplacement;
+        var result = jsonReplacement;
         ccoi.ccoiSchema = ccoi.parseCCOI(result);
         setUpObservation();
         $('#coder_name').text(jsUserVars['first'] + " " + jsUserVars['last'] + "'s Sessions");
