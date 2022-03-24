@@ -102,7 +102,7 @@ while($d=mysqli_fetch_assoc($return)){
     }
     $jsonReplacement['nodes'][$nodeIndex]['branches'][0][] = $toInsert;
 }
-echo "<br>jsonReplacement['nodes']: "; print_r($jsonReplacement['nodes']);
+//echo "<br>jsonReplacement['nodes']: "; print_r($jsonReplacement['nodes']);
 ?>
 <script>
     var sessionID = <?php echo $id; ?>;
