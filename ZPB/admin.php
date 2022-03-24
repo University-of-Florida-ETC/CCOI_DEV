@@ -13,7 +13,7 @@ if( !in_array($appid, $_SESSION['myappids'])){
 $users = getUsers();
 $videos = getVideos();
 //echo "<br>\$videos:"; var_dump($videos);
-//$paths = getPaths();
+$paths = getPaths();
 ?>
 
         <main role="main">
@@ -116,6 +116,44 @@ $videos = getVideos();
                                                         <a class="btn-link session-edit" href="javascript:void(0)"><span class="oi oi-pencil px-2" title="Edit Video Name" aria-hidden="true"></span></a>
                                                     </div>
                                                     <div class="col-sm-1">
+                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete User" aria-hidden="true"></span></a>
+                                                    </div>
+                                                </div>
+                                            </li>
+<?php endforeach; ?>
+                                        </ul> 
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-8 col-12">
+                                        <h1 class="red-font">Paths</h1>
+                                    </div>
+                                    <div class="col-md-4 col-12 pt-2">
+                                        <button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Create Path</button>
+                                    </div>
+                                </div>
+
+                                <div class="row pt-3 pr-md-5">
+                                    <div class="col-12 btn-div">
+                                        <div class="row">
+                                            <div class="col-sm-10">
+                                                <p>Path Name</p>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <p>Delete</p>
+                                            </div>
+                                        </div>
+                                        <ul id="research_session_list" class="mb-4">
+<?php foreach ($paths as $index => $currentPath): ?>
+                                            <li class="path-listing">
+                                                <div class="row user pb-1">
+                                                    <div class="col-sm-10">
+                                                        <input type="text" id="vidname-<?= $index ?>" name="vidname" style="width: 100%;" value="<?= $currentPath ?>">
+                                                    </div>
+                                                    <div class="col-sm-2">
                                                         <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete User" aria-hidden="true"></span></a>
                                                     </div>
                                                 </div>
