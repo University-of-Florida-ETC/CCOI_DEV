@@ -398,6 +398,11 @@ var ccoiObservation = (function (){
         console.log(sessions[currentSessionID]); 
         let nodes = sessions[currentSessionID].nodes; 
         let paths = sessions[currentSessionID].paths;
+
+        let title = 'Node #' + (stateIDPath + 1) + ' Preview'; 
+        DOM.path_preview_heading.innerHTML = title; 
+
+        
     }
     
     function preparePath() {
