@@ -129,8 +129,8 @@ if( !empty($_POST['updateUser']) ) {
 						if(mysqli_affected_rows($db)==1){echo "$post||$ischeckbox";}else{echo 'X';}
 						echo "$post||$ischeckbox||$query";
                         */
-            echo "query: "."SELECT {$_POST['toChange']} FROM tbPeople WHERE personid='{$_POST['userid']}'";
-            $return=mysqli_query($db,"SELECT {$_POST['toChange']} FROM tbPeople WHERE personid='{$_POST['userid']}'");
+            echo "query: "."SELECT {$_POST['toChange']} FROM tbPeople WHERE id='{$_POST['userid']}'";
+            $return=mysqli_query($db,"SELECT {$_POST['toChange']} FROM tbPeople WHERE id='{$_POST['userid']}'");
             while($d=mysqli_fetch_assoc($return)){
                 echo " d: "; var_dump($d);
             }
