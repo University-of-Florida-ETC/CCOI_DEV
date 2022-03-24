@@ -107,7 +107,7 @@ while($d=mysqli_fetch_assoc($return)){
 <script>
     var sessionID = <?php echo $id; ?>;
     var jsonReplacement = `<?php echo json_encode($jsonReplacement, JSON_PRETTY_PRINT); ?>`;
-    console.log(jsonReplacement);
+    //console.log(jsonReplacement);
 </script>
 <main role="main">
     <div class="container-fluid">
