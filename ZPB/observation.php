@@ -9,7 +9,7 @@ $id=$_GET['id']+0;
 
 //TODO: check that they are allowed in here
 $session = getSessionInfo($id); //defined below
-echo "<br>sessions: "; print_r($session);
+echo "<br>session: "; print_r($session);
 
 $return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$session['pathid']}'");
 while ($d = mysqli_fetch_assoc($return)) {
@@ -20,17 +20,18 @@ $endid = intval($session['pathid']) + 1;
 echo "<br>endid: ". $endid;
 echo "<br>find ending pnid query: ". "SELECT * FROM tbPaths WHERE id = '{$endid}'";
 $return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$endid}'");
-if (mysql_num_rows($return)==0) {
-    //Grab pathnode ids to end of table
-    echo "<br>current path is last one by id";
+while ($d = mysqli_fetch_assoc($return)) {
+    $currentPathEndsAt = $d['startpnid'];
 }
-else{
-    while ($d = mysqli_fetch_assoc($return)) {
-        $currentPathEndsAt = $d['startpnid'];
-    }
+if( isset($currentPathEndsAt) ){
     echo "<br>current path ends at nodeid: ". $currentPathEndsAt;
-    //Grab pathnode ids in range
 }
+else {
+    echo "<br>current path is last by id";
+}
+
+//Grab pathnode ids in range
+
 //$nodeData[$d['id']] = $d;
 echo "<br>nodeData: "; //print_r($nodeData);
 
