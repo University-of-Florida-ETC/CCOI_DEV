@@ -663,20 +663,6 @@ var ccoiObservation = (function (){
                     sessions = [];
                     $(DOM.new_session_button).removeClass('d-none');
                     if (responseText != null && responseText != "null") {
-
-                        //TODO: AJAX HERE
-                        var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
-                        xmlHttp.onreadystatechange = function() {
-                            var data=getHTML(xmlHttp);
-                            if(data){
-                                console.log("AJAX returns this:");
-                                console.log(data);
-                            }
-                        }
-                        var sendStr='updateObsEl=1&'+responseText;
-                        var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
-                        xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
-
                         console.log(JSON.parse(responseText));
                         sessions = JSON.parse(responseText);
                         for(let i=0; i<sessions.length; i++) {
@@ -762,6 +748,20 @@ var ccoiObservation = (function (){
         let sendData = JSON.stringify(alteredSessionData);
         console.log("Data being transmitted to save:");
         console.log(sendData);
+        
+        //TODO: AJAX HERE
+        var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
+        xmlHttp.onreadystatechange = function() {
+            var data=getHTML(xmlHttp);
+            if(data){
+                console.log("AJAX returns this:");
+                console.log(data);
+            }
+        }
+        var sendStr='updateObsEl=1&'+sendData;
+        var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
+        xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
+
         ccoi.callToAPI('/api/ccoi_ajax.php', sendData);
     }
 
