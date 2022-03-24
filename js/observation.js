@@ -659,7 +659,7 @@ var ccoiObservation = (function (){
             console.log("starting getSessions for pid: " + jsUserVars['pid']);
             if (jsUserVars['pid'] != undefined) {
                 ccoi.callToAPI('/api/ccoi_ajax.php?uid='+jsUserVars['pid']).then(function(responseText){
-                    console.log("no longer printing sessions. Insert responseText here for all sessions.")
+                    //console.log("no longer printing sessions. Insert responseText here for all sessions.")
                     sessions = [];
                     $(DOM.new_session_button).removeClass('d-none');
                     if (responseText != null && responseText != "null") {
