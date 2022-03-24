@@ -11,6 +11,26 @@ $id=$_GET['id']+0;
 $session = getSessionInfo($id); //defined below
 echo "<br>session: "; print_r($session);
 
+$return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$session['pathid']}'");
+while ($d = mysqli_fetch_assoc($return)) {
+    $currentPathStartsAt = $d['startpnid'];
+    echo "<br>current path starts at nodeid: ". $currentPathStartsAt;
+    $endid = intval($session['pathid']) + 1;
+    $return2 = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$endid}'");
+    if (mysql_num_rows($result)==0) {
+        //Grab pathnode ids to end of table
+    }
+    else{
+        while ($d = mysqli_fetch_assoc($return)) {
+            $currentPathEndsAt = $d['startpnid'];
+        }
+        echo "<br>current path ends at nodeid: ". $currentPathEndsAt;
+        //Grab pathnode ids in range
+    }
+    //$nodeData[$d['id']] = $d;
+}
+echo "<br>nodeData: "; //print_r($nodeData);
+
 // Get node data
 $return = mysqli_query($db, "SELECT * FROM tbNodes WHERE pathid = '{$session['pathid']}'");
 while ($d = mysqli_fetch_assoc($return)) {
