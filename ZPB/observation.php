@@ -98,7 +98,7 @@ while($d=mysqli_fetch_assoc($return)){
         $toInsert['path_type'] = $jsonReplacement[$d['pathtype']]['label'];
     }
     if( isset($nodeData[$d['choice']]['aside']) ){
-        $toInsert['aside'] = $nodeData[$d['choice']]['aside'];
+        $toInsert['aside'] = htmlspecialchars($nodeData[$d['choice']]['aside'], ENT_QUOTES);
     }
     $jsonReplacement['nodes'][$nodeIndex]['branches'][0][] = $toInsert;
 }
@@ -106,7 +106,7 @@ while($d=mysqli_fetch_assoc($return)){
 ?>
 <script>
     var sessionID = <?php echo $id; ?>;
-    var jsonReplacement = `<?php echo json_encode(getJSONData(), JSON_PRETTY_PRINT); ?>`;
+    var jsonReplacement = `<?php echo json_encode($jsonReplacement, JSON_PRETTY_PRINT); ?>`;
     console.log(jsonReplacement);
 </script>
 <main role="main">
