@@ -82,8 +82,9 @@ if( !empty($_POST['changeCurrentApp']) ) {
 
 if( !empty($_POST['updateObsEl']) ) {
     //TODO: Verify that it's an observation that you can modify
+    var_dump($_POST);
     
-
+    /*
     //TODO: grab ssids of session
     $return=mysqli_query($db,"SELECT id FROM tbSubPlaygrounds WHERE sessid='{$_POST['id']}'");
         while($d=mysqli_fetch_assoc($return)){$observationids[]=$d['id'];}
@@ -107,6 +108,7 @@ if( !empty($_POST['updateObsEl']) ) {
             }    
         }
     }
+    */
 }
 
 if( !empty($_POST['updateUser']) ) {
