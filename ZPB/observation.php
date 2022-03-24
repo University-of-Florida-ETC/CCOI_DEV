@@ -58,7 +58,8 @@ while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$
 $jsonReplacement['firstNodeID']=$currentPathStartsAt;
 $return=mysqli_query($db,"SELECT * FROM tbNodeGroups WHERE pathid = '{$session['pathid']}'");		
 while($d=mysqli_fetch_assoc($return)){
-    $jsonReplacement['nodeGroups'][$d['derorder']] = [
+    //$jsonReplacement['nodeGroups'][intval($d['derorder'])] = [
+    $jsonReplacement['nodeGroups'][] = [
         "machine_name" => $d['name'],
         "label" => $d['humanname'],
         "labelposition" =>  $d['labelpos'],
@@ -99,7 +100,7 @@ while($d=mysqli_fetch_assoc($return)){
     if( isset($nodeData[$d['choice']]['aside']) ){
         $toInsert['aside'] = $nodeData[$d['choice']]['aside'];
     }
-    $jsonReplacement['nodes'][$nodeIndex]['branches'][] = $toInsert;
+    $jsonReplacement['nodes'][$nodeIndex]['branches'][0][] = $toInsert;
 }
 //echo "<br>jsonReplacement['nodes']: "; print_r($jsonReplacement['nodes']);
 ?>
