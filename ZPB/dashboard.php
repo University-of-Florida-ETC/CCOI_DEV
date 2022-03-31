@@ -195,21 +195,22 @@ $sessions = getSessions(); //defined below
             console.log(`<?php var_dump($sessions) ?>`);
 
             function switchMode(){
+                let currentElement;
                 if(isPlayground){
-                    let currentElement = document.getElementById("playground_content");
+                    currentElement = document.getElementById("playground_content");
                     currentElement.classList.add('d-none');
 
-                    currentElement = document.getElementById("session_content");
+                    currentElement = document.getElementById("research_content");
                     currentElement.classList.remove('d-none');
 
                     currentElement = document.getElementById("switch_mode_button");
                     currentElement.innerText = 'Just Testing?';
                 }
                 else{
-                    let currentElement = document.getElementById("playground_content");
+                    currentElement = document.getElementById("playground_content");
                     currentElement.classList.remove('d-none');
 
-                    currentElement = document.getElementById("session_content");
+                    currentElement = document.getElementById("research_content");
                     currentElement.classList.add('d-none');
                     
                     currentElement = document.getElementById("switch_mode_button");
@@ -248,7 +249,7 @@ $sessions = getSessions(); //defined below
                                                     <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
                                             </div>`;
-                            let playgroundList = document.getElementById("playground_session_list");
+                            let playgroundList = document.getElementById(tbName+"_session_list");
                             playgroundList.appendChild(newEntry);
                         }
                     }
