@@ -193,8 +193,6 @@ $paths = getPaths();
                 }
             }
 
-            console.log(`<?php var_dump($sessions) ?>`);
-
             function createNewSession() {
                 let name = prompt("Enter the name of the new session:");
                 
