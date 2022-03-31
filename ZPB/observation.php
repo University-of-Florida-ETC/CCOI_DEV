@@ -338,7 +338,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 </html>
 
 <?php
-/*function getAppVideos($id)
+function getAppVideos($id)
 {
     if (!empty($id) && is_numeric($id)) 
     {
@@ -353,13 +353,13 @@ while ($d = mysqli_fetch_assoc($return)) {
         }
 
         else{
-            break;
+            return;
         }
 
         return $appVideos;
         
     }
-}*/
+}
 function getSessionInfo($id)
 {
     if (!empty($id) && is_numeric($id)) {
