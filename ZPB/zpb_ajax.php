@@ -9,6 +9,7 @@ if( !empty($_POST['newSession']) ) {
     // TEMPORARY, REMOVE LATER
     $_POST['pathid'] = 1;
     $_POST['playground'] = 1;
+    
 /*
     // Double check that all required values are present
     foreach ($requiredValues as $currentValue){
@@ -21,12 +22,19 @@ if( !empty($_POST['newSession']) ) {
     }
 */
 
-    $query="INSERT INTO tbPlaygrounds (pathid,name,createdon) VALUES ('{$_POST['pathid']}','{$_POST['name']}',NOW())";
+    if(isset($_POST['isPlayground'])){
+        $tbName = 'Playground';
+    }
+    else{
+        $tbName = 'Session';
+    }
+
+    $query="INSERT INTO tb{$tbName}s (pathid,name,createdon) VALUES ('{$_POST['pathid']}','{$_POST['name']}',NOW())";
         $return=mysqli_query($db,$query);
         $lastid=mysqli_insert_id($db);
         $returnData['id'] = $lastid;
 
-    $query="INSERT INTO tbPeopleAppPlaygrounds (personid,appid,sessionid) VALUES ('{$_SESSION['pid']}','{$_SESSION['currentlyloadedapp']}','{$lastid}')";
+    $query="INSERT INTO tbPeopleApp{$tbName}s (personid,appid,sessionid) VALUES ('{$_SESSION['pid']}','{$_SESSION['currentlyloadedapp']}','{$lastid}')";
         $return=mysqli_query($db,$query);
         $lastid=mysqli_insert_id($db);
 
@@ -34,7 +42,6 @@ if( !empty($_POST['newSession']) ) {
         $return=mysqli_query($db,$query);
 
     echo $returnData['id'];
-    
 }
 
 if( !empty($_POST['newApp']) ) {
