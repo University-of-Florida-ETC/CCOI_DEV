@@ -236,6 +236,12 @@ $sessions = getSessions(); //defined below
 
             function createNewSession() {
                 let name = prompt("Enter the name of the new session:");
+                if (name == null){
+                    return;
+                }
+                if (name == ""){
+                    name = "New Observation";
+                }
 
                 let tbName = 'research';
                 let extraText = '';
