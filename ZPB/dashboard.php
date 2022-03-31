@@ -7,6 +7,9 @@ $dataSpy = "scroll";
 include '../includes/header.php';
 include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
 $id = $_GET['id'];
+if($_SESSION['pid'] < 1){
+    header("Location: login");
+}
 if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedapp'], $_SESSION['myappids'])){
     header("Location: group");
 }
@@ -40,55 +43,59 @@ $sessions = getSessions(); //defined below
                             
                             <div class="row pt-3 pr-md-5">
                                 <div class="col-12 btn-div">
-                                    <h4>Your Sessions</h4>
-                                    <ul id="research_session_list" class="mb-4">
+                                    <div id="research_content">
+                                        <h4>Your Sessions</h4>
+                                        <ul id="research_session_list" class="mb-4">
 <?php foreach ($sessions['research'] as $index => $currentSession): ?>
-                                        <li class="session-listing my-2" id="session-<?= $index ?>">
-                                            <div class="row">
-                                                <div class="col-sm-9 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
+                                            <li class="session-listing my-2" id="session-<?= $index ?>">
+                                                <div class="row">
+                                                    <div class="col-sm-9 col-12">
+                                                        <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
+                                                    </div>
+                                                    <div class="col-sm-3 col-12">
+                                                        <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                    </div>
                                                 </div>
-                                                <div class="col-sm-3 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
-                                                </div>
-                                            </div>
-                                        </li>
+                                            </li>
 <?php endforeach; ?>
-                                    </ul> 
-                                    <h4>Other's Sessions</h4>
-                                    <ul id="others_session_list" class="mb-4">
+                                        </ul> 
+                                        <h4>Other's Sessions</h4>
+                                        <ul id="others_session_list" class="mb-4">
 <?php foreach ($sessions['others'] as $index => $currentSession): ?>
-                                        <li class="session-listing my-2" id="others-<?= $index ?>">
-                                            <div class="row">
-                                                <div class="col-sm-11 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
+                                            <li class="session-listing my-2" id="others-<?= $index ?>">
+                                                <div class="row">
+                                                    <div class="col-sm-11 col-12">
+                                                        <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
+                                                    </div>
+                                                    <div class="col-sm-1 col-12">
+                                                        <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                    </div>
                                                 </div>
-                                                <div class="col-sm-1 col-12">
-                                                    <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
-                                                </div>
-                                            </div>
-                                        </li>
+                                            </li>
 <?php endforeach; ?>
-                                    </ul> 
-                                    <h4>Your Playground Sessions (for testing)</h4>
-                                    <ul id="playgrounds_session_list" class="mb-4">
+                                        </ul> 
+                                    </div>
+                                    <div id="playground_content" class="">
+                                        <h4>Your Playground Sessions (for testing)</h4>
+                                        <ul id="playground_session_list" class="mb-4">
 <?php foreach ($sessions['playground'] as $index => $currentSession): ?>
-                                        <li class="session-listing my-2" id="playground-<?= $index ?>">
-                                            <div class="row">
-                                                <div class="col-sm-9 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><?= $currentSession['name'] ?></a>
+                                            <li class="session-listing my-2" id="playground-<?= $index ?>">
+                                                <div class="row">
+                                                    <div class="col-sm-9 col-12">
+                                                        <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><?= $currentSession['name'] ?></a>
+                                                    </div>
+                                                    <div class="col-sm-3 col-12">
+                                                        <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                    </div>
                                                 </div>
-                                                <div class="col-sm-3 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
-                                                </div>
-                                            </div>
-                                        </li>
+                                            </li>
 <?php endforeach; ?>
-                                    </ul> 
+                                        </ul> 
+                                    </div>
                                 </div>
                             </div>
 
@@ -96,7 +103,7 @@ $sessions = getSessions(); //defined below
                         <div class="col-md-4 col-12">
                             <div class="row">
                                 <div class="col">
-                                    <button id="switch_mode_button" class="btn btn-blue btn-full-width my-2">Just Testing? <span class="oi oi-external-link px-2" title="Open Session Video"></span></button>
+                                    <button id="switch_mode_button" class="btn btn-blue btn-full-width my-2" onclick='switchMode()'>Just Testing? <span class="oi oi-external-link px-2" title="Open Session Video"></span></button>
                                     <button id="launch_video_button" class="btn btn-blue btn-full-width my-2 d-none">Open Video <span class="oi oi-external-link px-2" title="Open Session Video"></span></button>
                                     <button id="viz_button" class="btn btn-gold btn-full-width my-2 d-none">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
                                     <button id="irr_button" class="btn btn-gold btn-full-width my-2">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability"></span></button>
@@ -163,6 +170,7 @@ $sessions = getSessions(); //defined below
         </script>
         -->
         <script>
+            var isPlayground = false;
             var derServer='https://ccoi-dev.education.ufl.edu/';
 
             function GetAjaxReturnObject(mimetype){
@@ -186,8 +194,38 @@ $sessions = getSessions(); //defined below
 
             console.log(`<?php var_dump($sessions) ?>`);
 
+            function switchMode(){
+                if(isPlayground){
+                    let currentElement = document.getElementById("playground_content");
+                    currentElement.classList.addClass('d-none');
+
+                    currentElement = document.getElementById("session_content");
+                    currentElement.classList.removeClass('d-none');
+
+                    currentElement = document.getElementById("switch_mode_button");
+                    currentElement.innerText = 'Just Testing?'
+                }
+                else{
+                    let currentElement = document.getElementById("playground_content");
+                    currentElement.classList.removeClass('d-none');
+
+                    currentElement = document.getElementById("session_content");
+                    currentElement.classList.addClass('d-none');
+                    
+                    currentElement = document.getElementById("switch_mode_button");
+                    currentElement.innerText = 'Enter Real Data'
+                }
+            }
+
             function createNewSession() {
                 let name = prompt("Enter the name of the new session:");
+
+                let tbName = 'research';
+                let extraText = '';
+                if(isPlayground){
+                    tbName = 'playground';
+                    extraText = '&isPlayground=1';
+                }
                 
                 var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
                 xmlHttp.onreadystatechange = function() {
@@ -199,26 +237,45 @@ $sessions = getSessions(); //defined below
                         }
                         else {
                             let newEntry = document.createElement("li");
-                            newEntry.setAttribute("class", "session-listing my-2");
+                            newEntry.setAttribute("class", tbName+"-listing my-2");
                             newEntry.innerHTML = `<div class="row">
                                                 <div class="col-sm-9 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=${returnedInt}&isPlayground=1">${name}</a>
+                                                    <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}">${name}</a>
                                                 </div>
                                                 <div class="col-sm-3 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=${returnedInt}&isPlayground=1"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
                                                     <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
                                                     <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
                                             </div>`;
-                            let playgroundList = document.getElementById("playgrounds_session_list");
+                            let playgroundList = document.getElementById("playground_session_list");
                             playgroundList.appendChild(newEntry);
                         }
                     }
                 }
-                sendStr='newSession=1&name='+name;
+                sendStr='newSession=1'+extraText+'&name='+name;
                 var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
                 xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
             }
+
+            /*
+            function formatSessionLists() {
+                if (document.getElementById('session-3') !== null){
+                    let researchList = document.getElementById('research_session_list');
+                    for(let i = 3; i > 0; i++){
+                        try{
+                            currentElement = document.getElementById('session-'+i);
+                            currentElement.classList.add('d-none');
+                        }
+                        catch(error){
+                            break;
+                        }
+                    }
+                }
+                //Hide extra sessions
+                
+            }
+            */
         </script>
     </body> 
 </html>
