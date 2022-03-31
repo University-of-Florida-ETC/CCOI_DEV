@@ -5,7 +5,7 @@ $dataOffset = "10";
 $dataSpy = "scroll";
 include '../includes/header.php';
 include '../api/ccoi_dbhookup.php';
-$id=$_GET['id']+0;
+$id = $_GET['id'] + 0;
 
 //TODO: check that they are allowed in here
 $session = getSessionInfo($id); //defined below
@@ -25,11 +25,10 @@ $return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$endid}'");
 while ($d = mysqli_fetch_assoc($return)) {
     $currentPathEndsAt = $d['startpnid'];
 }
-if( isset($currentPathEndsAt) ){
+if (isset($currentPathEndsAt)) {
     //echo "<br>current path ends at nodeid: ". $currentPathEndsAt;
     $nodequery = "SELECT * FROM tbNodes WHERE id >= {$currentPathStartsAt} AND id < {$currentPathEndsAt}";
-}
-else {
+} else {
     //echo "<br>current path is last by id";
     $nodequery = "SELECT * FROM tbNodes WHERE id >= {$currentPathStartsAt}";
 }
@@ -42,7 +41,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 //echo "<br>nodeData: "; print_r($nodeData);
 
 //If in playgrounds, query playgrounds DB
-if (isset($_GET['isPlayground'])){
+if (isset($_GET['isPlayground'])) {
     //echo "It's a playground";
     $return = mysqli_query($db, "SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbPlaygroundActivity SA, tbPathNodes PN, tbSubPlaygrounds SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
 }
@@ -57,9 +56,9 @@ while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$
 //print_r($subsessions);
 //TODO: stuff to make old node editor work with new backend
 
-$jsonReplacement['firstNodeID']=$currentPathStartsAt;
-$return=mysqli_query($db,"SELECT * FROM tbNodeGroups WHERE pathid = '{$session['pathid']}'");		
-while($d=mysqli_fetch_assoc($return)){
+$jsonReplacement['firstNodeID'] = $currentPathStartsAt;
+$return = mysqli_query($db, "SELECT * FROM tbNodeGroups WHERE pathid = '{$session['pathid']}'");
+while ($d = mysqli_fetch_assoc($return)) {
     //$jsonReplacement['nodeGroups'][intval($d['derorder'])] = [
     $jsonReplacement['nodeGroups'][] = [
         "machine_name" => $d['name'],
@@ -70,14 +69,14 @@ while($d=mysqli_fetch_assoc($return)){
 }
 //echo "<br>jsonReplacement['nodeGroups']: "; print_r($jsonReplacement['nodeGroups']);
 $nodeids = [];
-$return=mysqli_query($db,"SELECT * FROM tbPathNodes WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");		
-while($d=mysqli_fetch_assoc($return)){
-    if($d['choice']==0){
+$return = mysqli_query($db, "SELECT * FROM tbPathNodes WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");
+while ($d = mysqli_fetch_assoc($return)) {
+    if ($d['choice'] == 0) {
         continue;
     }
     $nodeIndex = array_search($d['node1'], $nodeids);
-    if( $nodeIndex === false ){
-        $nodeIndex = array_push($nodeids, $d['node1'])-1;
+    if ($nodeIndex === false) {
+        $nodeIndex = array_push($nodeids, $d['node1']) - 1;
         $jsonReplacement['nodes'][] = [
             "id" => $nodeIndex,
             "node_id" => $d['node1'],
@@ -93,13 +92,13 @@ while($d=mysqli_fetch_assoc($return)){
         "branch_id" => $d['choice'],
         "branch_new_id" => $nodeData[$d['choice']]['oldid']
     ];
-    if( isset($nodeData[$d['choice']]['extra']) ){
+    if (isset($nodeData[$d['choice']]['extra'])) {
         $toInsert['extra'] = $nodeData[$d['choice']]['extra'];
     }
-    if( isset($d['pathtype']) ){
+    if (isset($d['pathtype'])) {
         $toInsert['path_type'] = $jsonReplacement[$d['pathtype']]['label'];
     }
-    if( isset($nodeData[$d['choice']]['aside']) ){
+    if (isset($nodeData[$d['choice']]['aside'])) {
         $toInsert['aside'] = htmlspecialchars($nodeData[$d['choice']]['aside'], ENT_QUOTES);
     }
     $jsonReplacement['nodes'][$nodeIndex]['branches'][0][] = $toInsert;
@@ -314,9 +313,8 @@ while($d=mysqli_fetch_assoc($return)){
 <script src="/js/ccoi.js"></script>
 <script src="/js/observation.js"></script>
 <script src="/js/ccoi-data-model.js"></script>
-<script src="/js/observe.js"></script> 
+<script src="/js/observe.js"></script>
 <script>
-
     /*
     console.log("In");
     try{
@@ -347,7 +345,7 @@ while($d=mysqli_fetch_assoc($return)){
         $db = $GLOBALS["db"];
         if(!empty($_GET['isPlayground'])) 
         {
-            $return = mysqli_query($db, "SELECT v.id, v.name, v.url FROM tbPeopleAppPlaygrounds pg LEFT JOIN tbVideos v ON v.appid = pg.appid WHERE pg.id = $id AND pg.inactive IS NULL");
+            $return = mysqli_query($db, "SELECT v.id, v.name, v.url FROM tbVideos v LEFT JOIN tbPeopleAppPlaygrounds pg ON pg.appid = v.appid WHERE pg.id = 1 AND pg.inactive IS NULL");
             while($d = mysqli_fetch_assoc($return)) {
                 print_r($d);
                 $appVideos = $d;

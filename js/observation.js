@@ -432,6 +432,7 @@ var ccoiObservation = (function (){
         // form new path output
         console.log("This is the gamer variable: " + sessionID);
         let sessionIndex = findSessionIndexById(sessions, sessionID);
+        console.log(sessionIndex);
         let session = sessions[sessionIndex];
         console.log(sessions[sessionIndex] + "\n This is the current session... is it?");
         let paths = session.paths;
