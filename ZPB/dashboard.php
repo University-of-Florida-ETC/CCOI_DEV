@@ -47,7 +47,7 @@ $sessions = getSessions(); //defined below
                                         <h4>Your Sessions</h4>
                                         <ul id="research_session_list" class="mb-4">
 <?php foreach ($sessions['research'] as $index => $currentSession): ?>
-                                            <li class="session-listing my-2" id="session-<?= $index ?>">
+                                            <li class="session-listing my-2" id="research-<?= $index ?>">
                                                 <div class="row">
                                                     <div class="col-sm-9 col-12">
                                                         <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
@@ -254,7 +254,8 @@ $sessions = getSessions(); //defined below
                         }
                         else {
                             let newEntry = document.createElement("li");
-                            newEntry.setAttribute("class", tbName+"-listing my-2");
+                            newEntry.setAttribute("class", "session-listing my-2");
+                            newEntry.setAttribute("id", tbName+"-"+returnedInt);
                             newEntry.innerHTML = `<div class="row">
                                                 <div class="col-sm-9 col-12">
                                                     <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}">${name}</a>
