@@ -54,7 +54,7 @@ $sessions = getSessions(); //defined below
                                                     </div>
                                                     <div class="col-sm-3 col-12">
                                                         <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
-                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)" onclick="deleteSession(<?= $currentSession['id']; ?>)"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
                                                         <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                     </div>
                                                 </div>
@@ -88,7 +88,7 @@ $sessions = getSessions(); //defined below
                                                     </div>
                                                     <div class="col-sm-3 col-12">
                                                         <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
-                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)" onclick="deleteSession(<?= $currentSession['id']; ?>, 1)"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
                                                         <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                     </div>
                                                 </div>
@@ -193,6 +193,19 @@ $sessions = getSessions(); //defined below
             }
 
             console.log(`<?php var_dump($sessions) ?>`);
+
+            function deleteSession(id, isPlayground = false){
+                if (confirm('Are you sure you want to delete this session? This cannot be undone!')) {
+                    // Save it!
+                    if(isPlayground)
+                        console.log('This would delete playground session with id '+id);
+                    else
+                        console.log('This would delete research session with id '+id);
+                } else {
+                    // Do nothing!
+                    console.log('Deleting session was canceled.');
+                }
+            }
 
             function switchMode(){
                 let currentElement;
