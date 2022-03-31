@@ -9,7 +9,7 @@ $id=$_GET['id']+0;
 
 //TODO: check that they are allowed in here
 $session = getSessionInfo($id); //defined below
-$appVideos = getAppVideos($id); //Defined below
+//$appVideos = getAppVideos($id); //Defined below
 print_r($session);
 //echo "<br>session: "; print_r($session);
 
