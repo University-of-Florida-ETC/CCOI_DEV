@@ -6,11 +6,11 @@ $dataOffset = "10";
 $dataSpy = "scroll";
 include '../includes/header.php';
 include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
-$sessions = getSessions(); //defined below
 $id = $_GET['id'];
 if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedapp'], $_SESSION['myappids'])){
     header("Location: group");
 }
+$sessions = getSessions(); //defined below
 ?>
 
         <main role="main">
@@ -96,6 +96,7 @@ if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedap
                         <div class="col-md-4 col-12">
                             <div class="row">
                                 <div class="col">
+                                    <button id="switch_mode_button" class="btn btn-blue btn-full-width my-2">Just Testing? <span class="oi oi-external-link px-2" title="Open Session Video"></span></button>
                                     <button id="launch_video_button" class="btn btn-blue btn-full-width my-2 d-none">Open Video <span class="oi oi-external-link px-2" title="Open Session Video"></span></button>
                                     <button id="viz_button" class="btn btn-gold btn-full-width my-2 d-none">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
                                     <button id="irr_button" class="btn btn-gold btn-full-width my-2">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability"></span></button>
