@@ -9,7 +9,8 @@ $id = $_GET['id'] + 0;
 
 //TODO: check that they are allowed in here
 $session = getSessionInfo($id); //defined below
-//$appVideos = getAppVideos($id); //Defined below
+$appVideos = getAppVideos($id); //Defined below
+print_r($appVideos);
 print_r($session);
 //echo "<br>session: "; print_r($session);
 
@@ -338,7 +339,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 </html>
 
 <?php
-/*function getAppVideos($id)
+function getAppVideos($id)
 {
     if (!empty($id) && is_numeric($id)) 
     {
@@ -353,13 +354,13 @@ while ($d = mysqli_fetch_assoc($return)) {
         }
 
         else{
-            break;
+            return;
         }
 
         return $appVideos;
         
     }
-}*/
+}
 function getSessionInfo($id)
 {
     if (!empty($id) && is_numeric($id)) {
