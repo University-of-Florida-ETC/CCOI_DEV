@@ -77,7 +77,7 @@ $sessions = getSessions(); //defined below
 <?php endforeach; ?>
                                         </ul> 
                                     </div>
-                                    <div id="playground_content" class="">
+                                    <div id="playground_content" class="d-none">
                                         <h4>Your Playground Sessions (for testing)</h4>
                                         <ul id="playground_session_list" class="mb-4">
 <?php foreach ($sessions['playground'] as $index => $currentSession): ?>
@@ -197,23 +197,23 @@ $sessions = getSessions(); //defined below
             function switchMode(){
                 if(isPlayground){
                     let currentElement = document.getElementById("playground_content");
-                    currentElement.classList.addClass('d-none');
+                    currentElement.classList.add('d-none');
 
                     currentElement = document.getElementById("session_content");
-                    currentElement.classList.removeClass('d-none');
+                    currentElement.classList.remove('d-none');
 
                     currentElement = document.getElementById("switch_mode_button");
-                    currentElement.innerText = 'Just Testing?'
+                    currentElement.innerText = 'Just Testing?';
                 }
                 else{
                     let currentElement = document.getElementById("playground_content");
-                    currentElement.classList.removeClass('d-none');
+                    currentElement.classList.remove('d-none');
 
                     currentElement = document.getElementById("session_content");
-                    currentElement.classList.addClass('d-none');
+                    currentElement.classList.add('d-none');
                     
                     currentElement = document.getElementById("switch_mode_button");
-                    currentElement.innerText = 'Enter Real Data'
+                    currentElement.innerText = 'Enter Real Data';
                 }
             }
 
