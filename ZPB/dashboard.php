@@ -32,8 +32,8 @@ $sessions = getSessions(); //defined below
                         <div class="col-md-8">
                             <div class="row pr-md-5">
                                 <div class="col-md-8 col-12">
-                                    <h1 class="red-font">Sessions</h1>
-                                    <h5 style="text-transform: none;">Select a session to view or edit the set</h5>
+                                    <h1 class="red-font" id="pageTitle">Sessions</h1>
+                                    <h5 style="text-transform: none;" id="pageDesc">Select a session to view or edit the set</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
                                     <button id="new_session_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start" onclick="createNewSession()">Add Session</button>
@@ -103,7 +103,7 @@ $sessions = getSessions(); //defined below
                         <div class="col-md-4 col-12">
                             <div class="row">
                                 <div class="col">
-                                    <button id="switch_mode_button" class="btn btn-blue btn-full-width my-2" onclick='switchMode()'>Just Testing? <span class="oi oi-external-link px-2" title="Open Session Video"></span></button>
+                                    <button id="switch_mode_button" class="btn btn-blue btn-full-width my-2" onclick='switchMode()'>Just Testing?</button>
                                     <button id="launch_video_button" class="btn btn-blue btn-full-width my-2 d-none">Open Video <span class="oi oi-external-link px-2" title="Open Session Video"></span></button>
                                     <button id="viz_button" class="btn btn-gold btn-full-width my-2 d-none">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
                                     <button id="irr_button" class="btn btn-gold btn-full-width my-2">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability"></span></button>
@@ -205,6 +205,14 @@ $sessions = getSessions(); //defined below
 
                     currentElement = document.getElementById("switch_mode_button");
                     currentElement.innerText = 'Just Testing?';
+
+                    currentElement = document.getElementById("pageTitle");
+                    currentElement.innerText = 'Sessions';
+
+                    currentElement = document.getElementById("pageDesc");
+                    currentElement.innerText = 'Select a session to view or edit the set';
+
+                    isPlayground = false;
                 }
                 else{
                     currentElement = document.getElementById("playground_content");
@@ -215,6 +223,14 @@ $sessions = getSessions(); //defined below
                     
                     currentElement = document.getElementById("switch_mode_button");
                     currentElement.innerText = 'Enter Real Data';
+
+                    currentElement = document.getElementById("pageTitle");
+                    currentElement.innerText = 'Playgrounds';
+
+                    currentElement = document.getElementById("pageDesc");
+                    currentElement.innerText = 'Select a test session to view or edit the set';
+
+                    isPlayground = true;
                 }
             }
 
