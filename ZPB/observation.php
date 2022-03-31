@@ -9,6 +9,8 @@ $id=$_GET['id']+0;
 
 //TODO: check that they are allowed in here
 $session = getSessionInfo($id); //defined below
+//$appVideos = getAppVideos($id); //Defined below
+print_r($session);
 //echo "<br>session: "; print_r($session);
 
 $return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$session['pathid']}'");
@@ -338,7 +340,28 @@ while($d=mysqli_fetch_assoc($return)){
 </html>
 
 <?php
+/*function getAppVideos($id)
+{
+    if (!empty($id) && is_numeric($id)) 
+    {
+        $db = $GLOBALS["db"];
+        if(!empty($_GET['isPlayground'])) 
+        {
+            $return = mysqli_query($db, "SELECT v.id, v.name, v.url FROM tbPeopleAppPlaygrounds pg LEFT JOIN tbVideos v ON v.appid = pg.appid WHERE pg.id = $id AND pg.inactive IS NULL");
+            while($d = mysqli_fetch_assoc($return)) {
+                print_r($d);
+                $appVideos = $d;
+            }
+        }
 
+        else{
+            break;
+        }
+
+        return $appVideos;
+        
+    }
+}*/
 function getSessionInfo($id)
 {
     if (!empty($id) && is_numeric($id)) {
