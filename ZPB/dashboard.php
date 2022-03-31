@@ -54,8 +54,8 @@ $sessions = getSessions(); //defined below
                                                     </div>
                                                     <div class="col-sm-3 col-12">
                                                         <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
-                                                        <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
-                                                        <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                     </div>
                                                 </div>
                                             </li>
@@ -70,7 +70,7 @@ $sessions = getSessions(); //defined below
                                                         <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
                                                     </div>
                                                     <div class="col-sm-1 col-12">
-                                                        <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                     </div>
                                                 </div>
                                             </li>
@@ -88,8 +88,8 @@ $sessions = getSessions(); //defined below
                                                     </div>
                                                     <div class="col-sm-3 col-12">
                                                         <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
-                                                        <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
-                                                        <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                     </div>
                                                 </div>
                                             </li>
@@ -268,8 +268,8 @@ $sessions = getSessions(); //defined below
                                                 </div>
                                                 <div class="col-sm-3 col-12">
                                                     <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" href="#"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" href="#"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
                                             </div>`;
                             let playgroundList = document.getElementById(tbName+"_session_list");
