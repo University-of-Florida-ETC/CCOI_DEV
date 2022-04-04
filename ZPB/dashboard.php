@@ -206,8 +206,15 @@ $sessions = getSessions(); //defined below
                         if(data){
                             console.log(data);
                             if(data == "y") {
-                                console.log("Hide the element");
                                 //Hide the element
+                                var targetElement;
+                                if (isPlayground){
+                                    targetElement = document.getElementById('playground-'+id);
+                                }
+                                else{
+                                    targetElement = document.getElementById('research-'+id);
+                                }
+                                targetElement.classList.add('d-none');
                             }
                             else if(data == "n") {
                                 alert("Session could not be deleted! Please login.");
