@@ -193,7 +193,7 @@ if( !empty($_POST['deleteSession']) ) {
         while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
 
     if( in_array($_POST['sessionid'], $sessionids) ){
-        $query="UPDATE tb$tbName}s SET inactive = 1 WHERE id='{$_POST['sessionid']}' LIMIT 1";
+        $query="UPDATE tb{$tbName}s SET inactive = 1 WHERE id='{$_POST['sessionid']}' LIMIT 1";
             $return=mysqli_query($db,$query);
             if(mysqli_affected_rows($db)==1){
                 echo "y";
