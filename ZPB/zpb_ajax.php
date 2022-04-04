@@ -166,4 +166,45 @@ if( !empty($_POST['updateUser']) ) {
         echo "Error: Please log in.";
     }
 }
+
+if( !empty($_POST['deleteSession']) ) {
+
+    $requiredValues = ['sessionid', 'isPlayground'];     //TODO: pathID and research/playground must be specified, currently no interface for that on front-end
+
+    // Double check that all required values are present
+    foreach ($requiredValues as $currentValue){
+        if (!isset($_POST[$currentValue])){
+            echo "-1";
+            return;
+
+        }
+            
+    }
+
+    if(isset($_POST['isPlayground'])){
+        $tbName = 'Playground';
+    }
+    else{
+        $tbName = 'Session';
+    }
+
+    // Verify that user is allowed to delete this session
+    $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleApp{$tbName}s WHERE personid='{$_SESSION['pid']}' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
+        while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
+
+    if( in_array($_POST['sessionid'], $sessionids) ){
+        $query="UPDATE tb$tbName}s SET inactive = 1 WHERE id='{$_POST['sessionid']}' LIMIT 1";
+            $return=mysqli_query($db,$query);
+            if(mysqli_affected_rows($db)==1){
+                echo "y";
+            }
+            else{
+                echo 'n';
+            }
+    }
+    else {
+        echo "f";
+    }
+}
+
 ?>
