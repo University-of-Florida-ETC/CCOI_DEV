@@ -196,11 +196,20 @@ $sessions = getSessions(); //defined below
 
             function deleteSession(id, isPlayground = false){
                 if (confirm('Are you sure you want to delete this session? This cannot be undone!')) {
-                    // Save it!
+                    let extraText = '';
                     if(isPlayground)
-                        console.log('This would delete playground session with id '+id);
-                    else
-                        console.log('This would delete research session with id '+id);
+                        extraText = '&isPlayground=1';
+
+                    var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
+                    xmlHttp.onreadystatechange = function() {
+                        var data=getHTML(xmlHttp);
+                        if(data){
+                            console.log(data);
+                        }
+                    }
+                    sendStr='deleteSession=1'+extraText+'&sessionid='+id;
+                    var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
+                    xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
                 } else {
                     // Do nothing!
                     console.log('Deleting session was canceled.');
