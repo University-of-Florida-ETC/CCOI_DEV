@@ -210,10 +210,15 @@ $sessions = getSessions(); //defined below
                                 var targetElement;
                                 if (isPlayground){
                                     targetElement = document.getElementById('playground-'+id);
+                                    console.log('targeting element with ID: '+'playground-'+id);
+                                    console.log('targetElement in conditional: '+targetElement);
                                 }
                                 else{
                                     targetElement = document.getElementById('research-'+id);
+                                    console.log('targeting element with ID: '+'research-'+id);
+                                    console.log('targetElement in conditional: '+targetElement);
                                 }
+                                console.log('targetElement out of conditional: '+targetElement);
                                 targetElement.classList.add('d-none');
                             }
                             else if(data == "n") {
