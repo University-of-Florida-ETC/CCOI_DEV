@@ -47,7 +47,7 @@ $sessions = getSessions(); //defined below
                                         <h4>Your Sessions</h4>
                                         <ul id="research_session_list" class="mb-4">
 <?php foreach ($sessions['research'] as $index => $currentSession): ?>
-                                            <li class="session-listing my-2" id="research-<?= $index ?>">
+                                            <li class="session-listing my-2" id="research-<?= $currentSession['id']; ?>">
                                                 <div class="row">
                                                     <div class="col-sm-9 col-12">
                                                         <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
@@ -64,7 +64,7 @@ $sessions = getSessions(); //defined below
                                         <h4>Other's Sessions</h4>
                                         <ul id="others_session_list" class="mb-4">
 <?php foreach ($sessions['others'] as $index => $currentSession): ?>
-                                            <li class="session-listing my-2" id="others-<?= $index ?>">
+                                            <li class="session-listing my-2" id="others-<?= $currentSession['id']; ?>">
                                                 <div class="row">
                                                     <div class="col-sm-11 col-12">
                                                         <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
@@ -81,7 +81,7 @@ $sessions = getSessions(); //defined below
                                         <h4>Your Playground Sessions (for testing)</h4>
                                         <ul id="playground_session_list" class="mb-4">
 <?php foreach ($sessions['playground'] as $index => $currentSession): ?>
-                                            <li class="session-listing my-2" id="playground-<?= $index ?>">
+                                            <li class="session-listing my-2" id="playground-<?= $currentSession['id']; ?>">
                                                 <div class="row">
                                                     <div class="col-sm-9 col-12">
                                                         <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><?= $currentSession['name'] ?></a>
