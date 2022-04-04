@@ -205,6 +205,16 @@ $sessions = getSessions(); //defined below
                         var data=getHTML(xmlHttp);
                         if(data){
                             console.log(data);
+                            if(data == "y") {
+                                console.log("Hide the element");
+                                //Hide the element
+                            }
+                            else if(data == "n") {
+                                alert("Session could not be deleted! Please login.");
+                            }
+                            else if(data == "n") {
+                                alert("Session could not be deleted! Contact your head researcher for support.");
+                            }
                         }
                     }
                     sendStr='deleteSession=1'+extraText+'&sessionid='+id;
