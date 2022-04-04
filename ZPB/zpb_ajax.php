@@ -169,7 +169,7 @@ if( !empty($_POST['updateUser']) ) {
 
 if( !empty($_POST['deleteSession']) ) {
 
-    $requiredValues = ['sessionid', 'isPlayground'];     //TODO: pathID and research/playground must be specified, currently no interface for that on front-end
+    $requiredValues = ['sessionid'];     //TODO: pathID and research/playground must be specified, currently no interface for that on front-end
 
     // Double check that all required values are present
     foreach ($requiredValues as $currentValue){
