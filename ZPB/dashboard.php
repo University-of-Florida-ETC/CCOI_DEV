@@ -62,7 +62,7 @@ $sessions = getSessions(); //defined below
                                         <h4>Other's Sessions</h4>
                                         <ul id="others_session_list" class="mb-4">
 <?php foreach ($sessions['others'] as $index => $currentSession): ?>
-                                            <li class="session-listing my-2" id="others-<?= $currentSession['id']; ?>">
+                                            <li class="session-listing my-2" id="others-<?= $currentSession['id']; ?>" style="display:flex; flex-wrap:no-wrap;">
                                             <div style="width:80%;">
                                                     <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
                                                 </div>
