@@ -419,7 +419,7 @@ var ccoiObservation = (function (){
 
     function findSessionIndexById(arr, id) {
         const requiredIndex = arr.findIndex(el => {
-            return el.id === id
+            return el.id == id
         }) 
 
         return requiredIndex;
@@ -430,7 +430,7 @@ var ccoiObservation = (function (){
         // Reset path
         DOM.path_label.value = '';
         // form new path output
-        console.log(sessions[1]);
+        console.log(sessions);
         console.log("This is the gamer variable: " + sessionID);
         let sessionIndex = findSessionIndexById(sessions, sessionID);
         console.log(sessionIndex);
