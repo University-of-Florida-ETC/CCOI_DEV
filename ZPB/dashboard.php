@@ -48,15 +48,13 @@ $sessions = getSessions(); //defined below
                                         <ul id="research_session_list" class="mb-4">
 <?php foreach ($sessions['research'] as $index => $currentSession): ?>
                                             <li class="session-listing my-2" id="research-<?= $currentSession['id']; ?>">
-                                                <div class="row" style="flex-wrap: nowrap;">
-                                                    <div class="col-sm-9">
-                                                        <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
-                                                        <a class="btn-link" href="javascript:void(0)" onclick="deleteSession(<?= $currentSession['id']; ?>)"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
-                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
-                                                    </div>
+                                                <div style="width:75%;">
+                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
+                                                </div>
+                                                <div style="width:25%; display:flex; flex-wrap: nowrap;">
+                                                    <a class="btn-link session-edit" style="align-self: flex-start;" href="observation?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil" title="Edit Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" style="align-self: center;" href="javascript:void(0)" onclick="deleteSession(<?= $currentSession['id']; ?>)"><span class="oi oi-trash" title="Delete Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" style="align-self: flex-end;" href="javascript:void(0)"><span class="oi oi-pie-chart" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
                                             </li>
 <?php endforeach; ?>
