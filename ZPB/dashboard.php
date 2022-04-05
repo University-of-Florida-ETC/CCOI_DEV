@@ -66,10 +66,10 @@ $sessions = getSessions(); //defined below
 <?php foreach ($sessions['others'] as $index => $currentSession): ?>
                                             <li class="session-listing my-2" id="others-<?= $currentSession['id']; ?>">
                                                 <div class="row">
-                                                    <div class="col-sm-11 col-12">
+                                                    <div class="col-sm-9 col-12">
                                                         <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
                                                     </div>
-                                                    <div class="col-sm-1 col-12">
+                                                    <div class="col-sm-3 col-12">
                                                         <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                     </div>
                                                 </div>
