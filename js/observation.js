@@ -430,7 +430,7 @@ var ccoiObservation = (function (){
         // Reset path
         DOM.path_label.value = '';
         // form new path output
-        console.log(sessions[i]);
+        console.log(sessions[1]);
         console.log("This is the gamer variable: " + sessionID);
         let sessionIndex = findSessionIndexById(sessions, sessionID);
         console.log(sessionIndex);
