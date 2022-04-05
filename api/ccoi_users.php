@@ -31,11 +31,11 @@ if(!empty($_POST['whee'])){
 					if(in_array($prefield,$checkboxes)){			// checkboxes edit a different table and get different actions on return -- NOTE -- inactive checkbox does not go here -- see below
 						$ischeckbox='check';
 						$field=mysqli_real_escape_string($db,$prefield);
-						$prequery="SELECT id FROM tbPersonAppRoles WHERE personid='$id' AND appid='1' AND role='$field' LIMIT 1";
+						$prequery="SELECT id FROM tbPersonAppRoles WHERE personid='$id' AND appid='{$_SESSION['currentlyloadedapp']}' AND role='$field' LIMIT 1";
 						$return=mysqli_query($db,$prequery);
 						if($return->num_rows > 0){
 							if($_POST[$post]=='false'){
-								$query="DELETE FROM tbPersonAppRoles WHERE personid='$id' AND appid='1' AND role='$field' LIMIT 1";
+								$query="DELETE FROM tbPersonAppRoles WHERE personid='$id' AND appid='{$_SESSION['currentlyloadedapp']}' AND role='$field' LIMIT 1";
 							}    // if we already have it set and we're trying to set again, something farted -- ignore
 						}else{
 							if($_POST[$post]=='true'){
@@ -147,7 +147,7 @@ echo "<div class='markoutercontent'><div class='markcontent'>{$msgbox}<h2>User M
 echo "<div class='newuser'><form name='derform' method='POST' action='ccoi_users.php'><input type='hidden' name='yahoo' value='1' /><input type='text' name='last' class='last' id='last_0' placeholder='Last Name' />, <input type='text' name='first' class='first' id='first_0' placeholder='First Name' />";
 echo " <input type='text' name='email' class='email' id='email_0' placeholder='Email' /> <input type='text' name='newpass' class='newpass' id='newpass_0' placeholder='new password' /> <input type='submit' value='Create New User' style='width: 170px; margin-bottom: 10px; border-color: #888;' /></form></div>";
 
-$return=mysqli_query($db,"SELECT personid, role FROM tbPersonAppRoles WHERE appid='1'");			// APPID and role required to be in the list
+$return=mysqli_query($db,"SELECT personid, role FROM tbPersonAppRoles WHERE appid='{$_SESSION['currentlyloadedapp']}'");			// APPID and role required to be in the list
 while($p=mysqli_fetch_assoc($return)){$roles[$p['personid']][$p['role']]=1;}
 $pidstext=implode(',',array_keys($roles));
 

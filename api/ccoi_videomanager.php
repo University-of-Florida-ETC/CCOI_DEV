@@ -146,7 +146,7 @@ ENDJS;
 //	$origfilename=preg_replace("/[^A-Za-z0-9._-]/",'_','Moores\' "2017-12-08" C21');		//echo "x $origfilename";
 	//preg_replace("/[^A-Za-z0-9. -]/",'',$_POST['address']);
 
-	$return=mysqli_query($db,"SELECT * FROM tbVideos WHERE appid='1' order by inactive, name");
+	$return=mysqli_query($db,"SELECT * FROM tbVideos WHERE appid='{$_SESSION['currentlyloadedapp']}' order by inactive, name");
 	while($p=mysqli_fetch_assoc($return)){
 		if($count==5){$count=0;$gap='<br />';}else{$gap='';}  $count++; 
 		if(!empty($p['inactive'])){

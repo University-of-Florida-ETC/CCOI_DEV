@@ -18,7 +18,7 @@ if(isset($_GET['uid']) && is_numeric($_GET['uid'])){					// NOTE: in many cases 
 				$tb1a='tbPeopleAppPlaygrounds';  $tb1b='tbPeopleAppSessions';
 				$tb2a='tbPlaygrounds';					$tb2b='tbSessions';
 				$tb3a='tbPlaygroundActivity';		$tb3b='tbSessionActivity';
-				$query="SELECT id FROM {$tb1a} WHERE personid='$uid' AND appid='1' AND sessionid='$playid'";
+				$query="SELECT id FROM {$tb1a} WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND sessionid='$playid'";
 				if(!$debug){$return=mysqli_query($db,$query);}else{echo "$query<br />\n";}
 				if(mysqli_num_rows($return)==1){$goodtogo=true;}
 		//		$goodtogo=true;
@@ -61,7 +61,7 @@ if(isset($_GET['uid']) && is_numeric($_GET['uid'])){					// NOTE: in many cases 
 						if(mysqli_affected_rows($db)>0){$yays++;}
 					}
 					if($yays==$needyays){
-						$query="UPDATE {$tb1a} SET inactive='1' WHERE personid='$uid' AND appid='1' AND sessionid='$playid'";
+						$query="UPDATE {$tb1a} SET inactive='1' WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND sessionid='$playid'";
 						if(!$debug){$return=mysqli_query($db,$query);}else{echo "$query<br />\n";}
 						$query="UPDATE {$tb2a} SET inactive='1' WHERE id='$playid'";
 						if(!$debug){$return=mysqli_query($db,$query);}else{echo "$query<br />\n";}

@@ -61,10 +61,10 @@ include('../includes/header.php');
 echo "<script language='javascript'>var derServer='https://{$serverroot}{$devprodroot}/';var derDevProd='{$devprodroot}';</script>\n";		// sigh -- needs to be after header, but before JS below
 echo "<div id='dercontent'><h1>IRR Viewer</h1>";
 
-$query="SELECT s.id, s.videoid FROM tbSessions s, tbPeopleAppSessions pas WHERE pas.appid='1' AND pas.sessionid=s.id AND videoid IS NOT NULL AND s.inactive IS NULL AND pas.inactive IS NULL";				$return=mysqli_query($db,$query);
+$query="SELECT s.id, s.videoid FROM tbSessions s, tbPeopleAppSessions pas WHERE pas.appid='{$_SESSION['currentlyloadedapp']}' AND pas.sessionid=s.id AND videoid IS NOT NULL AND s.inactive IS NULL AND pas.inactive IS NULL";				$return=mysqli_query($db,$query);
 while($p=mysqli_fetch_assoc($return)){$sesscount[$p['videoid']]++;}			//print_r($sesscount);
 
-$query="SELECT id, name FROM tbVideos WHERE appid='1' AND inactive IS NULL";					$return=mysqli_query($db,$query);
+$query="SELECT id, name FROM tbVideos WHERE appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL";					$return=mysqli_query($db,$query);
 while($p=mysqli_fetch_assoc($return)){$vidlist.="<option value='{$p['id']}'>{$p['name']} ({$sesscount[$p['id']]})</option>";}
 echo "<select id='vidList'><option disabled selected>Select a video</option>{$vidlist}</select>";
 ?>
