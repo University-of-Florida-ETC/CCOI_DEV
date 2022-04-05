@@ -12,11 +12,11 @@ if(!empty($_GET['uid']) && is_numeric($_GET['uid'])){
 	if(is_numeric($uid)){
 		$return=mysqli_query($db,"SELECT * FROM tbPeople WHERE id='$uid'");		$persondata=mysqli_fetch_assoc($return);
 	
-		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
+		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
 		while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
 		$sidstext=implode(',',$sessionids);
 		
- 				$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
+ 				$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
  				while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];}
  				$playidstext=implode(',',$playids);
 	
@@ -250,7 +250,7 @@ if(!empty($_GET['tpid']) && is_numeric($_GET['tpid'])){
 if(!empty($_GET['vuid']) && is_numeric($_GET['vuid'])){
 	$uid=$_GET['vuid']+0;
 	if(is_numeric($uid)){
-		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='1'");		
+		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}'");		
 		while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
 		$sidstext=implode(',',$sessionids);
 	
@@ -265,7 +265,7 @@ if(!empty($_GET['vuid']) && is_numeric($_GET['vuid'])){
 if(!empty($_GET['vids4app']) && is_numeric($_GET['vids4app'])){
 	$aid=$_GET['vids4app']+0;
 	if(is_numeric($aid)){
-		$return=mysqli_query($db,"SELECT v.* FROM tbVideos v WHERE v.appid='1' order by v.name");		
+		$return=mysqli_query($db,"SELECT v.* FROM tbVideos v WHERE v.appid='{$_SESSION['currentlyloadedapp']}' order by v.name");		
 		while($d=mysqli_fetch_assoc($return)){$vids[$d['name']]=$d['id'];}
 	
 		$final=json_encode($vids);			//echo "<br /><br />\n";
@@ -456,11 +456,11 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && !isset($_GET['debug']))
 	if(is_numeric($uid)){
 		$return=mysqli_query($db,"SELECT * FROM tbPeople WHERE id='$uid'");		$persondata=mysqli_fetch_assoc($return);
 	
-		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
+		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
 		while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
 		$sidstext=implode(',',$sessionids);
 		
- 				$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
+ 				$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
  				while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];}
  				$playidstext=implode(',',$playids);
 	
@@ -593,11 +593,11 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 	/*
 	if(is_numeric($uid)){    
 		//Get session IDs of research sessions
-		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
+		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
 		while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
 
 		//Get session IDs of playground sessions
-		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
+		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
 		while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];}		//echo "d: "; var_dump($d);
 
 		//Get info (title) of research sessions
@@ -622,13 +622,13 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 
 
 		//Get session IDs of research sessions
-		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
+		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
 		while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
 		$sidstext=implode(',',$sessionids);
 		//echo "\nsessionids: "; var_dump($sidstext);
 
 		//Get session IDs of playground sessions
-		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
+		$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
 		//echo "return: "; var_dump($return);
 		while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];}		//echo "d: "; var_dump($d);
 		$playidstext=implode(',',$playids);
@@ -647,11 +647,11 @@ if(!empty($_GET['uid2']) && is_numeric($_GET['uid2']) && isset($_GET['debug'])){
 	$persondata=mysqli_fetch_assoc($return);
 	echo "\npersondata: ". $persondata;
 	/*
-	$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
+	$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
 	while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
 	$sidstext=implode(',',$sessionids);
 	
-	$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='1' AND inactive IS NULL");		
+	$return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
 	while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];}
 	$playidstext=implode(',',$playids);
 	*/
@@ -1043,12 +1043,12 @@ if(!empty($_POST['op']) && is_numeric($_POST['op'])){
 									if(mysqli_affected_rows($db)>0){echo "A|$megaid";break;}else{$error=mysqli_error($db);}
 
 									// == here we also invalidate the mega's connections === TECHNICALLY we dont need to do this, but best if done ???  what if restore?  what if mega had nodes normally deleted?  how to separate?
-									$return=mysqli_query($db,"SELECT node2 FROM tbPathNodes WHERE node1='$megaid' AND appid='1' AND pathid='$derpid' AND inactive IS NULL");		
+									$return=mysqli_query($db,"SELECT node2 FROM tbPathNodes WHERE node1='$megaid' AND appid='{$_SESSION['currentlyloadedapp']}' AND pathid='$derpid' AND inactive IS NULL");		
 									while($d=mysqli_fetch_assoc($return)){$victims[]=$d['node2'];}
 									$victimstext=implode(',',$victims);
 //									$error.="       $megaid_$victimstext";
 								
-									$query="UPDATE tbPathNodes SET inactive='1' WHERE node1='$megaid' AND appid='1' AND pathid='$derpid' AND inactive IS NULL";		// zero zero zero is needed because the mega nodes need SOMETHING to attach to, so we use this to attach to the path
+									$query="UPDATE tbPathNodes SET inactive='1' WHERE node1='$megaid' AND appid='{$_SESSION['currentlyloadedapp']}' AND pathid='$derpid' AND inactive IS NULL";		// zero zero zero is needed because the mega nodes need SOMETHING to attach to, so we use this to attach to the path
 									$return=mysqli_query($db,$query);
 //									$error.="       $query\n";
 									if(mysqli_affected_rows($db)>0){echo "A|$megaid_$victimstext";break;}else{$error=mysqli_error($db);}
