@@ -48,13 +48,13 @@ $sessions = getSessions(); //defined below
                                         <ul id="research_session_list" class="mb-4">
 <?php foreach ($sessions['research'] as $index => $currentSession): ?>
                                             <li class="session-listing my-2" id="research-<?= $currentSession['id']; ?>">
-                                                <div style="width:75%;">
+                                                <div style="width:80%;">
                                                     <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
                                                 </div>
-                                                <div style="width:25%; display:flex; flex-wrap: nowrap;">
-                                                    <a class="btn-link session-edit" style="align-self: flex-start;" href="observation?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil" title="Edit Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" style="align-self: center;" href="javascript:void(0)" onclick="deleteSession(<?= $currentSession['id']; ?>)"><span class="oi oi-trash" title="Delete Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" style="align-self: flex-end;" href="javascript:void(0)"><span class="oi oi-pie-chart" title="View Visualizations" aria-hidden="true"></span></a>
+                                                <div style="width:18%; display:flex; justify-content:space-between;">
+                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil" title="Edit Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="javascript:void(0)" onclick="deleteSession(<?= $currentSession['id']; ?>)"><span class="oi oi-trash" title="Delete Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
                                             </li>
 <?php endforeach; ?>
@@ -63,13 +63,11 @@ $sessions = getSessions(); //defined below
                                         <ul id="others_session_list" class="mb-4">
 <?php foreach ($sessions['others'] as $index => $currentSession): ?>
                                             <li class="session-listing my-2" id="others-<?= $currentSession['id']; ?>">
-                                                <div class="row">
-                                                    <div class="col-sm-9 col-12">
-                                                        <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
-                                                    </div>
-                                                    <div class="col-sm-3 col-12">
-                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
-                                                    </div>
+                                            <div style="width:80%;">
+                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
+                                                </div>
+                                                <div style="width:18%; display:flex; justify-content:flex-end;">
+                                                    <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
                                             </li>
 <?php endforeach; ?>
