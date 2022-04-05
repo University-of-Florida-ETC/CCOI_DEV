@@ -8,7 +8,7 @@ include '../includes/header.php';
 include $includeroot.$devprodroot.'/api/ccoi_dbhookup.php';
 $id = $_GET['id'];
 if(isset($_SESSION['pid']) === false){
-    header("Location: login");
+    header("Location: /login");
 }
 if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloadedapp'], $_SESSION['myappids'])){
     header("Location: group");
