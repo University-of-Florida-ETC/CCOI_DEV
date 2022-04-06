@@ -168,8 +168,8 @@ function getNodeFromChoice (nodeID, choice) {
  */
 function CCOI_Step_nextNodeID () {
 	console.log("nextNodeID print beginning:");
-	console.log(this.nodeid);
-	console.log(this.choiceid);222
+	// console.log(this.nodeid);
+	// console.log(this.choiceid);
 	return this.choiceid === -1 ? null : getNodeFromChoice(this.nodeid, this.choiceid).next;
 }
 
