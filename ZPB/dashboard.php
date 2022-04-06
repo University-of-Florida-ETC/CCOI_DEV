@@ -15,7 +15,7 @@ else if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloa
 }
 $sessions = getSessions(); //defined below
 ?>
-
+<link rel="stylesheet" href="<?php echo $devprodroot; ?>/css/app.css">
         <main role="main">
             <div class="container-fluid">
                 <div class="container">
@@ -36,7 +36,7 @@ $sessions = getSessions(); //defined below
                                     <h5 style="text-transform: none;" id="pageDesc">Select a session to view or edit the set</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
-                                    <button id="new_session_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start" onclick="createNewSession()">Add Session</button>
+                                    <button id="new_session_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start" onclick="blurScreen(); showNewSess();">Add Session</button>
                                     <button id="save_session_button" type="button" class="btn btn-blue float-right disabled d-none" data-toggle="tooltip" data-html="true" title="Click here to save your session">Save Session</button>
                                 </div>
                             </div>
@@ -130,6 +130,29 @@ $sessions = getSessions(); //defined below
                     </div>
                 </div>
             </div>
+            <div><!--popup stuff -->
+                <div id="blurOverlay" onclick="closePopups()"></div>
+
+                <div id="newSession" class="popup">
+                    <button type="button" class="exitPopup" onclick="closePopups()">✕</button>
+                    <h2>New Session</h2>
+                    <form name="sessionForm" action="" method="post">
+                        <label for="name">Session Name</label>
+                        <input id= "name" type="text" name='name' placeholder='New Observation'><br>
+                        <label for="studentid">Student ID</label>
+                        <input id= "studentid" type="text" name='studentide' placeholder='Student ID'><br>
+                        <label for="codingDate">Coding Date</label>
+                        <input id= "codingDate" type="date" name='codingDate' placeholder='MM/DD/YYYY'><br>
+                        <label for="video">Video</label>
+                        <select id= "video" name='video'><br>
+                        <input id="sessionSubmit" style="margin-top: 2rem;" type='button' value='Create New Session' onclick="sendContact()">
+                    </form>
+                </div><!--popup-->
+                <div id="emailResponse" class="popup" style="padding-top: 30px; padding-bottom: 10px;">
+                    <button type="button" class="exitPopup" onclick="closePopups()">✕</button>
+                    <p id="emailResponseText"></p>
+                </div>
+            </div>
         </main>
         <?php include 'includes/footer.php'; ?>
         <script src="/js/jquery-3.4.1.min.js"></script>
@@ -168,6 +191,22 @@ $sessions = getSessions(); //defined below
         <script>
             var isPlayground = false;
             var derServer='https://ccoi-dev.education.ufl.edu/';
+
+            const blur = document.getElementById('blurOverlay');
+            const newSessWin = document.getElementById('newSession');
+            function blurScreen() {
+                blur.classList.toggle('blurred');
+            }
+            function showNewSess() {
+                help.classList.toggle('popped');
+            }
+            function closePopups() {
+                if (blur.classList.contains('blurred')) {
+                    blurScreen();
+                    const currentPopup = document.getElementsByClassName("popped")[0];
+                    currentPopup.classList.toggle("popped");
+                }
+            }
 
             function GetAjaxReturnObject(mimetype){
                 var xmlHttp=null;

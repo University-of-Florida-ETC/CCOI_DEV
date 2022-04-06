@@ -1,0 +1,129 @@
+#blurOverlay {
+    position: fixed;
+    top: -10px;
+    left: -10px;
+    width: 120%;
+    height: 120%;
+
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear .5s, opacity .5s;
+
+    background-color: rgba(0,0,0,.5);
+    /* blurs elements behind this one (all but popups) */
+    /* in unsupported browsers (currently, firefox and ie) no blur, but still translucent black bg*/
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+}
+#blurOverlay.blurred {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s linear 0s, opacity .5s;
+}
+
+.popup {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    text-align: center;
+    background-color: #fff;
+    width: 430px;
+    padding: 0px 50px 0px;
+    box-shadow: 0 5px 30px rgba(0,0,0,.30);
+
+    z-index: 9999;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.popup.popped {
+    top: 50%;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.exitPopup {
+    font: menu;
+    font-size: 1.5rem;
+    color: #757575;
+    background: none;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+
+    position: inherit;
+    top: 10px;
+    right: 10px;
+}
+/* Elements within popups */
+.popup h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.popup .popupBg {
+    position: fixed;
+    left: 0px;
+
+    width: 100%;
+    height: 38px;
+    object-fit: cover;
+}
+
+.popup form input,
+.popup form textarea{
+    width: 350px;
+    border: 1px solid #E3E3E3;
+    border-radius: 2rem;
+    background-color: #EFEFEF;
+
+    padding: .5rem 2.4rem;
+    margin-bottom: .5rem;
+
+    color: #212833;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: .1rem;
+}
+
+/* Changing color of placeholder text is a chore :( */
+.popup form input::placeholder, .popup form textarea::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #616161;
+    opacity: 1; /* Firefox */
+}
+/* Internet Explorer 10-11 */
+.popup form input:-ms-input-placeholder, .popup form textarea:-ms-input-placeholder { color: #616161;}
+/* Microsoft Edge */
+.popup form input::-ms-input-placeholder, .popup form textarea::-ms-input-placeholder {color: #616161;}
+
+.popup form textarea {
+    resize: none;
+}
+
+#helpSubmit{
+    border: 2.5px solid #A9ECBD;
+    background-color: #A9ECBD;
+    color: #616161;
+    margin-bottom: 50px;
+}
+
+@media (max-width: 550px) {
+    .popup{
+        width: 90%;
+        padding: 0 3% 0;
+    }
+
+    .popup h2 {
+        font-size: 1.5rem;
+    }
+
+    .popup form input,
+    .popup form textarea {
+        width: 75%;
+    }
+}
