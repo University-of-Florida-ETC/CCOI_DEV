@@ -40,8 +40,8 @@ var ccoiObservation = (function (){
         nodeID = node.node_id;
         newNodeID = node.node_id;
 
-        console.log("Next node id:" + nextNodeID);
-        console.log("node id:" + nodeID);
+        // console.log("Next node id:" + nextNodeID);
+        // console.log("node id:" + nodeID);
         //console.log(nextNodeID);
 
         // Backstop for old ID system
@@ -55,8 +55,8 @@ var ccoiObservation = (function (){
         $('#branch_container').append('<form id="branch_radio_form" class="col-12 pt-3" action="javascript:void(0)"></form>');
 
         let selectedChoice = null;
-        console.log("this is the current session number in setupNode Branches: " + currentSessionID)
-        console.log("SetUpNodeBranches: CurrentSession is: " + sessions[currentSessionID]);
+//        console.log("this is the current session number in setupNode Branches: " + currentSessionID)
+  //      console.log("SetUpNodeBranches: CurrentSession is: " + sessions[currentSessionID]);
         let currentStep = sessions[currentSessionID].paths[stateIDPath].steps[stateIDStep];
         // contains backstop for old ID system
         if (currentStep !== undefined && (newNodeID == currentStep.nodeid || prettyID == currentStep.node)) {
@@ -665,7 +665,7 @@ var ccoiObservation = (function (){
                     sessions = [];
                     $(DOM.new_session_button).removeClass('d-none');
                     if (responseText != null && responseText != "null") {
-                        console.log(JSON.parse(responseText));
+                        //console.log(JSON.parse(responseText));
                         sessions = JSON.parse(responseText);
                         for(let i=0; i<sessions.length; i++) {
                             sessions[i] = new CCOI_Session(sessions[i]);
