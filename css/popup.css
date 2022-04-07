@@ -5,7 +5,7 @@
     width: 120%;
     height: 120%;
 
-    z-index: 999;
+    z-index: 9998;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s linear .5s, opacity .5s;
