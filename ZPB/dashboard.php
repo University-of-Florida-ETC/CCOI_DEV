@@ -15,7 +15,7 @@ else if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloa
 }
 $sessions = getSessions(); //defined below
 ?>
-<link rel="stylesheet" href="<?php echo $devprodroot; ?>/css/app.css">
+<link rel="stylesheet" href="<?php echo $devprodroot; ?>/css/popup.css">
         <main role="main">
             <div class="container-fluid">
                 <div class="container">
@@ -198,7 +198,7 @@ $sessions = getSessions(); //defined below
                 blur.classList.toggle('blurred');
             }
             function showNewSess() {
-                help.classList.toggle('popped');
+                newSessWin.classList.toggle('popped');
             }
             function closePopups() {
                 if (blur.classList.contains('blurred')) {
