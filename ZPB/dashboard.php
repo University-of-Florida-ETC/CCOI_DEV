@@ -341,6 +341,12 @@ $paths = getPaths(); //defined below
                     dataObject['name'] = "New Observation Set";
                 }
 
+                for (const [key, value] of Object.entries(dataObject)) {
+                    if( value == "" ){
+                        delete dataObject[key];
+                    }
+                }
+
                 let tbName = 'research';
                 //let extraText = '';
                 if(isPlayground){
@@ -354,6 +360,8 @@ $paths = getPaths(); //defined below
                 xmlHttp.onreadystatechange = function() {
                     var data=getHTML(xmlHttp);
                     if(data){
+                        console.log("data returned: ");
+                        console.log(data);
                         let returnedInt = parseInt(data);
                         if (returnedInt == -1) {
                             console.error("Missing required data");
@@ -380,10 +388,9 @@ $paths = getPaths(); //defined below
                 //sendStr='newSession=1'+extraText+'&name='+name;
                 sendStr=JSON.stringify(dataObject);
                 console.log("sendStr: "+sendStr);
-                /*
+                
                 var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
                 xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
-                */
             }
 
             /*

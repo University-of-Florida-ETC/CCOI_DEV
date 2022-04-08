@@ -20,7 +20,8 @@ if( !empty($_POST['newSession']) ) {
             
     }
 */
-
+    var_dump($_POST);
+/*
     if(isset($_POST['isPlayground'])){
         $tbName = 'Playground';
     }
@@ -41,6 +42,7 @@ if( !empty($_POST['newSession']) ) {
         $return=mysqli_query($db,$query);
 
     echo $returnData['id'];
+    */
 }
 
 if( !empty($_POST['newApp']) ) {
