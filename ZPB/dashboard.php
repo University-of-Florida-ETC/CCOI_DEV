@@ -328,22 +328,26 @@ $paths = getPaths(); //defined below
             function createNewSession() {
                 //let name = prompt("Enter the name of the new session:");
                 const formData = new FormData(document.getElementById("sessionForm"));
-                console.log(formData.entries());
-                console.log(formData.keys());
-                console.log(formData.values());
-                for (var pair of formData.entries()) {
-                    console.log(pair[0] + ': ' + pair[1]);
-                }
+                var dataObject = {'newSession': 1};
+                formData.forEach(function(value, key){
+                    dataObject[key] = value;
+                });
                 /*
                 if (name == NULL || name == ""){
                     name = "New Observation";
+                }*/
+
+                if (dataObject['name'] == NULL || dataObject['name'] == ""){
+                    dataObject['name'] = "New Observation Set";
                 }
 
                 let tbName = 'research';
-                let extraText = '';
+                //let extraText = '';
                 if(isPlayground){
                     tbName = 'playground';
-                    extraText = '&isPlayground=1';
+                    //formData.set('isPlayground', "1");
+                    dataObject['isPlayground'] = 1;
+                    //extraText = '&isPlayground=1';
                 }
                 
                 var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
@@ -373,7 +377,10 @@ $paths = getPaths(); //defined below
                         }
                     }
                 }
-                sendStr='newSession=1'+extraText+'&name='+name;
+                //sendStr='newSession=1'+extraText+'&name='+name;
+                sendStr=JSON.stringify(dataObject);
+                console.log("sendStr: "+sendStr);
+                /*
                 var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
                 xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
                 */
