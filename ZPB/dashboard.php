@@ -326,9 +326,29 @@ $paths = getPaths(); //defined below
             }
 
             function createNewSession() {
-                //let name = prompt("Enter the name of the new session:");
+                
+                /*
+                let name = prompt("Enter the name of the new session:");
+                if (name == NULL || name == ""){
+                    name = "New Observation";
+                }
+                */
+
+                /*
+                var dataObject = {'newSession': 1};
+                if (dataObject['name'] == null || dataObject['name'] == ""){
+                    dataObject['name'] = "New Observation Set";
+                }
+
+                for (const [key, value] of Object.entries(dataObject)) {
+                    if( value == "" ){
+                        delete dataObject[key];
+                    }
+                }
+                */
+
                 const formData = new FormData(document.getElementById("sessionForm"));
-                //var dataObject = {'newSession': 1};
+                
                 formData.append('newSession', 1);
                 if (formData.get('name') == ""){
                     formData.set('name', 'New Observation Set');
@@ -341,28 +361,15 @@ $paths = getPaths(); //defined below
                     }
                 });
                 sendStr = sendStr.substring(1);
-                /*
-                if (name == NULL || name == ""){
-                    name = "New Observation";
-                }
 
-                if (dataObject['name'] == null || dataObject['name'] == ""){
-                    dataObject['name'] = "New Observation Set";
-                }
-
-                for (const [key, value] of Object.entries(dataObject)) {
-                    if( value == "" ){
-                        delete dataObject[key];
-                    }
-                }
-                */
+                
                 let tbName = 'research';
-                //let extraText = '';
+                let extraText = '';
                 if(isPlayground){
                     tbName = 'playground';
                     //formData.set('isPlayground', "1");
                     //dataObject['isPlayground'] = 1;
-                    //extraText = '&isPlayground=1';
+                    extraText = '&isPlayground=1';
                     sendStr += '&isPlayground=1';
                 }
                 
