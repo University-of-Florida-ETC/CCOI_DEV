@@ -337,7 +337,7 @@ $paths = getPaths(); //defined below
                     name = "New Observation";
                 }*/
 
-                if (dataObject['name'] == NULL || dataObject['name'] == ""){
+                if (dataObject['name'] == null || dataObject['name'] == ""){
                     dataObject['name'] = "New Observation Set";
                 }
 
