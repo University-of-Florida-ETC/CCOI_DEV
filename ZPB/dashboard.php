@@ -14,6 +14,7 @@ else if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloa
     header("Location: group");
 }
 $sessions = getSessions(); //defined below
+$videos = getVideos(); //defined below
 ?>
 <link rel="stylesheet" href="<?php echo $devprodroot; ?>/css/popup.css">
         <main role="main">
@@ -145,6 +146,10 @@ $sessions = getSessions(); //defined below
                         <input id= "codingDate" type="date" name='codingDate' placeholder='MM/DD/YYYY'><br>
                         <label for="video">Video</label>
                         <select id= "video" name='video'><br>
+<?php foreach ($videos as $index => $currentVideo): ?>
+                            <option value="<?= $currentVideo['id']; ?>"><?= $currentSession['name']; ?></option>
+<?php endforeach; ?>
+                        </select>
                         <input id="sessionSubmit" style="margin-top: 2rem;" type='button' value='Create New Session' onclick="sendContact()">
                     </form>
                 </div><!--popup-->
@@ -457,6 +462,27 @@ function getSessions(){
             while($d=mysqli_fetch_assoc($return)){$allSessions['playground'][]=$d;}		//print_r($playgrounds);		//echo "<br>playground: "; var_dump($d);
 
             return $allSessions;
+        }
+        else{
+            return "<br>UID isn't numberic :(";
+        }
+    }
+    else
+        return "<br>Session isn't valid :(";
+}
+
+function getVideos(){
+    if( !empty($_SESSION['pid']) && is_numeric($_SESSION['pid']) ){
+        $db = $GLOBALS["db"];
+        $uid=$_SESSION['pid']+0;
+
+        if(is_numeric($uid)){    
+            //Get session IDs of research sessions
+            $return=mysqli_query($db,"SELECT id, name FROM tbVideos WHERE appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
+            while($d=mysqli_fetch_assoc($return)){$videos[]=$d;}
+            $sidstext=implode(',',$sessionids);
+
+            return $videos;
         }
         else{
             return "<br>UID isn't numberic :(";
