@@ -455,7 +455,6 @@ function getVideos(){
         $uid=$_SESSION['pid']+0;
 
         if(is_numeric($uid)){    
-            //Get session IDs of research sessions
             $return=mysqli_query($db,"SELECT id, name FROM tbVideos WHERE appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
             while($d=mysqli_fetch_assoc($return)){$videos[]=$d;}
 
@@ -475,12 +474,11 @@ function getPaths(){
         $uid=$_SESSION['pid']+0;
 
         if(is_numeric($uid)){    
-            //Get session IDs of research sessions
-            $return=mysqli_query($db,"SELECT pathid FROM tbAppPaths WHERE appid='{$_SESSION['currentlyloadedapp']}' AND invalid IS NULL");		
+            $return=mysqli_query($db,"SELECT pathid FROM tbAppPaths WHERE appid={$_SESSION['currentlyloadedapp']} AND invalid IS NULL");		
             while($d=mysqli_fetch_assoc($return)){$pathids[]=$d;}
             $pathidstext=implode(',',$pathids);
 
-            $return=mysqli_query($db,"SELECT id, name FROM tbPaths WHERE id IN ({$pathidstext}) AND invalid IS NULL");		
+            $return=mysqli_query($db,"SELECT id, name FROM tbPaths WHERE id IN ($pathidstext) AND invalid IS NULL");		
             while($d=mysqli_fetch_assoc($return)){$paths[]=$d;}
 
             return $paths;
