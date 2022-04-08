@@ -147,7 +147,7 @@ $videos = getVideos(); //defined below
                         <label for="video">Video</label>
                         <select id= "video" name='video'><br>
 <?php foreach ($videos as $index => $currentVideo): ?>
-                            <option value="<?= $currentVideo['id']; ?>"><?= $currentSession['name']; ?></option>
+                            <option value="<?= $currentVideo['id']; ?>"><?= $currentVideo['name']; ?></option>
 <?php endforeach; ?>
                         </select>
                         <input id="sessionSubmit" style="margin-top: 2rem;" type='button' value='Create New Session' onclick="sendContact()">
