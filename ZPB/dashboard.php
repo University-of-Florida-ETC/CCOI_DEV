@@ -335,8 +335,7 @@ $paths = getPaths(); //defined below
                 }
                 let sendStr = '';
                 formData.forEach(function(value, key){
-                    if(value == "")
-                        continue;
+                    if(value == ""){}
                     else {
                         sendStr += `&${key}=${$value}`;
                     }
