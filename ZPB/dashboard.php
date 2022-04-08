@@ -329,7 +329,8 @@ $paths = getPaths(); //defined below
                 //let name = prompt("Enter the name of the new session:");
                 const formData = new FormData(document.getElementById("sessionForm"));
                 console.log(formData.entries());
-                console.log(formData.getAll());
+                console.log(formData.keys());
+                console.log(formData.values());
                 for (var pair of formData.entries()) {
                     console.log(pair[0] + ': ' + pair[1]);
                 }
