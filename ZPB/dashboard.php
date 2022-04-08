@@ -328,14 +328,12 @@ $paths = getPaths(); //defined below
             function createNewSession() {
                 //let name = prompt("Enter the name of the new session:");
                 const formData = new FormData(document.getElementById("sessionForm"));
+                console.log(formData);
                 for (var pair of formData.entries()) {
                     console.log(pair[0] + ': ' + pair[1]);
                 }
                 /*
-                if (name == null){
-                    return;
-                }
-                if (name == ""){
+                if (name == NULL || name == ""){
                     name = "New Observation";
                 }
 
