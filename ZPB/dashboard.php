@@ -476,9 +476,12 @@ function getPaths(){
             $return=mysqli_query($db,"SELECT pathid FROM tbAppPaths WHERE appid={$_SESSION['currentlyloadedapp']} AND invalid IS NULL");		
             while($d=mysqli_fetch_assoc($return)){$pathids[]=$d;}
             $pathidstext=implode(',',$pathids);
+            echo "pathids: "; var_dump($pathids);
+            echo "<br>pathidstext: "; var_dump($pathidstext);
 
             $return=mysqli_query($db,"SELECT id, name FROM tbPaths WHERE id IN ($pathidstext) AND invalid IS NULL");		
             while($d=mysqli_fetch_assoc($return)){$paths[]=$d;}
+            echo "<br>paths: "; var_dump($paths);
 
             return $paths;
         }
