@@ -475,7 +475,7 @@ function getPaths(){
 
         if(is_numeric($uid)){    
             $return=mysqli_query($db,"SELECT pathid FROM tbAppPaths WHERE appid={$_SESSION['currentlyloadedapp']} AND invalid IS NULL");		
-            while($d=mysqli_fetch_assoc($return)){$pathids[]=$d;}
+            while($d=mysqli_fetch_assoc($return)){$pathids[]=$d['pathid'];}
             $pathidstext=implode(',',$pathids);
             echo "pathids: "; var_dump($pathids);
             echo "<br>pathidstext: "; var_dump($pathidstext);
