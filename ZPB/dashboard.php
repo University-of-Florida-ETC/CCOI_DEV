@@ -150,7 +150,7 @@ $videos = getVideos(); //defined below
                             <option value="<?= $currentVideo['id']; ?>"><?= $currentVideo['name']; ?></option>
 <?php endforeach; ?>
                         </select>
-                        <input id="sessionSubmit" style="margin-top: 2rem;" type='button' value='Create New Session' onclick="sendContact()">
+                        <input id="sessionSubmit" style="margin-top: 2rem;" type='button' value='Create New Session' onclick="createNewSession()">
                     </form>
                 </div><!--popup-->
                 <div id="sessionResponse" class="popup">
