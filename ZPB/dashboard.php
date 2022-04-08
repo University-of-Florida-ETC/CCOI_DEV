@@ -150,7 +150,8 @@ $paths = getPaths(); //defined below
 <?php foreach ($videos as $index => $currentVideo): ?>
                             <option value="<?= $currentVideo['id']; ?>"><?= $currentVideo['name']; ?></option>
 <?php endforeach; ?>
-                        </select>
+                        </select><br>
+                        <label for="path">Path</label>
                         <select id= "path" name='path'><br>
 <?php foreach ($paths as $index => $currentPath): ?>
                             <option value="<?= $currentPath['id']; ?>"><?= $currentPath['name']; ?></option>
@@ -475,7 +476,7 @@ function getPaths(){
 
         if(is_numeric($uid)){    
             //Get session IDs of research sessions
-            $return=mysqli_query($db,"SELECT pathid FROM tbAppPaths WHERE appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
+            $return=mysqli_query($db,"SELECT pathid FROM tbAppPaths WHERE appid='{$_SESSION['currentlyloadedapp']}' AND invalid IS NULL");		
             while($d=mysqli_fetch_assoc($return)){$pathids[]=$d;}
             $pathidstext=implode(',',$pathids);
 
