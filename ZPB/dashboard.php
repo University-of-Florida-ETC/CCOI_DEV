@@ -328,14 +328,24 @@ $paths = getPaths(); //defined below
             function createNewSession() {
                 //let name = prompt("Enter the name of the new session:");
                 const formData = new FormData(document.getElementById("sessionForm"));
-                var dataObject = {'newSession': 1};
+                //var dataObject = {'newSession': 1};
+                formData.append('newSession', 1);
+                if (formData.get('name') == ""){
+                    formData.set('name', 'New Observation Set');
+                }
+                let sendStr = '';
                 formData.forEach(function(value, key){
-                    dataObject[key] = value;
+                    if(value == "")
+                        continue;
+                    else {
+                        sendStr += `&${key}=${$value}`;
+                    }
                 });
+                sendStr = sendStr.substring(1);
                 /*
                 if (name == NULL || name == ""){
                     name = "New Observation";
-                }*/
+                }
 
                 if (dataObject['name'] == null || dataObject['name'] == ""){
                     dataObject['name'] = "New Observation Set";
@@ -346,14 +356,15 @@ $paths = getPaths(); //defined below
                         delete dataObject[key];
                     }
                 }
-
+                */
                 let tbName = 'research';
                 //let extraText = '';
                 if(isPlayground){
                     tbName = 'playground';
                     //formData.set('isPlayground', "1");
-                    dataObject['isPlayground'] = 1;
+                    //dataObject['isPlayground'] = 1;
                     //extraText = '&isPlayground=1';
+                    sendStr += '&isPlayground=1';
                 }
                 
                 var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
@@ -386,7 +397,7 @@ $paths = getPaths(); //defined below
                     }
                 }
                 //sendStr='newSession=1'+extraText+'&name='+name;
-                sendStr=JSON.stringify(dataObject);
+                //sendStr=JSON.stringify(dataObject);
                 console.log("sendStr: "+sendStr);
                 
                 var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
@@ -491,12 +502,9 @@ function getPaths(){
             $return=mysqli_query($db,"SELECT pathid FROM tbAppPaths WHERE appid={$_SESSION['currentlyloadedapp']} AND invalid IS NULL");		
             while($d=mysqli_fetch_assoc($return)){$pathids[]=$d['pathid'];}
             $pathidstext=implode(',',$pathids);
-            echo "pathids: "; var_dump($pathids);
-            echo "<br>pathidstext: "; var_dump($pathidstext);
 
             $return=mysqli_query($db,"SELECT id, name FROM tbPaths WHERE id IN ($pathidstext) AND invalid IS NULL");		
             while($d=mysqli_fetch_assoc($return)){$paths[]=$d;}
-            echo "<br>paths: "; var_dump($paths);
 
             return $paths;
         }
