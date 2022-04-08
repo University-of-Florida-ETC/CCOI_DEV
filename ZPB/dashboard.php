@@ -137,7 +137,7 @@ $videos = getVideos(); //defined below
                 <div id="newSession" class="popup">
                     <button type="button" class="exitPopup" onclick="closePopups()">✕</button>
                     <h2>New Session</h2>
-                    <form name="sessionForm" action="" method="post">
+                    <form name="sessionForm" action="" method="post" id="sessionForm">
                         <label for="name">Session Name</label>
                         <input id= "name" type="text" name='name' placeholder='New Observation'><br>
                         <label for="studentid">Student ID</label>
@@ -153,7 +153,7 @@ $videos = getVideos(); //defined below
                         <input id="sessionSubmit" style="margin-top: 2rem;" type='button' value='Create New Session' onclick="sendContact()">
                     </form>
                 </div><!--popup-->
-                <div id="emailResponse" class="popup" style="padding-top: 30px; padding-bottom: 10px;">
+                <div id="sessionResponse" class="popup">
                     <button type="button" class="exitPopup" onclick="closePopups()">✕</button>
                     <p id="emailResponseText"></p>
                 </div>
@@ -319,7 +319,12 @@ $videos = getVideos(); //defined below
             }
 
             function createNewSession() {
-                let name = prompt("Enter the name of the new session:");
+                //let name = prompt("Enter the name of the new session:");
+                const formData = new FormData(document.getElementById("sessionForm"));
+                for (var pair of formData.entries()) {
+                    console.log(pair[0] + ': ' + pair[1]);
+                }
+                /*
                 if (name == null){
                     return;
                 }
@@ -364,6 +369,7 @@ $videos = getVideos(); //defined below
                 sendStr='newSession=1'+extraText+'&name='+name;
                 var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
                 xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
+                */
             }
 
             /*
