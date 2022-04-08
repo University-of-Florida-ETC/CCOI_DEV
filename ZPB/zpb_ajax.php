@@ -8,7 +8,6 @@ if( !empty($_POST['newSession']) ) {
 
     // TEMPORARY, REMOVE LATER
     $_POST['pathid'] = 1;
-    $_POST['playground'] = 1;
     
 /*
     // Double check that all required values are present

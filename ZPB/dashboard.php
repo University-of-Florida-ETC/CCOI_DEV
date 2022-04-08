@@ -15,6 +15,7 @@ else if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloa
 }
 $sessions = getSessions(); //defined below
 $videos = getVideos(); //defined below
+$paths = getPaths(); //defined below
 ?>
 <link rel="stylesheet" href="<?php echo $devprodroot; ?>/css/popup.css">
         <main role="main">
@@ -141,13 +142,18 @@ $videos = getVideos(); //defined below
                         <label for="name">Session Name</label>
                         <input id= "name" type="text" name='name' placeholder='New Observation'><br>
                         <label for="studentid">Student ID</label>
-                        <input id= "studentid" type="text" name='studentide' placeholder='Student ID'><br>
+                        <input id= "studentid" type="text" name='studentid' placeholder='Student ID'><br>
                         <label for="codingDate">Coding Date</label>
                         <input id= "codingDate" type="date" name='codingDate' placeholder='MM/DD/YYYY'><br>
                         <label for="video">Video</label>
                         <select id= "video" name='video'><br>
 <?php foreach ($videos as $index => $currentVideo): ?>
                             <option value="<?= $currentVideo['id']; ?>"><?= $currentVideo['name']; ?></option>
+<?php endforeach; ?>
+                        </select>
+                        <select id= "path" name='path'><br>
+<?php foreach ($paths as $index => $currentPath): ?>
+                            <option value="<?= $currentPath['id']; ?>"><?= $currentPath['name']; ?></option>
 <?php endforeach; ?>
                         </select>
                         <input id="sessionSubmit" style="margin-top: 2rem;" type='button' value='Create New Session' onclick="createNewSession()">
@@ -397,41 +403,6 @@ $videos = getVideos(); //defined below
 
 
 <?php
-
-function getSessionsOld(){
-    if( !empty($_SESSION['pid']) && is_numeric($_SESSION['pid']) ){
-        $db = $GLOBALS["db"];
-        $uid=$_SESSION['pid']+0;
-
-        if(is_numeric($uid)){    
-            //Get session IDs of research sessions
-            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
-            while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
-            $sidstext=implode(',',$sessionids);
-
-            //Get session IDs of playground sessions
-            $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppPlaygrounds WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
-            while($d=mysqli_fetch_assoc($return)){$playids[]=$d['sessionid'];}		//echo "d: "; var_dump($d);
-            $playidstext=implode(',',$playids);
-
-            //Get info (title) of research sessions
-            $return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($sidstext) AND s.inactive IS NULL");				// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
-            while($d=mysqli_fetch_assoc($return)){$allSessions['research'][]=$d; }		//echo "<br>session: "; var_dump($d);
-            
-            //Get info (title) of research sessions
-            $return=mysqli_query($db,"SELECT s.*, v.url FROM tbPlaygrounds s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($playidstext) AND s.inactive IS NULL");		// ====== NOTE NOTE NOTE if there are no videos, this might return fewer results
-            while($d=mysqli_fetch_assoc($return)){$allSessions['playground'][]=$d;}		//print_r($playgrounds);		//echo "<br>playground: "; var_dump($d);
-
-            return $allSessions;
-        }
-        else{
-            return "<br>UID isn't numberic :(";
-        }
-    }
-    else
-        return "<br>Session isn't valid :(";
-}
-
 function getSessions(){
     if( !empty($_SESSION['pid']) && is_numeric($_SESSION['pid']) ){
         $db = $GLOBALS["db"];
@@ -486,9 +457,32 @@ function getVideos(){
             //Get session IDs of research sessions
             $return=mysqli_query($db,"SELECT id, name FROM tbVideos WHERE appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
             while($d=mysqli_fetch_assoc($return)){$videos[]=$d;}
-            $sidstext=implode(',',$sessionids);
 
             return $videos;
+        }
+        else{
+            return "<br>UID isn't numberic :(";
+        }
+    }
+    else
+        return "<br>Session isn't valid :(";
+}
+
+function getPaths(){
+    if( !empty($_SESSION['pid']) && is_numeric($_SESSION['pid']) ){
+        $db = $GLOBALS["db"];
+        $uid=$_SESSION['pid']+0;
+
+        if(is_numeric($uid)){    
+            //Get session IDs of research sessions
+            $return=mysqli_query($db,"SELECT pathid FROM tbAppPaths WHERE appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
+            while($d=mysqli_fetch_assoc($return)){$pathids[]=$d;}
+            $pathidstext=implode(',',$pathids);
+
+            $return=mysqli_query($db,"SELECT id, name FROM tbPaths WHERE id IN ({$pathidstext}) AND invalid IS NULL");		
+            while($d=mysqli_fetch_assoc($return)){$paths[]=$d;}
+
+            return $paths;
         }
         else{
             return "<br>UID isn't numberic :(";
