@@ -390,7 +390,7 @@ $paths = getPaths(); //defined below
                             //console.error("Missing required data");
                         }
                         else {
-                            responseText = "Session with name '"+name+"' has been created successfully. It has been added to the bottom of your "+tbName+" session list.";
+                            responseText.innerText = "Session with name '"+name+"' has been created successfully. It has been added to the bottom of your "+tbName+" session list.";
                             let newEntry = document.createElement("li");
                             newEntry.setAttribute("class", "session-listing my-2");
                             newEntry.setAttribute("id", tbName+"-"+returnedInt);
