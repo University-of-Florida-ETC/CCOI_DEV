@@ -20,8 +20,8 @@ if( !empty($_POST['newSession']) ) {
         }
     }
 
-    var_dump($_POST);
-/*
+    //var_dump($_POST);
+
     if(isset($_POST['isPlayground'])){
         $tbName = 'Playground';
     }
@@ -29,7 +29,7 @@ if( !empty($_POST['newSession']) ) {
         $tbName = 'Session';
     }
 
-    $query="INSERT INTO tb{$tbName}s (pathid,name,createdon) VALUES ('{$_POST['pathid']}','{$_POST['name']}',NOW())";
+    $query="INSERT INTO tb{$tbName}s (pathid,name,studentid,videoid,placetime,createdon) VALUES ({$_POST['path']},'{$_POST['name']}','{$_POST['studentid']}',{$_POST['video']},'{$_POST['studentid']}',NOW())";
         $return=mysqli_query($db,$query);
         $lastid=mysqli_insert_id($db);
         $returnData['id'] = $lastid;
@@ -42,7 +42,6 @@ if( !empty($_POST['newSession']) ) {
         $return=mysqli_query($db,$query);
 
     echo $returnData['id'];
-    */
 }
 
 if( !empty($_POST['newApp']) ) {
