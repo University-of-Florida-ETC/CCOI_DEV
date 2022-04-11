@@ -4,22 +4,22 @@ include($_SERVER['DOCUMENT_ROOT'].'/api/ccoi_dbhookup.php');
 
 if( !empty($_POST['newSession']) ) {
 
-    $requiredValues = ['name'];     //TODO: pathID and research/playground must be specified, currently no interface for that on front-end
-
-    // TEMPORARY, REMOVE LATER
-    $_POST['pathid'] = 1;
+    $possibleValues = ['name', 'studentid', 'date', 'video', 'path'];     //TODO: pathID and research/playground must be specified, currently no interface for that on front-end
+    $defaultValues = (object) [
+        'name' => 'New Observation Set',
+        'studentid'=> NULL,
+        'date'=> NULL,
+        'video'=> NULL,
+        'path'=> 1
+    ];
     
-/*
     // Double check that all required values are present
-    foreach ($requiredValues as $currentValue){
-        if (!isset($_POST[$currentValue])){
-            echo "-1";
-            return;
-
+    foreach ($possibleValues as $currentValue){
+        if (!isset($_POST[$currentValue]) || $_POST[$currentValue]==""){
+            $_POST[$currentValue] = $defaultValues[$currentValue];
         }
-            
     }
-*/
+
     var_dump($_POST);
 /*
     if(isset($_POST['isPlayground'])){
