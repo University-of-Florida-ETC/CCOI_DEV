@@ -89,9 +89,12 @@ if( !empty($_POST['changeCurrentApp']) ) {
 
 if( !empty($_POST['updateObsEl']) ) {
     //TODO: Verify that it's an observation that you can modify
+    //PeopleAppSess if row exists with person id and session id then its good
     var_dump($_POST);
-    
     /*
+    echo "Session ID: " . $_POST['id'];
+    echo "<br>Create a"
+    
     //TODO: grab ssids of session
     $return=mysqli_query($db,"SELECT * FROM tbSubPlaygrounds WHERE sessid='{$_POST['id']}'");
     while($d=mysqli_fetch_assoc($return)){
