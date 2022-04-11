@@ -251,6 +251,8 @@ var ccoiObservation = (function (){
         let session = sessions[currentSessionID];
         let paths = session.paths;
         let currentTrace = paths[stateIDPath].steps;
+        console.log("Current trace length: " + currentTrace.length);
+        console.log("On stateIDStep #: " + stateIDStep);
         let currentStep = currentTrace[stateIDStep];
         let isPathSwitched = false;
 
@@ -305,22 +307,26 @@ var ccoiObservation = (function (){
 
         // Node ID is a string in the DB
         let nodeIDString = newNodeID.toString();
-        let step = new CCOI_Step(nodeID, nodeIDString, choiceIndex, newChoiceIndex, ssnum, minutesValue, secondsValue, totalTime, extra, notes);
+        let step = new CCOI_Step(nodeID, nodeIDString, choiceIndex, newChoiceIndex, ssnum, minutesValue, secondsValue, totalTime, extra, notes, stateIDStep);
 
         // TODO: Move this logic into a separate function
         if (currentStep != undefined) {
+            console.log("condition 1");
             if (!deepEqual(currentStep,  step)) {
                 console.log("Edited");
                 step.isEdited=true;
             }
         } else if (currentStep == undefined && isPathSwitched==true) {
+            console.log("Condition 2");
             console.log("Undefined and path has been edited");
             step.isEdited=true;
         } else if (currentStep == undefined && stateIDStep+1>originalTraceLength) {
+            console.log("Condition 3");
             // We know this is a completely new step because we have gone beyond the original length of the trace
             console.log("Undefined and new");
             step.isNew=true;
         } else if (currentStep == undefined && stateIDStep+1<=originalTraceLength) {
+            console.log("condition 4");
             // We are still within the bounds of the original trace, so we know this is an "edited" step as far as the backend will be concerned
             console.log("Undefined because step was deleted and then added back. Basically, just edited")
             step.isEdited=true;
@@ -340,8 +346,9 @@ var ccoiObservation = (function (){
         }
 
         alteredSessionData.id = sessions[currentSessionID].id;
-        console.log(sessions[currentSessionID]);
+        //console.log(sessions[currentSessionID]);
         // Backend is not zero-indexed, so we have to +1 to stateIDPath
+        console.log(step);
         alteredSessionData.paths[newID].id = stateIDPath + 1;
         alteredSessionData.paths[newID].isEdited = true;
         // Before adding this step, we need to see if the index in alteredSessionData is empty
