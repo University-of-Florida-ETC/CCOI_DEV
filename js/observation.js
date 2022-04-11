@@ -748,14 +748,14 @@ var ccoiObservation = (function (){
             sessionsToUpdate.length = 0;
             $('#save_session_button').addClass('disabled');
         } else {
-            console.log(alteredSessionData);
+            //console.log(alteredSessionData);
 
             for(let i=alteredSessionData.paths.length-1; i>=0; i--) {
                 if(alteredSessionData.paths[i] == null) {
                     alteredSessionData.paths.splice(i, 1);
                 }
             }
-            console.log(alteredSessionData);
+            //console.log(alteredSessionData);
         }
         for(let i=alteredSessionData.paths.length-1; i>=0; i--) {
             if(alteredSessionData.paths[i] == null) {
