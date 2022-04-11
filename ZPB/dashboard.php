@@ -354,6 +354,7 @@ $paths = getPaths(); //defined below
                     formData.set('name', 'New Observation Set');
                 }
                 let sendStr = '';
+                let name = formData.get('name');
                 formData.forEach(function(value, key){
                     if(value == ""){}
                     else {
@@ -387,6 +388,8 @@ $paths = getPaths(); //defined below
                             let newEntry = document.createElement("li");
                             newEntry.setAttribute("class", "session-listing my-2");
                             newEntry.setAttribute("id", tbName+"-"+returnedInt);
+                            newEntry.setAttribute("style", "display:flex; flex-wrap:no-wrap;");
+                            /*
                             newEntry.innerHTML = `<div class="row">
                                                 <div class="col-sm-9 col-12">
                                                     <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}">${name}</a>
@@ -397,6 +400,15 @@ $paths = getPaths(); //defined below
                                                     <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
                                             </div>`;
+                                            */
+                            newEntry.innerHTML = `  <div style="width:80%;">
+                                                        <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}">${name}</a>
+                                                    </div>
+                                                    <div style="width:18%; display:flex; justify-content:space-between;">
+                                                        <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}"><span class="oi oi-pencil" title="Edit Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)" onclick="deleteSession(${returnedInt})"><span class="oi oi-trash" title="Delete Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart" title="View Visualizations" aria-hidden="true"></span></a>
+                                                    </div>`;
                             let playgroundList = document.getElementById(tbName+"_session_list");
                             playgroundList.appendChild(newEntry);
                         }
