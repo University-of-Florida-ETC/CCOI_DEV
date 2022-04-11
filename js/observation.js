@@ -763,11 +763,7 @@ var ccoiObservation = (function (){
             }
         }
         //removeEmptyKeys(alteredSessionData);
-        console.log("Altered session data before removal: ");
-        console.log(alteredSessionData);
         alteredSessionData = removeEmptyAndOld(alteredSessionData);
-        console.log("Altered session Data after removal: ");
-        console.log(alteredSessionData);
         let sendData = JSON.stringify(alteredSessionData);
         console.log("Data being transmitted to save:");
         console.log(sendData);
