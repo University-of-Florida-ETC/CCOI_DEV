@@ -83,7 +83,7 @@ function CCOI_Session (name, date, studentID, prompted, paths, minutes, seconds,
  * @param {string} extra
  * @param {string} notes
  */
-function CCOI_Step (node, node_ID, choice, choice_ID, ssnum, minutes, seconds, totalSeconds, extra, notes) {
+function CCOI_Step (node, node_ID, choice, choice_ID, ssnum, minutes, seconds, totalSeconds, extra, notes, stateIDStep) {
   if (arguments.length === 1) {
     var obj = node;
     for (var prop in obj) {
@@ -108,6 +108,7 @@ function CCOI_Step (node, node_ID, choice, choice_ID, ssnum, minutes, seconds, t
 	this.totalSeconds = totalSeconds || 0;
     this.extra = extra || null;
     this.notes = notes || null;
+	this.stateIDStep = stateIDStep || 0;
 
     this.nextNodeID = CCOI_Step_nextNodeID;
     this.nextNodeIDInt = CCOI_Step_nextNodeID_int;
