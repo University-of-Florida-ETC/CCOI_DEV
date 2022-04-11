@@ -208,6 +208,7 @@ var ccoiObservation = (function (){
             makeDirty();
             // We have altered the session with the currentSessionID
             alteredSessionData.id = session.id;
+            alteredSessionData.updateObsEl = '1';
             // If the altered session has been moved, we want to make sure we know its previous
             // index in the array, so we can delete the correct path on the backend
             if(alteredSessionData.paths == undefined) alteredSessionData.paths = [];
