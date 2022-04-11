@@ -310,6 +310,7 @@ var ccoiObservation = (function (){
         let step = new CCOI_Step(nodeID, nodeIDString, choiceIndex, newChoiceIndex, ssnum, minutesValue, secondsValue, totalTime, extra, notes, stateIDStep);
 
         // TODO: Move this logic into a separate function
+        let newID = stateIDPath;
         if (currentStep != undefined) {
             console.log("condition 1");
             if (!deepEqual(currentStep,  step)) {
@@ -342,7 +343,6 @@ var ccoiObservation = (function (){
         if (alteredSessionData.paths[stateIDPath] == undefined) {
             alteredSessionData.paths[stateIDPath] = sessions[currentSessionID].paths[stateIDPath];
         }
-        let newID = stateIDPath;
         if (alteredSessionData.paths[stateIDPath].isDeleted != undefined) {
             if (alteredSessionData.paths[stateIDPath].isDeleted == true) {
                 newID = sessions[currentSessionID].paths.length;
