@@ -306,7 +306,7 @@ var ccoiObservation = (function (){
 
         // Node ID is a string in the DB
         let nodeIDString = newNodeID.toString();
-        let step = new CCOI_Step(nodeID, nodeIDString, choiceIndex, newChoiceIndex, ssnum, minutesValue, secondsValue, totalTime, extra, notes);
+        let step = new CCOI_Step(nodeID, nodeIDString, choiceIndex, newChoiceIndex, ssnum, minutesValue, secondsValue, totalTime, extra, notes, stateIDStep);
 
         // TODO: Move this logic into a separate function
         if (currentStep != undefined) {
@@ -341,8 +341,9 @@ var ccoiObservation = (function (){
         }
 
         alteredSessionData.id = sessions[currentSessionID].id;
-        console.log(sessions[currentSessionID]);
+        //console.log(sessions[currentSessionID]);
         // Backend is not zero-indexed, so we have to +1 to stateIDPath
+        console.log(step);
         alteredSessionData.paths[newID].id = stateIDPath + 1;
         alteredSessionData.paths[newID].isEdited = true;
         // Before adding this step, we need to see if the index in alteredSessionData is empty
