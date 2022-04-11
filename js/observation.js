@@ -315,11 +315,15 @@ var ccoiObservation = (function (){
             if (!deepEqual(currentStep,  step)) {
                 console.log("Edited");
                 step.isEdited=true;
+                // ! IN THIS CASE THE PATH IS EDITED!
+                alteredSessionData.paths[newID].isEdited = true;
             }
         } else if (currentStep == undefined && isPathSwitched==true) {
             console.log("Condition 2");
             console.log("Undefined and path has been edited");
+            // ! IN THIS CASE THE PATH IS ALSO EDITED! 
             step.isEdited=true;
+            alteredSessionData.paths[newID].isEdited = true;
         } else if (currentStep == undefined && stateIDStep+1>originalTraceLength) {
             console.log("Condition 3");
             // We know this is a completely new step because we have gone beyond the original length of the trace
@@ -350,7 +354,11 @@ var ccoiObservation = (function (){
         // Backend is not zero-indexed, so we have to +1 to stateIDPath
         console.log(step);
         alteredSessionData.paths[newID].id = stateIDPath + 1;
-        alteredSessionData.paths[newID].isEdited = true;
+        
+        // ! How does one tell if a path isEdted?
+        // * a path is edited if and only if the following are true: 
+        // *    > A CCOI_Step is edited rather than new
+        // alteredSessionData.paths[newID].isEdited = true;
         // Before adding this step, we need to see if the index in alteredSessionData is empty
         // If it is empty, we know that this is a new step and can add it
         if(alteredSessionData.paths[newID].steps[stateIDStep] == undefined) {
