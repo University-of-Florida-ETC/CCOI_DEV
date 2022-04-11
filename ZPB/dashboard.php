@@ -382,11 +382,11 @@ $paths = getPaths(); //defined below
 
                         newSessWin.classList.remove('popped');
                         let responseWindow = document.getElementById('sessionResponse');
-                        responseWindow.classList.remove('popped');
+                        responseWindow.classList.add('popped');
                         let responseText = document.getElementById('sessionResponseText');
 
                         if (returnedInt == -1) {
-                            responseText = "There was an error creating that session.<br>Please refresh the page and try again.<br><br>If the problem persists, please contact an administrator.";
+                            responseText.innerText = "There was an error creating that session.<br>Please refresh the page and try again.<br><br>If the problem persists, please contact an administrator.";
                             //console.error("Missing required data");
                         }
                         else {
