@@ -162,7 +162,7 @@ $paths = getPaths(); //defined below
                 </div><!--popup-->
                 <div id="sessionResponse" class="popup">
                     <button type="button" class="exitPopup" onclick="closePopups()">✕</button>
-                    <p id="emailResponseText"></p>
+                    <p id="sessionResponseText"></p>
                 </div>
             </div>
         </main>
@@ -213,11 +213,9 @@ $paths = getPaths(); //defined below
                 newSessWin.classList.toggle('popped');
             }
             function closePopups() {
-                if (blur.classList.contains('blurred')) {
-                    blurScreen();
-                    const currentPopup = document.getElementsByClassName("popped")[0];
-                    currentPopup.classList.toggle("popped");
-                }
+                blur.classList.remove('blurred');
+                const currentPopup = document.getElementsByClassName("popped")[0];
+                currentPopup.classList.toggle("popped");
             }
 
             function GetAjaxReturnObject(mimetype){
@@ -381,10 +379,18 @@ $paths = getPaths(); //defined below
                         console.log("data returned: ");
                         console.log(data);
                         let returnedInt = parseInt(data);
+
+                        newSessWin.classList.remove('popped');
+                        let responseWindow = document.getElementById('sessionResponse');
+                        responseWindow.classList.remove('popped');
+                        let responseText = document.getElementById('sessionResponseText');
+
                         if (returnedInt == -1) {
-                            console.error("Missing required data");
+                            responseText = "There was an error creating that session.<br>Please refresh the page and try again.<br><br>If the problem persists, please contact an administrator.";
+                            //console.error("Missing required data");
                         }
                         else {
+                            responseText = "Session with name '"+name+"' has been created successfully. It has been added to the bottom of your "+tbName+" session list.";
                             let newEntry = document.createElement("li");
                             newEntry.setAttribute("class", "session-listing my-2");
                             newEntry.setAttribute("id", tbName+"-"+returnedInt);
