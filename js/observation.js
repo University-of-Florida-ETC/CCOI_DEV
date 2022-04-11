@@ -251,6 +251,7 @@ var ccoiObservation = (function (){
         let session = sessions[currentSessionID];
         let paths = session.paths;
         let currentTrace = paths[stateIDPath].steps;
+        console.log("Current trace length: " + currentTrace.length);
         console.log("On stateIDStep #: " + stateIDStep);
         let currentStep = currentTrace[stateIDStep];
         let isPathSwitched = false;
