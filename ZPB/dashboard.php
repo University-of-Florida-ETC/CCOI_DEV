@@ -51,7 +51,7 @@ $paths = getPaths(); //defined below
 <?php foreach ($sessions['research'] as $index => $currentSession): ?>
                                             <li class="session-listing my-2" id="research-<?= $currentSession['id']; ?>" style="display:flex; flex-wrap:no-wrap;">
                                                 <div style="width:80%;">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
+                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>?url=<?=$currentSession['url']; ?>"><?= $currentSession['name'] ?></a>
                                                 </div>
                                                 <div style="width:18%; display:flex; justify-content:space-between;">
                                                     <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil" title="Edit Session" aria-hidden="true"></span></a>
