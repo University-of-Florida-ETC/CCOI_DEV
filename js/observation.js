@@ -311,18 +311,22 @@ var ccoiObservation = (function (){
 
         // TODO: Move this logic into a separate function
         if (currentStep != undefined) {
+            console.log("condition 1");
             if (!deepEqual(currentStep,  step)) {
                 console.log("Edited");
                 step.isEdited=true;
             }
         } else if (currentStep == undefined && isPathSwitched==true) {
+            console.log("Condition 2");
             console.log("Undefined and path has been edited");
             step.isEdited=true;
         } else if (currentStep == undefined && stateIDStep+1>originalTraceLength) {
+            console.log("Condition 3");
             // We know this is a completely new step because we have gone beyond the original length of the trace
             console.log("Undefined and new");
             step.isNew=true;
         } else if (currentStep == undefined && stateIDStep+1<=originalTraceLength) {
+            console.log("condition 4");
             // We are still within the bounds of the original trace, so we know this is an "edited" step as far as the backend will be concerned
             console.log("Undefined because step was deleted and then added back. Basically, just edited")
             step.isEdited=true;
