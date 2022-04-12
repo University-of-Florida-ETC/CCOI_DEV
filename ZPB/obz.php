@@ -19,8 +19,11 @@ $return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$session['pathid
 while ($d = mysqli_fetch_assoc($return)) {
     $currentPathStartsAt = $d['startpnid'];
 }
+echo "<br>current path starts ats nodeid: ". $currentPathStartsAt;
 
 $endid = intval($session['pathid']) + 1;
+echo "<br>endid: ". $endid;
+
 $return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$endid}'");
 while ($d = mysqli_fetch_assoc($return)) {
     $currentPathEndsAt = $d['startpnid'];
@@ -32,18 +35,20 @@ if (isset($currentPathEndsAt)) {
     //echo "<br>current path is last by id";
     $nodequery = "SELECT * FROM tbNodes WHERE id >= {$currentPathStartsAt}";
 }
+echo "<br>nodequery: ". $nodequery;
 
 $return = mysqli_query($db, $nodequery);
 while ($d = mysqli_fetch_assoc($return)) {
     $nodeData[$d['id']] = $d;
 }
-
+echo "<br><br>nodeData first: "; var_dump($nodeData);
 $return = mysqli_query($db, "SELECT * FROM tbPathNodes WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");
 while ($d = mysqli_fetch_assoc($return)) {
     //$pathDiagram = $d;
     $nodeData[$d['choice']]['pnid'] = $d['id'];
     $nodeData[$d['choice']]['choiceorder'] = $d['choiceorder'];
 }
+echo "<br><br>nodeData second: "; var_dump($nodeData);
 ?>
 <script>
     var sessionID = <?php echo $id; ?>;
@@ -247,6 +252,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 </main>
 <?php include '../includes/footer.php'; ?>
 <script src="/js/jquery-3.4.1.min.js"></script>
+<!--
 <script src="/js/utility.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/zpbccoi.js"></script>
@@ -254,25 +260,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 <script src="/js/observation.js"></script>
 <script src="/js/ccoi-data-model.js"></script>
 <script src="/js/observe.js"></script>
-<script>
-    /*
-    console.log("In");
-    try{
-        if(typeof(jsUserVars) != 'undefined'){
-            console.log("In2");
-            userid=jsUserVars['pid'];
-            //setTimeout(function(){ fetchUserObSets2(userid);},500);
-            setTimeout(function(){ fetchUserObSets3(userid);},50);
-            //fetchUserObSets2(userid);
-        }
-        console.log("In3");
-    }
-    catch(error){
-        console.log("In4");
-        error(error);
-    }
-    */
-</script>
+                            -->
 </body>
 
 </html>
