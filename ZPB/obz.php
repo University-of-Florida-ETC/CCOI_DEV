@@ -52,8 +52,6 @@ while ($d = mysqli_fetch_assoc($return)) {
     var sessionID = <?php echo $id; ?>;
     var nodeData = `<?php echo json_encode($nodeData, JSON_PRETTY_PRINT); ?>`;
     var structure = `<?php echo json_encode($structure, JSON_PRETTY_PRINT); ?>`;
-    console.log("nodeData:"); console.log(nodeData);
-    console.log("structure:"); console.log(structure);
 </script>
 <main role="main">
     <div class="container-fluid">
@@ -68,7 +66,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                     <div class="row pr-md-5">
                         <div class="col-md-8 col-12">
                             <h1 class="red-font" id="sessionTitle"><?php echo $session['name']; ?></h1>
-                            <h5 style="text-transform: none;">Select an observation to view or edit its response</h5>
+                            <h5 style="text-transform: none;">Select an observation to view or edit its responses</h5>
                         </div>
                         <div class="col-md-4 col-12 pt-2">
                             <button id="save_session_button" type="button" class="btn btn-blue float-right disabled" data-toggle="tooltip" data-html="true" title="Click here to save your session">Save Session</button>
@@ -360,12 +358,21 @@ while ($d = mysqli_fetch_assoc($return)) {
         DOM[ID] = document.getElementById(ID);
     }
 
+    console.log("nodeData:"); console.log(nodeData);
+    
+
     function startEditingNodes(){
         if(!DOM.dom_group_1.classList.contains('d-none')){
             DOM.dom_group_1.classList.add('d-none');
         }
         DOM.path_input.classList.remove('d-none');
 
+        console.log("structure:"); console.log(structure);
+
+        console.log("structure keys: "); console.log(Object.keys(structure));
+
+        console.log("structure key 1: "); console.log(Object.keys(structure)[0]);
+        
         setupNodeInfo(Object.keys(structure)[0]);
     }
 
