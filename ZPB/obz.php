@@ -13,8 +13,57 @@ $appVideos = getAppVideos($id); //Defined below
 //print_r($appVideos);
 //print_r($session);
 //echo "<br>session: "; print_r($session);
+/*
+$return = mysqli_query($db, "SELECT * FROM tbPathNodes WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");
+while ($d = mysqli_fetch_assoc($return)) {
+    $pathDiagram['node1']['choiceorder'] = $d;
+}
+
+$return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$session['pathid']}'");
+while ($d = mysqli_fetch_assoc($return)) {
+    $currentPathStartsAt = $d['startpnid'];
+}
+echo "<br>current path starts ats nodeid: ". $currentPathStartsAt;
+
+$endid = intval($session['pathid']) + 1;
+echo "<br>endid: ". $endid;
+
+$return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$endid}'");
+while ($d = mysqli_fetch_assoc($return)) {
+    $currentPathEndsAt = $d['startpnid'];
+}
+if (isset($currentPathEndsAt)) {
+    //echo "<br>current path ends at nodeid: ". $currentPathEndsAt;
+    $nodequery = "SELECT * FROM tbNodes WHERE id >= {$currentPathStartsAt} AND id < {$currentPathEndsAt}";
+} else {
+    //echo "<br>current path is last by id";
+    $nodequery = "SELECT * FROM tbNodes WHERE id >= {$currentPathStartsAt}";
+}
+echo "<br>nodequery: ". $nodequery;
+
+$return = mysqli_query($db, $nodequery);
+while ($d = mysqli_fetch_assoc($return)) {
+
+    $code = explode('-', $d['code']);
+    $nodeData[$code[0]][$code[1]] = $d;
+}
+*/
+
+/*
+// Attempt two: left join tables
+$return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($sidstext) AND s.inactive IS NULL");
+$return = mysqli_query($db, "SELECT n.*, p.id  FROM tbNodes n LEFT JOIN tbPathNodes p ON n.id = p.choice WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");
+while ($d = mysqli_fetch_assoc($return)) {
+    //$pathDiagram = $d;
+    $nodeData[$d['choice']]['pnid'] = $d['id'];
+    $nodeData[$d['choice']]['choiceorder'] = $d['choiceorder'];
+}
+*/
 
 
+
+
+// Attempt one: bad, no structure
 $return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$session['pathid']}'");
 while ($d = mysqli_fetch_assoc($return)) {
     $currentPathStartsAt = $d['startpnid'];
@@ -41,19 +90,27 @@ $return = mysqli_query($db, $nodequery);
 while ($d = mysqli_fetch_assoc($return)) {
     $nodeData[$d['id']] = $d;
 }
-echo "<br><br>nodeData first: "; var_dump($nodeData);
+echo "<br><br>nodeData: "; var_dump($nodeData);
+
 $return = mysqli_query($db, "SELECT * FROM tbPathNodes WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");
 while ($d = mysqli_fetch_assoc($return)) {
-    //$pathDiagram = $d;
+    $structure[$d['node1']][$d['choiceorder']]=$d;
+}
+echo "<br><br>structure: "; var_dump($structure);
+/*
+$return = mysqli_query($db, "SELECT * FROM tbPathNodes WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");
+while ($d = mysqli_fetch_assoc($return)) {
     $nodeData[$d['choice']]['pnid'] = $d['id'];
     $nodeData[$d['choice']]['choiceorder'] = $d['choiceorder'];
 }
-echo "<br><br>nodeData second: "; var_dump($nodeData);
+*/
 ?>
 <script>
     var sessionID = <?php echo $id; ?>;
-    var jsonReplacement = `<?php echo json_encode($jsonReplacement, JSON_PRETTY_PRINT); ?>`;
-    console.log("jsonReplacement:"); console.log(jsonReplacement);
+    var nodeData = `<?php echo json_encode($nodeData, JSON_PRETTY_PRINT); ?>`;
+    var structure = `<?php echo json_encode($structure, JSON_PRETTY_PRINT); ?>`;
+    console.log("nodeData:"); console.log(nodeData);
+    console.log("structure:"); console.log(structure);
 </script>
 <main role="main">
     <div class="container-fluid">
