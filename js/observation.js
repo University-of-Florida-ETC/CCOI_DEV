@@ -798,6 +798,9 @@ var ccoiObservation = (function (){
                 console.log("AJAX returns this:");
                 console.log(data);
             }
+            else{
+                console.log("Here?");
+            }
         }
         var sendStr='updateObsEl=1&'+$.param(alteredSessionData);          console.log("sendStr:"); console.log(sendStr);
         var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
