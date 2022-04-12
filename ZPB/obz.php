@@ -34,7 +34,7 @@ if (isset($currentPathEndsAt)) {
     //echo "<br>current path is last by id";
     $nodequery = "SELECT * FROM tbNodes WHERE id >= {$currentPathStartsAt}";
 }
-echo "<br>nodequery: ". $nodequery;
+//echo "<br>nodequery: ". $nodequery;
 
 $return = mysqli_query($db, $nodequery);
 while ($d = mysqli_fetch_assoc($return)) {
@@ -122,7 +122,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                             </div>
                         </div>
                         <div class="col-12 py-2 pr-md-5">
-                            <button id="add_path_button" type="button" class="btn btn-darkblue" data-toggle="tooltip" data-html="true" title="Click here to add a Observation">Add Observation</button>
+                            <button id="add_path_button" type="button" class="btn btn-darkblue" data-toggle="tooltip" data-html="true" title="Click here to add a Observation" onclick="startEditingNodes()">Add Observation</button>
                         </div>
 
                         <div id="path_listing" class="col-12 pt-4 pr-md-5">
