@@ -31,13 +31,13 @@ function changeSpeed(rate) {
     video.playbackRate = slider.value = output.innerHTML = rate;
 }
 
-function fetchScramble(url) {
+function fetchScramble(baseURL) {
     $.ajax({
         // TODO MAKE THIS AJAX CALL WORK REGARDLESS OF BASE URL
         url: 'https://ccoi-dev.education.ufl.edu/ZPB/zpb_ajax.php',
         data: {
             action: 'fetchScramble',
-            baseURL: url
+            baseURL: baseURL
         },
         type: 'post',
         success: function(output) {
