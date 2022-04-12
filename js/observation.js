@@ -249,7 +249,11 @@ var ccoiObservation = (function (){
         // reset to true so next branch will pause upon first radio button selection
         isFirstSelection = true;
         let choiceIndex = $('input[name="choiceRadio"]:checked', '#branch_radio_form')[0].dataset.oldchoiceindex;
+        console.log("here is choice index");
+        console.log(choiceIndex);
         let newChoiceIndex = $('input[name="choiceRadio"]:checked', '#branch_radio_form').val();
+        console.log("here is newChoiceindex");
+        console.log(newChoiceIndex);
         if(choiceIndex === "-1")
             choiceIndex = -1;
 
