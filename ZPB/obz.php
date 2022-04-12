@@ -369,11 +369,11 @@ while ($d = mysqli_fetch_assoc($return)) {
 
         console.log("structure:"); console.log(structure);
 
-        console.log("structure keys: "); console.log(Object.keys(structure));
+        console.log("structure keys: "); console.log(Object.entries(structure));
 
-        console.log("structure key 1: "); console.log(Object.keys(structure)[0]);
+        console.log("structure key 1: "); console.log(Object.entries(structure)[0]);
         
-        setupNodeInfo(Object.keys(structure)[0]);
+        setupNodeInfo(Object.entries(structure)[0]);
     }
 
     function setupNodeInfo(structIndex){
