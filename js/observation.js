@@ -931,7 +931,7 @@ var ccoiObservation = (function () {
       alert("Your browser does not support AJAX!");
       return;
     }
-    console.log("Are you making it?")
+    
     xmlHttp.onreadystatechange = function () {
       var data = getHTML(xmlHttp);
       if (data) {
@@ -941,6 +941,7 @@ var ccoiObservation = (function () {
         console.log("Here?");
       }
     };
+    console.log("Are you making it?")
     var sendStr = "updateObsEl=1&" + $.param(alteredSessionData);
     console.log("sendStr:");
     console.log(sendStr);
