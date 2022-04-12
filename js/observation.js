@@ -750,6 +750,7 @@ var ccoiObservation = (function (){
     }
 
     function updateData () {
+        console.log("Is the error happening before? Or after?");
         let sessionsToUpdate = [];
 
         sessions.forEach(function (session) {
