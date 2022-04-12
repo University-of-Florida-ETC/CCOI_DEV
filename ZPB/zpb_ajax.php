@@ -230,7 +230,7 @@ function fetchScramble($baseURL, $db) {
 
     $query = "SELECT scramble FROM tbVideos WHERE url={$baseURL} AND inactive IS NULL";
     $return=mysqli_query($db,$query);
-
+    $return=mysqli_fetch_assoc($return);
     return $return;
 }
 
