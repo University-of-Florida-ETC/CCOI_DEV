@@ -33,7 +33,8 @@ function changeSpeed(rate) {
 
 function fetchScramble(url) {
     $.ajax({
-        url: '/ZPB/zpb_ajax.php',
+        // TODO MAKE THIS AJAX CALL WORK REGARDLESS OF BASE URL
+        url: 'https://ccoi-dev.education.ufl.edu/ZPB/zpb_ajax.php',
         data: {
             action: 'fetchScramble',
             baseURL: url
