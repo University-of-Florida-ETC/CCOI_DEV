@@ -359,7 +359,7 @@ while ($d = mysqli_fetch_assoc($return)) {
     }
 
     console.log("nodeData:"); console.log(nodeData);
-    console.log("structure:"); console.log(structure);
+    
 
     function startEditingNodes(){
         if(!DOM.dom_group_1.classList.contains('d-none')){
@@ -367,10 +367,12 @@ while ($d = mysqli_fetch_assoc($return)) {
         }
         DOM.path_input.classList.remove('d-none');
 
-        console.log("structure keys: ");
-        console.log(Object.keys(structure));
-        console.log("structure key 1: ");
-        console.log(Object.keys(structure)[0]);
+        console.log("structure:"); console.log(structure);
+
+        console.log("structure keys: "); console.log(Object.keys(structure));
+
+        console.log("structure key 1: "); console.log(Object.keys(structure)[0]);
+        
         setupNodeInfo(Object.keys(structure)[0]);
     }
 
