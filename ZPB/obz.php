@@ -366,11 +366,16 @@ while ($d = mysqli_fetch_assoc($return)) {
         }
         DOM.path_input.classList.remove('d-none');
 
-        setupNodeInfo();
+        setupNodeInfo(structure[0]);
     }
 
-    function setupNodeInfo(){
-
+    function setupNodeInfo(nodeStructure){
+        console.log(nodeStructure);
+        nodeStructure.forEach((index, value) => {
+            console.log("index: "+index);
+            console.log("value:");
+            console.log(value);
+        })
     }
 </script>
 </html>
