@@ -359,21 +359,15 @@ while ($d = mysqli_fetch_assoc($return)) {
     }
 
     console.log("nodeData:"); console.log(nodeData);
-    
+    console.log("structure:"); console.log(structure);
 
     function startEditingNodes(){
         if(!DOM.dom_group_1.classList.contains('d-none')){
             DOM.dom_group_1.classList.add('d-none');
         }
         DOM.path_input.classList.remove('d-none');
-
-        console.log("structure:"); console.log(structure);
-
-        console.log("structure keys: "); console.log(Object.entries(structure));
-
-        console.log("structure key 1: "); console.log(Object.entries(structure)[0]);
         
-        setupNodeInfo(Object.entries(structure)[0]);
+        setupNodeInfo(Object.keys(structure)[0]);
     }
 
     function setupNodeInfo(structIndex){
