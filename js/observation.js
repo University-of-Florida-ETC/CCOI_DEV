@@ -286,7 +286,9 @@ var ccoiObservation = (function (){
             catch(err){
                 currentStepNextNodeID = -1;
             }
-
+            console.log("Confirming we are hitting line 289")
+            console.log(newNodeID);
+            console.log(newChoiceIndex);
             var newChoice = getNodeFromChoice(newNodeID, newChoiceIndex);
             console.log(newChoice);
             if(newChoice && currentStepNextNodeID === newChoice.next_id){
