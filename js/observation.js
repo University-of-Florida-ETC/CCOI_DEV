@@ -979,7 +979,7 @@ var ccoiObservation = (function (){
         $(DOM.save_session_button).click(updateData);
         $(DOM.path_go_back).click(pathGoBack);
         //Update the function below to switch between popup window or in window experience
-        $(DOM.launch_video_button).click(launchVideoFromSession);
+        $(DOM.launch_video_button).click(launchVideoFrameFromSession);
         //Revist once implementing IRR correctly.
         //$(DOM.irr_button).click()
         /*
