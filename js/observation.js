@@ -275,7 +275,7 @@ var ccoiObservation = (function (){
         makeDirty();
 
         // if currentStep is defined that means you are retracing an existing path
-        console.log("current step: " + currentStep.nodeID)
+        console.log("current step: " + currentStep.nodeid);
         if (currentStep !== undefined && (currentStep.nodeid != newNodeID || currentStep.choiceid != newChoiceIndex)) {
             // If changing the choice leads to the same node:
             var currentStepNextNodeID;
