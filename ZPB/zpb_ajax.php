@@ -1,11 +1,11 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'].'/api/ccoi_session.php');
 include($_SERVER['DOCUMENT_ROOT'].'/api/ccoi_dbhookup.php');
-/*
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     var_dump($_POST);
 }
-*/
+
 if( !empty($_POST['newSession']) ) {
 
     $possibleValues = ['name', 'studentid', 'date', 'video', 'path'];     //TODO: pathID and research/playground must be specified, currently no interface for that on front-end
