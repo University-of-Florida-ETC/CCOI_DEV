@@ -307,7 +307,7 @@ var ccoiObservation = (function (){
                 isPathSwitched = true;
             }
         }
-
+        console.log("Did we skip the entire fucking thing?")
         let ssnum = (stateIDPath + 1).toString();
         let extra = null;
         let branchExtra = choiceIndex === -1 ? null : getNodeFromChoice(newNodeID, newChoiceIndex).extra;
