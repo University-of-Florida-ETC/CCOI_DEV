@@ -171,35 +171,13 @@ $paths = getPaths(); //defined below
         <script src="/js/utility.js"></script>
         <!--
         <script src="./js/draggable.js"></script>
-        <script src="./js/demo.js"></script> -->
-        <!--<script src="/js/observation.js"></script>
-        <script src="/js/bootstrap.min.js"></script>-->
-        <!--script src="/js/zpbdash.js"></script>-->
-        <!--<script src="/js/ccoi.js"></script>
-        <script src="/js/ccoi-data-model.js"></script>-->
-        <!--<script src="./js/zpbccoi.js"></script>-->
-        <!--
-        <script>
-            console.log("In");
-            try{
-                if(typeof(jsUserVars) != 'undefined'){
-                    console.log("In2");
-                    userid=jsUserVars['pid'];
-                    //setTimeout(function(){ fetchUserObSets2(userid);},500);
-                    setTimeout(function(){ fetchUserObSets2(userid);},50);
-                    //fetchUserObSets2(userid);
-                }
-                else {
-                    console.log("Need to login!!");
-                }
-                
-            }
-            catch(error){
-                console.log("In4");
-                error(error);
-            }
-        </script>
-        -->
+        <script src="./js/demo.js"></script>
+        <script src="/js/observation.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        script src="/js/zpbdash.js"></script>
+        <script src="/js/ccoi.js"></script>
+        <script src="/js/ccoi-data-model.js"></script>
+        <script src="./js/zpbccoi.js"></script>-->
         <script>
             var isPlayground = false;
             var derServer='https://ccoi-dev.education.ufl.edu/';
