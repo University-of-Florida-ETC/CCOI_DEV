@@ -780,17 +780,17 @@ var ccoiObservation = (function (){
         
         //TODO: AJAX HERE
         var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
-        xmlHttp.onreadystatechange = function() {
+        xmlHttp.onreadystatechange = function() { 
             var data=getHTML(xmlHttp);
             if(data){
                 console.log("AJAX returns this:");
                 console.log(data);
             }
         }
-        //var sendStr='updateObsEl=1&'+sendData;
-        //var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
-        var url =  encodeURI(derServer+'ZPB/zpb_ajax.php');			console.log(url);
-        xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/json');xmlHttp.send({data: sendData});
+        var sendStr='updateObsEl=1&'+$.param(alteredSessionData);
+        var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
+        //var url =  encodeURI(derServer+'ZPB/zpb_ajax.php');			console.log(url);
+        xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendData);
 
         ccoi.callToAPI('/api/ccoi_ajax.php', sendData);
     }
