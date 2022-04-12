@@ -215,8 +215,6 @@ $paths = getPaths(); //defined below
                 }
             }
 
-            console.log(`<?php var_dump($sessions) ?>`);
-
             function deleteSession(id, isPlayground = false){
                 if (confirm('Are you sure you want to delete this session? This cannot be undone!')) {
                     let extraText = '';
