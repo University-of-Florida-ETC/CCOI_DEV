@@ -39,8 +39,8 @@ function fetchScramble(url) {
             baseURL: url
         },
         type: 'post',
-        success: function(output) {
-            alert(output);
+        success: function(data) {
+            console.log(output);
         }
     })
 }
