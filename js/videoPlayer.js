@@ -31,6 +31,20 @@ function changeSpeed(rate) {
     video.playbackRate = slider.value = output.innerHTML = rate;
 }
 
+function fetchScramble(url) {
+    $.ajax({
+        url: '/ZPB/zpb_ajax.php',
+        data: {
+            action: 'fetchScramble',
+            baseURL: url
+        },
+        type: 'post',
+        success: function(output) {
+            alert(output);
+        }
+    })
+}
+
 // Initialize video controls upon page load
 function initializeVideoControls() {
     let slider = document.getElementById("video_slider");
