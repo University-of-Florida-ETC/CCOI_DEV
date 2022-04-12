@@ -791,7 +791,7 @@ var ccoiObservation = (function (){
         var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
         xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
 
-        ccoi.callToAPI('/api/ccoi_ajax.php', sendData);
+        //ccoi.callToAPI('/api/ccoi_ajax.php', sendData);
     }
 
     /*
