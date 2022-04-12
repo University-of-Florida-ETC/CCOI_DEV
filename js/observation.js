@@ -799,7 +799,7 @@ var ccoiObservation = (function (){
                 console.log(data);
             }
             else{
-                console.log("Bruh kinda cring");
+                console.log("Here?");
             }
         }
         var sendStr='updateObsEl=1&'+$.param(alteredSessionData);          console.log("sendStr:"); console.log(sendStr);
