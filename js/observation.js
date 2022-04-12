@@ -941,7 +941,7 @@ var ccoiObservation = (function () {
         console.log("Here?");
       }
     };
-    console.log("Are you making it?")
+    console.log('xxx' + $.param(alteredSessionData));
     var sendStr = "updateObsEl=1&" + $.param(alteredSessionData);
     console.log("sendStr:");
     console.log(sendStr);
