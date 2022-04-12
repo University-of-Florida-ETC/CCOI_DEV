@@ -774,7 +774,7 @@ var ccoiObservation = (function (){
         }
         //removeEmptyKeys(alteredSessionData);
         alteredSessionData = removeEmptyAndOld(alteredSessionData);
-        let sendData = JSON.stringify(alteredSessionData);
+        let sendData = {'data': JSON.stringify(alteredSessionData)};
         console.log("Data being transmitted to save:");
         console.log(sendData);
         
@@ -790,7 +790,7 @@ var ccoiObservation = (function (){
         //var sendStr='updateObsEl=1&'+sendData;
         //var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
         var url =  encodeURI(derServer+'ZPB/zpb_ajax.php');			console.log(url);
-        xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/json');xmlHttp.send({data: sendData});
+        xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/json');xmlHttp.send(sendData);
 
         ccoi.callToAPI('/api/ccoi_ajax.php', sendData);
     }
