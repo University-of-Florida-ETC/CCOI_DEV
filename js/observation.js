@@ -249,7 +249,11 @@ var ccoiObservation = (function (){
         // reset to true so next branch will pause upon first radio button selection
         isFirstSelection = true;
         let choiceIndex = $('input[name="choiceRadio"]:checked', '#branch_radio_form')[0].dataset.oldchoiceindex;
+        console.log("here is choice index");
+        console.log(choiceIndex);
         let newChoiceIndex = $('input[name="choiceRadio"]:checked', '#branch_radio_form').val();
+        console.log("here is newChoiceindex");
+        console.log(newChoiceIndex);
         if(choiceIndex === "-1")
             choiceIndex = -1;
 
@@ -283,6 +287,7 @@ var ccoiObservation = (function (){
             }
 
             var newChoice = getNodeFromChoice(newNodeID, newChoiceIndex);
+            console.log(newChoice);
             if(newChoice && currentStepNextNodeID === newChoice.next_id){
                 // I'm not sure if we actually have to do anything here to get the choice to quietly swap out.
                 console.log("Changing choice, but it should go to the same node?");
@@ -975,7 +980,7 @@ var ccoiObservation = (function (){
         $(DOM.save_session_button).click(updateData);
         $(DOM.path_go_back).click(pathGoBack);
         //Update the function below to switch between popup window or in window experience
-        $(DOM.launch_video_button).click(launchVideoFromSession);
+        $(DOM.launch_video_button).click(launchVideoFrameFromSession);
         //Revist once implementing IRR correctly.
         //$(DOM.irr_button).click()
         /*
