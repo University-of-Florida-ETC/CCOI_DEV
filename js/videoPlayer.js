@@ -46,6 +46,7 @@ function initializeVideoControls() {
 }
 
 $().ready(function () {
+    console.log(window.src);
     let vid = `<video controls id="ccoi_video" height="100%" width="100%">
    //   <source src="${window.parent.src}" type="video/mp4">
 		<source src="/ccoivids/${window.opener.src}"  type="video/mp4">
