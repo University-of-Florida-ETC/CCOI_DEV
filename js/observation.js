@@ -275,17 +275,23 @@ var ccoiObservation = (function (){
         makeDirty();
 
         // if currentStep is defined that means you are retracing an existing path
+        //console.log("current step: " + currentStep.nodeid);
         if (currentStep !== undefined && (currentStep.nodeid != newNodeID || currentStep.choiceid != newChoiceIndex)) {
+            console.log("Are we here?");
             // If changing the choice leads to the same node:
             var currentStepNextNodeID;
             // catch empty/deleted nodes
+            console.log("What about here?");
             try {
                 currentStepNextNodeID = currentStep.nextNodeID()
             }
             catch(err){
+                console.log("We have caught an error sir! Dear fucking lord! The ship is sinking!")
                 currentStepNextNodeID = -1;
             }
-
+            console.log("Confirming we are hitting line 289")
+            console.log(newNodeID);
+            console.log(newChoiceIndex);
             var newChoice = getNodeFromChoice(newNodeID, newChoiceIndex);
             console.log(newChoice);
             if(newChoice && currentStepNextNodeID === newChoice.next_id){
@@ -301,7 +307,7 @@ var ccoiObservation = (function (){
                 isPathSwitched = true;
             }
         }
-
+        console.log("Did we skip the entire fucking thing?")
         let ssnum = (stateIDPath + 1).toString();
         let extra = null;
         let branchExtra = choiceIndex === -1 ? null : getNodeFromChoice(newNodeID, newChoiceIndex).extra;
@@ -747,6 +753,7 @@ var ccoiObservation = (function (){
     }
 
     function updateData () {
+        console.log("Is the error happening before? Or after?");
         let sessionsToUpdate = [];
 
         sessions.forEach(function (session) {
