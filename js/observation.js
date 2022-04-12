@@ -277,13 +277,16 @@ var ccoiObservation = (function (){
         // if currentStep is defined that means you are retracing an existing path
         //console.log("current step: " + currentStep.nodeid);
         if (currentStep !== undefined && (currentStep.nodeid != newNodeID || currentStep.choiceid != newChoiceIndex)) {
+            console.log("Are we here?");
             // If changing the choice leads to the same node:
             var currentStepNextNodeID;
             // catch empty/deleted nodes
+            console.log("What about here?");
             try {
                 currentStepNextNodeID = currentStep.nextNodeID()
             }
             catch(err){
+                console.log("We have caught an error sir! Dear fucking lord! The ship is sinking!")
                 currentStepNextNodeID = -1;
             }
             console.log("Confirming we are hitting line 289")
