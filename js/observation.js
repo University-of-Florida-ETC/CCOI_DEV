@@ -774,7 +774,7 @@ var ccoiObservation = (function (){
         }
         //removeEmptyKeys(alteredSessionData);
         alteredSessionData = removeEmptyAndOld(alteredSessionData);
-        let sendData = {'data': JSON.stringify(alteredSessionData)};
+        let sendData = JSON.stringify({'data': alteredSessionData});
         console.log("Data being transmitted to save:");
         console.log(sendData);
         
