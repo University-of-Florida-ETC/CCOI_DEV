@@ -214,4 +214,24 @@ if( !empty($_POST['deleteSession']) ) {
     }
 }
 
+
+if(isset($_POST['action']) && !empty($_POST['action'] && isset($_POST['baseURL']) && !empty($_POST['baseURL']))) {
+    $action = $_POST['action'];
+    $baseURL = $_POST['baseURL'];
+    switch($action) { 
+        case 'fetchScramble' : fetchScramble($baseURL, $db);break;
+        default: echo('Lol');
+    }
+}
+
+
+
+function fetchScramble($baseURL, $db) {
+
+    $query = "SELECT scramble FROM tbVideos WHERE url={$baseURL} AND inactive IS NULL";
+    $return=mysqli_query($db,$query);
+
+    return $return;
+}
+
 ?>

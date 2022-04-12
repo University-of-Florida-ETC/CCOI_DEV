@@ -31,6 +31,20 @@ function changeSpeed(rate) {
     video.playbackRate = slider.value = output.innerHTML = rate;
 }
 
+function fetchScramble(url) {
+    $.ajax({
+        url: '/ZPB/zpb_ajax.php',
+        data: {
+            action: 'fetchScramble',
+            baseURL: url
+        },
+        type: 'post',
+        success: function(output) {
+            alert(output);
+        }
+    })
+}
+
 // Initialize video controls upon page load
 function initializeVideoControls() {
     let slider = document.getElementById("video_slider");
@@ -46,10 +60,11 @@ function initializeVideoControls() {
 }
 
 $().ready(function () {
+    fetchScramble(window.src);
     console.log(window.src);
     let vid = `<video controls id="ccoi_video" height="100%" width="100%">
    //   <source src="${window.parent.src}" type="video/mp4">
-		<source src="/ccoivids/${window.opener.src}"  type="video/mp4">
+		<source src="/ccoivids/${window.src}"  type="video/mp4">
     </video>`;
     $('#video_player_container').html(vid);
     window.parent.video = $('video')[0];
