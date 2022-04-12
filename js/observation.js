@@ -24,7 +24,7 @@ var ccoiObservation = (function (){
         $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
     }
 
-    alert($_GET.url);
+    console.log($_GET.url);
     
     function setDemoBool(sdb) {
         isDemo = sdb;
@@ -893,7 +893,7 @@ var ccoiObservation = (function (){
         }
         else {
             $.ajax({
-                url: '/api/ccoi_ajax.php?fetchvid=' + videoID,
+                url: '/api/ccoi_ajax.php?fetchvid=' + $_GET.url,
                 method: 'GET',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
@@ -975,7 +975,7 @@ var ccoiObservation = (function (){
         $(DOM.save_session_button).click(updateData);
         $(DOM.path_go_back).click(pathGoBack);
         //Update the function below to switch between popup window or in window experience
-        $(DOM.launch_video_button).click(launchVideoFrameFromSession);
+        $(DOM.launch_video_button).click(launchVideoFromSession);
         //Revist once implementing IRR correctly.
         //$(DOM.irr_button).click()
         /*
