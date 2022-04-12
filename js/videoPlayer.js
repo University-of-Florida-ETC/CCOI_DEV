@@ -40,7 +40,7 @@ function fetchScramble(url) {
             baseURL: url
         },
         type: 'post',
-        success: function(data) {
+        success: function(output) {
             console.log(output);
         }
     })
