@@ -287,6 +287,7 @@ var ccoiObservation = (function (){
             }
 
             var newChoice = getNodeFromChoice(newNodeID, newChoiceIndex);
+            console.log(newChoice);
             if(newChoice && currentStepNextNodeID === newChoice.next_id){
                 // I'm not sure if we actually have to do anything here to get the choice to quietly swap out.
                 console.log("Changing choice, but it should go to the same node?");
