@@ -66,7 +66,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                     <div class="row pr-md-5">
                         <div class="col-md-8 col-12">
                             <h1 class="red-font" id="sessionTitle"><?php echo $session['name']; ?></h1>
-                            <h5 style="text-transform: none;">Select an observation to view or edit its responses</h5>
+                            <h5 style="text-transform: none;">Select an observation to view or edit its responsess</h5>
                         </div>
                         <div class="col-md-4 col-12 pt-2">
                             <button id="save_session_button" type="button" class="btn btn-blue float-right disabled" data-toggle="tooltip" data-html="true" title="Click here to save your session">Save Session</button>
@@ -369,11 +369,11 @@ while ($d = mysqli_fetch_assoc($return)) {
 
         console.log("structure:"); console.log(structure);
 
-        console.log("structure keys: "); console.log(Object.keys(structure));
+        console.log("structure keys: "); console.log(structure.keys());
 
-        console.log("structure key 1: "); console.log(Object.keys(structure)[0]);
+        console.log("structure key 1: "); console.log(structure.keys()[0]);
         
-        setupNodeInfo(Object.keys(structure)[0]);
+        setupNodeInfo(structure.keys()[0]);
     }
 
     function setupNodeInfo(structIndex){
