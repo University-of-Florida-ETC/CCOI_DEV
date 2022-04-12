@@ -262,7 +262,117 @@ while ($d = mysqli_fetch_assoc($return)) {
 <script src="/js/observe.js"></script>
                             -->
 </body>
+<script>
+    // Code to edit nodes
+    /*
+    var nonNodeStuff = document.getElementById("dom_group_1");
+    var nodeStuff = document.getElementById("path_input");
 
+    var pathTitle = document.getElementById("path_title");
+    var pathLabel = document.getElementById("path_label");
+    */
+    var DOM = {};
+
+    var IDs = [
+        'launch_video_button',
+        'go_to_session_select',
+        'save_session_button',
+        'session_list',
+        'session_meta_form',
+        'session_video_url',
+        'session_notes',
+        'new_session_button',
+        'session_submit_button',
+        'add_path_button',
+        'reorder_paths_button',
+        'finish_reorder_button',
+        //Brandon's addition of node_preview_list
+        'node_preview_list',
+        'path_start',
+        'path_choices',
+        'path_select',
+        'path_input',
+        'path_list',
+        'path_listing',
+        'path_preview',
+        'path_preview_list',
+        'path_preview_heading',
+        'path_title',
+        'path_label',
+        'path_label_button',
+        'proceed_button',
+        'proceed_and_play_button',
+        'branch_form',
+        'notes_input',
+        'timestamp_input_minutes',
+        'timestamp_input_seconds',
+        'irr_button',
+        'dom_group_1',
+        'path_go_back',
+        'session_go_back',
+        'visualizations',
+        'viz_container',
+        'viz_refresh',
+        'viz_session_select',
+        'viz_chart_select_form',
+        'viz_session_select_ul',
+        'viz_chart_select_ul',
+        'demo_no_sesh',
+        'viz_select_btn',
+        'session_facts',
+        'sankey_container',
+        'csvImportShow',
+        'exportHumanReadable',
+        'exportCSV',
+        'prepareGVall',
+        'goToMainMenu',
+        'pathSelectTitle',
+        'pathSelectList',
+        'sessionLabel',
+        'sessionTitle',
+        'sessionDate',
+        'sessionStudent',
+        'sessionPrompted',
+        'sessionSelect',
+        'timestampInputMinutes',
+        'timestampInputSeconds',
+        'notesInputLabel',
+        'csvImportDialog',
+        'csvImportFileInput',
+        'gvExportDialog',
+        'returnFromGV',
+        'gvForm',
+        'gvSelectGraphType',
+        'gvSelectEdgeType',
+        'gvShowEnd',
+        'gvAcyclic',
+        'gvSelectSessions',
+        'rawOutput',
+        'exportTitle',
+        'returnFromExport',
+        'exportDownload',
+        'exportOut'
+    ];
+
+    var numIDs = IDs.length;
+    for (var i = 0; i < numIDs; ++i) {
+        var ID = IDs[i];
+        DOM[ID] = document.getElementById(ID);
+    }
+
+    function startEditingNodes(){
+        if(!nonNodeStuff.classList.contains('d-none')){
+            nonNodeStuff.classList.add('d-none');
+        }
+        nodeStuff.classList.remove('d-none');
+
+        setupNodeInfo();
+    }
+
+    function setupNodeInfo(){
+
+    }
+</script>
 </html>
 
 <?php
