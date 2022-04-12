@@ -13,20 +13,15 @@ $appVideos = getAppVideos($id); //Defined below
 //print_r($appVideos);
 //print_r($session);
 //echo "<br>session: "; print_r($session);
-/*
-$return = mysqli_query($db, "SELECT * FROM tbPathNodes WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");
-while ($d = mysqli_fetch_assoc($return)) {
-    $pathDiagram['node1']['choiceorder'] = $d;
-}
 
 $return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$session['pathid']}'");
 while ($d = mysqli_fetch_assoc($return)) {
     $currentPathStartsAt = $d['startpnid'];
 }
-echo "<br>current path starts ats nodeid: ". $currentPathStartsAt;
+//echo "<br>current path starts ats nodeid: ". $currentPathStartsAt;
 
 $endid = intval($session['pathid']) + 1;
-echo "<br>endid: ". $endid;
+//echo "<br>endid: ". $endid;
 
 $return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$endid}'");
 while ($d = mysqli_fetch_assoc($return)) {
@@ -39,71 +34,19 @@ if (isset($currentPathEndsAt)) {
     //echo "<br>current path is last by id";
     $nodequery = "SELECT * FROM tbNodes WHERE id >= {$currentPathStartsAt}";
 }
-echo "<br>nodequery: ". $nodequery;
-
-$return = mysqli_query($db, $nodequery);
-while ($d = mysqli_fetch_assoc($return)) {
-
-    $code = explode('-', $d['code']);
-    $nodeData[$code[0]][$code[1]] = $d;
-}
-*/
-
-/*
-// Attempt two: left join tables
-$return=mysqli_query($db,"SELECT s.*, v.url FROM tbSessions s LEFT JOIN tbVideos v ON s.videoid=v.id WHERE s.id IN ($sidstext) AND s.inactive IS NULL");
-$return = mysqli_query($db, "SELECT n.*, p.id  FROM tbNodes n LEFT JOIN tbPathNodes p ON n.id = p.choice WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");
-while ($d = mysqli_fetch_assoc($return)) {
-    //$pathDiagram = $d;
-    $nodeData[$d['choice']]['pnid'] = $d['id'];
-    $nodeData[$d['choice']]['choiceorder'] = $d['choiceorder'];
-}
-*/
-
-
-
-
-// Attempt one: bad, no structure
-$return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$session['pathid']}'");
-while ($d = mysqli_fetch_assoc($return)) {
-    $currentPathStartsAt = $d['startpnid'];
-}
-echo "<br>current path starts ats nodeid: ". $currentPathStartsAt;
-
-$endid = intval($session['pathid']) + 1;
-echo "<br>endid: ". $endid;
-
-$return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$endid}'");
-while ($d = mysqli_fetch_assoc($return)) {
-    $currentPathEndsAt = $d['startpnid'];
-}
-if (isset($currentPathEndsAt)) {
-    //echo "<br>current path ends at nodeid: ". $currentPathEndsAt;
-    $nodequery = "SELECT * FROM tbNodes WHERE id >= {$currentPathStartsAt} AND id < {$currentPathEndsAt}";
-} else {
-    //echo "<br>current path is last by id";
-    $nodequery = "SELECT * FROM tbNodes WHERE id >= {$currentPathStartsAt}";
-}
-echo "<br>nodequery: ". $nodequery;
+//echo "<br>nodequery: ". $nodequery;
 
 $return = mysqli_query($db, $nodequery);
 while ($d = mysqli_fetch_assoc($return)) {
     $nodeData[$d['id']] = $d;
 }
-echo "<br><br>nodeData: "; var_dump($nodeData);
+//////echo "<br><br>nodeData: "; var_dump($nodeData);
 
 $return = mysqli_query($db, "SELECT * FROM tbPathNodes WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");
 while ($d = mysqli_fetch_assoc($return)) {
     $structure[$d['node1']][$d['choiceorder']]=$d;
 }
-echo "<br><br>structure: "; var_dump($structure);
-/*
-$return = mysqli_query($db, "SELECT * FROM tbPathNodes WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");
-while ($d = mysqli_fetch_assoc($return)) {
-    $nodeData[$d['choice']]['pnid'] = $d['id'];
-    $nodeData[$d['choice']]['choiceorder'] = $d['choiceorder'];
-}
-*/
+//echo "<br><br>structure: "; var_dump($structure);
 ?>
 <script>
     var sessionID = <?php echo $id; ?>;
@@ -125,7 +68,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                     <div class="row pr-md-5">
                         <div class="col-md-8 col-12">
                             <h1 class="red-font" id="sessionTitle"><?php echo $session['name']; ?></h1>
-                            <h5 style="text-transform: none;">Select an observation to view or edit its responses</h5>
+                            <h5 style="text-transform: none;">Select an observation to view or edit its responsess</h5>
                         </div>
                         <div class="col-md-4 col-12 pt-2">
                             <button id="save_session_button" type="button" class="btn btn-blue float-right disabled" data-toggle="tooltip" data-html="true" title="Click here to save your session">Save Session</button>
@@ -179,7 +122,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                             </div>
                         </div>
                         <div class="col-12 py-2 pr-md-5">
-                            <button id="add_path_button" type="button" class="btn btn-darkblue" data-toggle="tooltip" data-html="true" title="Click here to add a Observation">Add Observation</button>
+                            <button id="add_path_button" type="button" class="btn btn-darkblue" data-toggle="tooltip" data-html="true" title="Click here to add a Observation" onclick="startEditingNodes()">Add Observation</button>
                         </div>
 
                         <div id="path_listing" class="col-12 pt-4 pr-md-5">
@@ -319,7 +262,117 @@ while ($d = mysqli_fetch_assoc($return)) {
 <script src="/js/observe.js"></script>
                             -->
 </body>
+<script>
+    // Code to edit nodes
+    /*
+    var nonNodeStuff = document.getElementById("dom_group_1");
+    var nodeStuff = document.getElementById("path_input");
 
+    var pathTitle = document.getElementById("path_title");
+    var pathLabel = document.getElementById("path_label");
+    */
+    var DOM = {};
+
+    var IDs = [
+        'launch_video_button',
+        'go_to_session_select',
+        'save_session_button',
+        'session_list',
+        'session_meta_form',
+        'session_video_url',
+        'session_notes',
+        'new_session_button',
+        'session_submit_button',
+        'add_path_button',
+        'reorder_paths_button',
+        'finish_reorder_button',
+        //Brandon's addition of node_preview_list
+        'node_preview_list',
+        'path_start',
+        'path_choices',
+        'path_select',
+        'path_input',
+        'path_list',
+        'path_listing',
+        'path_preview',
+        'path_preview_list',
+        'path_preview_heading',
+        'path_title',
+        'path_label',
+        'path_label_button',
+        'proceed_button',
+        'proceed_and_play_button',
+        'branch_form',
+        'notes_input',
+        'timestamp_input_minutes',
+        'timestamp_input_seconds',
+        'irr_button',
+        'dom_group_1',
+        'path_go_back',
+        'session_go_back',
+        'visualizations',
+        'viz_container',
+        'viz_refresh',
+        'viz_session_select',
+        'viz_chart_select_form',
+        'viz_session_select_ul',
+        'viz_chart_select_ul',
+        'demo_no_sesh',
+        'viz_select_btn',
+        'session_facts',
+        'sankey_container',
+        'csvImportShow',
+        'exportHumanReadable',
+        'exportCSV',
+        'prepareGVall',
+        'goToMainMenu',
+        'pathSelectTitle',
+        'pathSelectList',
+        'sessionLabel',
+        'sessionTitle',
+        'sessionDate',
+        'sessionStudent',
+        'sessionPrompted',
+        'sessionSelect',
+        'timestampInputMinutes',
+        'timestampInputSeconds',
+        'notesInputLabel',
+        'csvImportDialog',
+        'csvImportFileInput',
+        'gvExportDialog',
+        'returnFromGV',
+        'gvForm',
+        'gvSelectGraphType',
+        'gvSelectEdgeType',
+        'gvShowEnd',
+        'gvAcyclic',
+        'gvSelectSessions',
+        'rawOutput',
+        'exportTitle',
+        'returnFromExport',
+        'exportDownload',
+        'exportOut'
+    ];
+
+    var numIDs = IDs.length;
+    for (var i = 0; i < numIDs; ++i) {
+        var ID = IDs[i];
+        DOM[ID] = document.getElementById(ID);
+    }
+
+    function startEditingNodes(){
+        if(!DOM.dom_group_1.classList.contains('d-none')){
+            DOM.dom_group_1.classList.add('d-none');
+        }
+        DOM.path_input.classList.remove('d-none');
+
+        setupNodeInfo();
+    }
+
+    function setupNodeInfo(){
+
+    }
+</script>
 </html>
 
 <?php
