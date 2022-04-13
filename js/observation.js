@@ -438,6 +438,8 @@ var ccoiObservation = (function () {
       stateIDStep
     );
 
+    let stepAJAX = new CCOI_Step_AJAX();
+
     // TODO: Move this logic into a separate function
     let newID = stateIDPath;
     if (currentStep != undefined) {
@@ -494,6 +496,8 @@ var ccoiObservation = (function () {
     console.log(step);
     alteredSessionData.paths[newID].id = stateIDPath + 1;
 
+    stepAJAX = goGoAjax(step, stepAJAX);
+
     // ! How does one tell if a path isEdted?
     // * a path is edited if and only if the following are true:
     // *    > A CCOI_Step is edited rather than new
@@ -501,11 +505,11 @@ var ccoiObservation = (function () {
     // Before adding this step, we need to see if the index in alteredSessionData is empty
     // If it is empty, we know that this is a new step and can add it
     if (alteredSessionData.paths[newID].steps[stateIDStep] == undefined) {
-      alteredSessionData.paths[newID].steps[stateIDStep] = step;
+      alteredSessionData.paths[newID].steps[stateIDStep] = stepAJAX;
       alteredSessionData.paths[newID].steps[stateIDStep].isNew = true;
     } else {
     }
-    alteredSessionData.paths[newID].steps[stateIDStep] = step;
+    alteredSessionData.paths[newID].steps[stateIDStep] = stepAJAX;
     // Backend is not zero-indexed, so we have to +1 to stateIDPath
     alteredSessionData.paths[newID].steps[stateIDStep].ssnum = String(
       stateIDPath + 1
