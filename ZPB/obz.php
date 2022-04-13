@@ -14,6 +14,19 @@ $appVideos = getAppVideos($id); //Defined below
 //print_r($session);
 //echo "<br>session: "; print_r($session);
 
+//If in playgrounds, query playgrounds DB
+if (isset($_GET['isPlayground'])) {
+    //echo "It's a playground";
+    $return = mysqli_query($db, "SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbPlaygroundActivity SA, tbPathNodes PN, tbSubPlaygrounds SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
+}
+//Otherwise, query research
+else
+    $return = mysqli_query($db, "SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
+//Regardless, populate with observation info
+while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$d;*/
+    $subsessions[$d['ssid']][] = $d;
+}
+
 $return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$session['pathid']}'");
 while ($d = mysqli_fetch_assoc($return)) {
     $currentPathStartsAt = $d['startpnid'];
@@ -373,11 +386,20 @@ while ($d = mysqli_fetch_assoc($return)) {
     function setupNodeInfo(structIndex){
         console.log("passed index: "+structIndex);
         console.log(structure[structIndex]);
+
+        Object.entries(structure).forEach((index, value) => {
+            console.log("index: "+index);
+            console.log("value:");
+            console.log(value);
+        });
+
+/*
         structure[structIndex].forEach((index, value) => {
             console.log("index: "+index);
             console.log("value:");
             console.log(value);
         });
+        */
     }
 </script>
 </html>
