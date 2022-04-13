@@ -256,9 +256,11 @@ var ccoiObservation = (function () {
   function addStepToPathTrace(step, list) {
     let newOutputLI = document.createElement("li");
     if(typeof step.output == 'function'){
+      console.log("Printing the not copied version");
       newOutputLI.innerHTML = step.output()
     }
     else {
+      console.log("Printing the copied version");
       newOutputLI.innerHTML = step.output;
     }
     list.appendChild(newOutputLI);
