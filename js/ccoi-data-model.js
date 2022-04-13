@@ -160,11 +160,11 @@ function CCOI_Step_AJAX (node, node_ID, choice, choice_ID, ssnum, nextNodeID, ne
 		this.notes = notes || null;
 		this.stateIDStep = stateIDStep || 0;
 	
-		this.nextNodeID = CCOI_Step_nextNodeID;
-		this.nextNodeIDInt = CCOI_Step_nextNodeID_int;
-		this.branchDescription = CCOI_Step_branchDescription;
-		this.extraType = CCOI_Step_extraType;
-		this.output = CCOI_Step_output;
+		this.nextNodeID = 0 || nextNodeID;
+		this.nextNodeIDInt = 0 || nextNodeIDInt;
+		this.branchDescription = 'NULL' || branchDescription;
+		this.extraType = '' || extraType;
+		this.output = '' || output;
 		this.pathNodeID = CCOI_Step_PathNodeID;
 	  }
 	
@@ -179,11 +179,11 @@ function CCOI_Step_AJAX (node, node_ID, choice, choice_ID, ssnum, nextNodeID, ne
  * @return {object} ajaxReadyObject
  */
 function goGoAjax(base, ajax) {
-	ajax.nextNodeID = base.CCOI_Step_nextNodeID();
-	ajax.nextNodeIDInt = base.CCOI_Step_nextNodeID_int();
-	ajax.branchDescription = base.CCOI_Step_branchDescription();
-	ajax.extraType = base.CCOI_Step_extraType();
-	ajax.output = base.CCOI_Step_output();
+	ajax.nextNodeID = base.nextNodeID();
+	ajax.nextNodeIDInt = base.nextNodeIDInt();
+	ajax.branchDescription = base.branchDescription();
+	ajax.extraType = base.extraType();
+	ajax.output = base.output();
 	//COMMENCE FIXY PROTOCOL
 	ajax.ssnum = base.ssnum;
 	ajax.node = base.node;
