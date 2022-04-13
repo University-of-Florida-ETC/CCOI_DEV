@@ -223,14 +223,14 @@ function goGoAjax(base, ajax) {
  * @param {int} choice Index of chosen edge in schema
  */
 function getNodeFromChoice (nodeID, choice) {	
-	// new ID system that Mark setup
-	// console.log("Get node from choice:" + choice);
-	// console.log("This is your node ID:" + nodeID); 
+	//new ID system that Mark setup
+	console.log("Get node from choice:" + choice);
+	console.log("This is your node ID:" + nodeID); 
 	if(Number.isInteger(choice) || choice < 100000){
 		var node = ccoi.ccoiSchema.getNode(nodeID);
 		let printableNode = JSON.stringify(node);
-		// console.log("Here is the node json");
-		// console.log(printableNode);
+		console.log("Here is the node json");
+		console.log(printableNode);
 		if(!node.branches){
 			throw "Error in getNodeFromChoice(): No branches in node "+nodeID;
 		}
