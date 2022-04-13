@@ -190,7 +190,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                                         </div>
                                     </div>
                                     <div class="col-md-5 col-12">
-                                        <button id="proceed_button" class="btn btn-sm btn-outline-darkblue mb-2">Proceed</button>
+                                        <button id="proceed_button" class="btn btn-sm btn-outline-darkblue mb-2" onclick="proceed()">Proceed</button>
                                         <button id="proceed_and_play_button" class="btn btn-sm btn-outline-darkblue mb-2">Proceed and Play</button>
                                     </div>
                                     <div class="col-md-3 col-12 video-speed-box">
