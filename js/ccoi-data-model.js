@@ -133,6 +133,80 @@ function concatPaths () {
   return collapsedEvents;
 }
 
+function CCOI_Step_AJAX (node, node_ID, choice, choice_ID, ssnum, nextNodeID, nextNodeIDInt, branchDescription, extraType, output, totalSeconds, extra, notes, stateIDStep) { 
+	if (arguments.length === 1) {
+		var obj = node;
+		for (var prop in obj) {
+		  if (obj.hasOwnProperty(prop)) {
+			this[prop] = obj[prop];
+		  }
+		}
+	
+		this.nextNodeID = 0 || nextNodeID
+		this.nextNodeIDInt = 0 || nextNodeIDInt;
+		this.branchDescription = 'NULL' || branchDescription;
+		this.extraType = 'NULL' || extraType;
+		this.output = 'NULL' || output;
+	  } else {
+		  this.ssnum = ssnum || 0;
+		this.node = node || 0;
+		this.nodeid = node_ID || 0;
+		this.choice = choice || 0;
+		this.choiceid = choice_ID || 0;
+		//this.minutes = minutes || 0;
+		//this.seconds = seconds || 0;
+		this.totalSeconds = totalSeconds || 0;
+		this.extra = extra || null;
+		this.notes = notes || null;
+		this.stateIDStep = stateIDStep || 0;
+	
+		this.nextNodeID = CCOI_Step_nextNodeID;
+		this.nextNodeIDInt = CCOI_Step_nextNodeID_int;
+		this.branchDescription = CCOI_Step_branchDescription;
+		this.extraType = CCOI_Step_extraType;
+		this.output = CCOI_Step_output;
+		this.pathNodeID = CCOI_Step_PathNodeID;
+	  }
+	
+	  this.timeInSeconds = function () {
+		return (this.minutes * 60) + this.seconds;
+	  };
+}
+/**
+ * This function takes two params, and will duplicate {base} onto {ajax}, populating the object method slots with filled values. I am so sorry about this.  
+ * @param {object} base - the base array 
+ * @param {object} ajax - the object you intend to use with AJAX
+ * @return {object} ajaxReadyObject
+ */
+function goGoAjax(base, ajax) {
+	ajax.nextNodeID = base.CCOI_Step_nextNodeID();
+	ajax.nextNodeIDInt = base.CCOI_Step_nextNodeID_int();
+	ajax.branchDescription = base.CCOI_Step_branchDescription();
+	ajax.extraType = base.CCOI_Step_extraType();
+	ajax.output = base.CCOI_Step_output();
+	//COMMENCE FIXY PROTOCOL
+	ajax.ssnum = base.ssnum;
+	ajax.node = base.node;
+	ajax.choice = base.choice; 
+	ajax.choiceID = base.choiceID;
+	ajax.totalSeconds = base.totalSeconds;
+	ajax.extra = base.extra;
+	ajax.notes = base.notes; 
+	ajax.stateIDStep = base.stateIDStep;
+	
+	if(base.isEdited != undefined){
+		ajax.isEdited = base.isEdited;
+	}
+
+	if(base.isNew != undefined){
+		ajax.isNew = base.isNew;
+	}
+	
+	
+	return ajax;
+}
+
+
 /**
  * Returns the branch JSON object from schema for a given selection
  *

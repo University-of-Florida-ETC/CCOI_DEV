@@ -437,6 +437,8 @@ var ccoiObservation = (function () {
       notes,
       stateIDStep
     );
+    let stepAJAX = new CCOI_Step_AJAX();
+    
 
     // TODO: Move this logic into a separate function
     let newID = stateIDPath;
@@ -474,7 +476,10 @@ var ccoiObservation = (function () {
       step.isEdited = true;
     }
 
-    currentTrace[stateIDStep] = step;
+    stepAJAX = goGoAjax(step, stepAJAX);
+    // Step is dead. Long live stepAJAX. 
+
+    currentTrace[stateIDStep] = stepAJAX;
     if (alteredSessionData.paths == undefined) alteredSessionData.paths = [];
     // If there is not currently a path in this ID, we know it hasn't been edited yet
     if (alteredSessionData.paths[stateIDPath] == undefined) {
@@ -491,7 +496,7 @@ var ccoiObservation = (function () {
     alteredSessionData.updateObsEl = 1;
     //console.log(sessions[currentSessionID]);
     // Backend is not zero-indexed, so we have to +1 to stateIDPath
-    console.log(step);
+    console.log(stepAJAX);
     alteredSessionData.paths[newID].id = stateIDPath + 1;
 
     // ! How does one tell if a path isEdted?
@@ -501,11 +506,11 @@ var ccoiObservation = (function () {
     // Before adding this step, we need to see if the index in alteredSessionData is empty
     // If it is empty, we know that this is a new step and can add it
     if (alteredSessionData.paths[newID].steps[stateIDStep] == undefined) {
-      alteredSessionData.paths[newID].steps[stateIDStep] = step;
+      alteredSessionData.paths[newID].steps[stateIDStep] = stepAJAX;
       alteredSessionData.paths[newID].steps[stateIDStep].isNew = true;
     } else {
     }
-    alteredSessionData.paths[newID].steps[stateIDStep] = step;
+    alteredSessionData.paths[newID].steps[stateIDStep] = stepAJAX;
     // Backend is not zero-indexed, so we have to +1 to stateIDPath
     alteredSessionData.paths[newID].steps[stateIDStep].ssnum = String(
       stateIDPath + 1
@@ -931,7 +936,7 @@ var ccoiObservation = (function () {
       alert("Your browser does not support AJAX!");
       return;
     }
-    
+
     xmlHttp.onreadystatechange = function () {
       var data = getHTML(xmlHttp);
       if (data) {
@@ -941,22 +946,22 @@ var ccoiObservation = (function () {
         console.log("Here?");
       }
     };
-    console.log('aaa');
-    console.log(alteredSessionData);
-    // console.log('xxx' + $.param(alteredSessionData));
-    // var sendStr = "updateObsEl=1&" + $.param(alteredSessionData);
-    // console.log("sendStr:");
-    // console.log(sendStr);
-    // var url = encodeURI(derServer + "ZPB/zpb_ajax.php?" + sendStr);
-    // console.log(url);
-    // xmlHttp.open("POST", url, true);
-    // xmlHttp.setRequestHeader(
-    //   "Content-Type",
-    //   "application/x-www-form-urlencoded"
-    // );
-    // xmlHttp.send(sendStr);
 
-    //ccoi.callToAPI('/api/ccoi_ajax.php', sendData);
+    console.log(alteredSessionData);
+    console.log("xxx" + $.param(alteredSessionData));
+    var sendStr = "updateObsEl=1&" + $.param(alteredSessionData);
+    console.log("sendStr:");
+    console.log(sendStr);
+    var url = encodeURI(derServer + "ZPB/zpb_ajax.php?" + sendStr);
+    console.log(url);
+    xmlHttp.open("POST", url, true);
+    xmlHttp.setRequestHeader(
+      "Content-Type",
+      "application/x-www-form-urlencoded"
+    );
+    xmlHttp.send(sendStr);
+
+    ccoi.callToAPI("/api/ccoi_ajax.php", sendData);
   }
 
   /*
