@@ -63,7 +63,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 ?>
 <script>
     var sessionID = <?php echo $id; ?>;
-    var nodeData = `<?php echo json_encode($nodeData, JSON_PRETTY_PRINT); ?>`;
+    var nodeData = JSON.parse(`<?php echo json_encode($nodeData); ?>`);
     var structure = JSON.parse(`<?php echo json_encode($structure); ?>`);
 </script>
 <main role="main">
@@ -387,7 +387,10 @@ while ($d = mysqli_fetch_assoc($return)) {
 
     function setupNodeInfo(structIndex){
         console.log("passed index: "+structIndex);
-        console.log(structure[structIndex]);
+        console.log("structure[structIndex]:"); console.log(structure[structIndex]);
+        console.log("nodeData[structIndex]:"); console.log(nodeData[structIndex]);
+
+        DOM.path_title.innerText = nodeData[structIndex]['title'];
 
         $("#branch_container").empty();
         $("#branch_container").append('<form id="branch_radio_form" class="col-12 pt-3" action="javascript:void(0)"></form>');
@@ -396,14 +399,19 @@ while ($d = mysqli_fetch_assoc($return)) {
             console.log("index: "+index);
             console.log("value:");
             console.log(value);
-/*
-            $("#branch_container").append(`
-            <p>
-                <input type="radio" name="choiceRadio" id="choiceRadio${value[0]}" value="${value[0]}">
-                <label for="choiceRadio${value[0]}" class="choiceOfList">(${index}) Student addresses Peer</label>
-            </p>`);
-    );
-    */
+            if(value[0]=="0"){
+
+            }
+            else {
+
+                $("#branch_radio_form").append(`
+                <p>
+                    <input type="radio" name="choiceRadio" id="choiceRadio${value[1]['id']}" value="${value[1]['id']}">
+                    <label for="choiceRadio${value[1]['id']}" class="choiceOfList">(${value[0]}) ${nodeData[value[1]]['id']}</label>
+                </p>`);
+
+            }
+
         });
 
 /*
