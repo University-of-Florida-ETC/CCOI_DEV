@@ -386,11 +386,20 @@ while ($d = mysqli_fetch_assoc($return)) {
     function setupNodeInfo(structIndex){
         console.log("passed index: "+structIndex);
         console.log(structure[structIndex]);
+
+        Object.entries(structure).forEach((index, value) => {
+            console.log("index: "+index);
+            console.log("value:");
+            console.log(value);
+        });
+
+/*
         structure[structIndex].forEach((index, value) => {
             console.log("index: "+index);
             console.log("value:");
             console.log(value);
         });
+        */
     }
 </script>
 </html>
