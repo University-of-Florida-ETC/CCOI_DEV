@@ -392,15 +392,15 @@ while ($d = mysqli_fetch_assoc($return)) {
         $("#branch_container").empty();
         $("#branch_container").append('<form id="branch_radio_form" class="col-12 pt-3" action="javascript:void(0)"></form>');
 
-        Object.entries(structure).forEach((value, index) => {
+        Object.entries(structure[structIndex]).forEach((value, index) => {
             console.log("index: "+index);
             console.log("value:");
             console.log(value);
 /*
             $("#branch_container").append(`
             <p>
-                <input type="radio" name="choiceRadio" id="choiceRadio52731b" data-oldchoiceindex="2" value="52731b">
-                <label for="choiceRadio52731b" class="choiceOfList">(0) Student addresses Peer</label>
+                <input type="radio" name="choiceRadio" id="choiceRadio${value[0]}" value="${value[0]}">
+                <label for="choiceRadio${value[0]}" class="choiceOfList">(${index}) Student addresses Peer</label>
             </p>`);
     );
     */
