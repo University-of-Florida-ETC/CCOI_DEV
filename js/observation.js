@@ -947,20 +947,20 @@ var ccoiObservation = (function () {
     };
     console.log('aaa');
     console.log(alteredSessionData);
-    // console.log('xxx' + $.param(alteredSessionData));
-    // var sendStr = "updateObsEl=1&" + $.param(alteredSessionData);
-    // console.log("sendStr:");
-    // console.log(sendStr);
-    // var url = encodeURI(derServer + "ZPB/zpb_ajax.php?" + sendStr);
-    // console.log(url);
-    // xmlHttp.open("POST", url, true);
-    // xmlHttp.setRequestHeader(
-    //   "Content-Type",
-    //   "application/x-www-form-urlencoded"
-    // );
-    // xmlHttp.send(sendStr);
+    console.log('xxx' + $.param(alteredSessionData));
+    var sendStr = "updateObsEl=1&" + $.param(alteredSessionData);
+    console.log("sendStr:");
+    console.log(sendStr);
+    var url = encodeURI(derServer + "ZPB/zpb_ajax.php?" + sendStr);
+    console.log(url);
+    xmlHttp.open("POST", url, true);
+    xmlHttp.setRequestHeader(
+      "Content-Type",
+      "application/x-www-form-urlencoded"
+    );
+    xmlHttp.send(sendStr);
 
-    //ccoi.callToAPI('/api/ccoi_ajax.php', sendData);
+    ccoi.callToAPI('/api/ccoi_ajax.php', sendData);
   }
 
   /*
