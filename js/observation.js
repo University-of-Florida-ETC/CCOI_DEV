@@ -255,11 +255,10 @@ var ccoiObservation = (function () {
 
   function addStepToPathTrace(step, list) {
     let newOutputLI = document.createElement("li");
-    if(typeof step.output == 'function'){
+    if (typeof step.output == "function") {
       console.log("Printing the not copied version");
-      newOutputLI.innerHTML = step.output()
-    }
-    else {
+      newOutputLI.innerHTML = step.output();
+    } else {
       console.log("Printing the copied version");
       newOutputLI.innerHTML = step.output;
     }
@@ -353,17 +352,12 @@ var ccoiObservation = (function () {
       (currentStep.nodeid != newNodeID ||
         currentStep.choiceid != newChoiceIndex)
     ) {
-      console.log("Are we here?");
       // If changing the choice leads to the same node:
       var currentStepNextNodeID;
       // catch empty/deleted nodes
-      console.log("What about here?");
       try {
         currentStepNextNodeID = currentStep.nextNodeID();
       } catch (err) {
-        console.log(
-          "We have caught an error sir! Dear fucking lord! The ship is sinking!"
-        );
         currentStepNextNodeID = -1;
       }
       console.log("Confirming we are hitting line 289");
@@ -435,7 +429,7 @@ var ccoiObservation = (function () {
       nodeID,
       nodeIDString,
       choiceIndex,
-      newChoiceIndex,
+      choiceIndex,
       ssnum,
       minutesValue,
       secondsValue,
@@ -445,7 +439,6 @@ var ccoiObservation = (function () {
       stateIDStep
     );
     let stepAJAX = new CCOI_Step_AJAX();
-    
 
     // TODO: Move this logic into a separate function
     let newID = stateIDPath;
@@ -484,7 +477,7 @@ var ccoiObservation = (function () {
     }
 
     stepAJAX = goGoAjax(step, stepAJAX);
-    // Step is dead. Long live stepAJAX. 
+    // Step is dead. Long live stepAJAX.
 
     currentTrace[stateIDStep] = stepAJAX;
     if (alteredSessionData.paths == undefined) alteredSessionData.paths = [];
