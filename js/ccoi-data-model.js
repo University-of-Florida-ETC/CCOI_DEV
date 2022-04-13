@@ -184,6 +184,7 @@ function goGoAjax(base, ajax) {
 	ajax.branchDescription = base.branchDescription();
 	ajax.extraType = base.extraType();
 	ajax.output = base.output();
+	ajax.pathNodeID = base.pathNodeID();
 	//COMMENCE FIXY PROTOCOL
 	ajax.nodeid = base.nodeid;
 	ajax.ssnum = base.ssnum;
@@ -194,7 +195,7 @@ function goGoAjax(base, ajax) {
 	ajax.extra = base.extra;
 	ajax.notes = base.notes; 
 	ajax.stateIDStep = base.stateIDStep;
-	ajax.pathNodeID = base.pathNodeID();
+	
 	
 	if(base.isEdited != undefined){
 		ajax.isEdited = base.isEdited;
