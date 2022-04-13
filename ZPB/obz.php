@@ -64,7 +64,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 <script>
     var sessionID = <?php echo $id; ?>;
     var nodeData = <?php echo json_encode($nodeData); ?>;
-    var structure = JSON.parse(`<?php echo json_encode($structure); ?>`);
+    var structure = <?php echo json_encode($structure); ?>;
 </script>
 <main role="main">
     <div class="container-fluid">
