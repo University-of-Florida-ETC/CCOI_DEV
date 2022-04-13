@@ -178,12 +178,12 @@ function CCOI_Step_AJAX (node, node_ID, choice, choice_ID, ssnum, nextNodeID, ne
  */
 function goGoAjax(base, ajax) {
 	//
-	ajax.nextNodeID = base.nextNodeID();
-	ajax.nextNodeIDInt = base.nextNodeIDInt();
-	ajax.branchDescription = base.branchDescription();
-	ajax.extraType = base.extraType();
-	ajax.output = base.output();
-	ajax.pathNodeID = base.pathNodeID();
+	//ajax.nextNodeID = base.nextNodeID();
+	//ajax.nextNodeIDInt = base.nextNodeIDInt();
+	//ajax.branchDescription = base.branchDescription();
+	//ajax.extraType = base.extraType();
+	//ajax.output = base.output();
+	//ajax.pathNodeID = base.pathNodeID();
 	//COMMENCE FIXY PROTOCOL
 	ajax.nodeid = base.nodeid;
 	ajax.ssnum = base.ssnum;
@@ -223,14 +223,14 @@ function goGoAjax(base, ajax) {
  * @param {int} choice Index of chosen edge in schema
  */
 function getNodeFromChoice (nodeID, choice) {	
-	// new ID system that Mark setup
-	// console.log("Get node from choice:" + choice);
-	// console.log("This is your node ID:" + nodeID); 
+	//new ID system that Mark setup
+	console.log("Get node from choice:" + choice);
+	console.log("This is your node ID:" + nodeID); 
 	if(Number.isInteger(choice) || choice < 100000){
 		var node = ccoi.ccoiSchema.getNode(nodeID);
 		let printableNode = JSON.stringify(node);
-		// console.log("Here is the node json");
-		// console.log(printableNode);
+		console.log("Here is the node json");
+		console.log(printableNode);
 		if(!node.branches){
 			throw "Error in getNodeFromChoice(): No branches in node "+nodeID;
 		}
@@ -253,9 +253,9 @@ function getNodeFromChoice (nodeID, choice) {
  * @returns {string} Returns the next node's hex ID from the schema
  */
 function CCOI_Step_nextNodeID () {
-	// console.log("nextNodeID print beginning:");
-	// console.log(this.nodeid);
-	// console.log(this.choiceid);
+	console.log("nextNodeID print beginning:");
+	console.log(this.nodeid);
+	console.log(this.choiceid);
 	return this.choiceid === -1 ? null : getNodeFromChoice(this.nodeid, this.choiceid).next;
 }
 
@@ -263,9 +263,9 @@ function CCOI_Step_nextNodeID () {
  * @returns {string} Returns the next node's hex ID from the schema
  */
 function CCOI_Step_nextNodeID_int () {
-	// console.log("beginning nextNodeID_int print: ")
-	// console.log(this.nodeid);
-	// console.log(this.choiceid);
+	console.log("beginning nextNodeID_int print: ")
+	console.log(this.nodeid);
+	console.log(this.choiceid);
 	return this.choiceid === -1 ? null : getNodeFromChoice(this.nodeid, this.choiceid).next_id;
 }
 

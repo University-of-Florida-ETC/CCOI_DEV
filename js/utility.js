@@ -57,7 +57,7 @@ function removeEmptyAndOld(obj) {
     // Removes empty key/value pairs and the old hex id items
     Object.keys(obj).forEach(key =>
         (obj[key] && typeof obj[key] === 'object') && removeEmptyAndOld(obj[key]) ||
-        (obj[key] === undefined || obj[key] === null || obj[key] === "" || obj[key] === "null" || key === "node" || key === "choice") && delete obj[key]
+        (obj[key] === undefined || obj[key] === null || obj[key] === "" || obj[key] === "null" || key === "node") && delete obj[key]
     );
     return obj;
 };
