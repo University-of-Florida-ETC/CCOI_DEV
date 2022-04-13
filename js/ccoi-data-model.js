@@ -168,9 +168,7 @@ function CCOI_Step_AJAX (node, node_ID, choice, choice_ID, ssnum, nextNodeID, ne
 		this.pathNodeID = pathNodeID || 0;
 	  }
 	
-	  this.timeInSeconds = function () {
-		return (this.minutes * 60) + this.seconds;
-	  };
+
 }
 /**
  * This function takes two params, and will duplicate {base} onto {ajax}, populating the object method slots with filled values. I am so sorry about this.  
@@ -179,6 +177,7 @@ function CCOI_Step_AJAX (node, node_ID, choice, choice_ID, ssnum, nextNodeID, ne
  * @return {object} ajaxReadyObject
  */
 function goGoAjax(base, ajax) {
+	//
 	ajax.nextNodeID = base.nextNodeID();
 	ajax.nextNodeIDInt = base.nextNodeIDInt();
 	ajax.branchDescription = base.branchDescription();
@@ -204,6 +203,13 @@ function goGoAjax(base, ajax) {
 	if(base.isNew != undefined){
 		ajax.isNew = base.isNew;
 	}
+
+	if(isNaN(base.timeInSeconds) == false ) {
+		ajax.timeInSeconds = base.timeInSeconds;
+	}
+
+	console.log("here is the AJAX version of CCOI_step after gogoajax");
+	console.log(ajax);
 	
 	
 	return ajax;
@@ -277,6 +283,10 @@ function CCOI_Step_branchDescription () {
 	}
 	return branchDescription;
 }
+/**
+ * Function used to obtain the pathNodeID, using the branch new_id.
+ * @returns int
+ */
 function CCOI_Step_PathNodeID () { 
 	let pathNodeID;
 	try {

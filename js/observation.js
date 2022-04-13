@@ -255,11 +255,10 @@ var ccoiObservation = (function () {
 
   function addStepToPathTrace(step, list) {
     let newOutputLI = document.createElement("li");
-    if(typeof step.output == 'function'){
+    if (typeof step.output == "function") {
       console.log("Printing the not copied version");
-      newOutputLI.innerHTML = step.output()
-    }
-    else {
+      newOutputLI.innerHTML = step.output();
+    } else {
       console.log("Printing the copied version");
       newOutputLI.innerHTML = step.output;
     }
@@ -321,12 +320,12 @@ var ccoiObservation = (function () {
     )[0].dataset.oldchoiceindex;
     console.log("here is choice index");
     console.log(choiceIndex);
-    let newChoiceIndex = $(
+    let choiceHex = $(
       'input[name="choiceRadio"]:checked',
       "#branch_radio_form"
     ).val();
-    console.log("here is newChoiceindex");
-    console.log(newChoiceIndex);
+    console.log("here is choiceHex");
+    console.log(choiceHex);
     if (choiceIndex === "-1") choiceIndex = -1;
 
     if (choiceIndex === undefined) {
@@ -351,25 +350,20 @@ var ccoiObservation = (function () {
     if (
       currentStep !== undefined &&
       (currentStep.nodeid != newNodeID ||
-        currentStep.choiceid != newChoiceIndex)
+        currentStep.choiceid != choiceHex)
     ) {
-      console.log("Are we here?");
       // If changing the choice leads to the same node:
       var currentStepNextNodeID;
       // catch empty/deleted nodes
-      console.log("What about here?");
       try {
         currentStepNextNodeID = currentStep.nextNodeID();
       } catch (err) {
-        console.log(
-          "We have caught an error sir! Dear fucking lord! The ship is sinking!"
-        );
         currentStepNextNodeID = -1;
       }
       console.log("Confirming we are hitting line 289");
       console.log(newNodeID);
-      console.log(newChoiceIndex);
-      var newChoice = getNodeFromChoice(newNodeID, newChoiceIndex);
+      console.log(choiceHex);
+      var newChoice = getNodeFromChoice(newNodeID, choiceHex);
       console.log(newChoice);
       if (newChoice && currentStepNextNodeID === newChoice.next_id) {
         // I'm not sure if we actually have to do anything here to get the choice to quietly swap out.
@@ -396,7 +390,7 @@ var ccoiObservation = (function () {
     let branchExtra =
       choiceIndex === -1
         ? null
-        : getNodeFromChoice(newNodeID, newChoiceIndex).extra;
+        : getNodeFromChoice(newNodeID, choiceHex).extra;
     if (
       branchExtra !== null &&
       branchExtra !== undefined &&
@@ -434,8 +428,8 @@ var ccoiObservation = (function () {
     let step = new CCOI_Step(
       nodeID,
       nodeIDString,
+      choiceHex,
       choiceIndex,
-      newChoiceIndex,
       ssnum,
       minutesValue,
       secondsValue,
@@ -445,7 +439,6 @@ var ccoiObservation = (function () {
       stateIDStep
     );
     let stepAJAX = new CCOI_Step_AJAX();
-    
 
     // TODO: Move this logic into a separate function
     let newID = stateIDPath;
@@ -484,7 +477,7 @@ var ccoiObservation = (function () {
     }
 
     stepAJAX = goGoAjax(step, stepAJAX);
-    // Step is dead. Long live stepAJAX. 
+    // Step is dead. Long live stepAJAX.
 
     currentTrace[stateIDStep] = stepAJAX;
     if (alteredSessionData.paths == undefined) alteredSessionData.paths = [];
