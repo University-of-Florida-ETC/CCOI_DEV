@@ -133,7 +133,7 @@ function concatPaths () {
   return collapsedEvents;
 }
 
-function CCOI_Step_AJAX (node, node_ID, choice, choice_ID, ssnum, nextNodeID, nextNodeIDInt, branchDescription, extraType, output, totalSeconds, extra, notes, stateIDStep) { 
+function CCOI_Step_AJAX (node, node_ID, choice, choice_ID, ssnum, nextNodeID, nextNodeIDInt, branchDescription, extraType, output, pathNodeID, totalSeconds, extra, notes, stateIDStep) { 
 	if (arguments.length === 1) {
 		var obj = node;
 		for (var prop in obj) {
@@ -165,7 +165,7 @@ function CCOI_Step_AJAX (node, node_ID, choice, choice_ID, ssnum, nextNodeID, ne
 		this.branchDescription = 'NULL' || branchDescription;
 		this.extraType = '' || extraType;
 		this.output = '' || output;
-		this.pathNodeID = CCOI_Step_PathNodeID;
+		this.pathNodeID = pathNodeID || 0;
 	  }
 	
 	  this.timeInSeconds = function () {
@@ -194,6 +194,7 @@ function goGoAjax(base, ajax) {
 	ajax.extra = base.extra;
 	ajax.notes = base.notes; 
 	ajax.stateIDStep = base.stateIDStep;
+	ajax.pathNodeID = base.pathNodeID();
 	
 	if(base.isEdited != undefined){
 		ajax.isEdited = base.isEdited;
