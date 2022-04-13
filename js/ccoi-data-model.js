@@ -180,10 +180,10 @@ function goGoAjax(base, ajax) {
 	//
 	//ajax.nextNodeID = base.nextNodeID();
 	//ajax.nextNodeIDInt = base.nextNodeIDInt();
-	ajax.branchDescription = base.branchDescription();
-	ajax.extraType = base.extraType();
-	ajax.output = base.output();
-	ajax.pathNodeID = base.pathNodeID();
+	//ajax.branchDescription = base.branchDescription();
+	//ajax.extraType = base.extraType();
+	//ajax.output = base.output();
+	//ajax.pathNodeID = base.pathNodeID();
 	//COMMENCE FIXY PROTOCOL
 	ajax.nodeid = base.nodeid;
 	ajax.ssnum = base.ssnum;
