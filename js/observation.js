@@ -320,12 +320,12 @@ var ccoiObservation = (function () {
     )[0].dataset.oldchoiceindex;
     console.log("here is choice index");
     console.log(choiceIndex);
-    let newChoiceIndex = $(
+    let choiceHex = $(
       'input[name="choiceRadio"]:checked',
       "#branch_radio_form"
     ).val();
-    console.log("here is newChoiceindex");
-    console.log(newChoiceIndex);
+    console.log("here is choiceHex");
+    console.log(choiceHex);
     if (choiceIndex === "-1") choiceIndex = -1;
 
     if (choiceIndex === undefined) {
@@ -350,7 +350,7 @@ var ccoiObservation = (function () {
     if (
       currentStep !== undefined &&
       (currentStep.nodeid != newNodeID ||
-        currentStep.choiceid != newChoiceIndex)
+        currentStep.choiceid != choiceHex)
     ) {
       // If changing the choice leads to the same node:
       var currentStepNextNodeID;
@@ -362,8 +362,8 @@ var ccoiObservation = (function () {
       }
       console.log("Confirming we are hitting line 289");
       console.log(newNodeID);
-      console.log(newChoiceIndex);
-      var newChoice = getNodeFromChoice(newNodeID, newChoiceIndex);
+      console.log(choiceHex);
+      var newChoice = getNodeFromChoice(newNodeID, choiceHex);
       console.log(newChoice);
       if (newChoice && currentStepNextNodeID === newChoice.next_id) {
         // I'm not sure if we actually have to do anything here to get the choice to quietly swap out.
@@ -390,7 +390,7 @@ var ccoiObservation = (function () {
     let branchExtra =
       choiceIndex === -1
         ? null
-        : getNodeFromChoice(newNodeID, newChoiceIndex).extra;
+        : getNodeFromChoice(newNodeID, choiceHex).extra;
     if (
       branchExtra !== null &&
       branchExtra !== undefined &&
@@ -428,7 +428,7 @@ var ccoiObservation = (function () {
     let step = new CCOI_Step(
       nodeID,
       nodeIDString,
-      choiceIndex,
+      choiceHex,
       choiceIndex,
       ssnum,
       minutesValue,

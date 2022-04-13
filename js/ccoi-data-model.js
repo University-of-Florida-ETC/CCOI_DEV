@@ -177,7 +177,7 @@ function CCOI_Step_AJAX (node, node_ID, choice, choice_ID, ssnum, nextNodeID, ne
  * @return {object} ajaxReadyObject
  */
 function goGoAjax(base, ajax) {
-	// 
+	//
 	ajax.nextNodeID = base.nextNodeID();
 	ajax.nextNodeIDInt = base.nextNodeIDInt();
 	ajax.branchDescription = base.branchDescription();
@@ -207,6 +207,9 @@ function goGoAjax(base, ajax) {
 	if(isNaN(base.timeInSeconds) == false ) {
 		ajax.timeInSeconds = base.timeInSeconds;
 	}
+
+	console.log("here is the AJAX version of CCOI_step after gogoajax");
+	console.log(ajax);
 	
 	
 	return ajax;
