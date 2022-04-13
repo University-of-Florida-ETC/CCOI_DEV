@@ -117,7 +117,7 @@ if( !empty($_POST['updateObsEl']) ) {
             echo " is edited";
         }
 
-        foreach ($_POST['paths'] as $index => $currentNode){
+        foreach ($currentObservation['steps'] as $index => $currentNode){
             echo "\r\n    Node at index {$index} has id {$currentNode['nodeid']} and title {$currentNode['branchDescription']}";
             if( isset($currentNode['isNew']) )
             {
