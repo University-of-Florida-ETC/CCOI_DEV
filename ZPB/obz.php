@@ -209,7 +209,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                                     </div>
                                 </div>
                                 <div id="branch_container" class="row">
-
+                                    <form id="branch_radio_form" class="col-12 pt-3" action="javascript:void(0)"></form>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
@@ -362,7 +362,9 @@ while ($d = mysqli_fetch_assoc($return)) {
         'exportTitle',
         'returnFromExport',
         'exportDownload',
-        'exportOut'
+        'exportOut',
+        'branch_container',
+        'branch_radio_form'
     ];
 
     var numIDs = IDs.length;
@@ -387,10 +389,21 @@ while ($d = mysqli_fetch_assoc($return)) {
         console.log("passed index: "+structIndex);
         console.log(structure[structIndex]);
 
-        Object.entries(structure).forEach((index, value) => {
+        $("#branch_container").empty();
+        $("#branch_container").append('<form id="branch_radio_form" class="col-12 pt-3" action="javascript:void(0)"></form>');
+
+        Object.entries(structure[structIndex]).forEach((value, index) => {
             console.log("index: "+index);
             console.log("value:");
             console.log(value);
+/*
+            $("#branch_container").append(`
+            <p>
+                <input type="radio" name="choiceRadio" id="choiceRadio${value[0]}" value="${value[0]}">
+                <label for="choiceRadio${value[0]}" class="choiceOfList">(${index}) Student addresses Peer</label>
+            </p>`);
+    );
+    */
         });
 
 /*
