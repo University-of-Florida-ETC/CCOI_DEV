@@ -164,7 +164,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                     <div id="path_input" class="col-12 pt-3 pr-md-5 d-none">
                         <h2 id="path_title"></h2>
                         <div class="row">
-                            <form method="post" action="javascript:void(0)" id="branch_form" class="col s9" name="branch_form">
+                            <form method="post" action="javascript:void(0)" id="branch_form" class="col-12" name="branch_form">
                                 <div class="row py-3">
                                     <div class="col-md-9 col-12">
                                         <div class="form-group">
@@ -211,7 +211,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                                 <div id="branch_container" class="row">
                                     <form id="branch_radio_form" class="col-12 pt-3" action="javascript:void(0)"></form>
                                 </div>
-                                <div class="row">
+                                <div class="row col-12">
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="notes_input">Notes:</label>
@@ -406,8 +406,8 @@ while ($d = mysqli_fetch_assoc($return)) {
 
                 $("#branch_radio_form").append(`
                 <p>
-                    <input type="radio" name="choiceRadio" id="choiceRadio${value[1]['id']}" value="${value[1]['id']}">
-                    <label for="choiceRadio${value[1]['id']}" class="choiceOfList">(${value[0]}) ${nodeData[value[1]['id']]['title']}</label>
+                    <input type="radio" name="choiceRadio" id="choiceRadio${value[1]['choice']}" value="${value[1]['choice']}">
+                    <label for="choiceRadio${value[1]['choice']}" class="choiceOfList">(${value[0]}) ${nodeData[value[1]['choice']]['title']}</label>
                 </p>`);
 
             }
