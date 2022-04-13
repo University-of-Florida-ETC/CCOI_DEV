@@ -406,8 +406,8 @@ while ($d = mysqli_fetch_assoc($return)) {
 
                 $("#branch_radio_form").append(`
                 <p>
-                    <input type="radio" name="choiceRadio" id="choiceRadio${value[1]['id']}" value="${value[1]['id']}">
-                    <label for="choiceRadio${value[1]['id']}" class="choiceOfList">(${value[0]}) ${nodeData[value[1]['id']]['title']}</label>
+                    <input type="radio" name="choiceRadio" id="choiceRadio${value[1]['choice']}" value="${value[1]['choice']}">
+                    <label for="choiceRadio${value[1]['choice']}" class="choiceOfList">(${value[0]}) ${nodeData[value[1]['choice']]['title']}</label>
                 </p>`);
 
             }
