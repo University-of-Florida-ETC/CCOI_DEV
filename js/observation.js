@@ -255,13 +255,7 @@ var ccoiObservation = (function () {
 
   function addStepToPathTrace(step, list) {
     let newOutputLI = document.createElement("li");
-    if (typeof step.output == "function") {
-      console.log("Printing the not copied version");
-      newOutputLI.innerHTML = step.output();
-    } else {
-      console.log("Printing the copied version");
-      newOutputLI.innerHTML = step.output;
-    }
+    newOutputLI.innerHTML = step.output();
     list.appendChild(newOutputLI);
   }
 
@@ -320,12 +314,12 @@ var ccoiObservation = (function () {
     )[0].dataset.oldchoiceindex;
     console.log("here is choice index");
     console.log(choiceIndex);
-    let choiceHex = $(
+    let newChoiceIndex = $(
       'input[name="choiceRadio"]:checked',
       "#branch_radio_form"
     ).val();
-    console.log("here is choiceHex");
-    console.log(choiceHex);
+    console.log("here is newChoiceindex");
+    console.log(newChoiceIndex);
     if (choiceIndex === "-1") choiceIndex = -1;
 
     if (choiceIndex === undefined) {
@@ -350,20 +344,25 @@ var ccoiObservation = (function () {
     if (
       currentStep !== undefined &&
       (currentStep.nodeid != newNodeID ||
-        currentStep.choiceid != choiceHex)
+        currentStep.choiceid != newChoiceIndex)
     ) {
+      console.log("Are we here?");
       // If changing the choice leads to the same node:
       var currentStepNextNodeID;
       // catch empty/deleted nodes
+      console.log("What about here?");
       try {
         currentStepNextNodeID = currentStep.nextNodeID();
       } catch (err) {
+        console.log(
+          "We have caught an error sir! Dear fucking lord! The ship is sinking!"
+        );
         currentStepNextNodeID = -1;
       }
       console.log("Confirming we are hitting line 289");
       console.log(newNodeID);
-      console.log(choiceHex);
-      var newChoice = getNodeFromChoice(newNodeID, choiceHex);
+      console.log(newChoiceIndex);
+      var newChoice = getNodeFromChoice(newNodeID, newChoiceIndex);
       console.log(newChoice);
       if (newChoice && currentStepNextNodeID === newChoice.next_id) {
         // I'm not sure if we actually have to do anything here to get the choice to quietly swap out.
@@ -390,7 +389,7 @@ var ccoiObservation = (function () {
     let branchExtra =
       choiceIndex === -1
         ? null
-        : getNodeFromChoice(newNodeID, choiceHex).extra;
+        : getNodeFromChoice(newNodeID, newChoiceIndex).extra;
     if (
       branchExtra !== null &&
       branchExtra !== undefined &&
@@ -428,8 +427,8 @@ var ccoiObservation = (function () {
     let step = new CCOI_Step(
       nodeID,
       nodeIDString,
-      choiceHex,
       choiceIndex,
+      newChoiceIndex,
       ssnum,
       minutesValue,
       secondsValue,
@@ -438,7 +437,6 @@ var ccoiObservation = (function () {
       notes,
       stateIDStep
     );
-    let stepAJAX = new CCOI_Step_AJAX();
 
     // TODO: Move this logic into a separate function
     let newID = stateIDPath;
@@ -476,10 +474,7 @@ var ccoiObservation = (function () {
       step.isEdited = true;
     }
 
-    stepAJAX = goGoAjax(step, stepAJAX);
-    // Step is dead. Long live stepAJAX.
-
-    currentTrace[stateIDStep] = stepAJAX;
+    currentTrace[stateIDStep] = step;
     if (alteredSessionData.paths == undefined) alteredSessionData.paths = [];
     // If there is not currently a path in this ID, we know it hasn't been edited yet
     if (alteredSessionData.paths[stateIDPath] == undefined) {
@@ -497,7 +492,6 @@ var ccoiObservation = (function () {
     //console.log(sessions[currentSessionID]);
     // Backend is not zero-indexed, so we have to +1 to stateIDPath
     console.log(step);
-    console.log(stepAJAX);
     alteredSessionData.paths[newID].id = stateIDPath + 1;
 
     // ! How does one tell if a path isEdted?
@@ -507,11 +501,11 @@ var ccoiObservation = (function () {
     // Before adding this step, we need to see if the index in alteredSessionData is empty
     // If it is empty, we know that this is a new step and can add it
     if (alteredSessionData.paths[newID].steps[stateIDStep] == undefined) {
-      alteredSessionData.paths[newID].steps[stateIDStep] = stepAJAX;
+      alteredSessionData.paths[newID].steps[stateIDStep] = step;
       alteredSessionData.paths[newID].steps[stateIDStep].isNew = true;
     } else {
     }
-    alteredSessionData.paths[newID].steps[stateIDStep] = stepAJAX;
+    alteredSessionData.paths[newID].steps[stateIDStep] = step;
     // Backend is not zero-indexed, so we have to +1 to stateIDPath
     alteredSessionData.paths[newID].steps[stateIDStep].ssnum = String(
       stateIDPath + 1
@@ -937,7 +931,7 @@ var ccoiObservation = (function () {
       alert("Your browser does not support AJAX!");
       return;
     }
-
+    
     xmlHttp.onreadystatechange = function () {
       var data = getHTML(xmlHttp);
       if (data) {
@@ -947,22 +941,22 @@ var ccoiObservation = (function () {
         console.log("Here?");
       }
     };
-
+    console.log('aaa');
     console.log(alteredSessionData);
-    console.log("xxx" + $.param(alteredSessionData));
-    var sendStr = "updateObsEl=1&" + $.param(alteredSessionData);
-    console.log("sendStr:");
-    console.log(sendStr);
-    var url = encodeURI(derServer + "ZPB/zpb_ajax.php?" + sendStr);
-    console.log(url);
-    xmlHttp.open("POST", url, true);
-    xmlHttp.setRequestHeader(
-      "Content-Type",
-      "application/x-www-form-urlencoded"
-    );
-    xmlHttp.send(sendStr);
+    // console.log('xxx' + $.param(alteredSessionData));
+    // var sendStr = "updateObsEl=1&" + $.param(alteredSessionData);
+    // console.log("sendStr:");
+    // console.log(sendStr);
+    // var url = encodeURI(derServer + "ZPB/zpb_ajax.php?" + sendStr);
+    // console.log(url);
+    // xmlHttp.open("POST", url, true);
+    // xmlHttp.setRequestHeader(
+    //   "Content-Type",
+    //   "application/x-www-form-urlencoded"
+    // );
+    // xmlHttp.send(sendStr);
 
-    ccoi.callToAPI("/api/ccoi_ajax.php", sendData);
+    //ccoi.callToAPI('/api/ccoi_ajax.php', sendData);
   }
 
   /*
