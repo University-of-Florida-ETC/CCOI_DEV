@@ -253,9 +253,9 @@ function getNodeFromChoice (nodeID, choice) {
  * @returns {string} Returns the next node's hex ID from the schema
  */
 function CCOI_Step_nextNodeID () {
-	// console.log("nextNodeID print beginning:");
-	// console.log(this.nodeid);
-	// console.log(this.choiceid);
+	console.log("nextNodeID print beginning:");
+	console.log(this.nodeid);
+	console.log(this.choiceid);
 	return this.choiceid === -1 ? null : getNodeFromChoice(this.nodeid, this.choiceid).next;
 }
 
@@ -263,9 +263,9 @@ function CCOI_Step_nextNodeID () {
  * @returns {string} Returns the next node's hex ID from the schema
  */
 function CCOI_Step_nextNodeID_int () {
-	// console.log("beginning nextNodeID_int print: ")
-	// console.log(this.nodeid);
-	// console.log(this.choiceid);
+	console.log("beginning nextNodeID_int print: ")
+	console.log(this.nodeid);
+	console.log(this.choiceid);
 	return this.choiceid === -1 ? null : getNodeFromChoice(this.nodeid, this.choiceid).next_id;
 }
 
