@@ -255,7 +255,12 @@ var ccoiObservation = (function () {
 
   function addStepToPathTrace(step, list) {
     let newOutputLI = document.createElement("li");
-    newOutputLI.innerHTML = step.output();
+    if(typeof step.output == 'function'){
+      newOutputLI.innerHTML = step.output()
+    }
+    else {
+      newOutputLI.innerHTML = step.output;
+    }
     list.appendChild(newOutputLI);
   }
 
