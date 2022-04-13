@@ -496,6 +496,7 @@ var ccoiObservation = (function () {
     alteredSessionData.updateObsEl = 1;
     //console.log(sessions[currentSessionID]);
     // Backend is not zero-indexed, so we have to +1 to stateIDPath
+    console.log(step);
     console.log(stepAJAX);
     alteredSessionData.paths[newID].id = stateIDPath + 1;
 
