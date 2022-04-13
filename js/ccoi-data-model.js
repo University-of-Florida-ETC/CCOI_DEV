@@ -185,10 +185,11 @@ function goGoAjax(base, ajax) {
 	ajax.extraType = base.extraType();
 	ajax.output = base.output();
 	//COMMENCE FIXY PROTOCOL
+	ajax.nodeid = base.nodeid;
 	ajax.ssnum = base.ssnum;
 	ajax.node = base.node;
 	ajax.choice = base.choice; 
-	ajax.choiceID = base.choiceID;
+	ajax.choiceid = base.choiceid;
 	ajax.totalSeconds = base.totalSeconds;
 	ajax.extra = base.extra;
 	ajax.notes = base.notes; 
