@@ -1,5 +1,5 @@
 <?php
-$page = "dashboard";
+$page = "Session";
 $dataTarget = "#demo_help_box";
 $dataOffset = "10";
 $dataSpy = "scroll";
@@ -376,6 +376,8 @@ while ($d = mysqli_fetch_assoc($return)) {
     console.log("nodeData:"); console.log(nodeData);
     console.log("structure:"); console.log(structure);
 
+    let currentNodeID = -1;
+
     function startEditingNodes(){
         if(!DOM.dom_group_1.classList.contains('d-none')){
             DOM.dom_group_1.classList.add('d-none');
@@ -395,6 +397,8 @@ while ($d = mysqli_fetch_assoc($return)) {
         $("#branch_container").empty();
         $("#branch_container").append('<form id="branch_radio_form" class="col-12 pt-3" action="javascript:void(0)"></form>');
 
+        currentNodeID = structIndex;
+
         Object.entries(structure[structIndex]).forEach((value, index) => {
             console.log("index: "+index);
             console.log("value:");
@@ -406,7 +410,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 
                 $("#branch_radio_form").append(`
                 <p>
-                    <input type="radio" name="choiceRadio" id="choiceRadio${value[1]['choice']}" value="${value[1]['choice']}">
+                    <input type="radio" name="choiceRadio" id="choiceRadio${value[1]['choice']}" value="${value[1]['choice']}-${value[1]['id']}">
                     <label for="choiceRadio${value[1]['choice']}" class="choiceOfList">(${value[0]}) ${nodeData[value[1]['choice']]['title']}</label>
                 </p>`);
 
@@ -421,6 +425,11 @@ while ($d = mysqli_fetch_assoc($return)) {
             console.log(value);
         });
         */
+    }
+
+    function proceed(){
+        let selectionValues = explode("-", $("#branch_radio_form").find('input[name="choiceRadio"]').val());
+        console.log("proceed retrieved value: "); console.log(selectionValues);
     }
 </script>
 </html>
