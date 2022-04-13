@@ -95,10 +95,39 @@ if( !empty($_POST['updateObsEl']) ) {
     //TODO: Verify that it's an observation that you can modify
     //PeopleAppSess if row exists with person id and session id then its good
     var_dump($_POST);
-    /*
-    echo "Session ID: " . $_POST['id'];
-    echo "<br>Create a"
     
+    echo "\r\n\r\nUpdating session with ID: " . $_POST['id'];
+    foreach ($_POST['paths'] as $currentObservation){
+        echo "\r\n\r\nObservation #"+$currentObservation['id'];
+
+        if( $currentObservation['label'] != "-1" )
+        {
+            echo " '{$currentObservation['label']}'";
+        }
+
+        if( isset($currentObservation['isNew']) )
+        {
+            echo " is new";
+        }
+        if( isset($currentObservation['isEdited']) )
+        {
+            echo " is edited";
+        }
+
+        foreach ($_POST['paths'] as $index => $currentNode){
+            echo "\r\n Node at index {$index} has id {$currentNode['nodeid']} and title {$currentNode['branchDescription']}";
+            if( isset($currentNode['isNew']) )
+            {
+                echo " and is new";
+            }
+            if( isset($currentNode['isEdited']) )
+            {
+                echo " and is edited";
+            }
+        }
+    }
+    //echo "<br>Create a";
+    /*
     //TODO: grab ssids of session
     $return=mysqli_query($db,"SELECT * FROM tbSubPlaygrounds WHERE sessid='{$_POST['id']}'");
     while($d=mysqli_fetch_assoc($return)){
