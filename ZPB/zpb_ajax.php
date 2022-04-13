@@ -98,11 +98,14 @@ if( !empty($_POST['updateObsEl']) ) {
     
     echo "\r\n\r\nUpdating session with ID: " . $_POST['id'];
     foreach ($_POST['paths'] as $currentObservation){
-        echo "\r\n\r\nObservation #"+$currentObservation['id'];
+        echo "\r\n\r\n  Observation #{$currentObservation['id']}";
 
         if( $currentObservation['label'] != "-1" )
         {
             echo " '{$currentObservation['label']}'";
+        }
+        else {
+            echo " with no label";
         }
 
         if( isset($currentObservation['isNew']) )
@@ -115,7 +118,7 @@ if( !empty($_POST['updateObsEl']) ) {
         }
 
         foreach ($_POST['paths'] as $index => $currentNode){
-            echo "\r\n Node at index {$index} has id {$currentNode['nodeid']} and title {$currentNode['branchDescription']}";
+            echo "\r\n    Node at index {$index} has id {$currentNode['nodeid']} and title {$currentNode['branchDescription']}";
             if( isset($currentNode['isNew']) )
             {
                 echo " and is new";
