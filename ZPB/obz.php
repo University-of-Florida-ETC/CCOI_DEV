@@ -442,8 +442,11 @@ while ($d = mysqli_fetch_assoc($return)) {
         console.log("proceed retrieved value: "); console.log(selectionValue);
         //get pnid
         let selectedPN = structure[currentNodeID][selectionValue];
+        console.log("selectedPN: "); console.log(selectedPN);
         let selectedPNID = selectedPN['choice'];
+        console.log("selectedPNID: "); console.log(selectedPNID);
         let nextQuestionNode = selectedPN['node2'];
+        console.log("nextQuestionNode: "); console.log(nextQuestionNode);
         //store info in data struct
         //load next node or return to observation viewer (depending on if path terminates)
         if(nextQuestionNode == null){
