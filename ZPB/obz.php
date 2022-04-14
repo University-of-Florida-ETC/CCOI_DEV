@@ -24,7 +24,7 @@ else
     $return = mysqli_query($db, "SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
 //Regardless, populate with observation info
 while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$d;*/
-    $subsessions[$d['ssid']][] = $d;
+    $subsessions[] = $d;
 }
 //echo "<br><br>subsessions: "; var_dump($subsessions);
 echo "<script>console.log(\"subsessions:\"); console.log(".json_encode($subsessions).")</script>"; //var_dump($subsessions);
@@ -382,11 +382,22 @@ while ($d = mysqli_fetch_assoc($return)) {
     let currentNodeID = -1;
 
     function populateObsList(){
-        $("#observation-list").empty();
+        $("#path_list").empty();
         Object.entries(subsessions).forEach((currentObs, obsIndex) => {
             console.log("currentObs"); console.log(currentObs); 
             console.log("obsIndex"); console.log(obsIndex); 
-            $("#observation-list").append(`
+            $("#path_list").append(`
+            <div id="observation-list" class="path-listing-container">
+                                        <h5 data-index="2" class="path-listing-header">Observation #2: New Observation                                            <a class="btn-link path-edit-icon" href="#" data-index="2"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
+                                            <a class="btn-link path-delete-icon" href="#" data-index="2"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
+                                            <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_2" aria-expanded="true"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
+                                        </h5>
+                                        <ol class="collapse" id="path_drop_2" style="">
+                                                                                            <li>(09:55) 1-3: Student addresses Adult</li>
+                                                                                            <li>(09:55) 2-7: Peer offers self-regulation support to student</li>
+                                                                                            <li>(09:55) 2-22: Interaction terminates [end path]</li>
+                                                                                    </ol>
+                                    </div>
             <h5 data-index="${obsIndex}" class="path-listing-header">Observation ##${obsIndex+1}: ${currentObs[1][0]['ssname']}
                 <a class="btn-link path-edit-icon" href="#" data-index="${obsIndex}"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
                 <a class="btn-link path-delete-icon" href="#" data-index="${obsIndex}"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
