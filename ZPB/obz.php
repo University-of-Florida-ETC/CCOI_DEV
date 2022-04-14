@@ -140,11 +140,11 @@ while ($d = mysqli_fetch_assoc($return)) {
                             <button id="add_path_button" type="button" class="btn btn-darkblue" data-toggle="tooltip" data-html="true" title="Click here to add a Observation" onclick="addObservation()">Add Observation</button>
                         </div>
 
-                        <div id="path_listing" class="col-12 pt-4 pr-md-5">
+                        <div id="path_listing" class="col-12 pt-4 pr-md-5 d-none;">
                             <div id="path_list_2" class="draggable-container d-none;">
                                 <?php $count = 1;
                                 foreach ($subsessions as $key => $currentSub) : ?>
-                                    <div id ="observation-list" class="path-listing-container">
+                                    <div id ="observation-list" class="path-listing-container d-none;">
                                         <h5 data-index="9<?= $count; ?>" class="path-listing-header">Observation #<?= $count; ?>: <?= $currentSub[0]['ssname']; ?>
                                             <a class="btn-link path-edit-icon" href="#" data-index="9<?= $count; ?>"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
                                             <a class="btn-link path-delete-icon" href="#" data-index="9<?= $count; ?>"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
