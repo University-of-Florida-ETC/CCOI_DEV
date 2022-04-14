@@ -140,7 +140,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                         </div>
 
                         <div id="path_listing" class="col-12 pt-4 pr-md-5">
-                            <div id="path_list" class="draggable-container">
+                            <div id="path_list_2" class="draggable-container">
                                 <?php $count = 1;
                                 foreach ($subsessions as $key => $currentSub) : ?>
                                     <div id ="observation-list" class="path-listing-container">
@@ -161,6 +161,8 @@ while ($d = mysqli_fetch_assoc($return)) {
                                     </div>
                                 <?php $count++;
                                 endforeach; ?>
+                            </div>
+                            <div id="path_list" class="draggable-container">
                             </div>
                         </div>
                     </div>
