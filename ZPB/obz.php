@@ -497,6 +497,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         subsessions[(nextObsId).toString()] = [{ssname : ""}];
         nextObsId -= 1;
         console.log("subsessions after: "); console.log(subsessions); 
+        nodeInObsIndex = 0;
         startEditingNodes();
         setupNodeInfo(Object.keys(structure)[0]);
     }
