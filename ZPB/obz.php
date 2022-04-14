@@ -140,29 +140,8 @@ while ($d = mysqli_fetch_assoc($return)) {
                             <button id="add_path_button" type="button" class="btn btn-darkblue" data-toggle="tooltip" data-html="true" title="Click here to add a Observation" onclick="addObservation()">Add Observation</button>
                         </div>
 
-                        <div id="path_listing" class="col-12 pt-4 pr-md-5 d-none;">
-                            <div id="path_list_2" class="draggable-container d-none;">
-                                <?php $count = 1;
-                                foreach ($subsessions as $key => $currentSub) : ?>
-                                    <div id ="observation-list" class="path-listing-container d-none;">
-                                        <h5 data-index="9<?= $count; ?>" class="path-listing-header">Observation #<?= $count; ?>: <?= $currentSub[0]['ssname']; ?>
-                                            <a class="btn-link path-edit-icon" href="#" data-index="9<?= $count; ?>"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
-                                            <a class="btn-link path-delete-icon" href="#" data-index="9<?= $count; ?>"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
-                                            <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_9<?= $count; ?>" aria-expanded="true"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
-                                        </h5>
-                                        <ol class="collapse" id="path_drop_9<?= $count; ?>" style="">
-                                            <?php foreach ($currentSub as $index => $currentOE) :
-                                                $currentSeconds = (int)$currentOE['seconds'];
-                                                $currentNode = $nodeData[(int)$currentOE['choice']];
-                                            ?>
-                                                <li><?php echo sprintf("(%02d:%02d) %s: %s", $currentSeconds / 60, $currentSeconds % 60, $currentNode['code'], $currentNode['title'], $currentNode['title']);
-                                                    if (isset($currentOE['notes'])) echo sprintf(" [%s]", $currentOE['notes']); ?></li>
-                                            <?php endforeach; ?>
-                                        </ol>
-                                    </div>
-                                <?php $count++;
-                                endforeach; ?>
-                            </div>
+                        <div id="path_listing" class="col-12 pt-4 pr-md-5">
+                            
                             <div id="path_list" class="draggable-container">
                             </div>
                         </div>
@@ -233,7 +212,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                 <div class="col-md-4 col-12">
                     <div class="row">
                         <div class="col">
-                            <button id="launch_video_button" class="btn btn-blue btn-full-width my-2" onclick="launchVideoFromSession(<?php echo "{$videoInfo['url']}, {$videoInfo['scramble']}" ?>)"> Open Video <span class="oi oi-external-link px-2" title="Open Session Video" onclick="launchVideoFromSession(<?php echo "{$videoInfo['url']}, {$videoInfo['scramble']}" ?>)"span></button>
+                            <button id="launch_video_button" class="btn btn-blue btn-full-width my-2" onclick="launchVideoFromSession(<?php echo "{$videoInfo['url']}, {$videoInfo['scramble']}" ?>)"> Open Video <span class="oi oi-external-link px-2" title="Open Session Video"span></button>
                             <button id="viz_button" class="btn btn-gold btn-full-width my-2 d-none">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
                             <button id="irr_button" class="btn btn-gold btn-full-width my-2">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
                         </div>
