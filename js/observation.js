@@ -185,10 +185,10 @@ var ccoiObservation = (function () {
     $("#session_notes").html(session.sessionNotes);
     $("#session_date").val(session.date);
   }
-
+  //! Refreshes the path list container, and this is where our first faulty print occurs. 
   function refreshPathListing() {
     removeAllChildren(DOM.path_list);
-
+    console.log(sessions[currentSessionID].paths);
     let paths = sessions[currentSessionID].paths;
     let numPaths = paths.length;
     for (let pathIndex = 0; pathIndex < numPaths; pathIndex++) {
@@ -206,7 +206,13 @@ var ccoiObservation = (function () {
     });
     bindPathEvents();
   }
-
+  //! Runs the refresh of the PathListContainer
+  /*
+  * Places that use goToPathStart
+  // *observation.js:308
+  *observation.js:528
+  *observation.js:666
+  */ 
   function goToPathStart() {
     if (currentSessionID < 0 || currentSessionID > sessions.length) {
       return;
@@ -220,7 +226,7 @@ var ccoiObservation = (function () {
     loadSessionInfo(currentSessionID);
     refreshPathListing();
   }
-
+  //! This appears to be what populates the table
   function addPathTraceToTable(paths, pathIndex) {
     let currentPath = paths[pathIndex];
     let name = "Path #" + (pathIndex + 1);
@@ -235,7 +241,7 @@ var ccoiObservation = (function () {
     newOutputDIV.setAttribute("class", "path-listing-container");
 
     DOM.path_list.appendChild(newOutputDIV);
-
+  
     if (name !== undefined) {
       let newOutputH = document.createElement("h5");
       newOutputH.setAttribute("data-index", pathIndex);
@@ -591,10 +597,10 @@ var ccoiObservation = (function () {
     // Reset path
     DOM.path_label.value = "";
     // form new path output
-    console.log(sessions);
-    console.log("This is the gamer variable: " + sessionID);
+    // console.log(sessions);
+    // console.log("This is the gamer variable: " + sessionID);
     let sessionIndex = findSessionIndexById(sessions, sessionID);
-    console.log(sessionIndex);
+    // console.log(sessionIndex);
     let session = sessions[sessionIndex];
     console.log(
       JSON.stringify(sessions[sessionIndex]) + "\n This is the current session... is it?"
