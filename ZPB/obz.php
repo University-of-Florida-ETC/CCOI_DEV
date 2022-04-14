@@ -263,9 +263,9 @@ while ($d = mysqli_fetch_assoc($return)) {
 </main>
 <?php include '../includes/footer.php'; ?>
 <script src="/js/jquery-3.4.1.min.js"></script>
-<!--
+
 <script src="/js/utility.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.min.js"></script><!--
 <script src="/js/zpbccoi.js"></script>
 <script src="/js/ccoi.js"></script>
 <script src="/js/observation.js"></script>
