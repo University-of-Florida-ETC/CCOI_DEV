@@ -844,7 +844,11 @@ var ccoiObservation = (function () {
               //console.log(JSON.parse(responseText));
               sessions = JSON.parse(responseText);
               for (let i = 0; i < sessions.length; i++) {
+                console.log("Sessions pre-fiddling");
+                console.log(sessions[i]);
                 sessions[i] = new CCOI_Session(sessions[i]);
+                console.log("Sessions post processing");
+                console.log(sessions[i]);
               }
               refreshSessionList();
             } else {
