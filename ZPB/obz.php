@@ -226,7 +226,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                                 </div>
                             </form>
                         </div>
-                        <button id="path_go_back" class="btn btn-blue" type="button">Go Back</button>
+                        <button id="path_go_back" class="btn btn-blue" type="button" onclick="goBack()">Go Back</button>
                     </div>
                 </div>
                 <div class="col-md-4 col-12">
@@ -382,6 +382,9 @@ while ($d = mysqli_fetch_assoc($return)) {
     console.log("structure:"); console.log(structure);
 
     let currentNodeID = -1;
+    let currentObs = 0;
+    let nodeInObsIndex = 0;
+    let nextObsId = -1;
 
     function populateObsList(){
         $("#path_list").empty();
@@ -391,8 +394,8 @@ while ($d = mysqli_fetch_assoc($return)) {
             $("#path_list").append(`
             <div id="observation-list-${obsIndex}" class="path-listing-container">
                 <h5 data-index="${obsIndex}" class="path-listing-header">Observation ##${obsIndex+1}: ${currentObs[1][0]['ssname']}
-                    <a class="btn-link path-edit-icon" href="#" data-index="${obsIndex}"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
-                    <a class="btn-link path-delete-icon" href="#" data-index="${obsIndex}"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
+                    <a class="btn-link path-edit-icon" href="javascript:void(0)" data-index="${obsIndex}" onclick="editObservation(${currentObs[0]})"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
+                    <a class="btn-link path-delete-icon" href="javascript:void(0)" data-index="${obsIndex}"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
                     <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_${obsIndex}" aria-expanded="false"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
                 </h5>
                 <ol class="collapse" id="path_drop_${obsIndex}" style=""></ol>
@@ -427,6 +430,21 @@ while ($d = mysqli_fetch_assoc($return)) {
 
     populateObsList();
 
+    function goBack(){
+        if(nodeInObsIndex == 0){
+            hideNodeEditor();
+        }
+        else {
+            nodeInObsIndex -= 1;
+            setupNodeInfo(subsessions[currentObs][nodeInObsIndex]['node1']);
+        }
+    }
+
+    function selectRadio(selectedNum){
+        let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]:checked').val();
+        //subsessions[]
+    }
+
     function hideNodeEditor(){
         if(!DOM.path_input.classList.contains('d-none')){
             DOM.path_input.classList.add('d-none');
@@ -442,16 +460,20 @@ while ($d = mysqli_fetch_assoc($return)) {
     }
 
     function addObservation(){
-        console.log("subsession before:"); console.log(subsession); 
-        subsession.push('-1':[]);
-        console.log("subsession after: "); console.log(subsession); 
+        //console.log("subsessions before:"); console.log(subsessions); 
+        //console.log("insertId:"); console.log(insertId);
+        subsessions[(nextObsId).toString()] = [];
+        nextObsId -= 1;
+        console.log("subsessions after: "); console.log(subsessions); 
         startEditingNodes();
         setupNodeInfo(Object.keys(structure)[0]);
     }
 
-    function editObservation(index){
+    function editObservation(ssID){
         startEditingNodes();
-        setupNodeInfo(index);
+        currentObs = ssID;
+        nodeInObsIndex = 0;
+        setupNodeInfo(Object.keys(structure)[0]);
     }
 
     function setupNodeInfo(structIndex){
@@ -476,7 +498,7 @@ while ($d = mysqli_fetch_assoc($return)) {
             else {
 
                 $("#branch_radio_form").append(`
-                <p>
+                <p onclick="selectRadio(${value[1]['choice']});">
                     <input type="radio" name="choiceRadio" id="choiceRadio${value[1]['choice']}" value="${value[0]}">
                     <label for="choiceRadio${value[1]['choice']}" class="choiceOfList">(${index}) ${nodeData[value[1]['choice']]['title']}</label>
                 </p>`);
@@ -492,6 +514,7 @@ while ($d = mysqli_fetch_assoc($return)) {
             console.log(value);
         });
         */
+       //TODO: autofill
     }
 
     function proceed(){
