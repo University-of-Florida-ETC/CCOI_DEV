@@ -233,7 +233,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                 <div class="col-md-4 col-12">
                     <div class="row">
                         <div class="col">
-                            <button id="launch_video_button" class="btn btn-blue btn-full-width my-2">Open Video <span class="oi oi-external-link px-2" title="Open Session Video"></span></button>
+                            <button id="launch_video_button" class="btn btn-blue btn-full-width my-2">Open Video <span class="oi oi-external-link px-2" title="Open Session Video" onclick="launchVideoFrame(<?php echo "{$videoInfo['url']}, {$videoInfo['scramble']}" ?>)"span></button>
                             <button id="viz_button" class="btn btn-gold btn-full-width my-2 d-none">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
                             <button id="irr_button" class="btn btn-gold btn-full-width my-2">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
                         </div>
@@ -519,8 +519,8 @@ while ($d = mysqli_fetch_assoc($return)) {
 
         DOM.path_title.innerText = nodeData[structIndex]['title'];
 
-        $("#timestamp_input_minutes").val() = parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) / 60;
-        $("#timestamp_input_seconds").val() = parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) % 60;
+        $("#timestamp_input_minutes").val(parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) / 60);
+        $("#timestamp_input_seconds").val(parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) % 60);
 
         $("#branch_container").empty();
         $("#branch_container").append('<form id="branch_radio_form" class="col-12 pt-3" action="javascript:void(0)"></form>');
@@ -545,6 +545,37 @@ while ($d = mysqli_fetch_assoc($return)) {
             }
 
         });
+
+    function launchVideoFromSession(url, scramble) {
+        let videoID = $("#session_video_url").val();
+        popoutWindow = window.open("/video-player"); // to avoid browser pop up blockers, we have to load the pop up window directly in the on click, not in the ajax call.
+        // Add click event to proceed and play button now that we have a video
+        $(DOM.proceed_and_play_button).click(function () {
+        submitBranch();
+        popoutWindow.video.play();
+        });
+        popoutListeners();
+        if (isDemo) {
+        let videoSRC = "/videofiles/7ccU4vf8zW7bto1s5Ry63qRl.webm";
+        popoutWindow.src = videoSRC;
+        popoutWindow.videoTitle = "Demo Session Video";
+        } else {
+        $.ajax({
+            url: "/api/ccoi_ajax.php?fetchvid=" + $_GET.url,
+            method: "GET",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+            let videoSRC = data[0];
+            let videoTitle = $("#session_video_title").val();
+            popoutWindow.src = videoSRC;
+            popoutWindow.videoTitle = videoTitle;
+            },
+        }).fail(function (err) {
+            console.log(err);
+            console.log(this);
+        });
+        }
+  }
 
 /*
         structure[structIndex].forEach((index, value) => {
