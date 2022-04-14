@@ -282,6 +282,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 <script>
     // Code to edit nodes
     //AJAX stuffs
+    var derServer='https://ccoi-dev.education.ufl.edu/';
     function GetAjaxReturnObject(mimetype){
         var xmlHttp=null;
         if (window.XMLHttpRequest) { // Mozilla, Safari, ...
@@ -307,6 +308,27 @@ while ($d = mysqli_fetch_assoc($return)) {
     var pathTitle = document.getElementById("path_title");
     var pathLabel = document.getElementById("path_label");
     */
+
+    function scrubSubsessions(){
+        Object.entries(subsessions).forEach((currentObs, obsIndex) => {
+            Object.entries(currentObs[1]).forEach((currentNode, nodeIndex) => {
+                subsessions[currentObs[0]][currentNode[0]] = {
+                    id: currentNode[1]['id'],
+                    choice: currentNode[1]['choice'],
+                    nodepathid: currentNode[1]['nodepathid'],
+                    notes: currentNode[1]['notes'],
+                    pnid: currentNode[1]['pnid'],
+                    seconds: currentNode[1]['seconds'],
+                    ssid: currentNode[1]['ssid'],
+                    ssname: currentNode[1]['ssname'],
+                };
+            });
+        });
+    }
+
+    scrubSubsessions();
+    console.log("post scrubbing subsessions:"); console.log(subsessions);
+
     var DOM = {};
     var popoutWindow; 
     var IDs = [
@@ -601,7 +623,8 @@ while ($d = mysqli_fetch_assoc($return)) {
         //     console.log(err);
         //     console.log(this);
         // });
-
+        console.log(url);
+        console.log(scramble);
         let videoSRC = "/ccoivids/" + url + scramble;
         popoutWindow.src = videoSRC;
         popoutWindow.videoTitle = "Demo Video";
