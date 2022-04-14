@@ -184,13 +184,13 @@ while ($d = mysqli_fetch_assoc($return)) {
                                 <div class="row pb-3">
                                     <div class="col-md-2 col-12">
                                         <div class="form-group">
-                                            <input class="form-control" id="timestamp_input_minutes" type="number" min="0" max="9999" step="1" value="0">
+                                            <input class="form-control" id="timestamp_input_minutes" type="number" min="0" max="9999" step="1" value="0" onchange="changeTime()">
                                             <label class="text-center" for="timestamp_input_minutes">minutes</label>
                                         </div>
                                     </div>
                                     <div class="col-md-2 col-12">
                                         <div class="form-group">
-                                            <input class="form-control" id="timestamp_input_seconds" type="number" min="0" max="59" step="1" value="0">
+                                            <input class="form-control" id="timestamp_input_seconds" type="number" min="0" max="59" step="1" value="0" onchange="changeTime()">
                                             <label class="text-center" for="timestamp_input_seconds">seconds</label>
                                         </div>
                                     </div>
@@ -447,6 +447,14 @@ while ($d = mysqli_fetch_assoc($return)) {
         subsessions[currentObs][nodeInObsIndex] = structure[currentNodeID][selectedNum];
         subsessions[currentObs][nodeInObsIndex]['id'] = nodeID;
         console.log("subsessions[currentObs][nodeInObsIndex] after: "); console.log(subsessions[currentObs][nodeInObsIndex]);
+    }
+
+    function changeTime(){
+        let minutes = $("#timestamp_input_minutes").val();
+        let seconds = $("#timestamp_input_seconds").val();
+        let totalSeconds = seconds + (60 * minutes);
+
+        subsessions[currentObs][nodeInObsIndex]['seconds'] = totalSeconds;
     }
 
     function autoFill(){
