@@ -26,6 +26,7 @@ else
 while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$d;*/
     $subsessions[$d['ssid']][] = $d;
 }
+echo "<br><br>subsessions: "; var_dump($subsessions);
 
 $return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$session['pathid']}'");
 while ($d = mysqli_fetch_assoc($return)) {
