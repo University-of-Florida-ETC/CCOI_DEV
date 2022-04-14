@@ -442,7 +442,9 @@ while ($d = mysqli_fetch_assoc($return)) {
 
     function selectRadio(selectedNum){
         let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]:checked').val();
-        //subsessions[]
+        console.log("subsessions[currentObs][nodeInObsIndex] before: "); console.log(subsessions[currentObs][nodeInObsIndex]);
+        subsessions[currentObs][nodeInObsIndex] = structure[currentNodeID][selectedNum];
+        console.log("subsessions[currentObs][nodeInObsIndex] after: "); console.log(subsessions[currentObs][nodeInObsIndex]);
     }
 
     function hideNodeEditor(){
@@ -498,7 +500,7 @@ while ($d = mysqli_fetch_assoc($return)) {
             else {
 
                 $("#branch_radio_form").append(`
-                <p onclick="selectRadio(${value[1]['choice']});">
+                <p onclick="selectRadio(${value[0]});">
                     <input type="radio" name="choiceRadio" id="choiceRadio${value[1]['choice']}" value="${value[0]}">
                     <label for="choiceRadio${value[1]['choice']}" class="choiceOfList">(${index}) ${nodeData[value[1]['choice']]['title']}</label>
                 </p>`);
