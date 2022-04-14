@@ -450,8 +450,10 @@ while ($d = mysqli_fetch_assoc($return)) {
         let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]:checked').val();
         console.log("subsessions[currentObs][nodeInObsIndex] before: "); console.log(subsessions[currentObs][nodeInObsIndex]);
         let nodeID = subsessions[currentObs][nodeInObsIndex]['id'];
+        let nodeSecs = subsessions[currentObs][nodeInObsIndex]['seconds'];
         subsessions[currentObs][nodeInObsIndex] = structure[currentNodeID][selectedNum];
         subsessions[currentObs][nodeInObsIndex]['id'] = nodeID;
+        subsessions[currentObs][nodeInObsIndex]['seconds'] = nodeSecs;
         console.log("subsessions[currentObs][nodeInObsIndex] after: "); console.log(subsessions[currentObs][nodeInObsIndex]);
     }
 
