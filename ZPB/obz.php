@@ -86,7 +86,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                             <h5 style="text-transform: none;">Select an observation to view or edit its responsess</h5>
                         </div>
                         <div class="col-md-4 col-12 pt-2">
-                            <button id="save_session_button" type="button" class="btn btn-blue float-right disabled" data-toggle="tooltip" data-html="true" title="Click here to save your session">Save Session</button>
+                            <button id="save_session_button" type="button" class="btn btn-blue float-right" data-toggle="tooltip" data-html="true" title="Click here to save your session" onclick="ajaxIt()">Save Session</button>
                         </div>
                     </div>
 
@@ -141,7 +141,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                         </div>
 
                         <div id="path_listing" class="col-12 pt-4 pr-md-5">
-                            <div id="path_list_2" class="draggable-container">
+                            <div id="path_list_2" class="draggable-container d-none;">
                                 <?php $count = 1;
                                 foreach ($subsessions as $key => $currentSub) : ?>
                                     <div id ="observation-list" class="path-listing-container">
@@ -289,7 +289,7 @@ while ($d = mysqli_fetch_assoc($return)) {
     var pathLabel = document.getElementById("path_label");
     */
     var DOM = {};
-
+    var popoutWindow; 
     var IDs = [
         'launch_video_button',
         'go_to_session_select',
@@ -545,6 +545,17 @@ while ($d = mysqli_fetch_assoc($return)) {
             }
 
         });
+/*
+        structure[structIndex].forEach((index, value) => {
+            console.log("index: "+index);
+            console.log("value:");
+            console.log(value);
+        });
+        */
+
+       //TODO: autofill
+       autoFill();
+    }
 
     function launchVideoFromSession(url, scramble) {
         let videoID = $("#session_video_url").val();
@@ -560,34 +571,22 @@ while ($d = mysqli_fetch_assoc($return)) {
         popoutWindow.src = videoSRC;
         popoutWindow.videoTitle = "Demo Session Video";
         } else {
-        $.ajax({
-            url: "/api/ccoi_ajax.php?fetchvid=" + $_GET.url,
-            method: "GET",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-            let videoSRC = data[0];
-            let videoTitle = $("#session_video_title").val();
-            popoutWindow.src = videoSRC;
-            popoutWindow.videoTitle = videoTitle;
-            },
-        }).fail(function (err) {
-            console.log(err);
-            console.log(this);
-        });
+        // $.ajax({
+        //     url: "/api/ccoi_ajax.php?fetchvid=" + $_GET.url,
+        //     method: "GET",
+        //     contentType: "application/json; charset=utf-8",
+        //     success: function (data) {
+            
+        //     },
+        // }).fail(function (err) {
+        //     console.log(err);
+        //     console.log(this);
+        // });
+
+        let videoSRC = "/ccoivids/" + url + scramble;
+        popoutWindow.src = videoSRC;
         }
   }
-
-/*
-        structure[structIndex].forEach((index, value) => {
-            console.log("index: "+index);
-            console.log("value:");
-            console.log(value);
-        });
-        */
-
-       //TODO: autofill
-       autoFill();
-    }
 
     function proceed(){
         //check if extra data is needed for choice
@@ -613,6 +612,33 @@ while ($d = mysqli_fetch_assoc($return)) {
         else{
             setupNodeInfo(nextQuestionNode);
         }
+    }
+
+    function ajaxIt(){
+        var xmlHttp = GetAjaxReturnObject("text/html");
+        if (xmlHttp == null) {
+        alert("Your browser does not support AJAX!");
+        return;
+        }
+        
+        xmlHttp.onreadystatechange = function () {
+            var data = getHTML(xmlHttp);
+            if (data) {
+                console.log("AJAX returns this:");
+                console.log(data);
+            }
+        };
+        var sendStr = "updateObsEl=1&" + $.param(subsessions);
+        console.log("sendStr:");
+        console.log(sendStr);
+        var url = encodeURI(derServer + "ZPB/zpb_ajax.php?" + sendStr);
+        console.log(url);
+        xmlHttp.open("POST", url, true);
+        xmlHttp.setRequestHeader(
+        "Content-Type",
+        "application/x-www-form-urlencoded"
+        );
+        xmlHttp.send(sendStr);
     }
 </script>
 </html>
