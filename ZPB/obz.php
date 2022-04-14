@@ -393,14 +393,14 @@ while ($d = mysqli_fetch_assoc($return)) {
             $("#observation-list").append(`<ol class="collapse" id="path_drop_${obsIndex}" style=""></ol>`);
             Object.entries(currentObs).forEach((currentNode, nodeIndex) => {
                 let currentSeconds =  parseInt(currentNode['seconds']);
-                let $currentNodeData = nodeData[parseInt(currentNode['choice'])];
+                let currentNodeData = nodeData[parseInt(currentNode['choice'])];
 
                 let minutesToPrint = (currentSeconds / 60).toString(); minutesToPrint= minutesToPrint.padStart(2, '0');
                 let secondsToPrint = (currentSeconds % 60).toString(); secondsToPrint= secondsToPrint.padStart(2, '0');
 
                 let notesText = '';
                 if( currentNode['notes'] != null){
-                    notesText = `[${currentNode['notes']}]`;
+                    notesText = `[${currentNodeData['notes']}]`;
                 }
                 $("#path_drop_"+obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${currentNodeData['code']}: ${currentNode['title']} ${notesText}</li>`);
             });
