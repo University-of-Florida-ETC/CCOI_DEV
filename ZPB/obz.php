@@ -377,6 +377,13 @@ while ($d = mysqli_fetch_assoc($return)) {
 
     let currentNodeID = -1;
 
+    function hideNodeEditor(){
+        if(!DOM.path_input.classList.contains('d-none')){
+            DOM.path_input.classList.add('d-none');
+        }
+        DOM.dom_group_1.classList.remove('d-none');
+    }
+
     function startEditingNodes(){
         if(!DOM.dom_group_1.classList.contains('d-none')){
             DOM.dom_group_1.classList.add('d-none');
@@ -436,9 +443,15 @@ while ($d = mysqli_fetch_assoc($return)) {
         //get pnid
         let selectedPN = structure[currentNodeID][selectionValue];
         let selectedPNID = selectedPN['choice'];
+        let nextQuestionNode = selectedPN['node2'];
         //store info in data struct
         //load next node or return to observation viewer (depending on if path terminates)
-        setupNodeInfo(selectedPN['node2']);
+        if(nextQuestionNode == null){
+            hideNodeEditor();
+        }
+        else{
+            setupNodeInfo(nextQuestionNode);
+        }
     }
 </script>
 </html>
