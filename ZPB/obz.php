@@ -384,6 +384,8 @@ while ($d = mysqli_fetch_assoc($return)) {
     function populateObsList(){
         $("#observation-list").empty();
         Object.entries(subsessions).forEach((currentObs, obsIndex) => {
+            console.log("currentObs"); console.log(currentObs); 
+            console.log("obsIndex"); console.log(obsIndex); 
             $("#observation-list").append(`
             <h5 data-index="${obsIndex}" class="path-listing-header">Observation ##${obsIndex}: ${currentObs[0]['ssname']}
                 <a class="btn-link path-edit-icon" href="#" data-index="${obsIndex}"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
