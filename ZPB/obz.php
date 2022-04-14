@@ -144,12 +144,12 @@ while ($d = mysqli_fetch_assoc($return)) {
                                 <?php $count = 1;
                                 foreach ($subsessions as $key => $currentSub) : ?>
                                     <div id ="observation-list" class="path-listing-container">
-                                        <h5 data-index="<?= $count; ?>" class="path-listing-header">Observation #<?= $count; ?>: <?= $currentSub[0]['ssname']; ?>
-                                            <a class="btn-link path-edit-icon" href="#" data-index="<?= $count; ?>"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
-                                            <a class="btn-link path-delete-icon" href="#" data-index="<?= $count; ?>"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
-                                            <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_<?= $count; ?>" aria-expanded="true"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
+                                        <h5 data-index="9<?= $count; ?>" class="path-listing-header">Observation #<?= $count; ?>: <?= $currentSub[0]['ssname']; ?>
+                                            <a class="btn-link path-edit-icon" href="#" data-index="9<?= $count; ?>"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
+                                            <a class="btn-link path-delete-icon" href="#" data-index="9<?= $count; ?>"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
+                                            <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_9<?= $count; ?>" aria-expanded="true"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
                                         </h5>
-                                        <ol class="collapse" id="path_drop_<?= $count; ?>" style="">
+                                        <ol class="collapse" id="path_drop_9<?= $count; ?>" style="">
                                             <?php foreach ($currentSub as $index => $currentOE) :
                                                 $currentSeconds = (int)$currentOE['seconds'];
                                                 $currentNode = $nodeData[(int)$currentOE['choice']];
