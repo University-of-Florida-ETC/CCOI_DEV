@@ -409,19 +409,25 @@ while ($d = mysqli_fetch_assoc($return)) {
                     //console.log("nodeIndex"); console.log(nodeIndex); 
                     let currentSeconds =  parseInt(currentNode[1]['seconds']);
                     let currentNodeData = nodeData[parseInt(currentNode[1]['choice'])];
-                    //console.log("currentNode[1]['choice']"); console.log(currentNode[1]['choice']); 
-                    //console.log("parseInt(currentNode[1]['choice'])"); console.log(parseInt(currentNode[1]['choice'])); 
-                    //console.log("nodeData[parseInt(currentNode[1]['choice'])]"); console.log(nodeData[parseInt(currentNode[1]['choice'])]); 
-                    //console.log("currentNodeData"); console.log(currentNodeData); 
+                    if(currentNodeData == undefined){
 
-                    let minutesToPrint = ( Math.floor(currentSeconds / 60) ).toString(); minutesToPrint= minutesToPrint.padStart(2, '0');
-                    let secondsToPrint = (currentSeconds % 60).toString(); secondsToPrint= secondsToPrint.padStart(2, '0');
-
-                    let notesText = '';
-                    if( currentNode['notes'] != null){
-                        notesText = `[${currentNodeData['notes']}]`;
                     }
-                    $("#path_drop_"+obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${currentNodeData['code']}: ${currentNodeData['title']} ${notesText}</li>`);
+                    else{
+                        //console.log("currentNode[1]['choice']"); console.log(currentNode[1]['choice']); 
+                        //console.log("parseInt(currentNode[1]['choice'])"); console.log(parseInt(currentNode[1]['choice'])); 
+                        //console.log("nodeData[parseInt(currentNode[1]['choice'])]"); console.log(nodeData[parseInt(currentNode[1]['choice'])]); 
+                        //console.log("currentNodeData"); console.log(currentNodeData); 
+
+                        let minutesToPrint = ( Math.floor(currentSeconds / 60) ).toString(); minutesToPrint= minutesToPrint.padStart(2, '0');
+                        let secondsToPrint = (currentSeconds % 60).toString(); secondsToPrint= secondsToPrint.padStart(2, '0');
+
+                        let notesText = '';
+                        if( currentNode['notes'] != null){
+                            notesText = `[${currentNodeData['notes']}]`;
+                        }
+                        $("#path_drop_"+obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${currentNodeData['code']}: ${currentNodeData['title']} ${notesText}</li>`);
+                    }
+                    
                 }
                 
             });
