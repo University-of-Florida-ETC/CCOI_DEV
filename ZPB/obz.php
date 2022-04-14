@@ -544,6 +544,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         let selectedPNID = selectedPN['choice'];
         //console.log("selectedPNID: "); console.log(selectedPNID);
         let nextQuestionNode = selectedPN['node2'];
+        nodeInObsIndex = 0;
         //console.log("nextQuestionNode: "); console.log(nextQuestionNode);
         //store info in data struct
         //load next node or return to observation viewer (depending on if path terminates)
