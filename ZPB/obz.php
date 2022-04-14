@@ -281,6 +281,25 @@ while ($d = mysqli_fetch_assoc($return)) {
 </body>
 <script>
     // Code to edit nodes
+    //AJAX stuffs
+    function GetAjaxReturnObject(mimetype){
+        var xmlHttp=null;
+        if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+            xmlHttp = new XMLHttpRequest();
+            if (xmlHttp.overrideMimeType) {xmlHttp.overrideMimeType(mimetype);}
+        } else if (window.ActiveXObject) { // IE
+            try {xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");}catch (e) {try {xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");}catch (e) {}}
+        }
+        return xmlHttp;
+    }
+
+    function getHTML(httpRequest) {
+        if (httpRequest.readyState===4) {
+            if (httpRequest.status === 200) {			// if buggy, check logs for firefox / OPTIONS instead of POST -- need same domain
+                return httpRequest.responseText;
+            }
+        }
+    }
     /*
     var nonNodeStuff = document.getElementById("dom_group_1");
     var nodeStuff = document.getElementById("path_input");
@@ -585,6 +604,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 
         let videoSRC = "/ccoivids/" + url + scramble;
         popoutWindow.src = videoSRC;
+        popoutWindow.videoTitle = "Demo Video";
         }
   }
 
