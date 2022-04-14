@@ -540,7 +540,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         DOM.path_title.innerText = nodeData[structIndex]['title'];
 
         if(subsessions[currentObs] != undefined){
-            $("#timestamp_input_minutes").val(parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) / 60);
+            $("#timestamp_input_minutes").val(Math.floor(parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) / 60));
             $("#timestamp_input_seconds").val(parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) % 60);
         }
 
