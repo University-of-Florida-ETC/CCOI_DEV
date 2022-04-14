@@ -65,6 +65,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 ?>
 <script>
     var sessionID = <?php echo $id; ?>;
+    var subsessions = <?php echo json_encode($subsessions); ?>;
     var nodeData = <?php echo json_encode($nodeData); ?>;
     var structure = <?php echo json_encode($structure); ?>;
 </script>
@@ -142,7 +143,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                             <div id="path_list" class="draggable-container">
                                 <?php $count = 1;
                                 foreach ($subsessions as $key => $currentSub) : ?>
-                                    <div class="path-listing-container">
+                                    <div id ="observation-list" class="path-listing-container">
                                         <h5 data-index="<?= $count; ?>" class="path-listing-header">Observation #<?= $count; ?>: <?= $currentSub[0]['ssname']; ?>
                                             <a class="btn-link path-edit-icon" href="#" data-index="<?= $count; ?>"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
                                             <a class="btn-link path-delete-icon" href="#" data-index="<?= $count; ?>"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
@@ -365,7 +366,8 @@ while ($d = mysqli_fetch_assoc($return)) {
         'exportDownload',
         'exportOut',
         'branch_container',
-        'branch_radio_form'
+        'branch_radio_form',
+        'observation-list'
     ];
 
     var numIDs = IDs.length;
@@ -378,6 +380,34 @@ while ($d = mysqli_fetch_assoc($return)) {
     console.log("structure:"); console.log(structure);
 
     let currentNodeID = -1;
+
+    function populateObsList(){
+        $("#observation-list").empty();
+        Object.entries(subsessions).forEach((currentObs, obsIndex) => {
+            $("#observation-list").append(`
+            <h5 data-index="${obsIndex}" class="path-listing-header">Observation ##${obsIndex}: ${currentObs[0]['ssname']}
+                <a class="btn-link path-edit-icon" href="#" data-index="${obsIndex}"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
+                <a class="btn-link path-delete-icon" href="#" data-index="${obsIndex}"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
+                <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_${obsIndex}" aria-expanded="false"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
+            </h5>`);
+            $("#observation-list").append(`<ol class="collapse" id="path_drop_${obsIndex}" style=""></ol>`);
+            Object.entries(currentObs).forEach((currentNode, nodeIndex) => {
+                let currentSeconds =  parseInt(currentNode['seconds']);
+                let $currentNodeData = nodeData[parseInt(currentNode['choice'])];
+
+                let minutesToPrint = (currentSeconds / 60).toString(); minutesToPrint= minutesToPrint.padStart(2, '0');
+                let secondsToPrint = (currentSeconds % 60).toString(); secondsToPrint= secondsToPrint.padStart(2, '0');
+
+                let notesText = '';
+                if( currentNode['notes'] != null){
+                    notesText = `[${currentNode['notes']}]`;
+                }
+                $("#path_drop_"+obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${currentNodeData['code']}: ${currentNode['title']} ${notesText}</li>`);
+            });
+        });
+    }
+
+    populateObsList();
 
     function hideNodeEditor(){
         if(!DOM.path_input.classList.contains('d-none')){
