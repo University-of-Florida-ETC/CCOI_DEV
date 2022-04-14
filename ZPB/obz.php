@@ -10,6 +10,7 @@ $id = $_GET['id'] + 0;
 //TODO: check that they are allowed in here
 $session = getSessionInfo($id); //defined below
 $appVideos = getAppVideos($id); //Defined below
+$videoInfo = getVideoInfo($id);
 //print_r($appVideos);
 //print_r($session);
 //echo "<br>session: "; print_r($session);
@@ -518,6 +519,9 @@ while ($d = mysqli_fetch_assoc($return)) {
 
         DOM.path_title.innerText = nodeData[structIndex]['title'];
 
+        $("#timestamp_input_minutes").val() = parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) / 60;
+        $("#timestamp_input_seconds").val() = parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) % 60;
+
         $("#branch_container").empty();
         $("#branch_container").append('<form id="branch_radio_form" class="col-12 pt-3" action="javascript:void(0)"></form>');
 
@@ -628,5 +632,17 @@ function getSessionInfo($id)
         return $session;
     } else
         return "<br>Session isn't valid :(";
+}
+
+function getVideoInfo($id){
+    if (!empty($id) && is_numeric($id)) {
+        $db = $GLOBALS["db"];
+        $query = "SELECT url, scramble FROM tbVideos WHERE id=(SELECT videoid FROM tbSessions WHERE id=$id)";
+        $return = mysqli_query($db, $query);
+        $return = mysqli_fetch_assoc($return);
+
+        return $return;
+        
+    }    
 }
 ?>
