@@ -297,7 +297,6 @@ while ($d = mysqli_fetch_assoc($return)) {
         'add_path_button',
         'reorder_paths_button',
         'finish_reorder_button',
-        //Brandon's addition of node_preview_list
         'node_preview_list',
         'path_start',
         'path_choices',
@@ -410,7 +409,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 
                 $("#branch_radio_form").append(`
                 <p>
-                    <input type="radio" name="choiceRadio" id="choiceRadio${value[1]['choice']}" value="${value[1]['choice']}-${value[1]['id']}">
+                    <input type="radio" name="choiceRadio" id="choiceRadio${value[1]['choice']}" value="${index}">
                     <label for="choiceRadio${value[1]['choice']}" class="choiceOfList">(${value[0]}) ${nodeData[value[1]['choice']]['title']}</label>
                 </p>`);
 
@@ -428,8 +427,18 @@ while ($d = mysqli_fetch_assoc($return)) {
     }
 
     function proceed(){
-        let selectionValues = explode("-", $("#branch_radio_form").find('input[name="choiceRadio"]').val());
-        console.log("proceed retrieved value: "); console.log(selectionValues);
+        //check if extra data is needed for choice
+        //if necessary, ask for extra data
+
+        //get index of choice
+        let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]').val();
+        console.log("proceed retrieved value: "); console.log(selectionValue);
+        //get pnid
+        let selectedPN = structure[currentNodeID][selectionValue];
+        let selectedPNID = selectedPN['choice'];
+        //store info in data struct
+        //load next node or return to observation viewer (depending on if path terminates)
+        setupNodeInfo(selectedPN['node2']);
     }
 </script>
 </html>
