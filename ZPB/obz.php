@@ -407,7 +407,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                 console.log("nodeData[parseInt(currentNode[1]['choice'])]"); console.log(nodeData[parseInt(currentNode[1]['choice'])]); 
                 console.log("currentNodeData"); console.log(currentNodeData); 
 
-                let minutesToPrint = (currentSeconds / 60).toString(); minutesToPrint= minutesToPrint.padStart(2, '0');
+                let minutesToPrint = ( Math.floor(currentSeconds / 60) ).toString(); minutesToPrint= minutesToPrint.padStart(2, '0');
                 let secondsToPrint = (currentSeconds % 60).toString(); secondsToPrint= secondsToPrint.padStart(2, '0');
 
                 let notesText = '';
