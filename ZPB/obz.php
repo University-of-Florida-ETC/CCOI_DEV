@@ -569,7 +569,9 @@ while ($d = mysqli_fetch_assoc($return)) {
         //store info in data struct
         //load next node or return to observation viewer (depending on if path terminates)
         if(nextQuestionNode == null){
-            subsessions[currentObs][nodeInObsIndex].remove();
+            if( subsessions[currentObs][nodeInObsIndex] != undefined){
+                subsessions[currentObs][nodeInObsIndex].remove();
+            }
             hideNodeEditor();
         }
         else{
