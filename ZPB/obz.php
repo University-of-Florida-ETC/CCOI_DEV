@@ -456,8 +456,8 @@ while ($d = mysqli_fetch_assoc($return)) {
     }
 
     function changeTime(){
-        let minutes = $("#timestamp_input_minutes").val();
-        let seconds = $("#timestamp_input_seconds").val();
+        let minutes = parseInt($("#timestamp_input_minutes").val()); if(minutes == NaN) { minutes = 0; }
+        let seconds = parseInt($("#timestamp_input_seconds").val()); if(seconds == NaN) { seconds = 0; }
         let totalSeconds = seconds + (60 * minutes);
 
         subsessions[currentObs][nodeInObsIndex]['seconds'] = totalSeconds;
