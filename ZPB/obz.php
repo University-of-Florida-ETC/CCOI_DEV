@@ -387,20 +387,20 @@ while ($d = mysqli_fetch_assoc($return)) {
             console.log("currentObs"); console.log(currentObs); 
             console.log("obsIndex"); console.log(obsIndex); 
             $("#observation-list").append(`
-            <h5 data-index="${obsIndex}" class="path-listing-header">Observation ##${obsIndex}: ${currentObs[0]['ssname']}
+            <h5 data-index="${obsIndex}" class="path-listing-header">Observation ##${obsIndex+1}: ${currentObs[1][0]['ssname']}
                 <a class="btn-link path-edit-icon" href="#" data-index="${obsIndex}"><span class="oi oi-pencil px-3" title="Edit Path" aria-hidden="true"></span></a>
                 <a class="btn-link path-delete-icon" href="#" data-index="${obsIndex}"><span class="oi oi-trash" title="Delete Path" aria-hidden="true"></span></a>
                 <button class="btn-link float-right path-dropdown-btn" data-toggle="collapse" data-target="#path_drop_${obsIndex}" aria-expanded="false"><span class="oi oi-chevron-top" title="Show Path Steps" aria-hidden="true"></span></button>
             </h5>`);
             $("#observation-list").append(`<ol class="collapse" id="path_drop_${obsIndex}" style=""></ol>`);
-            Object.entries(currentObs).forEach((currentNode, nodeIndex) => {
+            Object.entries(currentObs[1]).forEach((currentNode, nodeIndex) => {
                 console.log("currentNode"); console.log(currentNode); 
                 console.log("nodeIndex"); console.log(nodeIndex); 
-                let currentSeconds =  parseInt(currentNode['seconds']);
-                let currentNodeData = nodeData[parseInt(currentNode['choice'])];
-                console.log("currentNode['choice']"); console.log(currentNode['choice']); 
-                console.log("parseInt(currentNode['choice'])"); console.log(parseInt(currentNode['choice'])); 
-                console.log("nodeData[parseInt(currentNode['choice'])]"); console.log(nodeData[parseInt(currentNode['choice'])]); 
+                let currentSeconds =  parseInt(currentNode[1]['seconds']);
+                let currentNodeData = nodeData[parseInt(currentNode[1]['choice'])];
+                console.log("currentNode[1]['choice']"); console.log(currentNode[1]['choice']); 
+                console.log("parseInt(currentNode[1]['choice'])"); console.log(parseInt(currentNode[1]['choice'])); 
+                console.log("nodeData[parseInt(currentNode[1]['choice'])]"); console.log(nodeData[parseInt(currentNode[1]['choice'])]); 
                 console.log("currentNodeData"); console.log(currentNodeData); 
 
                 let minutesToPrint = (currentSeconds / 60).toString(); minutesToPrint= minutesToPrint.padStart(2, '0');
