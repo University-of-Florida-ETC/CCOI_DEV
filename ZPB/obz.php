@@ -447,6 +447,15 @@ while ($d = mysqli_fetch_assoc($return)) {
         console.log("subsessions[currentObs][nodeInObsIndex] after: "); console.log(subsessions[currentObs][nodeInObsIndex]);
     }
 
+    function autoFill(){
+        try {
+            let existingValue = subsessions[currentObs][nodeInObsIndex]['choice'];
+        }
+        catch{
+
+        }
+    }
+
     function hideNodeEditor(){
         if(!DOM.path_input.classList.contains('d-none')){
             DOM.path_input.classList.add('d-none');
@@ -479,9 +488,9 @@ while ($d = mysqli_fetch_assoc($return)) {
     }
 
     function setupNodeInfo(structIndex){
-        console.log("structIndex: "+structIndex);
-        console.log("structure[structIndex]:"); console.log(structure[structIndex]);
-        console.log("nodeData[structIndex]:"); console.log(nodeData[structIndex]);
+        //console.log("structIndex: "+structIndex);
+        //console.log("structure[structIndex]:"); console.log(structure[structIndex]);
+        //console.log("nodeData[structIndex]:"); console.log(nodeData[structIndex]);
 
         DOM.path_title.innerText = nodeData[structIndex]['title'];
 
@@ -491,9 +500,9 @@ while ($d = mysqli_fetch_assoc($return)) {
         currentNodeID = structIndex;
 
         Object.entries(structure[structIndex]).forEach((value, index) => {
-            console.log("index: "+index);
-            console.log("value:");
-            console.log(value);
+            //console.log("index: "+index);
+            //console.log("value:");
+            //console.log(value);
             if(value[0]=="0"){
 
             }
@@ -525,14 +534,14 @@ while ($d = mysqli_fetch_assoc($return)) {
 
         //get index of choice
         let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]:checked').val();
-        console.log("proceed retrieved value: "); console.log(selectionValue);
+        //console.log("proceed retrieved value: "); console.log(selectionValue);
         //get pnid
         let selectedPN = structure[currentNodeID][selectionValue];
-        console.log("selectedPN: "); console.log(selectedPN);
+        //console.log("selectedPN: "); console.log(selectedPN);
         let selectedPNID = selectedPN['choice'];
-        console.log("selectedPNID: "); console.log(selectedPNID);
+        //console.log("selectedPNID: "); console.log(selectedPNID);
         let nextQuestionNode = selectedPN['node2'];
-        console.log("nextQuestionNode: "); console.log(nextQuestionNode);
+        //console.log("nextQuestionNode: "); console.log(nextQuestionNode);
         //store info in data struct
         //load next node or return to observation viewer (depending on if path terminates)
         if(nextQuestionNode == null){
