@@ -233,7 +233,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                 <div class="col-md-4 col-12">
                     <div class="row">
                         <div class="col">
-                            <button id="launch_video_button" class="btn btn-blue btn-full-width my-2">Open Video <span class="oi oi-external-link px-2" title="Open Session Video" onclick="launchVideoFromSession(<?php echo "{$videoInfo['url']}, {$videoInfo['scramble']}" ?>)"span></button>
+                            <button id="launch_video_button" class="btn btn-blue btn-full-width my-2" onclick="launchVideoFromSession(<?php echo "{$videoInfo['url']}, {$videoInfo['scramble']}" ?>)"> Open Video <span class="oi oi-external-link px-2" title="Open Session Video" onclick="launchVideoFromSession(<?php echo "{$videoInfo['url']}, {$videoInfo['scramble']}" ?>)"span></button>
                             <button id="viz_button" class="btn btn-gold btn-full-width my-2 d-none">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
                             <button id="irr_button" class="btn btn-gold btn-full-width my-2">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
                         </div>
@@ -560,8 +560,10 @@ while ($d = mysqli_fetch_assoc($return)) {
 
         DOM.path_title.innerText = nodeData[structIndex]['title'];
 
-        $("#timestamp_input_minutes").val(parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) / 60);
-        $("#timestamp_input_seconds").val(parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) % 60);
+        if(subsessions[currentObs] != undefined){
+            $("#timestamp_input_minutes").val(parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) / 60);
+            $("#timestamp_input_seconds").val(parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) % 60);
+        }
 
         $("#branch_container").empty();
         $("#branch_container").append('<form id="branch_radio_form" class="col-12 pt-3" action="javascript:void(0)"></form>');
