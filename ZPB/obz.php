@@ -438,7 +438,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         //if necessary, ask for extra data
 
         //get index of choice
-        let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]').val();
+        let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]:checked').val();
         console.log("proceed retrieved value: "); console.log(selectionValue);
         //get pnid
         let selectedPN = structure[currentNodeID][selectionValue];
