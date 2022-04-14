@@ -51,10 +51,10 @@ $paths = getPaths(); //defined below
 <?php foreach ($sessions['research'] as $index => $currentSession): ?>
                                             <li class="session-listing my-2" id="research-<?= $currentSession['id']; ?>" style="display:flex; flex-wrap:no-wrap;">
                                                 <div style="width:80%;">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&url=<?=$currentSession['url']; ?>"><?= $currentSession['name'] ?></a>
+                                                    <a class="btn-link session-edit" href="obz?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
                                                 </div>
                                                 <div style="width:18%; display:flex; justify-content:space-between;">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil" title="Edit Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link session-edit" href="obz?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil" title="Edit Session" aria-hidden="true"></span></a>
                                                     <a class="btn-link" href="javascript:void(0)" onclick="deleteSession(<?= $currentSession['id']; ?>)"><span class="oi oi-trash" title="Delete Session" aria-hidden="true"></span></a>
                                                     <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
@@ -66,7 +66,7 @@ $paths = getPaths(); //defined below
 <?php foreach ($sessions['others'] as $index => $currentSession): ?>
                                             <li class="session-listing my-2" id="others-<?= $currentSession['id']; ?>" style="display:flex; flex-wrap:no-wrap;">
                                             <div style="width:80%;">
-                                                    <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
+                                                    <a class="btn-link session-edit" href="obz?id=<?= $currentSession['id']; ?>"><?= $currentSession['name'] ?></a>
                                                 </div>
                                                 <div style="width:18%; display:flex; justify-content:flex-end;">
                                                     <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart" title="View Visualizations" aria-hidden="true"></span></a>
@@ -82,10 +82,10 @@ $paths = getPaths(); //defined below
                                             <li class="session-listing my-2" id="playground-<?= $currentSession['id']; ?>">
                                                 <div class="row">
                                                     <div class="col-sm-9 col-12">
-                                                        <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><?= $currentSession['name'] ?></a>
+                                                        <a class="btn-link session-edit" href="obz?id=<?= $currentSession['id']; ?>&isPlayground=1"><?= $currentSession['name'] ?></a>
                                                     </div>
                                                     <div class="col-sm-3 col-12">
-                                                        <a class="btn-link session-edit" href="observation?id=<?= $currentSession['id']; ?>&isPlayground=1"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link session-edit" href="obz?id=<?= $currentSession['id']; ?>&isPlayground=1"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
                                                         <a class="btn-link" href="javascript:void(0)" onclick="deleteSession(<?= $currentSession['id']; ?>, 1)"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
                                                         <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
                                                     </div>
@@ -384,10 +384,10 @@ $paths = getPaths(); //defined below
                                             </div>`;
                                             */
                             newEntry.innerHTML = `  <div style="width:80%;">
-                                                        <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}">${name}</a>
+                                                        <a class="btn-link session-edit" href="obz?id=${returnedInt}${extraText}">${name}</a>
                                                     </div>
                                                     <div style="width:18%; display:flex; justify-content:space-between;">
-                                                        <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}"><span class="oi oi-pencil" title="Edit Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link session-edit" href="obz?id=${returnedInt}${extraText}"><span class="oi oi-pencil" title="Edit Session" aria-hidden="true"></span></a>
                                                         <a class="btn-link" href="javascript:void(0)" onclick="deleteSession(${returnedInt})"><span class="oi oi-trash" title="Delete Session" aria-hidden="true"></span></a>
                                                         <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart" title="View Visualizations" aria-hidden="true"></span></a>
                                                     </div>`;
