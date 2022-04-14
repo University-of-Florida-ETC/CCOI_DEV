@@ -466,6 +466,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         if(!DOM.path_input.classList.contains('d-none')){
             DOM.path_input.classList.add('d-none');
         }
+        populateObsList();
         DOM.dom_group_1.classList.remove('d-none');
     }
 
