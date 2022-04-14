@@ -233,7 +233,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                 <div class="col-md-4 col-12">
                     <div class="row">
                         <div class="col">
-                            <button id="launch_video_button" class="btn btn-blue btn-full-width my-2">Open Video <span class="oi oi-external-link px-2" title="Open Session Video" onclick="launchVideoFrame(<?php echo "{$videoInfo['url']}, {$videoInfo['scramble']}" ?>)"span></button>
+                            <button id="launch_video_button" class="btn btn-blue btn-full-width my-2">Open Video <span class="oi oi-external-link px-2" title="Open Session Video" onclick="launchVideoFromSession(<?php echo "{$videoInfo['url']}, {$videoInfo['scramble']}" ?>)"span></button>
                             <button id="viz_button" class="btn btn-gold btn-full-width my-2 d-none">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
                             <button id="irr_button" class="btn btn-gold btn-full-width my-2">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
                         </div>
@@ -671,7 +671,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                 console.log(data);
             }
         };
-        var sendStr = "updateObsEl=1&" + $.param(subsessions);
+        var sendStr = "updateObsEl=1&id="+sessionID + "&"+ $.param(subsessions);
         console.log("sendStr:");
         console.log(sendStr);
         var url = encodeURI(derServer + "ZPB/zpb_ajax.php?" + sendStr);
