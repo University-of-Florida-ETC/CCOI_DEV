@@ -394,6 +394,10 @@ while ($d = mysqli_fetch_assoc($return)) {
             Object.entries(currentObs).forEach((currentNode, nodeIndex) => {
                 let currentSeconds =  parseInt(currentNode['seconds']);
                 let currentNodeData = nodeData[parseInt(currentNode['choice'])];
+                console.log("currentNode['choice']"); console.log(currentNode['choice']); 
+                console.log("parseInt(currentNode['choice'])"); console.log(parseInt(currentNode['choice'])); 
+                console.log("nodeData[parseInt(currentNode['choice'])]"); console.log(nodeData[parseInt(currentNode['choice'])]); 
+                console.log("currentNodeData"); console.log(currentNodeData); 
 
                 let minutesToPrint = (currentSeconds / 60).toString(); minutesToPrint= minutesToPrint.padStart(2, '0');
                 let secondsToPrint = (currentSeconds % 60).toString(); secondsToPrint= secondsToPrint.padStart(2, '0');
@@ -402,7 +406,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                 if( currentNode['notes'] != null){
                     notesText = `[${currentNodeData['notes']}]`;
                 }
-                $("#path_drop_"+obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${currentNodeData['code']}: ${currentNode['title']} ${notesText}</li>`);
+                $("#path_drop_"+obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${currentNodeData['code']}: ${currentNodeData['title']} ${notesText}</li>`);
             });
         });
     }
