@@ -449,7 +449,8 @@ while ($d = mysqli_fetch_assoc($return)) {
 
     function autoFill(){
         try {
-            let existingValue = subsessions[currentObs][nodeInObsIndex]['choice'];
+            let existingChoiceID = subsessions[currentObs][nodeInObsIndex]['choice'];
+            $("#choiceRadio"+existingChoiceID).prop("checked", true);
         }
         catch{
 
@@ -525,7 +526,9 @@ while ($d = mysqli_fetch_assoc($return)) {
             console.log(value);
         });
         */
+
        //TODO: autofill
+       autoFill();
     }
 
     function proceed(){
