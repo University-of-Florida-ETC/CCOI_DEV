@@ -597,7 +597,7 @@ var ccoiObservation = (function () {
     console.log(sessionIndex);
     let session = sessions[sessionIndex];
     console.log(
-      sessions[sessionIndex] + "\n This is the current session... is it?"
+      JSON.stringify(sessions[sessionIndex]) + "\n This is the current session... is it?"
     );
     let paths = session.paths;
     stateIDPath = paths.length;
