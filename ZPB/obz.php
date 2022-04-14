@@ -136,7 +136,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                             </div>
                         </div>
                         <div class="col-12 py-2 pr-md-5">
-                            <button id="add_path_button" type="button" class="btn btn-darkblue" data-toggle="tooltip" data-html="true" title="Click here to add a Observation" onclick="startEditingNodes()">Add Observation</button>
+                            <button id="add_path_button" type="button" class="btn btn-darkblue" data-toggle="tooltip" data-html="true" title="Click here to add a Observation" onclick="addObservation()">Add Observation</button>
                         </div>
 
                         <div id="path_listing" class="col-12 pt-4 pr-md-5">
@@ -439,8 +439,19 @@ while ($d = mysqli_fetch_assoc($return)) {
             DOM.dom_group_1.classList.add('d-none');
         }
         DOM.path_input.classList.remove('d-none');
-        
+    }
+
+    function addObservation(){
+        console.log("subsession before:"); console.log(subsession); 
+        subsession.push('-1':[]);
+        console.log("subsession after: "); console.log(subsession); 
+        startEditingNodes();
         setupNodeInfo(Object.keys(structure)[0]);
+    }
+
+    function editObservation(index){
+        startEditingNodes();
+        setupNodeInfo(index);
     }
 
     function setupNodeInfo(structIndex){
