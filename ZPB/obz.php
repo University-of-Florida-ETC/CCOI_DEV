@@ -392,6 +392,8 @@ while ($d = mysqli_fetch_assoc($return)) {
             </h5>`);
             $("#observation-list").append(`<ol class="collapse" id="path_drop_${obsIndex}" style=""></ol>`);
             Object.entries(currentObs).forEach((currentNode, nodeIndex) => {
+                console.log("currentNode"); console.log(currentNode); 
+                console.log("nodeIndex"); console.log(nodeIndex); 
                 let currentSeconds =  parseInt(currentNode['seconds']);
                 let currentNodeData = nodeData[parseInt(currentNode['choice'])];
                 console.log("currentNode['choice']"); console.log(currentNode['choice']); 
