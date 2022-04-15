@@ -626,7 +626,9 @@ while ($d = mysqli_fetch_assoc($return)) {
         console.log(url);
         popoutWindow = window.open("/video-player"); // to avoid browser pop up blockers, we have to load the pop up window directly in the on click, not in the ajax call.
         // Add click event to proceed and play button now that we have a video
-        $(DOM.proceed_and_play_button)
+        //! The way this function was originally written assumes that the user would be clicking 'Open Video' AFTER clicking add observation.
+        //! Need to remedy this: DOMContentLoaded() needs to be used in order to ensure the button is already loaded. Break this out to its own function
+        //! Once path editing works normally. 
         /*$(DOM.proceed_and_play_button).click(function() {
             submitBranch();
             popoutWindow.video.play();
