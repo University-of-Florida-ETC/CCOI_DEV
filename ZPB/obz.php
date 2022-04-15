@@ -260,7 +260,6 @@ while ($d = mysqli_fetch_assoc($return)) {
                             -->
 </body>
 <script>
-
     //!TODO Need to move the JS and supporting PHP over to a separate file: this will get unruly fairly quickly. 
     // Code to edit nodes
     //AJAX stuffs
@@ -607,7 +606,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 
     function launchVideoFromSession() {
         let videoID = $("#session_video_url").val();
-        
+
         //Using JSON_encode here in order to ensure the string is formatted correctly for JS. 
         let scramble =
             <?php
@@ -621,7 +620,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 
         let title =
             <?php
-            echo(json_encode($videoInfop['name']))
+            echo (json_encode($videoInfop['name']))
             ?>
 
         popoutWindow = window.open("/video-player"); // to avoid browser pop up blockers, we have to load the pop up window directly in the on click, not in the ajax call.
@@ -631,31 +630,26 @@ while ($d = mysqli_fetch_assoc($return)) {
             popoutWindow.video.play();
         });
         popoutListeners();
-        if (isDemo) {
-            let videoSRC = "/videofiles/7ccU4vf8zW7bto1s5Ry63qRl.webm";
-            popoutWindow.src = videoSRC;
-            popoutWindow.videoTitle = "Demo Session Video";
-        } else {
-            console.log(url);
-            console.log(scramble);
-            console.log(title); 
-            let videoSRC = "/ccoivids/" + url + scramble;
-            popoutWindow.src = videoSRC;
-            popoutWindow.videoTitle = title;
-        }
+        console.log(url);
+        console.log(scramble);
+        console.log(title);
+        let videoSRC = "/ccoivids/" + url + scramble;
+        popoutWindow.src = videoSRC;
+        popoutWindow.videoTitle = title;
+
     }
 
     function popoutListeners() {
-    $("#vid_speed_1x").click(function () {
-      popoutWindow.changeSpeed(1.0);
-    });
-    $("#vid_speed_1_5x").click(function () {
-      popoutWindow.changeSpeed(1.5);
-    });
-    $("#vid_speed_2x").click(function () {
-      popoutWindow.changeSpeed(2.0);
-    });
-  }
+        $("#vid_speed_1x").click(function() {
+            popoutWindow.changeSpeed(1.0);
+        });
+        $("#vid_speed_1_5x").click(function() {
+            popoutWindow.changeSpeed(1.5);
+        });
+        $("#vid_speed_2x").click(function() {
+            popoutWindow.changeSpeed(2.0);
+        });
+    }
 
     function proceed() {
         //check if extra data is needed for choice
