@@ -28,7 +28,7 @@ while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$
     $subsessions[$d['ssid']][] = $d;
 }
 //echo "<br><br>subsessions: "; var_dump($subsessions);
-echo "<script>console.log(\"subsessions:\"); console.log(".json_encode($subsessions).")</script>"; //var_dump($subsessions);
+echo "<script>console.log(\"subsessions:\"); console.log(" . json_encode($subsessions) . ")</script>"; //var_dump($subsessions);
 
 $return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$session['pathid']}'");
 while ($d = mysqli_fetch_assoc($return)) {
@@ -60,7 +60,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 
 $return = mysqli_query($db, "SELECT * FROM tbPathNodes WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");
 while ($d = mysqli_fetch_assoc($return)) {
-    $structure[$d['node1']][$d['choiceorder']]=$d;
+    $structure[$d['node1']][$d['choiceorder']] = $d;
 }
 //echo "<br><br>structure: "; var_dump($structure);
 ?>
@@ -141,7 +141,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                         </div>
 
                         <div id="path_listing" class="col-12 pt-4 pr-md-5">
-                            
+
                             <div id="path_list" class="draggable-container">
                             </div>
                         </div>
@@ -212,7 +212,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                 <div class="col-md-4 col-12">
                     <div class="row">
                         <div class="col">
-                            <button id="launch_video_button" class="btn btn-blue btn-full-width my-2" onclick="launchVideoFromSession(<?php echo "{$videoInfo['url']}, {$videoInfo['scramble']}" ?>)"> Open Video <span class="oi oi-external-link px-2" title="Open Session Video"span></button>
+                            <button id="launch_video_button" class="btn btn-blue btn-full-width my-2" onclick="launchVideoFromSession()"> Open Video <span class="oi oi-external-link px-2" title="Open Session Video" span></button>
                             <button id="viz_button" class="btn btn-gold btn-full-width my-2 d-none">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
                             <button id="irr_button" class="btn btn-gold btn-full-width my-2">Inter-Rater Reliability <span class="oi oi-people px-2" title="Inter-Rater Reliability Demo"></span></button>
                         </div>
@@ -250,7 +250,8 @@ while ($d = mysqli_fetch_assoc($return)) {
 <script src="/js/jquery-3.4.1.min.js"></script>
 
 <script src="/js/utility.js"></script>
-<script src="/js/bootstrap.min.js"></script><!--
+<script src="/js/bootstrap.min.js"></script>
+<!--
 <script src="/js/zpbccoi.js"></script>
 <script src="/js/ccoi.js"></script>
 <script src="/js/observation.js"></script>
@@ -261,21 +262,30 @@ while ($d = mysqli_fetch_assoc($return)) {
 <script>
     // Code to edit nodes
     //AJAX stuffs
-    var derServer='https://ccoi-dev.education.ufl.edu/';
-    function GetAjaxReturnObject(mimetype){
-        var xmlHttp=null;
+    var derServer = 'https://ccoi-dev.education.ufl.edu/';
+
+    function GetAjaxReturnObject(mimetype) {
+        var xmlHttp = null;
         if (window.XMLHttpRequest) { // Mozilla, Safari, ...
             xmlHttp = new XMLHttpRequest();
-            if (xmlHttp.overrideMimeType) {xmlHttp.overrideMimeType(mimetype);}
+            if (xmlHttp.overrideMimeType) {
+                xmlHttp.overrideMimeType(mimetype);
+            }
         } else if (window.ActiveXObject) { // IE
-            try {xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");}catch (e) {try {xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");}catch (e) {}}
+            try {
+                xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try {
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (e) {}
+            }
         }
         return xmlHttp;
     }
 
     function getHTML(httpRequest) {
-        if (httpRequest.readyState===4) {
-            if (httpRequest.status === 200) {			// if buggy, check logs for firefox / OPTIONS instead of POST -- need same domain
+        if (httpRequest.readyState === 4) {
+            if (httpRequest.status === 200) { // if buggy, check logs for firefox / OPTIONS instead of POST -- need same domain
                 return httpRequest.responseText;
             }
         }
@@ -288,7 +298,7 @@ while ($d = mysqli_fetch_assoc($return)) {
     var pathLabel = document.getElementById("path_label");
     */
 
-    function scrubSubsessions(){
+    function scrubSubsessions() {
         Object.entries(subsessions).forEach((currentObs, obsIndex) => {
             Object.entries(currentObs[1]).forEach((currentNode, nodeIndex) => {
                 subsessions[currentObs[0]][currentNode[0]] = {
@@ -306,10 +316,11 @@ while ($d = mysqli_fetch_assoc($return)) {
     }
 
     scrubSubsessions();
-    console.log("post scrubbing subsessions:"); console.log(subsessions);
+    console.log("post scrubbing subsessions:");
+    console.log(subsessions);
 
     var DOM = {};
-    var popoutWindow; 
+    var popoutWindow;
     var IDs = [
         'launch_video_button',
         'go_to_session_select',
@@ -399,15 +410,17 @@ while ($d = mysqli_fetch_assoc($return)) {
         DOM[ID] = document.getElementById(ID);
     }
 
-    console.log("nodeData:"); console.log(nodeData);
-    console.log("structure:"); console.log(structure);
+    console.log("nodeData:");
+    console.log(nodeData);
+    console.log("structure:");
+    console.log(structure);
 
     let currentNodeID = -1;
     let currentObs = 0;
     let nodeInObsIndex = 0;
     let nextObsId = -1;
 
-    function populateObsList(){
+    function populateObsList() {
         $("#path_list").empty();
         Object.entries(subsessions).forEach((currentObs, obsIndex) => {
             //console.log("currentObs"); console.log(currentObs); 
@@ -422,124 +435,136 @@ while ($d = mysqli_fetch_assoc($return)) {
                 <ol class="collapse" id="path_drop_${obsIndex}" style=""></ol>
             </div>`);
             Object.entries(currentObs[1]).forEach((currentNode, nodeIndex) => {
-                if (currentNode[1]['choice'] == 0){
+                if (currentNode[1]['choice'] == 0) {
 
-                }
-                else {
+                } else {
                     //console.log("currentNode"); console.log(currentNode); 
                     //console.log("nodeIndex"); console.log(nodeIndex); 
-                    let currentSeconds =  parseInt(currentNode[1]['seconds']);
+                    let currentSeconds = parseInt(currentNode[1]['seconds']);
                     let currentNodeData = nodeData[parseInt(currentNode[1]['choice'])];
-                    if(currentNodeData == undefined){
+                    if (currentNodeData == undefined) {
 
-                    }
-                    else{
+                    } else {
                         //console.log("currentNode[1]['choice']"); console.log(currentNode[1]['choice']); 
                         //console.log("parseInt(currentNode[1]['choice'])"); console.log(parseInt(currentNode[1]['choice'])); 
                         //console.log("nodeData[parseInt(currentNode[1]['choice'])]"); console.log(nodeData[parseInt(currentNode[1]['choice'])]); 
                         //console.log("currentNodeData"); console.log(currentNodeData); 
 
-                        let minutesToPrint = ( Math.floor(currentSeconds / 60) ).toString(); minutesToPrint= minutesToPrint.padStart(2, '0');
-                        let secondsToPrint = (currentSeconds % 60).toString(); secondsToPrint= secondsToPrint.padStart(2, '0');
+                        let minutesToPrint = (Math.floor(currentSeconds / 60)).toString();
+                        minutesToPrint = minutesToPrint.padStart(2, '0');
+                        let secondsToPrint = (currentSeconds % 60).toString();
+                        secondsToPrint = secondsToPrint.padStart(2, '0');
 
                         let notesText = '';
-                        if( currentNode['notes'] != null){
+                        if (currentNode['notes'] != null) {
                             notesText = `[${currentNodeData['notes']}]`;
                         }
-                        $("#path_drop_"+obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${currentNodeData['code']}: ${currentNodeData['title']} ${notesText}</li>`);
+                        $("#path_drop_" + obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${currentNodeData['code']}: ${currentNodeData['title']} ${notesText}</li>`);
                     }
-                    
+
                 }
-                
+
             });
         });
     }
 
     populateObsList();
 
-    function goBack(){
-        if(nodeInObsIndex == 0){
+    function goBack() {
+        if (nodeInObsIndex == 0) {
             hideNodeEditor();
-        }
-        else {
+        } else {
             nodeInObsIndex -= 1;
             setupNodeInfo(subsessions[currentObs][nodeInObsIndex]['node1']);
         }
     }
 
-    function selectRadio(selectedNum){
+    function selectRadio(selectedNum) {
         let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]:checked').val();
-        console.log("subsessions[currentObs][nodeInObsIndex] before: "); console.log(subsessions[currentObs][nodeInObsIndex]);
+        console.log("subsessions[currentObs][nodeInObsIndex] before: ");
+        console.log(subsessions[currentObs][nodeInObsIndex]);
         let nodeID = subsessions[currentObs][nodeInObsIndex]['id'];
         let nodeSecs = subsessions[currentObs][nodeInObsIndex]['seconds'];
         subsessions[currentObs][nodeInObsIndex] = structure[currentNodeID][selectedNum];
         subsessions[currentObs][nodeInObsIndex]['id'] = nodeID;
         subsessions[currentObs][nodeInObsIndex]['seconds'] = nodeSecs;
-        console.log("subsessions[currentObs][nodeInObsIndex] after: "); console.log(subsessions[currentObs][nodeInObsIndex]);
+        console.log("subsessions[currentObs][nodeInObsIndex] after: ");
+        console.log(subsessions[currentObs][nodeInObsIndex]);
     }
 
-    function changeTime(){
-        let minutes = parseInt($("#timestamp_input_minutes").val()); if(minutes == NaN) { minutes = 0; }
-        let seconds = parseInt($("#timestamp_input_seconds").val()); if(seconds == NaN) { seconds = 0; }
+    function changeTime() {
+        let minutes = parseInt($("#timestamp_input_minutes").val());
+        if (minutes == NaN) {
+            minutes = 0;
+        }
+        let seconds = parseInt($("#timestamp_input_seconds").val());
+        if (seconds == NaN) {
+            seconds = 0;
+        }
         let totalSeconds = seconds + (60 * minutes);
 
         subsessions[currentObs][nodeInObsIndex]['seconds'] = totalSeconds;
     }
 
-    function autoFill(){
-        console.log(currentObs); console.log("currentObs");
-        console.log(nodeInObsIndex); console.log("nodeInObsIndex");
+    function autoFill() {
+        console.log(currentObs);
+        console.log("currentObs");
+        console.log(nodeInObsIndex);
+        console.log("nodeInObsIndex");
         try {
-            console.log(subsessions[currentObs][nodeInObsIndex]['choice']); console.log("subsessions[currentObs][nodeInObsIndex]['choice']");
+            console.log(subsessions[currentObs][nodeInObsIndex]['choice']);
+            console.log("subsessions[currentObs][nodeInObsIndex]['choice']");
             let existingChoiceID = subsessions[currentObs][nodeInObsIndex]['choice'];
-            $("#choiceRadio"+existingChoiceID).prop("checked", true);
-        }
-        catch{
+            $("#choiceRadio" + existingChoiceID).prop("checked", true);
+        } catch {
 
         }
     }
 
-    function hideNodeEditor(){
-        if(!DOM.path_input.classList.contains('d-none')){
+    function hideNodeEditor() {
+        if (!DOM.path_input.classList.contains('d-none')) {
             DOM.path_input.classList.add('d-none');
         }
         populateObsList();
         DOM.dom_group_1.classList.remove('d-none');
     }
 
-    function startEditingNodes(){
-        if(!DOM.dom_group_1.classList.contains('d-none')){
+    function startEditingNodes() {
+        if (!DOM.dom_group_1.classList.contains('d-none')) {
             DOM.dom_group_1.classList.add('d-none');
         }
         DOM.path_input.classList.remove('d-none');
     }
 
-    function addObservation(){
+    function addObservation() {
         //console.log("subsessions before:"); console.log(subsessions); 
         //console.log("insertId:"); console.log(insertId);
-        subsessions[(nextObsId).toString()] = [{ssname : ""}];
+        subsessions[(nextObsId).toString()] = [{
+            ssname: ""
+        }];
         nextObsId -= 1;
-        console.log("subsessions after: "); console.log(subsessions); 
+        console.log("subsessions after: ");
+        console.log(subsessions);
         nodeInObsIndex = 0;
         startEditingNodes();
         setupNodeInfo(Object.keys(structure)[0]);
     }
 
-    function editObservation(ssID){
+    function editObservation(ssID) {
         startEditingNodes();
         currentObs = ssID;
         nodeInObsIndex = 0;
         setupNodeInfo(Object.keys(structure)[0]);
     }
 
-    function setupNodeInfo(structIndex){
+    function setupNodeInfo(structIndex) {
         //console.log("structIndex: "+structIndex);
         //console.log("structure[structIndex]:"); console.log(structure[structIndex]);
         //console.log("nodeData[structIndex]:"); console.log(nodeData[structIndex]);
 
         DOM.path_title.innerText = nodeData[structIndex]['title'];
 
-        if(subsessions[currentObs] != undefined){
+        if (subsessions[currentObs] != undefined) {
             $("#timestamp_input_minutes").val(Math.floor(parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) / 60));
             $("#timestamp_input_seconds").val(parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) % 60);
         }
@@ -553,10 +578,9 @@ while ($d = mysqli_fetch_assoc($return)) {
             //console.log("index: "+index);
             //console.log("value:");
             //console.log(value);
-            if(value[0]=="0"){
+            if (value[0] == "0") {
 
-            }
-            else {
+            } else {
 
                 $("#branch_radio_form").append(`
                 <p onclick="selectRadio(${value[0]});">
@@ -567,52 +591,59 @@ while ($d = mysqli_fetch_assoc($return)) {
             }
 
         });
-/*
-        structure[structIndex].forEach((index, value) => {
-            console.log("index: "+index);
-            console.log("value:");
-            console.log(value);
-        });
-        */
+        /*
+                structure[structIndex].forEach((index, value) => {
+                    console.log("index: "+index);
+                    console.log("value:");
+                    console.log(value);
+                });
+                */
 
-       //TODO: autofill
-       autoFill();
+        //TODO: autofill
+        autoFill();
     }
 
-    function launchVideoFromSession(url, scramble) {
+    function launchVideoFromSession() {
         let videoID = $("#session_video_url").val();
+        
+        //Using JSON_encode here in order to ensure the string is formatted correctly for JS. 
+        let scramble =
+            <?php
+            echo (json_encode($videoInfo['scramble']));
+            ?>;
+
+        let url =
+            <?php
+            echo (json_encode($videoInfo['url']))
+            ?>;
+
+        let title =
+            <?php
+            echo(json_encode($videoInfop['name']))
+            ?>
+
         popoutWindow = window.open("/video-player"); // to avoid browser pop up blockers, we have to load the pop up window directly in the on click, not in the ajax call.
         // Add click event to proceed and play button now that we have a video
-        $(DOM.proceed_and_play_button).click(function () {
-        submitBranch();
-        popoutWindow.video.play();
+        $(DOM.proceed_and_play_button).click(function() {
+            submitBranch();
+            popoutWindow.video.play();
         });
         popoutListeners();
         if (isDemo) {
-        let videoSRC = "/videofiles/7ccU4vf8zW7bto1s5Ry63qRl.webm";
-        popoutWindow.src = videoSRC;
-        popoutWindow.videoTitle = "Demo Session Video";
+            let videoSRC = "/videofiles/7ccU4vf8zW7bto1s5Ry63qRl.webm";
+            popoutWindow.src = videoSRC;
+            popoutWindow.videoTitle = "Demo Session Video";
         } else {
-        // $.ajax({
-        //     url: "/api/ccoi_ajax.php?fetchvid=" + $_GET.url,
-        //     method: "GET",
-        //     contentType: "application/json; charset=utf-8",
-        //     success: function (data) {
-            
-        //     },
-        // }).fail(function (err) {
-        //     console.log(err);
-        //     console.log(this);
-        // });
-        console.log(url);
-        console.log(scramble);
-        let videoSRC = "/ccoivids/" + url + scramble;
-        popoutWindow.src = videoSRC;
-        popoutWindow.videoTitle = "Demo Video";
+            console.log(url);
+            console.log(scramble);
+            console.log(title); 
+            let videoSRC = "/ccoivids/" + url + scramble;
+            popoutWindow.src = videoSRC;
+            popoutWindow.videoTitle = title;
         }
-  }
+    }
 
-    function proceed(){
+    function proceed() {
         //check if extra data is needed for choice
         //if necessary, ask for extra data
 
@@ -629,65 +660,60 @@ while ($d = mysqli_fetch_assoc($return)) {
         //console.log("nextQuestionNode: "); console.log(nextQuestionNode);
         //store info in data struct
         //load next node or return to observation viewer (depending on if path terminates)
-        if(nextQuestionNode == null){
+        if (nextQuestionNode == null) {
             subsessions[currentObs].length = nodeInObsIndex;
             hideNodeEditor();
-        }
-        else{
+        } else {
             setupNodeInfo(nextQuestionNode);
         }
     }
 
-    function ajaxIt(){
+    function ajaxIt() {
         var xmlHttp = GetAjaxReturnObject("text/html");
         if (xmlHttp == null) {
-        alert("Your browser does not support AJAX!");
-        return;
+            alert("Your browser does not support AJAX!");
+            return;
         }
-        
-        xmlHttp.onreadystatechange = function () {
+
+        xmlHttp.onreadystatechange = function() {
             var data = getHTML(xmlHttp);
             if (data) {
                 console.log("AJAX returns this:");
                 console.log(data);
             }
         };
-        var sendStr = "updateObsEl=1&id="+sessionID + "&"+ $.param(subsessions);
+        var sendStr = "updateObsEl=1&id=" + sessionID + "&" + $.param(subsessions);
         console.log("sendStr:");
         console.log(sendStr);
         var url = encodeURI(derServer + "ZPB/zpb_ajax.php?" + sendStr);
         console.log(url);
         xmlHttp.open("POST", url, true);
         xmlHttp.setRequestHeader(
-        "Content-Type",
-        "application/x-www-form-urlencoded"
+            "Content-Type",
+            "application/x-www-form-urlencoded"
         );
         xmlHttp.send(sendStr);
     }
 </script>
+
 </html>
 
 <?php
 function getAppVideos($id)
 {
-    if (!empty($id) && is_numeric($id)) 
-    {
+    if (!empty($id) && is_numeric($id)) {
         $db = $GLOBALS["db"];
-        if(!empty($_GET['isPlayground'])) 
-        {
+        if (!empty($_GET['isPlayground'])) {
             $return = mysqli_query($db, "SELECT v.id, v.name, v.url FROM tbVideos v LEFT JOIN tbPeopleAppPlaygrounds pg ON pg.appid = v.appid WHERE pg.id = 1 AND pg.inactive IS NULL");
-            while($d = mysqli_fetch_assoc($return)) {
+            while ($d = mysqli_fetch_assoc($return)) {
                 print_r($d);
                 $appVideos = $d;
             }
-        }
-
-        else{
+        } else {
             return;
         }
 
         return $appVideos;
-        
     }
 }
 function getSessionInfo($id)
@@ -715,15 +741,15 @@ function getSessionInfo($id)
         return "<br>Session isn't valid :(";
 }
 
-function getVideoInfo($id){
+function getVideoInfo($id)
+{
     if (!empty($id) && is_numeric($id)) {
         $db = $GLOBALS["db"];
-        $query = "SELECT url, scramble FROM tbVideos WHERE id=(SELECT videoid FROM tbSessions WHERE id=$id)";
+        $query = "SELECT url, scramble, name FROM tbVideos WHERE id=(SELECT videoid FROM tbSessions WHERE id=$id)";
         $return = mysqli_query($db, $query);
         $return = mysqli_fetch_assoc($return);
 
         return $return;
-        
-    }    
+    }
 }
 ?>
