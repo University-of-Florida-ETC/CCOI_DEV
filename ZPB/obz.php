@@ -634,7 +634,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         console.log(url);
         console.log(scramble);
         console.log(title);
-        let videoSRC = "/ccoivids/" + url + scramble;
+        let videoSRC = "/ccoivids/" + scramble +"_" + url;
         popoutWindow.src = videoSRC;
         popoutWindow.videoTitle = title;
 
