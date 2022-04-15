@@ -623,12 +623,13 @@ while ($d = mysqli_fetch_assoc($return)) {
             echo (json_encode($videoInfop['name']))
             ?>
 
+        console.log(url);
         popoutWindow = window.open("/video-player"); // to avoid browser pop up blockers, we have to load the pop up window directly in the on click, not in the ajax call.
         // Add click event to proceed and play button now that we have a video
-        $(DOM.proceed_and_play_button).click(function() {
+        /*$(DOM.proceed_and_play_button).click(function() {
             submitBranch();
             popoutWindow.video.play();
-        });
+        });*/
         popoutListeners();
         console.log(url);
         console.log(scramble);
