@@ -260,6 +260,8 @@ while ($d = mysqli_fetch_assoc($return)) {
                             -->
 </body>
 <script>
+
+    //!TODO Need to move the JS and supporting PHP over to a separate file: this will get unruly fairly quickly. 
     // Code to edit nodes
     //AJAX stuffs
     var derServer = 'https://ccoi-dev.education.ufl.edu/';
@@ -642,6 +644,18 @@ while ($d = mysqli_fetch_assoc($return)) {
             popoutWindow.videoTitle = title;
         }
     }
+
+    function popoutListeners() {
+    $("#vid_speed_1x").click(function () {
+      popoutWindow.changeSpeed(1.0);
+    });
+    $("#vid_speed_1_5x").click(function () {
+      popoutWindow.changeSpeed(1.5);
+    });
+    $("#vid_speed_2x").click(function () {
+      popoutWindow.changeSpeed(2.0);
+    });
+  }
 
     function proceed() {
         //check if extra data is needed for choice
