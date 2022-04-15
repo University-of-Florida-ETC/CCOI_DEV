@@ -606,7 +606,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 
     function launchVideoFromSession() {
         let videoID = $("#session_video_url").val();
-
+        //TODO: add back isDemo() functionality for presentation purposes. 
         //Using JSON_encode here in order to ensure the string is formatted correctly for JS. 
         let scramble =
             <?php
