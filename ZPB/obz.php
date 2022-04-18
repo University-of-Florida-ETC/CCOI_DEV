@@ -62,6 +62,11 @@ $return = mysqli_query($db, "SELECT * FROM tbPathNodes WHERE pathid = '{$session
 while ($d = mysqli_fetch_assoc($return)) {
     $structure[$d['node1']][$d['choiceorder']]=$d;
 }
+
+$return = mysqli_query($db, "SELECT * FROM tbPathNodes PN LEFT JOIN tbNodes N ON PN.choice = N.id WHERE PN.pathid = '{$session['pathid']}' AND PN.choice != 0 AND PN.inactive IS NULL AND N.inactive IS NULL");
+while ($d = mysqli_fetch_assoc($return)) {
+    $newQuery[$d['node1']][$d['choiceorder']]=$d;
+}
 //echo "<br><br>structure: "; var_dump($structure);
 ?>
 <script>
@@ -69,6 +74,8 @@ while ($d = mysqli_fetch_assoc($return)) {
     var subsessions = <?php echo json_encode($subsessions); ?>;
     var nodeData = <?php echo json_encode($nodeData); ?>;
     var structure = <?php echo json_encode($structure); ?>;
+    var newQuery = <?php echo json_encode($newQuery); ?>;
+    console.log("newQuery:"); console.log(newQuery);
 </script>
 <main role="main">
     <div class="container-fluid">
