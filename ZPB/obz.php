@@ -470,7 +470,8 @@ while ($d = mysqli_fetch_assoc($return)) {
         //console.log("subsessions before:"); console.log(subsessions); 
         //console.log("insertId:"); console.log(insertId);
         subsessions[(nextObsId).toString()] = [{
-            ssname: ""
+            ssname: "",
+            choice: "0"
         }];
         nextObsId -= 1;
         console.log("subsessions after: ");
