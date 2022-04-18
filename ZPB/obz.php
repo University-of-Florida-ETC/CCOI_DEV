@@ -415,7 +415,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         console.log(subsessions[currentObs][nodeInObsIndex]);
         let nodeID = subsessions[currentObs][nodeInObsIndex]['id'];
         let nodeSecs = subsessions[currentObs][nodeInObsIndex]['seconds'];
-        subsessions[currentObs][nodeInObsIndex] = structure[currentNodeID][selectedNum];
+        subsessions[currentObs][nodeInObsIndex] = newQuery[currentNodeID]['choices'][selectedNum];
         subsessions[currentObs][nodeInObsIndex]['id'] = nodeID;
         subsessions[currentObs][nodeInObsIndex]['seconds'] = nodeSecs;
         console.log("subsessions[currentObs][nodeInObsIndex] after: ");
@@ -477,14 +477,14 @@ while ($d = mysqli_fetch_assoc($return)) {
         console.log(subsessions);
         nodeInObsIndex = 0;
         startEditingNodes();
-        setupNodeInfo(Object.keys(structure)[0]);
+        setupNodeInfo(Object.keys(newQuery)[0]);
     }
 
     function editObservation(ssID) {
         startEditingNodes();
         currentObs = ssID;
         nodeInObsIndex = 0;
-        setupNodeInfo(Object.keys(structure)[0]);
+        setupNodeInfo(Object.keys(newQuery)[0]);
     }
 
     function setupNodeInfo(structIndex) {
@@ -505,7 +505,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 
         currentNodeID = structIndex;
 
-        Object.entries(structure[structIndex]).forEach((value, index) => {
+        Object.entries(newQuery[structIndex]).forEach((value, index) => {
             //console.log("index: "+index);
             //console.log("value:");
             //console.log(value);
@@ -593,7 +593,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]:checked').val();
         //console.log("proceed retrieved value: "); console.log(selectionValue);
         //get pnid
-        let selectedPN = structure[currentNodeID][selectionValue];
+        let selectedPN = newQuery[currentNodeID]['choices'][selectionValue];
         //console.log("selectedPN: "); console.log(selectedPN);
         let selectedPNID = selectedPN['choice'];
         //console.log("selectedPNID: "); console.log(selectedPNID);
