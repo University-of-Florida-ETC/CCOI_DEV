@@ -317,6 +317,7 @@ while ($d = mysqli_fetch_assoc($return)) {
             Object.entries(currentObs[1]).forEach((currentNode, nodeIndex) => {
                 subsessions[currentObs[0]][currentNode[0]] = {
                     id: currentNode[1]['id'],
+                    node1: currentNode[1]['node1'],
                     choice: currentNode[1]['choice'],
                     nodepathid: currentNode[1]['nodepathid'],
                     notes: currentNode[1]['notes'],
@@ -333,106 +334,15 @@ while ($d = mysqli_fetch_assoc($return)) {
     console.log("post scrubbing subsessions:");
     console.log(subsessions);
 
-    var DOM = {};
-    var popoutWindow;
-    var IDs = [
-        'launch_video_button',
-        'go_to_session_select',
-        'save_session_button',
-        'session_list',
-        'session_meta_form',
-        'session_video_url',
-        'session_notes',
-        'new_session_button',
-        'session_submit_button',
-        'add_path_button',
-        'reorder_paths_button',
-        'finish_reorder_button',
-        'node_preview_list',
-        'path_start',
-        'path_choices',
-        'path_select',
-        'path_input',
-        'path_list',
-        'path_listing',
-        'path_preview',
-        'path_preview_list',
-        'path_preview_heading',
-        'path_title',
-        'path_label',
-        'path_label_button',
-        'proceed_button',
-        'proceed_and_play_button',
-        'branch_form',
-        'notes_input',
-        'timestamp_input_minutes',
-        'timestamp_input_seconds',
-        'irr_button',
-        'dom_group_1',
-        'path_go_back',
-        'session_go_back',
-        'visualizations',
-        'viz_container',
-        'viz_refresh',
-        'viz_session_select',
-        'viz_chart_select_form',
-        'viz_session_select_ul',
-        'viz_chart_select_ul',
-        'demo_no_sesh',
-        'viz_select_btn',
-        'session_facts',
-        'sankey_container',
-        'csvImportShow',
-        'exportHumanReadable',
-        'exportCSV',
-        'prepareGVall',
-        'goToMainMenu',
-        'pathSelectTitle',
-        'pathSelectList',
-        'sessionLabel',
-        'sessionTitle',
-        'sessionDate',
-        'sessionStudent',
-        'sessionPrompted',
-        'sessionSelect',
-        'timestampInputMinutes',
-        'timestampInputSeconds',
-        'notesInputLabel',
-        'csvImportDialog',
-        'csvImportFileInput',
-        'gvExportDialog',
-        'returnFromGV',
-        'gvForm',
-        'gvSelectGraphType',
-        'gvSelectEdgeType',
-        'gvShowEnd',
-        'gvAcyclic',
-        'gvSelectSessions',
-        'rawOutput',
-        'exportTitle',
-        'returnFromExport',
-        'exportDownload',
-        'exportOut',
-        'branch_container',
-        'branch_radio_form',
-        'observation-list'
-    ];
-
-    var numIDs = IDs.length;
-    for (var i = 0; i < numIDs; ++i) {
-        var ID = IDs[i];
-        DOM[ID] = document.getElementById(ID);
-    }
-
     console.log("nodeData:");
     console.log(nodeData);
     console.log("structure:");
     console.log(structure);
 
-    let currentNodeID = -1;
-    let currentObs = 0;
-    let nodeInObsIndex = 0;
-    let nextObsId = -1;
+    let currentNodeID = -1;     // This is the nodeID of the question node that is currently loaded
+    let currentObs = 0;         // This is the index of the observation that is currently being edited
+    let nodeInObsIndex = 0;     // This is the index of the node currently being edited within its observation
+    let nextObsId = -1;         // This is the ID of new subsessions created during this user's session. To guarantee it is unique from IDs on the table (and it is recognizable as new), it counts down from -1
 
     function populateObsList() {
         $("#path_list").empty();
@@ -455,7 +365,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                     //console.log("currentNode"); console.log(currentNode); 
                     //console.log("nodeIndex"); console.log(nodeIndex); 
                     let currentSeconds = parseInt(currentNode[1]['seconds']);
-                    let currentNodeData = nodeData[parseInt(currentNode[1]['choice'])];
+                    let currentNodeData = newQuery[parseInt(currentNode[1]['node1'])][parseInt(currentNode[1]['choice'])];
                     if (currentNodeData == undefined) {
 
                     } else {
@@ -471,7 +381,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 
                         let notesText = '';
                         if (currentNode['notes'] != null) {
-                            notesText = `[${currentNodeData['notes']}]`;
+                            notesText = `[${currentNode['notes']}]`;
                         }
                         $("#path_drop_" + obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${currentNodeData['code']}: ${currentNodeData['title']} ${notesText}</li>`);
                     }
