@@ -70,7 +70,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 
 $return = mysqli_query($db, "SELECT PN.id as pnid, PN.node1, PN.choice, PN.choiceorder, PN.node2, N.code, N.title, N.extra, N.aside FROM tbPathNodes PN LEFT JOIN tbNodes N ON PN.choice = N.id WHERE PN.pathid = '{$session['pathid']}' AND PN.choice != 0 AND PN.inactive IS NULL AND N.inactive IS NULL");
 while ($d = mysqli_fetch_assoc($return)) {
-    $newQuery[$d['node1']]['choices'][$d['choiceorder']]=$d;
+    $newQuery[$d['node1']]['choices'][$d['choice']]=$d;
 }
 
 //echo "<br><br>structure: "; var_dump($structure);
@@ -368,8 +368,8 @@ while ($d = mysqli_fetch_assoc($return)) {
                     console.log("parseInt(currentNode[1]['node1'])"); console.log(parseInt(currentNode[1]['node1'])); 
                     console.log("parseInt(currentNode[1]['choice'])"); console.log(parseInt(currentNode[1]['choice']));
                     console.log("newQuery[parseInt(currentNode[1]['node1'])]"); console.log( newQuery[ parseInt( currentNode[1]['node1'] ) ] );
-                    console.log("newQuery[parseInt(currentNode[1]['node1'])][parseInt(currentNode[1]['choice'])]"); console.log(newQuery[parseInt(currentNode[1]['node1'])][parseInt(currentNode[1]['choice'])]);
-                    let currentNodeData = newQuery[parseInt(currentNode[1]['node1'])][parseInt(currentNode[1]['choice'])];
+                    console.log("newQuery[parseInt(currentNode[1]['node1'])]['choices'][parseInt(currentNode[1]['choice'])]"); console.log(newQuery[parseInt(currentNode[1]['node1'])]['choices'][parseInt(currentNode[1]['choice'])]);
+                    let currentNodeData = newQuery[parseInt(currentNode[1]['node1'])]['choices'][parseInt(currentNode[1]['choice'])];
                     if (currentNodeData == undefined) {
 
                     } else {
