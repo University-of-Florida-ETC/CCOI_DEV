@@ -365,10 +365,12 @@ while ($d = mysqli_fetch_assoc($return)) {
                     //console.log("currentNode"); console.log(currentNode); 
                     //console.log("nodeIndex"); console.log(nodeIndex); 
                     let currentSeconds = parseInt(currentNode[1]['seconds']);
+                    /*
                     console.log("parseInt(currentNode[1]['node1'])"); console.log(parseInt(currentNode[1]['node1'])); 
                     console.log("parseInt(currentNode[1]['choice'])"); console.log(parseInt(currentNode[1]['choice']));
                     console.log("newQuery[parseInt(currentNode[1]['node1'])]"); console.log( newQuery[ parseInt( currentNode[1]['node1'] ) ] );
                     console.log("newQuery[parseInt(currentNode[1]['node1'])]['choices'][parseInt(currentNode[1]['choice'])]"); console.log(newQuery[parseInt(currentNode[1]['node1'])]['choices'][parseInt(currentNode[1]['choice'])]);
+                    */
                     let currentNodeData = newQuery[parseInt(currentNode[1]['node1'])]['choices'][parseInt(currentNode[1]['choice'])];
                     if (currentNodeData == undefined) {
 
@@ -490,7 +492,8 @@ while ($d = mysqli_fetch_assoc($return)) {
         //console.log("structure[structIndex]:"); console.log(structure[structIndex]);
         //console.log("nodeData[structIndex]:"); console.log(nodeData[structIndex]);
 
-        DOM.path_title.innerText = nodeData[structIndex]['title'];
+        //DOM.path_title.innerText = nodeData[structIndex]['title'];
+        $("#path_title").text(newQuery[structIndex]['title']);
 
         if (subsessions[currentObs] != undefined) {
             $("#timestamp_input_minutes").val(Math.floor(parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) / 60));
@@ -513,7 +516,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                 $("#branch_radio_form").append(`
                 <p onclick="selectRadio(${value[0]});">
                     <input type="radio" name="choiceRadio" id="choiceRadio${value[1]['choice']}" value="${value[0]}">
-                    <label for="choiceRadio${value[1]['choice']}" class="choiceOfList">(${index}) ${nodeData[value[1]['choice']]['title']}</label>
+                    <label for="choiceRadio${value[1]['choice']}" class="choiceOfList">(${index}) ${newQuery[value[1]['node1']]['choices'][value[1]['choice']]['title']}</label>
                 </p>`);
 
             }
