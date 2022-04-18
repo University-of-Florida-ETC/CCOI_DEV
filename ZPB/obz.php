@@ -63,10 +63,16 @@ while ($d = mysqli_fetch_assoc($return)) {
     $structure[$d['node1']][$d['choiceorder']] = $d;
 }
 
-$return = mysqli_query($db, "SELECT * FROM tbPathNodes PN LEFT JOIN tbNodes N ON PN.choice = N.id WHERE PN.pathid = '{$session['pathid']}' AND PN.choice != 0 AND PN.inactive IS NULL AND N.inactive IS NULL");
+$return = mysqli_query($db, "SELECT PN.id, PN.node1, PN.choice, PN.choiceorder, PN.node2, N.code, N.title, N.extra, N.aside FROM tbPathNodes PN LEFT JOIN tbNodes N ON PN.node1 = N.id WHERE PN.pathid = '{$session['pathid']}' AND PN.choice = 0 AND PN.inactive IS NULL AND N.inactive IS NULL");
 while ($d = mysqli_fetch_assoc($return)) {
-    $newQuery[$d['node1']][$d['choiceorder']]=$d;
+    $newQuery[$d['node1']]=$d;
 }
+
+$return = mysqli_query($db, "SELECT PN.id, PN.node1, PN.choice, PN.choiceorder, PN.node2, N.code, N.title, N.extra, N.aside FROM tbPathNodes PN LEFT JOIN tbNodes N ON PN.choice = N.id WHERE PN.pathid = '{$session['pathid']}' AND PN.choice != 0 AND PN.inactive IS NULL AND N.inactive IS NULL");
+while ($d = mysqli_fetch_assoc($return)) {
+    $newQuery[$d['node1']]['choices'][$d['choiceorder']]=$d;
+}
+
 //echo "<br><br>structure: "; var_dump($structure);
 ?>
 <script>
