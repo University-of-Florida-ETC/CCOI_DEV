@@ -365,15 +365,16 @@ while ($d = mysqli_fetch_assoc($return)) {
                     //console.log("currentNode"); console.log(currentNode); 
                     //console.log("nodeIndex"); console.log(nodeIndex); 
                     let currentSeconds = parseInt(currentNode[1]['seconds']);
+                    console.log("parseInt(currentNode[1]['node1'])"); console.log(parseInt(currentNode[1]['node1'])); 
+                    console.log("parseInt(currentNode[1]['choice'])"); console.log(parseInt(currentNode[1]['choice']));
+                    console.log("newQuery[parseInt(currentNode[1]['node1'])]"); console.log( newQuery[ parseInt( currentNode[1]['node1'] ) ] );
+                    console.log("newQuery[parseInt(currentNode[1]['node1'])][parseInt(currentNode[1]['choice'])]"); console.log(newQuery[parseInt(currentNode[1]['node1'])][parseInt(currentNode[1]['choice'])]);
                     let currentNodeData = newQuery[parseInt(currentNode[1]['node1'])][parseInt(currentNode[1]['choice'])];
                     if (currentNodeData == undefined) {
 
                     } else {
                         //console.log("currentNode[1]['choice']"); console.log(currentNode[1]['choice']); 
-                        console.log("parseInt(currentNode[1]['node1'])"); console.log(parseInt(currentNode[1]['node1'])); 
-                        console.log("parseInt(currentNode[1]['choice'])"); console.log(parseInt(currentNode[1]['choice']));
-                        console.log("newQuery[parseInt(currentNode[1]['node1'])]"); console.log( newQuery[ parseInt( currentNode[1]['node1'] ) ] );
-                        console.log("newQuery[parseInt(currentNode[1]['node1'])][parseInt(currentNode[1]['choice'])]"); console.log(newQuery[parseInt(currentNode[1]['node1'])][parseInt(currentNode[1]['choice'])]);
+                        
                         //console.log("nodeData[parseInt(currentNode[1]['choice'])]"); console.log(nodeData[parseInt(currentNode[1]['choice'])]); 
                         //console.log("currentNodeData"); console.log(currentNodeData); 
 
