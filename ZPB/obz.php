@@ -505,7 +505,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 
         currentNodeID = structIndex;
 
-        Object.entries(newQuery[structIndex]).forEach((value, index) => {
+        Object.entries(newQuery[structIndex]['choices']).forEach((value, index) => {
             //console.log("index: "+index);
             //console.log("value:");
             //console.log(value);
