@@ -30,39 +30,6 @@ while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$
 //echo "<br><br>subsessions: "; var_dump($subsessions);
 echo "<script>console.log(\"subsessions:\"); console.log(" . json_encode($subsessions) . ")</script>"; //var_dump($subsessions);
 
-$return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$session['pathid']}'");
-while ($d = mysqli_fetch_assoc($return)) {
-    $currentPathStartsAt = $d['startpnid'];
-}
-//echo "<br>current path starts ats nodeid: ". $currentPathStartsAt;
-
-$endid = intval($session['pathid']) + 1;
-//echo "<br>endid: ". $endid;
-
-$return = mysqli_query($db, "SELECT * FROM tbPaths WHERE id = '{$endid}'");
-while ($d = mysqli_fetch_assoc($return)) {
-    $currentPathEndsAt = $d['startpnid'];
-}
-if (isset($currentPathEndsAt)) {
-    //echo "<br>current path ends at nodeid: ". $currentPathEndsAt;
-    $nodequery = "SELECT * FROM tbNodes WHERE id >= {$currentPathStartsAt} AND id < {$currentPathEndsAt}";
-} else {
-    //echo "<br>current path is last by id";
-    $nodequery = "SELECT * FROM tbNodes WHERE id >= {$currentPathStartsAt}";
-}
-//echo "<br>nodequery: ". $nodequery;
-
-$return = mysqli_query($db, $nodequery);
-while ($d = mysqli_fetch_assoc($return)) {
-    $nodeData[$d['id']] = $d;
-}
-//////echo "<br><br>nodeData: "; var_dump($nodeData);
-
-$return = mysqli_query($db, "SELECT * FROM tbPathNodes WHERE pathid = '{$session['pathid']}' AND inactive IS NULL");
-while ($d = mysqli_fetch_assoc($return)) {
-    $structure[$d['node1']][$d['choiceorder']] = $d;
-}
-
 $return = mysqli_query($db, "SELECT PN.node1, N.title FROM tbPathNodes PN LEFT JOIN tbNodes N ON PN.node1 = N.id WHERE PN.pathid = '{$session['pathid']}' AND PN.choice = 0 AND PN.inactive IS NULL AND N.inactive IS NULL");
 while ($d = mysqli_fetch_assoc($return)) {
     $newQuery[$d['node1']]['title']= $d['title'];
@@ -72,14 +39,10 @@ $return = mysqli_query($db, "SELECT PN.id as pnid, PN.node1, PN.choice, PN.choic
 while ($d = mysqli_fetch_assoc($return)) {
     $newQuery[$d['node1']]['choices'][$d['choice']]=$d;
 }
-
-//echo "<br><br>structure: "; var_dump($structure);
 ?>
 <script>
     var sessionID = <?php echo $id; ?>;
     var subsessions = <?php echo json_encode($subsessions); ?>;
-    var nodeData = <?php echo json_encode($nodeData); ?>;
-    var structure = <?php echo json_encode($structure); ?>;
     var newQuery = <?php echo json_encode($newQuery); ?>;
     console.log("newQuery:"); console.log(newQuery);
 </script>
@@ -333,11 +296,6 @@ while ($d = mysqli_fetch_assoc($return)) {
     scrubSubsessions();
     console.log("post scrubbing subsessions:");
     console.log(subsessions);
-
-    console.log("nodeData:");
-    console.log(nodeData);
-    console.log("structure:");
-    console.log(structure);
 
     let currentNodeID = -1;     // This is the nodeID of the question node that is currently loaded
     let currentObs = 0;         // This is the index of the observation that is currently being edited
