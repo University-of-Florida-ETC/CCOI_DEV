@@ -23,7 +23,7 @@ if (isset($_GET['isPlayground'])) {
 //Otherwise, query research
 else{
     //$return = mysqli_query($db, "SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
-    $return = mysqli_query($db, "SELECT ssid, sublabel, extra, nodepathid, seconds, notes FROM tbSessionActivity WHERE sessionid = $id");
+    $return = mysqli_query($db, "SELECT ssid, sublabel, extra, nodepathid, seconds, notes FROM tbSessionActivity WHERE sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
 }
     //Regardless, populate with observation info
 while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$d;*/
@@ -39,7 +39,8 @@ while ($d = mysqli_fetch_assoc($return)) {
 
 $return = mysqli_query($db, "SELECT PN.id as pnid, PN.node1, PN.choice, PN.choiceorder, PN.node2, N.code, N.title, N.extra, N.aside FROM tbPathNodes PN LEFT JOIN tbNodes N ON PN.choice = N.id WHERE PN.pathid = '{$session['pathid']}' AND PN.choice != 0 AND PN.inactive IS NULL AND N.inactive IS NULL");
 while ($d = mysqli_fetch_assoc($return)) {
-    $newQuery[$d['node1']]['choices'][$d['choice']]=$d;
+    $newQuery[$d['choice']] = $d;
+    $newQuery[$d['node1']]['choices'][]=$d['choice'];
 }
 ?>
 <script>
@@ -321,9 +322,9 @@ while ($d = mysqli_fetch_assoc($return)) {
 
                 } else {
                     let currentSeconds = parseInt(currentNode[1]['seconds']);
-                    let currentNodeData = newQuery[parseInt(currentNode[1]['node1'])]['choices'][parseInt(currentNode[1]['choice'])];
+                    let currentNodeData = newQuery[parseInt(currentNode[1]['choice'])];
                     if (currentNodeData == undefined) {
-
+                        $("#path_drop_" + obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) </li>`);
                     } else {
                         let minutesToPrint = (Math.floor(currentSeconds / 60)).toString();
                         minutesToPrint = minutesToPrint.padStart(2, '0');
