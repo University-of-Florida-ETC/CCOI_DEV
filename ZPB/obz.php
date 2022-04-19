@@ -25,7 +25,7 @@ else {
 //$return = mysqli_query($db, "SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
 $return = mysqli_query($db, "SELECT ssid, extra, nodepathid, seconds, notes FROM tb{$tbName}Activity WHERE sessionid = $id");
 while ($d = mysqli_fetch_assoc($return)) {
-    $subsessions[$d['ssid']][] = $d;
+    $subsessions[$d['ssid']]['nodes'][] = $d;
     $listOfSSID[$d['ssid']] = 1;
 }
 $ssidListText = implode(',', array_keys($listOfSSID));
@@ -322,7 +322,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                 </h5>
                 <ol class="collapse" id="path_drop_${obsIndex}" style=""></ol>
             </div>`);
-            Object.entries(currentObs[1]).forEach((currentNode, nodeIndex) => {
+            Object.entries(currentObs[1]['nodes']).forEach((currentNode, nodeIndex) => {
                 console.log("currentNode:"); console.log(currentNode);
                 console.log("nodeIndex:"); console.log(nodeIndex);
                 if (currentNode[1]['choice'] == 0) {
