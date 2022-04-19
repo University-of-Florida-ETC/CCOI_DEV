@@ -296,7 +296,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         });
     }
 
-    scrubSubsessions();
+    //scrubSubsessions();
     console.log("post scrubbing subsessions:");
     console.log(subsessions);
 
