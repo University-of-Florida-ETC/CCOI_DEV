@@ -15,19 +15,24 @@ $videoInfo = getVideoInfo($id);
 //print_r($session);
 //echo "<br>session: "; print_r($session);
 
-//If in playgrounds, query playgrounds DB
 if (isset($_GET['isPlayground'])) {
-    //echo "It's a playground";
-    $return = mysqli_query($db, "SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbPlaygroundActivity SA, tbPathNodes PN, tbSubPlaygrounds SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
+    $tbName = 'Playground';
 }
-//Otherwise, query research
-else{
-    //$return = mysqli_query($db, "SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
-    $return = mysqli_query($db, "SELECT ssid, sublabel, extra, nodepathid, seconds, notes FROM tbSessionActivity WHERE sessionid = $id");
+else {
+    $tbName = 'Session';
 }
-    //Regardless, populate with observation info
-while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$d;*/
+
+//$return = mysqli_query($db, "SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
+$return = mysqli_query($db, "SELECT ssid, extra, nodepathid, seconds, notes FROM tb{$tbName}Activity WHERE sessionid = $id");
+while ($d = mysqli_fetch_assoc($return)) {
     $subsessions[$d['ssid']][] = $d;
+    $listOfSSID[$d['ssid']] = 1;
+}
+$ssidListText = implode(',', array_keys($listOfSSID));
+$return = mysqli_query($db, "SELECT name, notes, id FROM tbSub{$tbName}s WHERE id IN ({$ssidListText})");
+while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$d;*/
+    $subsessions[$d['id']]['name'] = $d['name'];
+    $subsessions[$d['id']]['notes'] = $d['notes'];
 }
 //echo "<br><br>subsessions: "; var_dump($subsessions);
 
