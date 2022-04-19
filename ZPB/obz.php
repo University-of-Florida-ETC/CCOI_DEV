@@ -21,9 +21,11 @@ if (isset($_GET['isPlayground'])) {
     $return = mysqli_query($db, "SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbPlaygroundActivity SA, tbPathNodes PN, tbSubPlaygrounds SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
 }
 //Otherwise, query research
-else
-    $return = mysqli_query($db, "SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
-//Regardless, populate with observation info
+else{
+    //$return = mysqli_query($db, "SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
+    $return = mysqli_query($db, "SELECT ssid, sublabel, extra, nodepathid, seconds, notes FROM tbSessionActivity WHERE sessionid = $id");
+}
+    //Regardless, populate with observation info
 while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$d;*/
     $subsessions[$d['ssid']][] = $d;
 }
@@ -298,15 +300,13 @@ while ($d = mysqli_fetch_assoc($return)) {
     console.log(subsessions);
 
     let currentNodeID = -1;     // This is the nodeID of the question node that is currently loaded
-    let currentObs = 0;         // This is the index of the observation that is currently being edited
+    let currentObs = 0;         // This is the ID of the observation that is currently being edited
     let nodeInObsIndex = 0;     // This is the index of the node currently being edited within its observation
     let nextObsId = -1;         // This is the ID of new subsessions created during this user's session. To guarantee it is unique from IDs on the table (and it is recognizable as new), it counts down from -1
 
     function populateObsList() {
         $("#path_list").empty();
         Object.entries(subsessions).forEach((currentObs, obsIndex) => {
-            //console.log("currentObs"); console.log(currentObs); 
-            //console.log("obsIndex"); console.log(obsIndex); 
             $("#path_list").append(`
             <div id="observation-list-${obsIndex}" class="path-listing-container">
                 <h5 data-index="${obsIndex}" class="path-listing-header">Observation #${obsIndex+1}: ${currentObs[1][0]['ssname']}
@@ -320,24 +320,11 @@ while ($d = mysqli_fetch_assoc($return)) {
                 if (currentNode[1]['choice'] == 0) {
 
                 } else {
-                    //console.log("currentNode"); console.log(currentNode); 
-                    //console.log("nodeIndex"); console.log(nodeIndex); 
                     let currentSeconds = parseInt(currentNode[1]['seconds']);
-                    /*
-                    console.log("parseInt(currentNode[1]['node1'])"); console.log(parseInt(currentNode[1]['node1'])); 
-                    console.log("parseInt(currentNode[1]['choice'])"); console.log(parseInt(currentNode[1]['choice']));
-                    console.log("newQuery[parseInt(currentNode[1]['node1'])]"); console.log( newQuery[ parseInt( currentNode[1]['node1'] ) ] );
-                    console.log("newQuery[parseInt(currentNode[1]['node1'])]['choices'][parseInt(currentNode[1]['choice'])]"); console.log(newQuery[parseInt(currentNode[1]['node1'])]['choices'][parseInt(currentNode[1]['choice'])]);
-                    */
                     let currentNodeData = newQuery[parseInt(currentNode[1]['node1'])]['choices'][parseInt(currentNode[1]['choice'])];
                     if (currentNodeData == undefined) {
 
                     } else {
-                        //console.log("currentNode[1]['choice']"); console.log(currentNode[1]['choice']); 
-                        
-                        //console.log("nodeData[parseInt(currentNode[1]['choice'])]"); console.log(nodeData[parseInt(currentNode[1]['choice'])]); 
-                        //console.log("currentNodeData"); console.log(currentNodeData); 
-
                         let minutesToPrint = (Math.floor(currentSeconds / 60)).toString();
                         minutesToPrint = minutesToPrint.padStart(2, '0');
                         let secondsToPrint = (currentSeconds % 60).toString();
@@ -369,12 +356,19 @@ while ($d = mysqli_fetch_assoc($return)) {
 
     function selectRadio(selectedNum) {
         let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]:checked').val();
+        // Check if changing answer changes next node: if so, get rid of rest of data
+
+        //Log what the node was before the change
         console.log("subsessions[currentObs][nodeInObsIndex] before: ");
         console.log(subsessions[currentObs][nodeInObsIndex]);
-        let nodeID = subsessions[currentObs][nodeInObsIndex]['id'];
+
+        // Store the values that need to be brought over
+        let nodeLabel = subsessions[currentObs][nodeInObsIndex]['ssname'];
         let nodeSecs = subsessions[currentObs][nodeInObsIndex]['seconds'];
+
+        // Set node equal to 
         subsessions[currentObs][nodeInObsIndex] = newQuery[currentNodeID]['choices'][selectedNum];
-        subsessions[currentObs][nodeInObsIndex]['id'] = nodeID;
+        subsessions[currentObs][nodeInObsIndex]['pnid'] = nodeID;
         subsessions[currentObs][nodeInObsIndex]['seconds'] = nodeSecs;
         console.log("subsessions[currentObs][nodeInObsIndex] after: ");
         console.log(subsessions[currentObs][nodeInObsIndex]);
@@ -431,6 +425,7 @@ while ($d = mysqli_fetch_assoc($return)) {
             ssname: "",
             choice: "0"
         }];
+        currentObs = nextObsId;
         nextObsId -= 1;
         console.log("subsessions after: ");
         console.log(subsessions);
