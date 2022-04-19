@@ -325,10 +325,11 @@ while ($d = mysqli_fetch_assoc($return)) {
             Object.entries(currentObs[1]['nodes']).forEach((currentNode, nodeIndex) => {
                 console.log("currentNode:"); console.log(currentNode);
                 console.log("nodeIndex:"); console.log(nodeIndex);
-                if (currentNode[1]['choice'] == 0) {
-                } else {
+                if (currentNode[1]['nodepathid'] == "0") {
+                }
+                else {
                     let currentSeconds = parseInt(currentNode[1]['seconds']);
-                    let currentNodeData = newQuery[parseInt(currentNode[1]['choice'])];
+                    let currentNodeData = newQuery[parseInt(currentNode[1]['nodepathid'])];
                     if (currentNodeData == undefined) {
                         
                     } else {
