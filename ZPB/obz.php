@@ -323,13 +323,14 @@ while ($d = mysqli_fetch_assoc($return)) {
                 <ol class="collapse" id="path_drop_${obsIndex}" style=""></ol>
             </div>`);
             Object.entries(currentObs[1]).forEach((currentNode, nodeIndex) => {
+                console.log("currentNode:"); console.log(currentNode);
+                console.log("nodeIndex:"); console.log(nodeIndex);
                 if (currentNode[1]['choice'] == 0) {
-
                 } else {
                     let currentSeconds = parseInt(currentNode[1]['seconds']);
                     let currentNodeData = newQuery[parseInt(currentNode[1]['choice'])];
                     if (currentNodeData == undefined) {
-                        $("#path_drop_" + obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) </li>`);
+                        
                     } else {
                         let minutesToPrint = (Math.floor(currentSeconds / 60)).toString();
                         minutesToPrint = minutesToPrint.padStart(2, '0');
