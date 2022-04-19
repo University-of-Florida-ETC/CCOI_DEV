@@ -332,7 +332,8 @@ while ($d = mysqli_fetch_assoc($return)) {
                     let currentNodeData = newQuery[parseInt(currentNode[1]['nodepathid'])];
                     if (currentNodeData == undefined) {
                         
-                    } else {
+                    }
+                    else {
                         let minutesToPrint = (Math.floor(currentSeconds / 60)).toString();
                         minutesToPrint = minutesToPrint.padStart(2, '0');
                         let secondsToPrint = (currentSeconds % 60).toString();
@@ -344,7 +345,6 @@ while ($d = mysqli_fetch_assoc($return)) {
                         }
                         $("#path_drop_" + obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${currentNodeData['code']}: ${currentNodeData['title']} ${notesText}</li>`);
                     }
-
                 }
 
             });
