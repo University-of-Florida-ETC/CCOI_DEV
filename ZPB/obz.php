@@ -23,14 +23,13 @@ if (isset($_GET['isPlayground'])) {
 //Otherwise, query research
 else{
     //$return = mysqli_query($db, "SELECT SA.*, SS.id as ssid, SS.subnum, SS.name as ssname, SS.notes as ssnotes, PN.id as pnid, PN.node1, PN.choice, PN.node2, PN.choicegroup, PN.pathtype, PN.nsubgroup FROM tbSessionActivity SA, tbPathNodes PN, tbSubSessions SS WHERE SA.sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
-    $return = mysqli_query($db, "SELECT ssid, sublabel, extra, nodepathid, seconds, notes FROM tbSessionActivity WHERE sessionid = $id AND SA.nodepathid=PN.id AND SA.ssid=SS.id ORDER BY SA.sessionid, SA.seconds");
+    $return = mysqli_query($db, "SELECT ssid, sublabel, extra, nodepathid, seconds, notes FROM tbSessionActivity WHERE sessionid = $id");
 }
     //Regardless, populate with observation info
 while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$d;*/
     $subsessions[$d['ssid']][] = $d;
 }
 //echo "<br><br>subsessions: "; var_dump($subsessions);
-echo "<script>console.log(\"subsessions:\"); console.log(" . json_encode($subsessions) . ")</script>"; //var_dump($subsessions);
 
 $return = mysqli_query($db, "SELECT PN.node1, N.title FROM tbPathNodes PN LEFT JOIN tbNodes N ON PN.node1 = N.id WHERE PN.pathid = '{$session['pathid']}' AND PN.choice = 0 AND PN.inactive IS NULL AND N.inactive IS NULL");
 while ($d = mysqli_fetch_assoc($return)) {
@@ -46,6 +45,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 <script>
     var sessionID = <?php echo $id; ?>;
     var subsessions = <?php echo json_encode($subsessions); ?>;
+    console.log("subsessions:"); console.log(subsessions);
     var newQuery = <?php echo json_encode($newQuery); ?>;
     console.log("newQuery:"); console.log(newQuery);
 </script>
