@@ -385,7 +385,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         //Create a new observation in the local data with a unique ssid and filler info
         subsessions[newObsID] = {
             name: "New Observation",
-            notes: null,
+            //notes: null,
             nodes: []
         };
 
