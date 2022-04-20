@@ -466,6 +466,8 @@ while ($d = mysqli_fetch_assoc($return)) {
         try {
             let existingSeconds = parseInt(subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds']);
             $("#timestamp_input_minutes").val(Math.floor(existingSeconds / 60));
+            console.log("existingSeconds % 60"); console.log(existingSeconds % 60);
+            console.log("$('#timestamp_input_seconds')"); console.log($("#timestamp_input_seconds"));
             $("#timestamp_input_seconds").val(existingSeconds % 60);
         } catch{}
         //Try to load current notes
