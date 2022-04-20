@@ -245,10 +245,9 @@ while ($d = mysqli_fetch_assoc($return)) {
 <script src="/js/observe.js"></script>
                             -->
 </body>
+
+<!-- THIS IS THE SCRIPT BLOCK WITH THE AJAX STUFF -->
 <script>
-    //!TODO Need to move the JS and supporting PHP over to a separate file: this will get unruly fairly quickly. 
-    // Code to edit nodes
-    //AJAX stuffs
     var derServer = 'https://ccoi-dev.education.ufl.edu/';
 
     function GetAjaxReturnObject(mimetype) {
@@ -277,42 +276,22 @@ while ($d = mysqli_fetch_assoc($return)) {
             }
         }
     }
-    /*
-    var nonNodeStuff = document.getElementById("dom_group_1");
-    var nodeStuff = document.getElementById("path_input");
+</script><!-- THIS IS THE SCRIPT BLOCK WITH THE AJAX STUFF -->
 
-    var pathTitle = document.getElementById("path_title");
-    var pathLabel = document.getElementById("path_label");
-    */
 
-    function scrubSubsessions() {
-        Object.entries(subsessions).forEach((currentObs, obsIndex) => {
-            Object.entries(currentObs[1]).forEach((currentNode, nodeIndex) => {
-                subsessions[currentObs[0]][currentNode[0]] = {
-                    id: currentNode[1]['id'],
-                    node1: currentNode[1]['node1'],
-                    choice: currentNode[1]['choice'],
-                    nodepathid: currentNode[1]['nodepathid'],
-                    notes: currentNode[1]['notes'],
-                    pnid: currentNode[1]['pnid'],
-                    seconds: currentNode[1]['seconds'],
-                    ssid: currentNode[1]['ssid']
-                };
-            });
-        });
-    }
-
-    //scrubSubsessions();
-    console.log("post scrubbing subsessions:");
-    console.log(subsessions);
-
-    let currentNodeID = -1;     // This is the nodeID of the question node that is currently loaded
+<!-- THIS IS THE SCRIPT BLOCK WITH THE NODE EDITING STUFF -->
+<script>
+    // Global variables: stuff thats so generally applicable and needs to be accessed in a bunch of places
+    let currentQuestionID = -1;     // This is the nodeID of the question node that is currently loaded
     let currentObs = 0;         // This is the ID of the observation that is currently being edited
     let nodeInObsIndex = 0;     // This is the index of the node currently being edited within its observation
-    let nextObsId = -1;         // This is the ID of new subsessions created during this user's session. To guarantee it is unique from IDs on the table (and it is recognizable as new), it counts down from -1
+    let newObsID = -1;         // This is the ID of new subsessions created during this user's session. To guarantee it is unique from IDs on the table (and it is recognizable as new), it counts down from -1
 
     function populateObsList() {
+        //Empty out the observation list
         $("#path_list").empty();
+
+        //For each observation, add a dropdown
         Object.entries(subsessions).forEach((currentObs, obsIndex) => {
             $("#path_list").append(`
             <div id="observation-list-${obsIndex}" class="path-listing-container">
@@ -323,27 +302,29 @@ while ($d = mysqli_fetch_assoc($return)) {
                 </h5>
                 <ol class="collapse" id="path_drop_${obsIndex}" style=""></ol>
             </div>`);
+
+            //For each node in an observation, add a listing
             Object.entries(currentObs[1]['nodes']).forEach((currentNode, nodeIndex) => {
-                console.log("currentNode:"); console.log(currentNode);
-                console.log("nodeIndex:"); console.log(nodeIndex);
+                //Grab time to print
+                let currentSeconds = parseInt(currentNode[1]['seconds']);
+                let minutesToPrint = (Math.floor(currentSeconds / 60)).toString();  minutesToPrint = minutesToPrint.padStart(2, '0');
+                let secondsToPrint = (currentSeconds % 60).toString();              secondsToPrint = secondsToPrint.padStart(2, '0');
+
+                //Grab notes to print
+                let notesText = '';
+                if (currentNode[1]['notes'] != null) {
+                    notesText = `[${currentNode['notes']}]`;
+                }
+
                 if (currentNode[1]['nodepathid'] == "0") {
+                    $("#path_drop_" + obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${notesText}</li>`);
                 }
                 else {
-                    let currentSeconds = parseInt(currentNode[1]['seconds']);
                     let currentNodeData = pathNodes[parseInt(currentNode[1]['nodepathid'])];
                     if (currentNodeData == undefined) {
-                        
+                        $("#path_drop_" + obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${notesText}</li>`);
                     }
                     else {
-                        let minutesToPrint = (Math.floor(currentSeconds / 60)).toString();
-                        minutesToPrint = minutesToPrint.padStart(2, '0');
-                        let secondsToPrint = (currentSeconds % 60).toString();
-                        secondsToPrint = secondsToPrint.padStart(2, '0');
-
-                        let notesText = '';
-                        if (currentNode['notes'] != null) {
-                            notesText = `[${currentNode['notes']}]`;
-                        }
                         $("#path_drop_" + obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${currentNodeData['code']}: ${currentNodeData['title']} ${notesText}</li>`);
                     }
                 }
@@ -429,13 +410,13 @@ while ($d = mysqli_fetch_assoc($return)) {
     function addObservation() {
         //console.log("subsessions before:"); console.log(subsessions); 
         //console.log("insertId:"); console.log(insertId);
-        subsessions[(nextObsId).toString()] = {
+        subsessions[(newObsID).toString()] = {
             name: "New Observation",
             notes: null,
             nodes: []
         };
-        currentObs = nextObsId;
-        nextObsId -= 1;
+        currentObs = newObsID;
+        newObsID -= 1;
         console.log("subsessions after: ");
         console.log(subsessions);
         nodeInObsIndex = 0;
@@ -466,7 +447,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         $("#branch_container").empty();
         $("#branch_container").append('<form id="branch_radio_form" class="col-12 pt-3" action="javascript:void(0)"></form>');
 
-        currentNodeID = structIndex;
+        currentQuestionID = structIndex;
 
         Object.entries(questionNodes[structIndex]['choices']).forEach((value, index) => {
             //console.log("index: "+index);
@@ -557,7 +538,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]:checked').val();
         //console.log("proceed retrieved value: "); console.log(selectionValue);
         //get pnid
-        //let selectedPN = newwQuery[currentNodeID]['choices'][selectionValue];
+        //let selectedPN = newwQuery[currentQuestionID]['choices'][selectionValue];
         //console.log("selectedPN: "); console.log(selectedPN);
         //let selectedPNID = selectedPN['choice'];
         //console.log("selectedPNID: "); console.log(selectedPNID);
