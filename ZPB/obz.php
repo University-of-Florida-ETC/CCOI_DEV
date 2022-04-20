@@ -383,9 +383,9 @@ while ($d = mysqli_fetch_assoc($return)) {
         //console.log("insertId:"); console.log(insertId);
 
         //Create a new observation in the local data with a unique ssid and filler info
-        subsessions[newObsID] = {
+        subsessions[newObsID.toString()] = {
             name: "New Observation",
-            //notes: null,
+            notes: null,
             nodes: []
         };
 
@@ -411,12 +411,6 @@ while ($d = mysqli_fetch_assoc($return)) {
     function setupNodeInfo(structIndex) {
         //Set the question title
         $("#path_title").text(questionNodes[structIndex]['title']);
-
-        //Set the time of the current node (if it exists)
-        if (subsessions[currentObs]['nodes'][nodeInObsIndex] != undefined) {
-            $("#timestamp_input_minutes").val(Math.floor(parseInt(subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds']) / 60));
-            $("#timestamp_input_seconds").val(parseInt(subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds']) % 60);
-        }
 
         //Empty the list of choices
         $("#branch_container").empty();
