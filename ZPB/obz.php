@@ -276,6 +276,33 @@ while ($d = mysqli_fetch_assoc($return)) {
             }
         }
     }
+
+    function ajaxIt() {
+        var xmlHttp = GetAjaxReturnObject("text/html");
+        if (xmlHttp == null) {
+            alert("Your browser does not support AJAX!");
+            return;
+        }
+
+        xmlHttp.onreadystatechange = function() {
+            var data = getHTML(xmlHttp);
+            if (data) {
+                console.log("AJAX returns this:");
+                console.log(data);
+            }
+        };
+        var sendStr = "updateObsEl=1&id=" + sessionID + "&" + $.param(subsessions);
+        console.log("sendStr:");
+        console.log(sendStr);
+        var url = encodeURI(derServer + "ZPB/zpb_ajax.php?" + sendStr);
+        console.log(url);
+        xmlHttp.open("POST", url, true);
+        xmlHttp.setRequestHeader(
+            "Content-Type",
+            "application/x-www-form-urlencoded"
+        );
+        xmlHttp.send(sendStr);
+    }
 </script><!-- THIS IS THE SCRIPT BLOCK WITH THE AJAX STUFF -->
 
 
@@ -381,6 +408,44 @@ while ($d = mysqli_fetch_assoc($return)) {
         setupNodeInfo(Object.keys(questionNodes)[0]);
     }
 
+    function setupNodeInfo(structIndex) {
+        //Set the question title
+        $("#path_title").text(questionNodes[structIndex]['title']);
+
+        //Set the time of the current node (if it exists)
+        if (subsessions[currentObs]['nodes'][nodeInObsIndex] != undefined) {
+            $("#timestamp_input_minutes").val(Math.floor(parseInt(subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds']) / 60));
+            $("#timestamp_input_seconds").val(parseInt(subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds']) % 60);
+        }
+
+        //Empty the list of choices
+        $("#branch_container").empty();
+        $("#branch_container").append('<form id="branch_radio_form" class="col-12 pt-3" action="javascript:void(0)"></form>');
+
+        //Set global identifier of current question node ID
+        currentQuestionID = structIndex;
+
+        //Add all of the answers for the associated question
+        Object.entries(questionNodes[structIndex]['choices']).forEach((value, index) => {
+            //console.log("index: "+index);
+            //console.log("value:");
+            //console.log(value);
+            if (value[0] == "0") { //Error case, log it
+                console.log("when value[0] == 0, value[1] ==");
+                console.log(value[1]);
+            }
+            else {
+                $("#branch_radio_form").append(`
+                <p onclick="selectRadio(${value[1]});">
+                    <input type="radio" name="choiceRadio" id="choiceRadio${value[1]}" value="${value[1]}">
+                    <label for="choiceRadio${value[1]}" class="choiceOfList">(${index}) ${pathNodes[value[1]]['title']}</label>
+                </p>`);
+            }
+        });
+
+        //Attempt to autofill the existing response
+        autoFill();
+    }
 
 
     // SECTION FOR CODE THAT NAVIGATES THE NODE EDITOR
@@ -400,6 +465,28 @@ while ($d = mysqli_fetch_assoc($return)) {
         DOM.dom_group_1.classList.remove('d-none');
     }
 
+    function proceed() {
+        //Get pnID of choice
+        let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]:checked').val();
+        
+        //TODO: Check if extra data is needed for choice
+        //TODO: If necessary, ask for extra data
+
+        //Load info for next question
+        let nextQuestionNode = pathNodes[selectionValue]['node2'];
+
+        //Increment the index of the node within the observation we're viewing
+        nodeInObsIndex += 1;
+
+        //load next node or return to observation viewer (depending on if path terminates)
+        if (nextQuestionNode == null) {
+            subsessions[currentObs]['nodes'].length = nodeInObsIndex;
+            hideNodeEditor();
+        } else {
+            setupNodeInfo(nextQuestionNode);
+        }
+    }
+
     function goBack() {
         if (nodeInObsIndex == 0) {
             hideNodeEditor();
@@ -410,13 +497,21 @@ while ($d = mysqli_fetch_assoc($return)) {
     }
 
     function selectRadio(selectedNum) {
+        //Get pnID of newly selected choice
         let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]:checked').val();
-        // Check if changing answer changes next node: if so, get rid of rest of data
+
+        //TODO: Check if changing answer changes next node
+        //  If yes, confirm with user that choice will erase all data
+        //      If they confirm, erase all later data, then continue with this function
+        //      If they don't, reselect old choice and break
+        //  If no, continue with this function
 
         //Log what the node was before the change
         console.log("subsessions[currentObs]['nodes'][nodeInObsIndex] before: ");
         console.log(subsessions[currentObs]['nodes'][nodeInObsIndex]);
 
+        //Old way
+        /*
         // Store the values that need to be brought over
         let nodeSecs = subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds'];
 
@@ -424,7 +519,13 @@ while ($d = mysqli_fetch_assoc($return)) {
         subsessions[currentObs]['nodes'][nodeInObsIndex] = pathNodes[selectedNum];
         // Restore information
         subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds'] = nodeSecs;
+        */
 
+        //New way
+        subsessions[currentObs]['nodes'][nodeInObsIndex]['nodepathid'] = selectionValue;
+        delete subsessions[currentObs]['nodes'][nodeInObsIndex]['extra'];
+
+        //Log what the node is after the change
         console.log("subsessions[currentObs]['nodes'][nodeInObsIndex] after: ");
         console.log(subsessions[currentObs]['nodes'][nodeInObsIndex]);
     }
@@ -456,53 +557,6 @@ while ($d = mysqli_fetch_assoc($return)) {
         } catch {
 
         }
-    }
-
-    function setupNodeInfo(structIndex) {
-        //console.log("structIndex: "+structIndex);
-        //console.log("structure[structIndex]:"); console.log(structure[structIndex]);
-        //console.log("nodeData[structIndex]:"); console.log(nodeData[structIndex]);
-
-        $("#path_title").text(questionNodes[structIndex]['title']);
-
-        if (subsessions[currentObs]['nodes'][nodeInObsIndex] != undefined) {
-            $("#timestamp_input_minutes").val(Math.floor(parseInt(subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds']) / 60));
-            $("#timestamp_input_seconds").val(parseInt(subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds']) % 60);
-        }
-
-        $("#branch_container").empty();
-        $("#branch_container").append('<form id="branch_radio_form" class="col-12 pt-3" action="javascript:void(0)"></form>');
-
-        currentQuestionID = structIndex;
-
-        Object.entries(questionNodes[structIndex]['choices']).forEach((value, index) => {
-            //console.log("index: "+index);
-            //console.log("value:");
-            //console.log(value);
-            if (value[0] == "0") {
-                console.log("when value[0] == 0, value[1] ==");
-                console.log(value[1]);
-            } else {
-
-                $("#branch_radio_form").append(`
-                <p onclick="selectRadio(${value[1]});">
-                    <input type="radio" name="choiceRadio" id="choiceRadio${value[1]}" value="${value[1]}">
-                    <label for="choiceRadio${value[1]}" class="choiceOfList">(${index}) ${pathNodes[value[1]]['title']}</label>
-                </p>`);
-
-            }
-
-        });
-        /*
-                structure[structIndex].forEach((index, value) => {
-                    console.log("index: "+index);
-                    console.log("value:");
-                    console.log(value);
-                });
-                */
-
-        //TODO: autofill
-        autoFill();
     }
 
     function launchVideoFromSession() {
@@ -555,59 +609,6 @@ while ($d = mysqli_fetch_assoc($return)) {
             popoutWindow.changeSpeed(2.0);
         });
     }
-
-    function proceed() {
-        //check if extra data is needed for choice
-        //if necessary, ask for extra data
-
-        //get index of choice
-        let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]:checked').val();
-        //console.log("proceed retrieved value: "); console.log(selectionValue);
-        //get pnid
-        //let selectedPN = newwQuery[currentQuestionID]['choices'][selectionValue];
-        //console.log("selectedPN: "); console.log(selectedPN);
-        //let selectedPNID = selectedPN['choice'];
-        //console.log("selectedPNID: "); console.log(selectedPNID);
-        let nextQuestionNode = pathNodes[selectionValue]['node2'];
-        nodeInObsIndex += 1;
-        //console.log("nextQuestionNode: "); console.log(nextQuestionNode);
-        //store info in data struct
-        //load next node or return to observation viewer (depending on if path terminates)
-        if (nextQuestionNode == null) {
-            subsessions[currentObs]['nodes'].length = nodeInObsIndex;
-            hideNodeEditor();
-        } else {
-            setupNodeInfo(nextQuestionNode);
-        }
-    }
-
-    function ajaxIt() {
-        var xmlHttp = GetAjaxReturnObject("text/html");
-        if (xmlHttp == null) {
-            alert("Your browser does not support AJAX!");
-            return;
-        }
-
-        xmlHttp.onreadystatechange = function() {
-            var data = getHTML(xmlHttp);
-            if (data) {
-                console.log("AJAX returns this:");
-                console.log(data);
-            }
-        };
-        var sendStr = "updateObsEl=1&id=" + sessionID + "&" + $.param(subsessions);
-        console.log("sendStr:");
-        console.log(sendStr);
-        var url = encodeURI(derServer + "ZPB/zpb_ajax.php?" + sendStr);
-        console.log(url);
-        xmlHttp.open("POST", url, true);
-        xmlHttp.setRequestHeader(
-            "Content-Type",
-            "application/x-www-form-urlencoded"
-        );
-        xmlHttp.send(sendStr);
-    }
-
 
     var DOM = {};
     var popoutWindow;
