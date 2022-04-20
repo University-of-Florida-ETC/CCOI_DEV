@@ -447,6 +447,20 @@ while ($d = mysqli_fetch_assoc($return)) {
         autoFill();
     }
 
+    function autoFill() {
+        console.log("currentObs");
+        console.log(currentObs);
+        console.log("nodeInObsIndex");
+        console.log(nodeInObsIndex);
+        try {
+            console.log("pnid of current choice");
+            let existingChoiceID = subsessions[currentObs]['nodes'][nodeInObsIndex]['nodepathid'];
+            console.log(existingChoiceID);
+            $("#choiceRadio" + existingChoiceID).prop("checked", true);
+        } catch {
+
+        }
+    }
 
     // SECTION FOR CODE THAT NAVIGATES THE NODE EDITOR
     // ================================================================================================
@@ -496,6 +510,9 @@ while ($d = mysqli_fetch_assoc($return)) {
         }
     }
 
+    // SECTION FOR CODE THAT SAVES STUFF THAT HAPPENS IN THE NODE EDITOR
+    // ================================================================================================
+
     function selectRadio(selectedNum) {
         //Get pnID of newly selected choice
         let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]:checked').val();
@@ -542,21 +559,6 @@ while ($d = mysqli_fetch_assoc($return)) {
         let totalSeconds = seconds + (60 * minutes);
 
         subsessions[currentObs][nodeInObsIndex]['seconds'] = totalSeconds;
-    }
-
-    function autoFill() {
-        console.log(currentObs);
-        console.log("currentObs");
-        console.log(nodeInObsIndex);
-        console.log("nodeInObsIndex");
-        try {
-            console.log(subsessions[currentObs]['nodes'][nodeInObsIndex]['choice']);
-            console.log("subsessions[currentObs]['nodes'][nodeInObsIndex]['choice']");
-            let existingChoiceID = subsessions[currentObs]['nodes'][nodeInObsIndex]['choice'];
-            $("#choiceRadio" + existingChoiceID).prop("checked", true);
-        } catch {
-
-        }
     }
 
     function launchVideoFromSession() {
