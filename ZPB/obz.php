@@ -402,9 +402,9 @@ while ($d = mysqli_fetch_assoc($return)) {
     }
 
     function editObservation(ssID) {
-        startEditingNodes();
         currentObs = ssID;
         nodeInObsIndex = 0;
+        startEditingNodes();
         setupNodeInfo(Object.keys(questionNodes)[0]);
     }
 
@@ -443,22 +443,40 @@ while ($d = mysqli_fetch_assoc($return)) {
             }
         });
 
-        //Attempt to autofill the existing response
+        //Attempt to autofill the existing data
         autoFill();
     }
 
     function autoFill() {
+        //Debug info
+        /*
         console.log("currentObs");
         console.log(currentObs);
         console.log("nodeInObsIndex");
         console.log(nodeInObsIndex);
+        */
+        //Try to load current choice
         try {
-            console.log("pnid of current choice");
             let existingChoiceID = subsessions[currentObs]['nodes'][nodeInObsIndex]['nodepathid'];
-            console.log(existingChoiceID);
+            //console.log("pnid of current choice");
+            //console.log(existingChoiceID);
             $("#choiceRadio" + existingChoiceID).prop("checked", true);
-        } catch {
-
+        }
+        //Try to load current timestamp
+        try {
+            let existingSeconds = parseInt(subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds']);
+            $("#timestamp_input_minutes").val(Math.floor(existingSeconds / 60));
+            $("#timestamp_input_seconds").val(existingSeconds % 60));
+        }
+        //Try to load current notes
+        try {
+            let existingNotes = subsessions[currentObs]['nodes'][nodeInObsIndex]['notes'];
+            //console.log("pnid of current choice");
+            //console.log(existingChoiceID);
+            $("#timestamp_input_seconds").val(existingNotes);
+        }
+        catch(error){
+            $("#timestamp_input_seconds").val("");
         }
     }
 
