@@ -317,10 +317,10 @@ while ($d = mysqli_fetch_assoc($return)) {
     // Global variables: stuff thats so generally applicable and needs to be accessed in a bunch of places
     // ================================================================================================
     let currentQuestionID = -1;     // This is the nodeID of the question node that is currently loaded
-    let currentObs = 0;         // This is the ID of the observation that is currently being edited
-    let nodeInObsIndex = 0;     // This is the index of the node currently being edited within its observation
-    let newObsID = -1;         // This is the ID of new subsessions created during this user's session. To guarantee it is unique from IDs on the table (and it is recognizable as new), it counts down from -1
-
+    let currentObs = 0;             // This is the ID of the observation that is currently being edited
+    let nodeInObsIndex = 0;         // This is the index of the node currently being edited within its observation
+    let newObsID = -1;              // This is the ID of new subsessions created during this user's session. To guarantee it is unique from IDs on the table (and it is recognizable as new), it counts down from -1
+    let editedInfo = {};            //  Object that contains all of the information that needs to be sent in AJAX
 
 
     // SECTION FOR CODE THAT CREATES THE OBSERVATION LIST
@@ -426,8 +426,8 @@ while ($d = mysqli_fetch_assoc($return)) {
         currentQuestionID = structIndex;
 
         //Add all of the answers for the associated question
-        Object.entries(questionNodes[structIndex]['choices']).forEach((value, index) => {
-            console.log("index: "+index);
+        Object.entries(questionNodes[structIndex]['choices']).forEach(value => {
+            //console.log("index: "+index);
             console.log("value:");
             console.log(value);
             if (value[0] == "0") { //Error case, log it
@@ -438,7 +438,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                 $("#branch_radio_form").append(`
                 <p onclick="selectRadio(${value[1]});">
                     <input type="radio" name="choiceRadio" id="choiceRadio${value[1]}" value="${value[1]}">
-                    <label for="choiceRadio${value[1]}" class="choiceOfList">(${index}) ${pathNodes[value[1]]['title']}</label>
+                    <label for="choiceRadio${value[1]}" class="choiceOfList">(${value[0]}) ${pathNodes[value[1]]['title']}</label>
                 </p>`);
             }
         });
