@@ -207,11 +207,11 @@ while ($d = mysqli_fetch_assoc($return)) {
                         <div id="demo_help_box" class="row pt-3">
                             <div class="col">
                                 <div class="md-boxed-content light-blue-background">
-                                    <h4>C-COI Demo Instructions</h4>
+                                    <h4>C-COI Observation Instructions</h4>
                                     <ol id="demo_help_ol">
-                                        <li>Click Add Session button to begin</li>
-                                        <li>Click the Pencil Icon to edit the session</li>
-                                        <li>Open video above and begin observing</li>
+                                        <li>Open the video</li>
+                                        <li>Create observations, be sure to record time and relevant notes</li>
+                                        <li>Use IRR viewer to compare session observations for accuracy.</li>
                                     </ol>
                                     <em>Note:</em> If you need further information on how to use the instrument, visit the <a href="/about#learn">CCOI Help Center</a> section or our <a target="_blank" href="/assets/files/CCOI_Code_Book.pdf">code book</a>.
                                 </div>

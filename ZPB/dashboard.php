@@ -111,11 +111,11 @@ $paths = getPaths(); //defined below
                                 <div id="demo_help_box" class="row pt-3">
                                     <div class="col">
                                         <div class="md-boxed-content light-blue-background">
-                                            <h4>C-COI Instructions</h4>
+                                            <h4>C-COI Dashboard Instructions</h4>
                                             <ol id="demo_help_ol">
-                                                <li>Click Add Session button to begin</li>
-                                                <li>Click the Pencil Icon to edit the session</li>
-                                                <li>Open video above and begin observing</li>
+                                                <li>Create a new session if necessary, be sure to fill in pertinent info.</li>
+                                                <li>Once created, session list will update.</li>
+                                                <li><strong>Note: You can toggle between playground and research by clicking the button.</strong></li>
                                             </ol>
                                             <em>Note:</em> If you need further information on how to use the instrument, visit the <a href="/about#learn">CCOI Help Center</a> section or our <a target="_blank" href="/assets/files/CCOI_Code_Book.pdf">code book</a>.
                                         </div>
