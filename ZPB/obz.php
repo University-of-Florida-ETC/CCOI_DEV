@@ -296,8 +296,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                     notes: currentNode[1]['notes'],
                     pnid: currentNode[1]['pnid'],
                     seconds: currentNode[1]['seconds'],
-                    ssid: currentNode[1]['ssid'],
-                    ssname: currentNode[1]['ssname'],
+                    ssid: currentNode[1]['ssid']
                 };
             });
         });
@@ -373,12 +372,11 @@ while ($d = mysqli_fetch_assoc($return)) {
         console.log(subsessions[currentObs][nodeInObsIndex]);
 
         // Store the values that need to be brought over
-        let nodeLabel = subsessions[currentObs][nodeInObsIndex]['ssname'];
         let nodeSecs = subsessions[currentObs][nodeInObsIndex]['seconds'];
 
-        // Set node equal to 
+        // Give node the info of the pathnode
         subsessions[currentObs][nodeInObsIndex] = pathNodes[selectedNum];
-        subsessions[currentObs][nodeInObsIndex]['pnid'] = nodeID;
+        subsessions[currentObs][nodeInObsIndex]['ssname'] = nodeID;
         subsessions[currentObs][nodeInObsIndex]['seconds'] = nodeSecs;
         console.log("subsessions[currentObs][nodeInObsIndex] after: ");
         console.log(subsessions[currentObs][nodeInObsIndex]);
@@ -432,8 +430,9 @@ while ($d = mysqli_fetch_assoc($return)) {
         //console.log("subsessions before:"); console.log(subsessions); 
         //console.log("insertId:"); console.log(insertId);
         subsessions[(nextObsId).toString()] = [{
-            ssname: "",
-            choice: "0"
+            name: "New Observation",
+            notes: null,
+            nodes: []
         }];
         currentObs = nextObsId;
         nextObsId -= 1;
