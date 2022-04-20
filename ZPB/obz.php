@@ -426,8 +426,8 @@ while ($d = mysqli_fetch_assoc($return)) {
         currentQuestionID = structIndex;
 
         //Add all of the answers for the associated question
-        Object.entries(questionNodes[structIndex]['choices']).forEach((value, index) => {
-            console.log("index: "+index);
+        Object.entries(questionNodes[structIndex]['choices']).forEach(value => {
+            //console.log("index: "+index);
             console.log("value:");
             console.log(value);
             if (value[0] == "0") { //Error case, log it
@@ -438,7 +438,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                 $("#branch_radio_form").append(`
                 <p onclick="selectRadio(${value[1]});">
                     <input type="radio" name="choiceRadio" id="choiceRadio${value[1]}" value="${value[1]}">
-                    <label for="choiceRadio${value[1]}" class="choiceOfList">(${index}) ${pathNodes[value[1]]['title']}</label>
+                    <label for="choiceRadio${value[1]}" class="choiceOfList">(${value[0]}) ${pathNodes[value[1]]['title']}</label>
                 </p>`);
             }
         });
