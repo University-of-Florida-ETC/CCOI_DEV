@@ -317,10 +317,10 @@ while ($d = mysqli_fetch_assoc($return)) {
     // Global variables: stuff thats so generally applicable and needs to be accessed in a bunch of places
     // ================================================================================================
     let currentQuestionID = -1;     // This is the nodeID of the question node that is currently loaded
-    let currentObs = 0;         // This is the ID of the observation that is currently being edited
-    let nodeInObsIndex = 0;     // This is the index of the node currently being edited within its observation
-    let newObsID = -1;         // This is the ID of new subsessions created during this user's session. To guarantee it is unique from IDs on the table (and it is recognizable as new), it counts down from -1
-
+    let currentObs = 0;             // This is the ID of the observation that is currently being edited
+    let nodeInObsIndex = 0;         // This is the index of the node currently being edited within its observation
+    let newObsID = -1;              // This is the ID of new subsessions created during this user's session. To guarantee it is unique from IDs on the table (and it is recognizable as new), it counts down from -1
+    let editedInfo = {};            //  Object that contains all of the information that needs to be sent in AJAX
 
 
     // SECTION FOR CODE THAT CREATES THE OBSERVATION LIST
