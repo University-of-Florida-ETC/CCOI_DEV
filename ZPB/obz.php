@@ -139,8 +139,8 @@ while ($d = mysqli_fetch_assoc($return)) {
                                 <div class="row py-3">
                                     <div class="col-md-9 col-12">
                                         <div class="form-group">
-                                            <label for="path_label" onchange="changeLabel()">Choose a path label</label>
-                                            <input type="text" class="form-control" id="path_label" name="path_label" placeholder="Example Label">
+                                            <label for="path_label">Choose a path label</label>
+                                            <input type="text" class="form-control" id="path_label" name="path_label" placeholder="Example Label" onchange="changeLabel()">
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-12">
