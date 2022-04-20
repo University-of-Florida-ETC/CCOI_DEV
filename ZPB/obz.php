@@ -359,7 +359,7 @@ while ($d = mysqli_fetch_assoc($return)) {
             hideNodeEditor();
         } else {
             nodeInObsIndex -= 1;
-            setupNodeInfo(subsessions[currentObs][nodeInObsIndex]['node1']);
+            setupNodeInfo(subsessions[currentObs]['nodes'][nodeInObsIndex]['node1']);
         }
     }
 
@@ -368,18 +368,18 @@ while ($d = mysqli_fetch_assoc($return)) {
         // Check if changing answer changes next node: if so, get rid of rest of data
 
         //Log what the node was before the change
-        console.log("subsessions[currentObs][nodeInObsIndex] before: ");
-        console.log(subsessions[currentObs][nodeInObsIndex]);
+        console.log("subsessions[currentObs]['nodes'][nodeInObsIndex] before: ");
+        console.log(subsessions[currentObs]['nodes'][nodeInObsIndex]);
 
         // Store the values that need to be brought over
-        let nodeSecs = subsessions[currentObs][nodeInObsIndex]['seconds'];
+        let nodeSecs = subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds'];
 
         // Give node the info of the pathnode
-        subsessions[currentObs][nodeInObsIndex] = pathNodes[selectedNum];
-        subsessions[currentObs][nodeInObsIndex]['ssname'] = nodeID;
-        subsessions[currentObs][nodeInObsIndex]['seconds'] = nodeSecs;
-        console.log("subsessions[currentObs][nodeInObsIndex] after: ");
-        console.log(subsessions[currentObs][nodeInObsIndex]);
+        subsessions[currentObs]['nodes'][nodeInObsIndex] = pathNodes[selectedNum];
+        subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds'] = nodeSecs;
+
+        console.log("subsessions[currentObs]['nodes'][nodeInObsIndex] after: ");
+        console.log(subsessions[currentObs]['nodes'][nodeInObsIndex]);
     }
 
     function changeTime() {
@@ -402,9 +402,9 @@ while ($d = mysqli_fetch_assoc($return)) {
         console.log(nodeInObsIndex);
         console.log("nodeInObsIndex");
         try {
-            console.log(subsessions[currentObs][nodeInObsIndex]['choice']);
-            console.log("subsessions[currentObs][nodeInObsIndex]['choice']");
-            let existingChoiceID = subsessions[currentObs][nodeInObsIndex]['choice'];
+            console.log(subsessions[currentObs]['nodes'][nodeInObsIndex]['choice']);
+            console.log("subsessions[currentObs]['nodes'][nodeInObsIndex]['choice']");
+            let existingChoiceID = subsessions[currentObs]['nodes'][nodeInObsIndex]['choice'];
             $("#choiceRadio" + existingChoiceID).prop("checked", true);
         } catch {
 
@@ -459,8 +459,8 @@ while ($d = mysqli_fetch_assoc($return)) {
         $("#path_title").text(questionNodes[structIndex]['title']);
 
         if (subsessions[currentObs] != undefined) {
-            $("#timestamp_input_minutes").val(Math.floor(parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) / 60));
-            $("#timestamp_input_seconds").val(parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) % 60);
+            $("#timestamp_input_minutes").val(Math.floor(parseInt(subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds']) / 60));
+            $("#timestamp_input_seconds").val(parseInt(subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds']) % 60);
         }
 
         $("#branch_container").empty();
@@ -567,7 +567,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         //store info in data struct
         //load next node or return to observation viewer (depending on if path terminates)
         if (nextQuestionNode == null) {
-            subsessions[currentObs].length = nodeInObsIndex;
+            subsessions[currentObs]['nodes'].length = nodeInObsIndex;
             hideNodeEditor();
         } else {
             setupNodeInfo(nextQuestionNode);
