@@ -422,6 +422,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 
         // Give node the info of the pathnode
         subsessions[currentObs]['nodes'][nodeInObsIndex] = pathNodes[selectedNum];
+        // Restore information
         subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds'] = nodeSecs;
 
         console.log("subsessions[currentObs]['nodes'][nodeInObsIndex] after: ");
@@ -462,7 +463,6 @@ while ($d = mysqli_fetch_assoc($return)) {
         //console.log("structure[structIndex]:"); console.log(structure[structIndex]);
         //console.log("nodeData[structIndex]:"); console.log(nodeData[structIndex]);
 
-        //DOM.path_title.innerText = nodeData[structIndex]['title'];
         $("#path_title").text(questionNodes[structIndex]['title']);
 
         if (subsessions[currentObs]['nodes'][nodeInObsIndex] != undefined) {
@@ -612,86 +612,8 @@ while ($d = mysqli_fetch_assoc($return)) {
     var DOM = {};
     var popoutWindow;
     var IDs = [
-        'launch_video_button',
-        'go_to_session_select',
-        'save_session_button',
-        'session_list',
-        'session_meta_form',
-        'session_video_url',
-        'session_notes',
-        'new_session_button',
-        'session_submit_button',
-        'add_path_button',
-        'reorder_paths_button',
-        'finish_reorder_button',
-        'node_preview_list',
-        'path_start',
-        'path_choices',
-        'path_select',
         'path_input',
-        'path_list',
-        'path_listing',
-        'path_preview',
-        'path_preview_list',
-        'path_preview_heading',
-        'path_title',
-        'path_label',
-        'path_label_button',
-        'proceed_button',
-        'proceed_and_play_button',
-        'branch_form',
-        'notes_input',
-        'timestamp_input_minutes',
-        'timestamp_input_seconds',
-        'irr_button',
-        'dom_group_1',
-        'path_go_back',
-        'session_go_back',
-        'visualizations',
-        'viz_container',
-        'viz_refresh',
-        'viz_session_select',
-        'viz_chart_select_form',
-        'viz_session_select_ul',
-        'viz_chart_select_ul',
-        'demo_no_sesh',
-        'viz_select_btn',
-        'session_facts',
-        'sankey_container',
-        'csvImportShow',
-        'exportHumanReadable',
-        'exportCSV',
-        'prepareGVall',
-        'goToMainMenu',
-        'pathSelectTitle',
-        'pathSelectList',
-        'sessionLabel',
-        'sessionTitle',
-        'sessionDate',
-        'sessionStudent',
-        'sessionPrompted',
-        'sessionSelect',
-        'timestampInputMinutes',
-        'timestampInputSeconds',
-        'notesInputLabel',
-        'csvImportDialog',
-        'csvImportFileInput',
-        'gvExportDialog',
-        'returnFromGV',
-        'gvForm',
-        'gvSelectGraphType',
-        'gvSelectEdgeType',
-        'gvShowEnd',
-        'gvAcyclic',
-        'gvSelectSessions',
-        'rawOutput',
-        'exportTitle',
-        'returnFromExport',
-        'exportDownload',
-        'exportOut',
-        'branch_container',
-        'branch_radio_form',
-        'observation-list'
+        'dom_group_1'
     ];
 
     var numIDs = IDs.length;
