@@ -139,7 +139,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                                 <div class="row py-3">
                                     <div class="col-md-9 col-12">
                                         <div class="form-group">
-                                            <label for="path_label">Choose a path label</label>
+                                            <label for="path_label" onchange="changeLabel()">Choose a path label</label>
                                             <input type="text" class="form-control" id="path_label" name="path_label" placeholder="Example Label">
                                         </div>
                                     </div>
@@ -569,6 +569,11 @@ while ($d = mysqli_fetch_assoc($return)) {
         let totalSeconds = seconds + (60 * minutes);
 
         subsessions[currentObs][nodeInObsIndex]['seconds'] = totalSeconds;
+    }
+
+    function changeObsLabel() {
+        let newLabel = $("#path_label").val();
+        subsessions[currentObs]['name'] = newLabel;
     }
 
     // SECTION FOR VIDEO CODE
