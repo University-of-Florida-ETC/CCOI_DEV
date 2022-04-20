@@ -38,21 +38,23 @@ while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$
 
 $return = mysqli_query($db, "SELECT PN.node1, N.title FROM tbPathNodes PN LEFT JOIN tbNodes N ON PN.node1 = N.id WHERE PN.pathid = '{$session['pathid']}' AND PN.choice = 0 AND PN.inactive IS NULL AND N.inactive IS NULL");
 while ($d = mysqli_fetch_assoc($return)) {
-    $newQuery[$d['node1']]['title']= $d['title'];
+    $questionNodes[$d['node1']]['title']= $d['title'];
 }
 
 $return = mysqli_query($db, "SELECT PN.id as pnid, PN.node1, PN.choice, PN.choiceorder, PN.node2, N.code, N.title, N.extra, N.aside FROM tbPathNodes PN LEFT JOIN tbNodes N ON PN.choice = N.id WHERE PN.pathid = '{$session['pathid']}' AND PN.choice != 0 AND PN.inactive IS NULL AND N.inactive IS NULL");
 while ($d = mysqli_fetch_assoc($return)) {
-    $newQuery[$d['choice']] = $d;
-    $newQuery[$d['node1']]['choices'][]=$d['choice'];
+    $questionNodes[$d['node1']]['choices'][$d['choiceorder']] = $d['pnid'];
+    $pathNodes[$d['pnid']]=$d;
 }
 ?>
 <script>
     var sessionID = <?php echo $id; ?>;
     var subsessions = <?php echo json_encode($subsessions); ?>;
     console.log("subsessions:"); console.log(subsessions);
-    var newQuery = <?php echo json_encode($newQuery); ?>;
-    console.log("newQuery:"); console.log(newQuery);
+    var questionNodes = <?php echo json_encode($questionNodes); ?>;
+    console.log("questionNodes:"); console.log(questionNodes);
+    var pathNodes = <?php echo json_encode($pathNodes); ?>;
+    console.log("pathNodes:"); console.log(pathNodes);
 </script>
 <main role="main">
     <div class="container-fluid">
@@ -329,7 +331,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                 }
                 else {
                     let currentSeconds = parseInt(currentNode[1]['seconds']);
-                    let currentNodeData = newQuery[parseInt(currentNode[1]['nodepathid'])];
+                    let currentNodeData = pathNodes[parseInt(currentNode[1]['nodepathid'])];
                     if (currentNodeData == undefined) {
                         
                     }
@@ -375,7 +377,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         let nodeSecs = subsessions[currentObs][nodeInObsIndex]['seconds'];
 
         // Set node equal to 
-        subsessions[currentObs][nodeInObsIndex] = newQuery[currentNodeID]['choices'][selectedNum];
+        subsessions[currentObs][nodeInObsIndex] = pathNodes[selectedNum];
         subsessions[currentObs][nodeInObsIndex]['pnid'] = nodeID;
         subsessions[currentObs][nodeInObsIndex]['seconds'] = nodeSecs;
         console.log("subsessions[currentObs][nodeInObsIndex] after: ");
@@ -439,14 +441,14 @@ while ($d = mysqli_fetch_assoc($return)) {
         console.log(subsessions);
         nodeInObsIndex = 0;
         startEditingNodes();
-        setupNodeInfo(Object.keys(newQuery)[0]);
+        setupNodeInfo(Object.keys(questionNodes)[0]);
     }
 
     function editObservation(ssID) {
         startEditingNodes();
         currentObs = ssID;
         nodeInObsIndex = 0;
-        setupNodeInfo(Object.keys(newQuery)[0]);
+        setupNodeInfo(Object.keys(questionNodes)[0]);
     }
 
     function setupNodeInfo(structIndex) {
@@ -455,7 +457,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         //console.log("nodeData[structIndex]:"); console.log(nodeData[structIndex]);
 
         //DOM.path_title.innerText = nodeData[structIndex]['title'];
-        $("#path_title").text(newQuery[structIndex]['title']);
+        $("#path_title").text(questionNodes[structIndex]['title']);
 
         if (subsessions[currentObs] != undefined) {
             $("#timestamp_input_minutes").val(Math.floor(parseInt(subsessions[currentObs][nodeInObsIndex]['seconds']) / 60));
@@ -467,18 +469,19 @@ while ($d = mysqli_fetch_assoc($return)) {
 
         currentNodeID = structIndex;
 
-        Object.entries(newQuery[structIndex]['choices']).forEach((value, index) => {
+        Object.entries(questionNodes[structIndex]['choices']).forEach((value, index) => {
             //console.log("index: "+index);
             //console.log("value:");
             //console.log(value);
             if (value[0] == "0") {
-
+                console.log("when value[0] == 0, value[1] ==");
+                console.log(value[1]);
             } else {
 
                 $("#branch_radio_form").append(`
-                <p onclick="selectRadio(${value[0]});">
-                    <input type="radio" name="choiceRadio" id="choiceRadio${value[1]['choice']}" value="${value[0]}">
-                    <label for="choiceRadio${value[1]['choice']}" class="choiceOfList">(${index}) ${newQuery[value[1]['node1']]['choices'][value[1]['choice']]['title']}</label>
+                <p onclick="selectRadio(${value[1]});">
+                    <input type="radio" name="choiceRadio" id="choiceRadio${value[1]}" value="${value[1]}">
+                    <label for="choiceRadio${value[1]}" class="choiceOfList">(${index}) ${pathNodes[value[1]]['title']}</label>
                 </p>`);
 
             }
@@ -555,11 +558,11 @@ while ($d = mysqli_fetch_assoc($return)) {
         let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]:checked').val();
         //console.log("proceed retrieved value: "); console.log(selectionValue);
         //get pnid
-        let selectedPN = newQuery[currentNodeID]['choices'][selectionValue];
+        //let selectedPN = newwQuery[currentNodeID]['choices'][selectionValue];
         //console.log("selectedPN: "); console.log(selectedPN);
-        let selectedPNID = selectedPN['choice'];
+        //let selectedPNID = selectedPN['choice'];
         //console.log("selectedPNID: "); console.log(selectedPNID);
-        let nextQuestionNode = selectedPN['node2'];
+        let nextQuestionNode = pathNodes[selectionValue]['node2'];
         nodeInObsIndex += 1;
         //console.log("nextQuestionNode: "); console.log(nextQuestionNode);
         //store info in data struct
