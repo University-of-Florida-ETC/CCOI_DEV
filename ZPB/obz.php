@@ -429,11 +429,11 @@ while ($d = mysqli_fetch_assoc($return)) {
     function addObservation() {
         //console.log("subsessions before:"); console.log(subsessions); 
         //console.log("insertId:"); console.log(insertId);
-        subsessions[(nextObsId).toString()] = [{
+        subsessions[(nextObsId).toString()] = {
             name: "New Observation",
             notes: null,
             nodes: []
-        }];
+        };
         currentObs = nextObsId;
         nextObsId -= 1;
         console.log("subsessions after: ");
