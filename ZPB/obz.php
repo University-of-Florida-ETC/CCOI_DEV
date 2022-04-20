@@ -279,14 +279,25 @@ while ($d = mysqli_fetch_assoc($return)) {
 </script><!-- THIS IS THE SCRIPT BLOCK WITH THE AJAX STUFF -->
 
 
+
+
+
+
+
 <!-- THIS IS THE SCRIPT BLOCK WITH THE NODE EDITING STUFF -->
 <script>
+
     // Global variables: stuff thats so generally applicable and needs to be accessed in a bunch of places
+    // ================================================================================================
     let currentQuestionID = -1;     // This is the nodeID of the question node that is currently loaded
     let currentObs = 0;         // This is the ID of the observation that is currently being edited
     let nodeInObsIndex = 0;     // This is the index of the node currently being edited within its observation
     let newObsID = -1;         // This is the ID of new subsessions created during this user's session. To guarantee it is unique from IDs on the table (and it is recognizable as new), it counts down from -1
 
+
+
+    // SECTION FOR CODE THAT CREATES THE OBSERVATION LIST
+    // ================================================================================================
     function populateObsList() {
         //Empty out the observation list
         $("#path_list").empty();
@@ -316,15 +327,16 @@ while ($d = mysqli_fetch_assoc($return)) {
                     notesText = `[${currentNode['notes']}]`;
                 }
 
-                if (currentNode[1]['nodepathid'] == "0") {
+                //Include node data in print if possible
+                if (currentNode[1]['nodepathid'] == "0") { //If no node data set yet, don't print node data
                     $("#path_drop_" + obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${notesText}</li>`);
                 }
                 else {
                     let currentNodeData = pathNodes[parseInt(currentNode[1]['nodepathid'])];
-                    if (currentNodeData == undefined) {
+                    if (currentNodeData == undefined) { //If there is error grabbing node data, don't print node data
                         $("#path_drop_" + obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${notesText}</li>`);
                     }
-                    else {
+                    else { //If there is no error grabbing node data, print node data (LETS GOOOOOOO)
                         $("#path_drop_" + obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${currentNodeData['code']}: ${currentNodeData['title']} ${notesText}</li>`);
                     }
                 }
@@ -334,6 +346,59 @@ while ($d = mysqli_fetch_assoc($return)) {
     }
 
     populateObsList();
+
+
+
+    // SECTION FOR CODE THAT OPENS THE NODE EDITOR
+    // ================================================================================================
+    function addObservation() {
+        //console.log("subsessions before:"); console.log(subsessions); 
+        //console.log("insertId:"); console.log(insertId);
+
+        //Create a new observation in the local data with a unique ssid and filler info
+        subsessions[newObsID] = {
+            name: "New Observation",
+            notes: null,
+            nodes: []
+        };
+
+        //Setup node editor to start editing this new observation
+        currentObs = newObsID;
+        nodeInObsIndex = 0;
+
+        //Decrement global unique obsID so we don't use it again
+        newObsID -= 1;
+
+        //Start editing this new observation
+        startEditingNodes();
+        setupNodeInfo(Object.keys(questionNodes)[0]);
+    }
+
+    function editObservation(ssID) {
+        startEditingNodes();
+        currentObs = ssID;
+        nodeInObsIndex = 0;
+        setupNodeInfo(Object.keys(questionNodes)[0]);
+    }
+
+
+
+    // SECTION FOR CODE THAT NAVIGATES THE NODE EDITOR
+    // ================================================================================================
+    function startEditingNodes() {
+        if (!DOM.dom_group_1.classList.contains('d-none')) {
+            DOM.dom_group_1.classList.add('d-none');
+        }
+        DOM.path_input.classList.remove('d-none');
+    }
+
+    function hideNodeEditor() {
+        if (!DOM.path_input.classList.contains('d-none')) {
+            DOM.path_input.classList.add('d-none');
+        }
+        populateObsList();
+        DOM.dom_group_1.classList.remove('d-none');
+    }
 
     function goBack() {
         if (nodeInObsIndex == 0) {
@@ -390,45 +455,6 @@ while ($d = mysqli_fetch_assoc($return)) {
         } catch {
 
         }
-    }
-
-    function hideNodeEditor() {
-        if (!DOM.path_input.classList.contains('d-none')) {
-            DOM.path_input.classList.add('d-none');
-        }
-        populateObsList();
-        DOM.dom_group_1.classList.remove('d-none');
-    }
-
-    function startEditingNodes() {
-        if (!DOM.dom_group_1.classList.contains('d-none')) {
-            DOM.dom_group_1.classList.add('d-none');
-        }
-        DOM.path_input.classList.remove('d-none');
-    }
-
-    function addObservation() {
-        //console.log("subsessions before:"); console.log(subsessions); 
-        //console.log("insertId:"); console.log(insertId);
-        subsessions[(newObsID).toString()] = {
-            name: "New Observation",
-            notes: null,
-            nodes: []
-        };
-        currentObs = newObsID;
-        newObsID -= 1;
-        console.log("subsessions after: ");
-        console.log(subsessions);
-        nodeInObsIndex = 0;
-        startEditingNodes();
-        setupNodeInfo(Object.keys(questionNodes)[0]);
-    }
-
-    function editObservation(ssID) {
-        startEditingNodes();
-        currentObs = ssID;
-        nodeInObsIndex = 0;
-        setupNodeInfo(Object.keys(questionNodes)[0]);
     }
 
     function setupNodeInfo(structIndex) {
