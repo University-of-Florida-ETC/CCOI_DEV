@@ -461,18 +461,16 @@ while ($d = mysqli_fetch_assoc($return)) {
             //console.log("pnid of current choice");
             //console.log(existingChoiceID);
             $("#choiceRadio" + existingChoiceID).prop("checked", true);
-        }
+        } catch{}
         //Try to load current timestamp
         try {
             let existingSeconds = parseInt(subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds']);
             $("#timestamp_input_minutes").val(Math.floor(existingSeconds / 60));
             $("#timestamp_input_seconds").val(existingSeconds % 60));
-        }
+        } catch{}
         //Try to load current notes
         try {
             let existingNotes = subsessions[currentObs]['nodes'][nodeInObsIndex]['notes'];
-            //console.log("pnid of current choice");
-            //console.log(existingChoiceID);
             $("#timestamp_input_seconds").val(existingNotes);
         }
         catch(error){
@@ -579,6 +577,9 @@ while ($d = mysqli_fetch_assoc($return)) {
         subsessions[currentObs][nodeInObsIndex]['seconds'] = totalSeconds;
     }
 
+    // SECTION FOR VIDEO CODE
+    // ================================================================================================
+
     function launchVideoFromSession() {
         let videoID = $("#session_video_url").val();
         //TODO: add back isDemo() functionality for presentation purposes. 
@@ -629,6 +630,9 @@ while ($d = mysqli_fetch_assoc($return)) {
             popoutWindow.changeSpeed(2.0);
         });
     }
+
+    // SECTION FOR DOM CODE
+    // ================================================================================================
 
     var DOM = {};
     var popoutWindow;
