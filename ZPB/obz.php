@@ -427,9 +427,9 @@ while ($d = mysqli_fetch_assoc($return)) {
 
         //Add all of the answers for the associated question
         Object.entries(questionNodes[structIndex]['choices']).forEach((value, index) => {
-            //console.log("index: "+index);
-            //console.log("value:");
-            //console.log(value);
+            console.log("index: "+index);
+            console.log("value:");
+            console.log(value);
             if (value[0] == "0") { //Error case, log it
                 console.log("when value[0] == 0, value[1] ==");
                 console.log(value[1]);
