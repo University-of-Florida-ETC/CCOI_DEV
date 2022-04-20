@@ -409,6 +409,9 @@ while ($d = mysqli_fetch_assoc($return)) {
     }
 
     function setupNodeInfo(structIndex) {
+        //Set the obs label
+        $("#path_label").val(subsessions[currentObs]['name']);
+
         //Set the question title
         $("#path_title").text(questionNodes[structIndex]['title']);
 
@@ -479,6 +482,8 @@ while ($d = mysqli_fetch_assoc($return)) {
             DOM.dom_group_1.classList.add('d-none');
         }
         DOM.path_input.classList.remove('d-none');
+
+
     }
 
     function hideNodeEditor() {
