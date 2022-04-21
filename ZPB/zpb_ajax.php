@@ -160,7 +160,7 @@ if( !empty($_POST['updateObsEl']) ) {
             foreach ($currentObservation['nodes'] as $nodeIndex => $currentNode){
                 if($nodeIndex < $numExistingNodes){
                     echo "\r\n  Updating node with index: " . $nodeIndex;
-                    $query = "UPDATE tb{$tbName}Activity WHERE id={$d[$nodeIndex]['id']} SET extra = {$currentNode['extra']} SET nodepathid = {$currentNode['nodepathid']} SET notes = {$currentNode['notes']} SET seconds = {$currentNode['seconds']} SET inactive = NULL LIMIT 1;";
+                    $query = "UPDATE tb{$tbName}Activity WHERE id={$d[$nodeIndex]['id']} SET extra = '{$currentNode['extra']}' SET nodepathid = {$currentNode['nodepathid']} SET notes = '{$currentNode['notes']}' SET seconds = {$currentNode['seconds']} SET inactive = NULL LIMIT 1;";
                     echo "query: "; var_dump($query);
                     $return=mysqli_query($db,$query);
     //				$error="$query\n";
