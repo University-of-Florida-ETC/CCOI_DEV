@@ -96,7 +96,7 @@ if( !empty($_POST['updateObsEl']) ) {
     //PeopleAppSess if row exists with person id and session id then its good
     //var_dump($_POST);
     
-    //echo "\r\n\r\nUpdating session with ID: " . $_POST['id'];
+    echo "\r\n\r\nUpdating session with ID: " . $_POST['id'];
     /*foreach ($_POST['paths'] as $currentObservation){
         echo "\r\n\r\n  Observation #{$currentObservation['id']}";
 
@@ -179,7 +179,7 @@ if( !empty($_POST['updateObsEl']) ) {
                 $newObsID=mysqli_insert_id($db);
             }
             */
-            
+
             //echo "\r\n\r\n Creating observation with ssID: " . $newObsID . " for new node that had ID " . $ssid;
             echo "\r\n\r\n Creating observation for ssID: " . $ssid;
             
