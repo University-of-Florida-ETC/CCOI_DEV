@@ -50,10 +50,6 @@ while ($d = mysqli_fetch_assoc($return)) {
 <script>
     var sessionID = <?php echo $id; ?>;
     var subsessions = <?php echo json_encode($subsessions); ?>;
-    if(subsessions === null) {
-        console.log("this be runnin");
-        subsessions = {};
-    }
     console.log("subsessions:"); console.log(subsessions);
     var questionNodes = <?php echo json_encode($questionNodes); ?>;
     console.log("questionNodes:"); console.log(questionNodes);
