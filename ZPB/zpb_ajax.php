@@ -94,10 +94,10 @@ if( !empty($_POST['changeCurrentApp']) ) {
 if( !empty($_POST['updateObsEl']) ) {
     //TODO: Verify that it's an observation that you can modify
     //PeopleAppSess if row exists with person id and session id then its good
-    var_dump($_POST);
+    //var_dump($_POST);
     
     echo "\r\n\r\nUpdating session with ID: " . $_POST['id'];
-    foreach ($_POST['paths'] as $currentObservation){
+    /*foreach ($_POST['paths'] as $currentObservation){
         echo "\r\n\r\n  Observation #{$currentObservation['id']}";
 
         if( $currentObservation['label'] != "-1" )
@@ -129,6 +129,53 @@ if( !empty($_POST['updateObsEl']) ) {
             }
         }
     }
+    */
+
+    if(isset($_POST['isPlayground'])){
+        $tbName = 'Playground';
+        echo " in playground";
+    }
+    else{
+        $tbName = 'Session';
+        echo " in research";
+    }
+    
+
+    //UPDATE tbSessionActivity SET ssid='{$newids[$d['sessionid']][$d['subsession']]}' WHERE id='{$d['id']}' LIMIT 1;\n
+
+    foreach ($_POST['observations'] as $ssid => $currentObservation){
+        // Grab existing nodes
+        if ($ssid > 0){
+            echo "\r\n\r\nUpdating observation with ssID: " . $ssid;
+            /*
+            $return=mysqli_query($db,"SELECT * FROM tb{$tbName}Activity WHERE ssid={$ssid}");
+            while($d=mysqli_fetch_assoc($return)){
+                $currentSubsession[]= $d;
+            }
+
+            $numExistingNodes = count($currentSubsession);
+
+            foreach ($currentObservation as $nodeIndex => $currentNode){
+                if($nodeIndex < $numExistingNodes){
+                    $return=mysqli_query($db,"UPDATE tb{$tbName}Activity WHERE id={$d[$nodeIndex]['id']} SET extra = {$currentNode['extra']} SET nodepathid = {$currentNode['nodepathid']} SET notes = {$currentNode['notes']} SET seconds = {$currentNode['seconds']} LIMIT 1;");
+    //				$error="$query\n";
+                    //if(mysqli_affected_rows($db)>0){echo "A|$megaid";break;}else{$error=mysqli_error($db);}
+                }
+                else{
+                    $return=mysqli_query($db,"INSERT INTO tb{$tbName}Activity (extra,nodepathid,notes,seconds,ssid) VALUES ('$currentNode['extra']',$currentNode['nodepathid'],'$currentNode['notes']',$currentNode['seconds'],$currentNode['ssid'])");
+                }
+            }
+            */
+        }
+        else {
+            echo "\r\n\r\Creating observation with ssID: " . $ssid;
+            /*
+            $return=mysqli_query($db,"INSERT INTO tbSub{$tbName}s (sessid,name) VALUES ('$_POST['id']',$currentObservation['name'])");
+            */
+        }
+        
+    }
+    
     //echo "<br>Create a";
     /*
     //TODO: grab ssids of session
