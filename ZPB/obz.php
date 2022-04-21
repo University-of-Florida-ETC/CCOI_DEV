@@ -51,7 +51,8 @@ while ($d = mysqli_fetch_assoc($return)) {
     var sessionID = <?php echo $id; ?>;
     var subsessions = <?php echo json_encode($subsessions); ?>;
     if(subsessions === null) {
-        subessions = {};
+        console.log("this be runnin");
+        subsessions = {};
     }
     console.log("subsessions:"); console.log(subsessions);
     var questionNodes = <?php echo json_encode($questionNodes); ?>;
@@ -333,6 +334,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         $("#path_list").empty();
 
         //For each observation, add a dropdown
+
         Object.entries(subsessions).forEach((currentObs, obsIndex) => {
             $("#path_list").append(`
             <div id="observation-list-${obsIndex}" class="path-listing-container">
