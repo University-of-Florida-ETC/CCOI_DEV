@@ -52,7 +52,7 @@ while ($d = mysqli_fetch_assoc($return)) {
     var subsessions = <?php echo json_encode($subsessions); ?>;
     if(subsessions === null) {
         console.log("this be runnin");
-        subessions = {};
+        subsessions = {};
     }
     console.log("subsessions:"); console.log(subsessions);
     var questionNodes = <?php echo json_encode($questionNodes); ?>;
