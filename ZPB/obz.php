@@ -356,7 +356,9 @@ while ($d = mysqli_fetch_assoc($return)) {
                 //Grab notes to print
                 let notesText = '';
                 if (currentNode[1]['notes'] != null) {
-                    notesText = `[${currentNode['notes']}]`;
+                    if(currentNode[1]['notes'] != ""){
+                        notesText = `[${currentNode[1]['notes']}]`;
+                    }
                 }
 
                 //Include node data in print if possible
