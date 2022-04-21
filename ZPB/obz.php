@@ -544,9 +544,8 @@ while ($d = mysqli_fetch_assoc($return)) {
 
         //Log what the node was before the change
         console.log("subsessions[currentObs]['nodes'][nodeInObsIndex] before: ");
-        try {
-            console.log(subsessions[currentObs]['nodes'][nodeInObsIndex]);
-        } catch {
+        console.log(subsessions[currentObs]['nodes'][nodeInObsIndex]);
+        if(subsessions[currentObs]['nodes'][nodeInObsIndex] == undefined){
             subsessions[currentObs]['nodes'][nodeInObsIndex] = {};
         }
 
