@@ -161,7 +161,7 @@ if( !empty($_POST['updateObsEl']) ) {
                 if($nodeIndex < $numExistingNodes){
                     echo "\r\n  Updating node with index: " . $nodeIndex;
                     echo "\r\n  currentSubsession[nodeIndex]: "; var_dump($currentSubsession[$nodeIndex]);
-                    $query = "UPDATE tb{$tbName}Activity WHERE id='{$currentSubsession[$nodeIndex]['id']}' SET extra = '{$currentNode['extra']}', nodepathid = {$currentNode['nodepathid']}, notes = '{$currentNode['notes']}', seconds = {$currentNode['seconds']} LIMIT 1";
+                    $query = "UPDATE tb{$tbName}Activity WHERE id={$currentSubsession[$nodeIndex]['id']} SET nodepathid = {$currentNode['nodepathid']}, seconds = {$currentNode['seconds']} LIMIT 1";
                     echo "\r\n\r\nquery: "; var_dump($query);
                     $return=mysqli_query($db,$query);
     //				$error="$query\n";
