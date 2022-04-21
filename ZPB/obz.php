@@ -563,7 +563,12 @@ while ($d = mysqli_fetch_assoc($return)) {
 
         //New way
         subsessions[currentObs]['nodes'][nodeInObsIndex]['nodepathid'] = selectionValue;
-        delete subsessions[currentObs]['nodes'][nodeInObsIndex]['extra'];
+        try {
+            delete subsessions[currentObs]['nodes'][nodeInObsIndex]['extra'];
+        } catch {
+            //There was no extra to delete
+        }
+        
 
         //Log what the node is after the change
         console.log("subsessions[currentObs]['nodes'][nodeInObsIndex] after: ");
