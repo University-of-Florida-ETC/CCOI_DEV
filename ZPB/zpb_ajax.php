@@ -157,7 +157,7 @@ if( !empty($_POST['updateObsEl']) ) {
 
             $numExistingNodes = count($currentSubsession);
 
-            foreach ($currentObservation as $nodeIndex => $currentNode){
+            foreach ($currentObservation['nodes'] as $nodeIndex => $currentNode){
                 if($nodeIndex < $numExistingNodes){
                     echo "\r\n  Updating node with index: " . $nodeIndex;
                     //$return=mysqli_query($db,"UPDATE tb{$tbName}Activity WHERE id={$d[$nodeIndex]['id']} SET extra = {$currentNode['extra']} SET nodepathid = {$currentNode['nodepathid']} SET notes = {$currentNode['notes']} SET seconds = {$currentNode['seconds']} LIMIT 1;");
@@ -176,7 +176,7 @@ if( !empty($_POST['updateObsEl']) ) {
             /*
             $return=mysqli_query($db,"INSERT INTO tbSub{$tbName}s (sessid,name) VALUES ('$_POST['id']',$currentObservation['name'])");
             */
-            foreach ($currentObservation as $nodeIndex => $currentNode){
+            foreach ($currentObservation['nodes'] as $nodeIndex => $currentNode){
                 echo "\r\n  Creating node with index: " . $nodeIndex;
             }
         }
