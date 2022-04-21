@@ -96,7 +96,7 @@ if( !empty($_POST['updateObsEl']) ) {
     //PeopleAppSess if row exists with person id and session id then its good
     //var_dump($_POST);
     
-    echo "\r\n\r\nUpdating session with ID: " . $_POST['id'];
+    //echo "\r\n\r\nUpdating session with ID: " . $_POST['id'];
     /*foreach ($_POST['paths'] as $currentObservation){
         echo "\r\n\r\n  Observation #{$currentObservation['id']}";
 
@@ -144,8 +144,8 @@ if( !empty($_POST['updateObsEl']) ) {
     //UPDATE tbSessionActivity SET ssid='{$newids[$d['sessionid']][$d['subsession']]}' WHERE id='{$d['id']}' LIMIT 1;\n
 
     foreach ($_POST['observations'] as $ssid => $currentObservation){
-        echo "\r\nchecking ssid:"; var_dump($ssid);
-        echo "\r\nchecking currentObservation:"; var_dump($currentObservation);
+        //echo "\r\nchecking ssid:"; var_dump($ssid);
+        //echo "\r\nchecking currentObservation:"; var_dump($currentObservation);
         // Grab existing nodes
         if ($ssid > 0){
             echo "\r\n\r\n Updating observation with ssID: " . $ssid;
@@ -172,12 +172,20 @@ if( !empty($_POST['updateObsEl']) ) {
             
         }
         else {
-            echo "\r\n\r\ Creating observation with ssID: " . $ssid;
             /*
             $return=mysqli_query($db,"INSERT INTO tbSub{$tbName}s (sessid,name) VALUES ('$_POST['id']',$currentObservation['name'])");
+            if(mysqli_affected_rows($db)>0){
+                $newObsID=mysqli_insert_id($db);
+            }
             */
+            //echo "\r\n\r\n Creating observation with ssID: " . $newObsID . " for new node that had ID " . $ssid;
+            echo "\r\n\r\n Creating observation for ssID: " . $ssid;
+            
+            
+            
             foreach ($currentObservation['nodes'] as $nodeIndex => $currentNode){
                 echo "\r\n  Creating node with index: " . $nodeIndex;
+                //$return=mysqli_query($db,"INSERT INTO tb{$tbName}Activity (extra,nodepathid,notes,seconds,ssid) VALUES ('$currentNode['extra']',$currentNode['nodepathid'],'$currentNode['notes']',$currentNode['seconds'],$currentNode['ssid'])");
             }
         }
         
