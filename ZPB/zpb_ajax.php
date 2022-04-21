@@ -162,7 +162,7 @@ if( !empty($_POST['updateObsEl']) ) {
                     echo "\r\n  Updating node with index: " . $nodeIndex;
                     echo "\r\n  currentSubsession[nodeIndex]: "; var_dump($currentSubsession[$nodeIndex]);
                     $query = "UPDATE tb{$tbName}Activity WHERE id='{$currentSubsession[$nodeIndex]['id']}' SET extra = '{$currentNode['extra']}', nodepathid = {$currentNode['nodepathid']}, notes = '{$currentNode['notes']}', seconds = {$currentNode['seconds']}, inactive = NULL LIMIT 1;";
-                    echo "query: "; var_dump($query);
+                    echo "\r\n\r\nquery: "; var_dump($query);
                     $return=mysqli_query($db,$query);
     //				$error="$query\n";
                     //if(mysqli_affected_rows($db)>0){echo "A|$megaid";break;}else{$error=mysqli_error($db);}
