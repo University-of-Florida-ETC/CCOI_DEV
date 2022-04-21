@@ -144,6 +144,8 @@ if( !empty($_POST['updateObsEl']) ) {
     //UPDATE tbSessionActivity SET ssid='{$newids[$d['sessionid']][$d['subsession']]}' WHERE id='{$d['id']}' LIMIT 1;\n
 
     foreach ($_POST['observations'] as $ssid => $currentObservation){
+        echo "\r\nchecking ssid:"; var_dump($ssid);
+        echo "\r\nchecking currentObservation:"; var_dump($currentObservation);
         // Grab existing nodes
         if ($ssid > 0){
             echo "\r\n\r\n Updating observation with ssID: " . $ssid;
@@ -157,13 +159,13 @@ if( !empty($_POST['updateObsEl']) ) {
 
             foreach ($currentObservation as $nodeIndex => $currentNode){
                 if($nodeIndex < $numExistingNodes){
-                    echo "  Updating node with index: " . $nodeIndex;
+                    echo "\r\n  Updating node with index: " . $nodeIndex;
                     //$return=mysqli_query($db,"UPDATE tb{$tbName}Activity WHERE id={$d[$nodeIndex]['id']} SET extra = {$currentNode['extra']} SET nodepathid = {$currentNode['nodepathid']} SET notes = {$currentNode['notes']} SET seconds = {$currentNode['seconds']} LIMIT 1;");
     //				$error="$query\n";
                     //if(mysqli_affected_rows($db)>0){echo "A|$megaid";break;}else{$error=mysqli_error($db);}
                 }
                 else{
-                    echo "  Creating node with index: " . $nodeIndex;
+                    echo "\r\n  Creating node with index: " . $nodeIndex;
                     //$return=mysqli_query($db,"INSERT INTO tb{$tbName}Activity (extra,nodepathid,notes,seconds,ssid) VALUES ('$currentNode['extra']',$currentNode['nodepathid'],'$currentNode['notes']',$currentNode['seconds'],$currentNode['ssid'])");
                 }
             }
@@ -175,7 +177,7 @@ if( !empty($_POST['updateObsEl']) ) {
             $return=mysqli_query($db,"INSERT INTO tbSub{$tbName}s (sessid,name) VALUES ('$_POST['id']',$currentObservation['name'])");
             */
             foreach ($currentObservation as $nodeIndex => $currentNode){
-                echo "  Creating node with index: " . $nodeIndex;
+                echo "\r\n  Creating node with index: " . $nodeIndex;
             }
         }
         
