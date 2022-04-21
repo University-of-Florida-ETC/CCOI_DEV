@@ -160,7 +160,7 @@ if( !empty($_POST['updateObsEl']) ) {
             foreach ($currentObservation['nodes'] as $nodeIndex => $currentNode){
                 if($nodeIndex < $numExistingNodes){
                     echo "\r\n  Updating node with index: " . $nodeIndex;
-                    //$return=mysqli_query($db,"UPDATE tb{$tbName}Activity WHERE id={$d[$nodeIndex]['id']} SET extra = {$currentNode['extra']} SET nodepathid = {$currentNode['nodepathid']} SET notes = {$currentNode['notes']} SET seconds = {$currentNode['seconds']} LIMIT 1;");
+                    $return=mysqli_query($db,"UPDATE tb{$tbName}Activity WHERE id={$d[$nodeIndex]['id']} SET extra = {$currentNode['extra']} SET nodepathid = {$currentNode['nodepathid']} SET notes = {$currentNode['notes']} SET seconds = {$currentNode['seconds']} SET inactive = NULL LIMIT 1;");
     //				$error="$query\n";
                     //if(mysqli_affected_rows($db)>0){echo "A|$megaid";break;}else{$error=mysqli_error($db);}
                 }
@@ -169,16 +169,24 @@ if( !empty($_POST['updateObsEl']) ) {
                     //$return=mysqli_query($db,"INSERT INTO tb{$tbName}Activity (extra,nodepathid,notes,seconds,ssid) VALUES ('{$currentNode['extra']}',{$currentNode['nodepathid']},'{$currentNode['notes']}',{$currentNode['seconds']},{$currentNode['ssid']})");
                 }
             }
-            echo "Last node index: " . $nodeIndex;
+            echo "\r\n  Last node index: " . $nodeIndex;
+
+            if( ($nodeIndex+1) < $numExistingNodes) {
+                for ($i = $nodeIndex+1; $i < $numExistingNodes; $i++){
+                    echo "\r\n  Turning off node with index: " . $i;
+                    $return=mysqli_query($db,"UPDATE tb{$tbName}Activity WHERE id={$d[$i]['id']} SET inactive = 1 LIMIT 1;");
+                }
+                
+            }
             
         }
         else {
-            /*
+            
             $return=mysqli_query($db,"INSERT INTO tbSub{$tbName}s (sessid,name) VALUES ({$_POST['id']},'{$currentObservation['name']}')");
             if(mysqli_affected_rows($db)>0){
                 $newObsID=mysqli_insert_id($db);
             }
-            */
+            
 
             //echo "\r\n\r\n Creating observation with ssID: " . $newObsID . " for new node that had ID " . $ssid;
             echo "\r\n\r\n Creating observation for ssID: " . $ssid;
@@ -187,7 +195,7 @@ if( !empty($_POST['updateObsEl']) ) {
             
             foreach ($currentObservation['nodes'] as $nodeIndex => $currentNode){
                 echo "\r\n  Creating node with index: " . $nodeIndex;
-                //$return=mysqli_query($db,"INSERT INTO tb{$tbName}Activity (extra,nodepathid,notes,seconds,ssid) VALUES ('{$currentNode['extra']}',{$currentNode['nodepathid']},'{$currentNode['notes']}',{$currentNode['seconds']},{$newObsID})");
+                $return=mysqli_query($db,"INSERT INTO tb{$tbName}Activity (extra,nodepathid,notes,seconds,ssid) VALUES ('{$currentNode['extra']}',{$currentNode['nodepathid']},'{$currentNode['notes']}',{$currentNode['seconds']},{$newObsID})");
             }
         }
         
