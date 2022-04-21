@@ -662,7 +662,7 @@ function getAppVideos($id)
         if (!empty($_GET['isPlayground'])) {
             $return = mysqli_query($db, "SELECT v.id, v.name, v.url FROM tbVideos v LEFT JOIN tbPeopleAppPlaygrounds pg ON pg.appid = v.appid WHERE pg.id = 1 AND pg.inactive IS NULL");
             while ($d = mysqli_fetch_assoc($return)) {
-                print_r($d);
+                //print_r($d);
                 $appVideos = $d;
             }
         } else {
