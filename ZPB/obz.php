@@ -383,6 +383,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         //console.log("insertId:"); console.log(insertId);
 
         //Create a new observation in the local data with a unique ssid and filler info
+        console.log(subsessions);
         subsessions[(newObsID).toString()] = {
             name: "New Observation",
             notes: null,
