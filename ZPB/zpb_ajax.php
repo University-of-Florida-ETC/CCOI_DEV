@@ -189,13 +189,16 @@ if( !empty($_POST['updateObsEl']) ) {
 
             echo "\r\n\r\n Creating observation for ssID: " . $ssid;
             
-            $return=mysqli_query($db,"INSERT INTO tbSub{$tbName}s (sessid,name) VALUES ({$_POST['id']},'{$currentObservation['name']}')");
+            $query = "INSERT INTO tbSub{$tbName}s (sessid,name) VALUES ({$_POST['id']},'{$currentObservation['name']}')";
+            echo "\r\n\r\nquery: "; var_dump($query);
+
+            $return=mysqli_query($db,$query);
             if(mysqli_affected_rows($db)>0){
                 $newObsID=mysqli_insert_id($db);
             }
             
 
-            //echo "\r\n\r\n Creating observation with ssID: " . $newObsID . " for new node that had ID " . $ssid;
+            echo "\r\n\r\n Actual ssID for this new observation: " . $newObsID;
             
             
             
