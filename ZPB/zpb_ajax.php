@@ -169,7 +169,7 @@ if( !empty($_POST['updateObsEl']) ) {
                 }
                 else{
                     echo "\r\n  Creating node with index: " . $nodeIndex;
-                    //$return=mysqli_query($db,"INSERT INTO tb{$tbName}Activity (extra,nodepathid,notes,seconds,ssid) VALUES ('{$currentNode['extra']}',{$currentNode['nodepathid']},'{$currentNode['notes']}',{$currentNode['seconds']},{$currentNode['ssid']})");
+                    $return=mysqli_query($db,"INSERT INTO tb{$tbName}Activity (extra,nodepathid,notes,seconds,ssid) VALUES ('{$currentNode['extra']}',{$currentNode['nodepathid']},'{$currentNode['notes']}',{$currentNode['seconds']},{$currentNode['ssid']})");
                 }
             }
             echo "\r\n  Last node index: " . $nodeIndex;
@@ -177,7 +177,7 @@ if( !empty($_POST['updateObsEl']) ) {
             if( ($nodeIndex+1) < $numExistingNodes) {
                 for ($i = $nodeIndex+1; $i < $numExistingNodes; $i++){
                     echo "\r\n  Turning off node with index: " . $i;
-                    $return=mysqli_query($db,"UPDATE tb{$tbName}Activity WHERE id={$d[$i]['id']} SET inactive = 1 LIMIT 1;");
+                    $return=mysqli_query($db,"UPDATE tb{$tbName}ActivitySET inactive = 1 WHERE id={$currentSubsession[$i]['id']}");
                 }
                 
             }
