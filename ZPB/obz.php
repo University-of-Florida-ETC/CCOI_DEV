@@ -50,7 +50,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 <script>
     var sessionID = <?php echo $id; ?>;
     var subsessions = <?php echo json_encode($subsessions); ?>;
-    if(subsessions == NULL) {
+    if(subsessions === null) {
         subessions = {};
     }
     console.log("subsessions:"); console.log(subsessions);
