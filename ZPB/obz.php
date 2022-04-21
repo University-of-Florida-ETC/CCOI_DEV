@@ -291,7 +291,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                 console.log(data);
             }
         };
-        var sendStr = "updateObsEl=1&id=" + sessionID + "&" + $.param(subsessions);
+        var sendStr = "updateObsEl=1&id=" + sessionID + "&" + $.param( {"observations": subsessions});
         console.log("sendStr:");
         console.log(sendStr);
         var url = encodeURI(derServer + "ZPB/zpb_ajax.php?" + sendStr);
