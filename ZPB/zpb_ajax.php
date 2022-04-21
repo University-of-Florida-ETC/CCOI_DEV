@@ -149,7 +149,7 @@ if( !empty($_POST['updateObsEl']) ) {
         // Grab existing nodes
         if ($ssid > 0){
             echo "\r\n\r\n Updating observation with ssID: " . $ssid;
-            
+            $currentSubsession = [];
             $return=mysqli_query($db,"SELECT * FROM tb{$tbName}Activity WHERE ssid={$ssid}");
             while($d=mysqli_fetch_assoc($return)){
                 $currentSubsession[]= $d;
@@ -160,7 +160,9 @@ if( !empty($_POST['updateObsEl']) ) {
             foreach ($currentObservation['nodes'] as $nodeIndex => $currentNode){
                 if($nodeIndex < $numExistingNodes){
                     echo "\r\n  Updating node with index: " . $nodeIndex;
-                    $return=mysqli_query($db,"UPDATE tb{$tbName}Activity WHERE id={$d[$nodeIndex]['id']} SET extra = {$currentNode['extra']} SET nodepathid = {$currentNode['nodepathid']} SET notes = {$currentNode['notes']} SET seconds = {$currentNode['seconds']} SET inactive = NULL LIMIT 1;");
+                    $query = "UPDATE tb{$tbName}Activity WHERE id={$d[$nodeIndex]['id']} SET extra = {$currentNode['extra']} SET nodepathid = {$currentNode['nodepathid']} SET notes = {$currentNode['notes']} SET seconds = {$currentNode['seconds']} SET inactive = NULL LIMIT 1;";
+                    echo "query: "; var_dump($query);
+                    $return=mysqli_query($db,$query);
     //				$error="$query\n";
                     //if(mysqli_affected_rows($db)>0){echo "A|$megaid";break;}else{$error=mysqli_error($db);}
                 }
