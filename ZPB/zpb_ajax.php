@@ -33,7 +33,7 @@ if( !empty($_POST['newSession']) ) {
         $tbName = 'Session';
     }
 
-    $query="INSERT INTO tb{$tbName}s (pathid,name,studentid,videoid,placetime,createdon) VALUES ({$_POST['path']},'{$_POST['name']}','{$_POST['studentid']}',{$_POST['video']},'{$_POST['studentid']}',NOW())";
+    $query="INSERT INTO tb{$tbName}s (pathid,name,studentid,videoid,placetime,createdon) VALUES ({$_POST['path']},'{$_POST['name']}','{$_POST['studentid']}',{$_POST['video']},'{$_POST['codingDate']}',NOW())";
         $return=mysqli_query($db,$query);
         $lastid=mysqli_insert_id($db);
         $returnData['id'] = $lastid;
