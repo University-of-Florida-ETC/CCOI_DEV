@@ -327,7 +327,8 @@ while ($d = mysqli_fetch_assoc($return)) {
     let nodeInObsIndex = 0; // This is the index of the node currently being edited within its observation
     let newObsID = -1; // This is the ID of new subsessions created during this user's session. To guarantee it is unique from IDs on the table (and it is recognizable as new), it counts down from -1
     let editedInfo = {}; //  Object that contains all of the information that needs to be sent in AJAX
-    let sessionMeta ={};
+    let startSessionMeta = fetchMetaFields();
+    let sessionMeta = {};
 
     // SECTION FOR CODE THAT CREATES THE OBSERVATION LIST
     // ================================================================================================
@@ -495,15 +496,16 @@ while ($d = mysqli_fetch_assoc($return)) {
     }
     //TODO : Finish handling this jazz cigar.
     function fetchMetaFields() {
-        let sessionMeta = {
+        sessionMeta = {
             sessionTitle : $("#session_title").val(),
             studentID : $("#studentID").val(),
             sessionDate : $("#session_date").val(),
             sessionNotes : $("#session_notes").val(),
         };
 
+        
         console.log(sessionMeta);
-
+        return sessionMeta;
     }
 
     // SECTION FOR CODE THAT NAVIGATES THE NODE EDITOR
