@@ -98,17 +98,17 @@ while ($d = mysqli_fetch_assoc($return)) {
                                             <div class="row">
                                                 <div class="form-group col">
                                                     <label for="session_title">Session Name</label>
-                                                    <input placeholder="Session Name" id="session_title" name="session_title" type="text" class="form-control" onchange="fetchMeta()" value="<?php echo $session['name'] ?>">
+                                                    <input placeholder="Session Name" id="session_title" name="session_title" type="text" class="form-control" onchange="fetchMetaFields()" value="<?php echo $session['name'] ?>">
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="studentID">Student ID</label>
-                                                    <input placeholder="Student ID" id="studentID" name="studentID" type="text" class="form-control" onchange="fetchMeta()" value="<?php echo $session['studentid'] ?>">
+                                                    <input placeholder="Student ID" id="studentID" name="studentID" type="text" class="form-control" onchange="fetchMetaFields()" value="<?php echo $session['studentid'] ?>">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col">
                                                     <label for="session_date">Coding Date</label>
-                                                    <input id="session_date" name="date" type="date" class="datepicker" onchange="fetchMeta()" value="<?php echo $session['placetime'] ?>">
+                                                    <input id="session_date" name="date" type="date" class="datepicker" onchange="fetchMetaFields()" value="<?php echo $session['placetime'] ?>">
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="session_video_title">Video</label>
@@ -497,10 +497,10 @@ while ($d = mysqli_fetch_assoc($return)) {
     function fetchMetaFields() {
         
         let sessionMeta = {
-            sessionTitle = $("session_title").val(),
-            studentID = $("studentID").val(),
-            sessionDate = $("session_date").datepicker("getDate"),
-            sessionNotes = $("session_notes").val(),
+            sessionTitle : $("session_title").val(),
+            studentID : $("studentID").val(),
+            sessionDate : $("session_date").datepicker("getDate"),
+            sessionNotes : $("session_notes").val(),
         };
 
         console.log(sessionMeta);
