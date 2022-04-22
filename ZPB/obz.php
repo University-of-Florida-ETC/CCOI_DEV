@@ -497,10 +497,10 @@ while ($d = mysqli_fetch_assoc($return)) {
     function fetchMetaFields() {
         
         let sessionMeta = {
-            sessionTitle : $("session_title").val(),
-            studentID : $("studentID").val(),
-            sessionDate : $("session_date").datepicker("getDate"),
-            sessionNotes : $("session_notes").val(),
+            sessionTitle : $("#session_title").val(),
+            studentID : $("#studentID").val(),
+            sessionDate : $("#session_date").datepicker("getDate"),
+            sessionNotes : $("#session_notes").val(),
         };
 
         console.log(sessionMeta);
