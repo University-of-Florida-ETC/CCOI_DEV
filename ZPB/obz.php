@@ -119,7 +119,7 @@ while ($d = mysqli_fetch_assoc($return)) {
 
                                             <div class="form-group">
                                                 <label class="block" for="session_notes" id="session_notes_label">Session Notes</label>
-                                                <textarea id="session_notes" name="session_notes" class="form-control"><?php echo $session['notes'] ?></textarea>
+                                                <textarea id="session_notes" name="session_notes" class="form-control" onchange="fetchMetaFields()"><?php echo $session['notes'] ?></textarea>
                                             </div>
                                         </form>
                                         <button type="button" class="btn btn-outline-blue btn-sm" data-toggle="collapse" data-target="#session_meta_collapse" aria-expanded="true" aria-controls="session_meta_collapse">Close</button>
@@ -327,7 +327,7 @@ while ($d = mysqli_fetch_assoc($return)) {
     let nodeInObsIndex = 0; // This is the index of the node currently being edited within its observation
     let newObsID = -1; // This is the ID of new subsessions created during this user's session. To guarantee it is unique from IDs on the table (and it is recognizable as new), it counts down from -1
     let editedInfo = {}; //  Object that contains all of the information that needs to be sent in AJAX
-
+    let sessionMeta ={};
 
     // SECTION FOR CODE THAT CREATES THE OBSERVATION LIST
     // ================================================================================================
