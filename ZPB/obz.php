@@ -457,6 +457,17 @@ while ($d = mysqli_fetch_assoc($return)) {
         console.log(nodeInObsIndex);
         */
         //Try to load current choice
+        if(subsessions[currentObs]['nodes'][nodeInObsIndex] == undefined){
+            let secondsForNewNode = 0;
+            if (subsessions[currentObs]['nodes'][nodeInObsIndex]){
+                secondsForNewNode = subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds'];
+            }
+            subsessions[currentObs]['nodes'][nodeInObsIndex] = {
+                nodepathid : "0",
+                seconds : secondsForNewNode,
+                notes : null
+            };
+        }
         try {
             let existingChoiceID = subsessions[currentObs]['nodes'][nodeInObsIndex]['nodepathid'];
             //console.log("pnid of current choice");
