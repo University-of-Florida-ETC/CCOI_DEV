@@ -492,6 +492,13 @@ while ($d = mysqli_fetch_assoc($return)) {
             $("#notes_input").val("");
         }
     }
+    //TODO : Finish handling this jazz cigar.
+    function fetchMetaFields() {
+       let sessionTitle =  $("session_title").val();
+       let studentID = $("studentID").val();
+       let sessionDate = $("session_date").datepicker("getDate");
+       let sessionNotes = $("session_notes").val();
+    }
 
     // SECTION FOR CODE THAT NAVIGATES THE NODE EDITOR
     // ================================================================================================
