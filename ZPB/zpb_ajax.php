@@ -205,7 +205,7 @@ if( !empty($_POST['updateObsEl']) ) {
             
             foreach ($currentObservation['nodes'] as $nodeIndex => $currentNode){
                 echo "\r\n  Creating node with index: " . $nodeIndex;
-                $query = "INSERT INTO tb{$tbName}Activity (extra,nodepathid,notes,seconds,ssid) VALUES ('{$currentNode['extra']}','{$currentNode['nodepathid']}','{$currentNode['notes']}','{$currentNode['seconds']}',{$newObsID})";
+                $query = "INSERT INTO tb{$tbName}Activity (extra,nodepathid,notes,seconds,ssid,sessionid) VALUES ('{$currentNode['extra']}','{$currentNode['nodepathid']}','{$currentNode['notes']}','{$currentNode['seconds']}',{$newObsID},{$_POST['id']})";
                 echo "\r\n\r\nquery: "; var_dump($query);
                 $return=mysqli_query($db,$query);
             }
