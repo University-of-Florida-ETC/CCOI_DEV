@@ -327,8 +327,8 @@ while ($d = mysqli_fetch_assoc($return)) {
     let nodeInObsIndex = 0; // This is the index of the node currently being edited within its observation
     let newObsID = -1; // This is the ID of new subsessions created during this user's session. To guarantee it is unique from IDs on the table (and it is recognizable as new), it counts down from -1
     let editedInfo = {}; //  Object that contains all of the information that needs to be sent in AJAX
-    let startSessionMeta = fetchMetaFields();
-    let sessionMeta = {};
+    let startSessionMeta = fetchMetaFields(); // Object that contains all of the meta information present at the start of a session load. Will be used for comparison to end of session !sessionMeta prior to start an AJAX request, because why bother?
+    var sessionMeta = {}; //Current session meta information object, this will be updated as the meta gets updated (if at all), and later used for comparison to check if a save is necessary. 
 
     // SECTION FOR CODE THAT CREATES THE OBSERVATION LIST
     // ================================================================================================
