@@ -13,7 +13,7 @@ $appVideos = getAppVideos($id); //Defined below
 $videoInfo = getVideoInfo($id);
 //print_r($appVideos);
 //print_r($session);
-echo "<br>session: "; print_r($session);
+//echo "<br>session: "; print_r($session);
 
 if (isset($_GET['isPlayground'])) {
     $tbName = 'Playground';
