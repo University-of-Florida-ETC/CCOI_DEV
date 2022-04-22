@@ -161,7 +161,7 @@ if( !empty($_POST['updateObsEl']) ) {
                 if($nodeIndex < $numExistingNodes){
                     echo "\r\n  Updating node with index: " . $nodeIndex;
                     //echo "\r\n  currentSubsession[nodeIndex]: "; var_dump($currentSubsession[$nodeIndex]);
-                    $query = "UPDATE tb{$tbName}Activity SET nodepathid = {$currentNode['nodepathid']}, seconds = {$currentNode['seconds']}, notes='{$currentNode['notes']}', extra='{$currentNode['extra']}' WHERE id={$currentSubsession[$nodeIndex]['id']}";
+                    $query = "UPDATE tb{$tbName}Activity SET nodepathid = {$currentNode['nodepathid']}, seconds = {$currentNode['seconds']}, notes='{$currentNode['notes']}', extra='{$currentNode['extra']}', inactive=NULL WHERE id={$currentSubsession[$nodeIndex]['id']}";
                     //echo "\r\n\r\nquery: "; var_dump($query);
                     $return=mysqli_query($db,$query);
     //				$error="$query\n";
@@ -169,8 +169,8 @@ if( !empty($_POST['updateObsEl']) ) {
                 }
                 else{
                     echo "\r\n  Creating node with index: " . $nodeIndex;
-                    $query = "INSERT INTO tb{$tbName}Activity (extra,nodepathid,notes,seconds,ssid) VALUES ('{$currentNode['extra']}',{$currentNode['nodepathid']},'{$currentNode['notes']}',{$currentNode['seconds']},{$currentNode['ssid']})";
-                    echo "\r\n\r\nquery: "; var_dump($query);
+                    $query = "INSERT INTO tb{$tbName}Activity (extra,nodepathid,notes,seconds,ssid,sessionid) VALUES ('{$currentNode['extra']}',{$currentNode['nodepathid']},'{$currentNode['notes']}',{$currentNode['seconds']},{$currentNode['ssid']},{$_POST['id']})";
+                    //echo "\r\n\r\nquery: "; var_dump($query);
                     $return=mysqli_query($db,$query);
                 }
             }
