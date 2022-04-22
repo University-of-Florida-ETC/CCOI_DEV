@@ -495,11 +495,11 @@ while ($d = mysqli_fetch_assoc($return)) {
     }
     //TODO : Finish handling this jazz cigar.
     function fetchMetaFields() {
-        
+        let datepickerDate = $("#session_date").datepicker("getDate");
         let sessionMeta = {
             sessionTitle : $("#session_title").val(),
             studentID : $("#studentID").val(),
-            sessionDate : $("#session_date").datepicker("getDate"),
+            sessionDate : datepickerDate,
             sessionNotes : $("#session_notes").val(),
         };
 
