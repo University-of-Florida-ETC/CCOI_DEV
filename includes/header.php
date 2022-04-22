@@ -47,6 +47,16 @@ else ob_start();
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJLDQ3B"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
  End Google Tag Manager (noscript) -->
+ <!-- Ybug code start (https://ybug.io) -->
+<script type='text/javascript'>
+(function() {
+    window.ybug_settings = {"id":"m09ga6yz131gf99vf96c"};
+    var ybug = document.createElement('script'); ybug.type = 'text/javascript'; ybug.async = true;
+    ybug.src = 'https://widget.ybug.io/button/'+window.ybug_settings.id+'.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ybug, s);
+})();
+</script>
+<!-- Ybug code end -->
 <nav class="navbar navbar-expand-lg navbar-light px-md-5">
     <a class="navbar-brand" href="/">C-COI Dev</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
