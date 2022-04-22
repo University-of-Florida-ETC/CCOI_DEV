@@ -17,8 +17,7 @@ $videoInfo = getVideoInfo($id);
 
 if (isset($_GET['isPlayground'])) {
     $tbName = 'Playground';
-}
-else {
+} else {
     $tbName = 'Session';
 }
 
@@ -38,13 +37,13 @@ while ($d = mysqli_fetch_assoc($return)) { /*$subsessions[$d['ssid']][d['id']]=$
 
 $return = mysqli_query($db, "SELECT PN.node1, N.title FROM tbPathNodes PN LEFT JOIN tbNodes N ON PN.node1 = N.id WHERE PN.pathid = '{$session['pathid']}' AND PN.choice = 0 AND PN.inactive IS NULL AND N.inactive IS NULL");
 while ($d = mysqli_fetch_assoc($return)) {
-    $questionNodes[$d['node1']]['title']= $d['title'];
+    $questionNodes[$d['node1']]['title'] = $d['title'];
 }
 
 $return = mysqli_query($db, "SELECT PN.id as pnid, PN.node1, PN.choice, PN.choiceorder, PN.node2, N.code, N.title, N.extra, N.aside FROM tbPathNodes PN LEFT JOIN tbNodes N ON PN.choice = N.id WHERE PN.pathid = '{$session['pathid']}' AND PN.choice != 0 AND PN.inactive IS NULL AND N.inactive IS NULL");
 while ($d = mysqli_fetch_assoc($return)) {
     $questionNodes[$d['node1']]['choices'][$d['choiceorder']] = $d['pnid'];
-    $pathNodes[$d['pnid']]=$d;
+    $pathNodes[$d['pnid']] = $d;
 }
 ?>
 <script>
@@ -53,11 +52,14 @@ while ($d = mysqli_fetch_assoc($return)) {
     if (subsessions == null) {
         subsessions = {};
     }
-    console.log("subsessions:"); console.log(subsessions);
+    console.log("subsessions:");
+    console.log(subsessions);
     var questionNodes = <?php echo json_encode($questionNodes); ?>;
-    console.log("questionNodes:"); console.log(questionNodes);
+    console.log("questionNodes:");
+    console.log(questionNodes);
     var pathNodes = <?php echo json_encode($pathNodes); ?>;
-    console.log("pathNodes:"); console.log(pathNodes);
+    console.log("pathNodes:");
+    console.log(pathNodes);
 </script>
 <main role="main">
     <div class="container-fluid">
@@ -96,17 +98,17 @@ while ($d = mysqli_fetch_assoc($return)) {
                                             <div class="row">
                                                 <div class="form-group col">
                                                     <label for="session_title">Session Name</label>
-                                                    <input placeholder="Session Name" id="session_title" name="session_title" type="text" class="form-control" value="<?php echo $session['name'] ?>">
+                                                    <input placeholder="Session Name" id="session_title" name="session_title" type="text" class="form-control" onchange="fetchMeta()" value="<?php echo $session['name'] ?>">
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="studentID">Student ID</label>
-                                                    <input placeholder="Student ID" id="studentID" name="studentID" type="text" class="form-control" value="<?php echo $session['studentid'] ?>">
+                                                    <input placeholder="Student ID" id="studentID" name="studentID" type="text" class="form-control" onchange="fetchMeta()" value="<?php echo $session['studentid'] ?>">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col">
                                                     <label for="session_date">Coding Date</label>
-                                                    <input id="session_date" name="date" type="date" class="datepicker" value="<?php echo $session['placetime'] ?>">
+                                                    <input id="session_date" name="date" type="date" class="datepicker" onchange="fetchMeta()" value="<?php echo $session['placetime'] ?>">
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="session_video_title">Video</label>
@@ -294,7 +296,9 @@ while ($d = mysqli_fetch_assoc($return)) {
                 console.log(data);
             }
         };
-        var sendStr = "updateObsEl=1&id=" + sessionID + "&" + $.param( {"observations": subsessions});
+        var sendStr = "updateObsEl=1&id=" + sessionID + "&" + $.param({
+            "observations": subsessions
+        });
         console.log("sendStr:");
         console.log(sendStr);
         var url = encodeURI(derServer + "ZPB/zpb_ajax.php?" + sendStr);
@@ -316,14 +320,13 @@ while ($d = mysqli_fetch_assoc($return)) {
 
 <!-- THIS IS THE SCRIPT BLOCK WITH THE NODE EDITING STUFF -->
 <script>
-
     // Global variables: stuff thats so generally applicable and needs to be accessed in a bunch of places
     // ================================================================================================
-    let currentQuestionID = -1;     // This is the nodeID of the question node that is currently loaded
-    let currentObs = 0;             // This is the ID of the observation that is currently being edited
-    let nodeInObsIndex = 0;         // This is the index of the node currently being edited within its observation
-    let newObsID = -1;              // This is the ID of new subsessions created during this user's session. To guarantee it is unique from IDs on the table (and it is recognizable as new), it counts down from -1
-    let editedInfo = {};            //  Object that contains all of the information that needs to be sent in AJAX
+    let currentQuestionID = -1; // This is the nodeID of the question node that is currently loaded
+    let currentObs = 0; // This is the ID of the observation that is currently being edited
+    let nodeInObsIndex = 0; // This is the index of the node currently being edited within its observation
+    let newObsID = -1; // This is the ID of new subsessions created during this user's session. To guarantee it is unique from IDs on the table (and it is recognizable as new), it counts down from -1
+    let editedInfo = {}; //  Object that contains all of the information that needs to be sent in AJAX
 
 
     // SECTION FOR CODE THAT CREATES THE OBSERVATION LIST
@@ -349,13 +352,15 @@ while ($d = mysqli_fetch_assoc($return)) {
             Object.entries(currentObs[1]['nodes']).forEach((currentNode, nodeIndex) => {
                 //Grab time to print
                 let currentSeconds = parseInt(currentNode[1]['seconds']);
-                let minutesToPrint = (Math.floor(currentSeconds / 60)).toString();  minutesToPrint = minutesToPrint.padStart(2, '0');
-                let secondsToPrint = (currentSeconds % 60).toString();              secondsToPrint = secondsToPrint.padStart(2, '0');
+                let minutesToPrint = (Math.floor(currentSeconds / 60)).toString();
+                minutesToPrint = minutesToPrint.padStart(2, '0');
+                let secondsToPrint = (currentSeconds % 60).toString();
+                secondsToPrint = secondsToPrint.padStart(2, '0');
 
                 //Grab notes to print
                 let notesText = '';
                 if (currentNode[1]['notes'] != null) {
-                    if(currentNode[1]['notes'] != ""){
+                    if (currentNode[1]['notes'] != "") {
                         notesText = `[${currentNode[1]['notes']}]`;
                     }
                 }
@@ -363,13 +368,11 @@ while ($d = mysqli_fetch_assoc($return)) {
                 //Include node data in print if possible
                 if (currentNode[1]['nodepathid'] == "0") { //If no node data set yet, don't print node data
                     $("#path_drop_" + obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${notesText}</li>`);
-                }
-                else {
+                } else {
                     let currentNodeData = pathNodes[parseInt(currentNode[1]['nodepathid'])];
                     if (currentNodeData == undefined) { //If there is error grabbing node data, don't print node data
                         $("#path_drop_" + obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${notesText}</li>`);
-                    }
-                    else { //If there is no error grabbing node data, print node data (LETS GOOOOOOO)
+                    } else { //If there is no error grabbing node data, print node data (LETS GOOOOOOO)
                         $("#path_drop_" + obsIndex).append(`<li>(${minutesToPrint}:${secondsToPrint}) ${currentNodeData['code']}: ${currentNodeData['title']} ${notesText}</li>`);
                     }
                 }
@@ -437,8 +440,7 @@ while ($d = mysqli_fetch_assoc($return)) {
             if (value[0] == "0") { //Error case, log it
                 console.log("when value[0] == 0, value[1] ==");
                 console.log(value[1]);
-            }
-            else {
+            } else {
                 $("#branch_radio_form").append(`
                 <p onclick="selectRadio(${value[1]});">
                     <input type="radio" name="choiceRadio" id="choiceRadio${value[1]}" value="${value[1]}">
@@ -460,15 +462,15 @@ while ($d = mysqli_fetch_assoc($return)) {
         console.log(nodeInObsIndex);
         */
         //Try to load current choice
-        if(subsessions[currentObs]['nodes'][nodeInObsIndex] == undefined){
+        if (subsessions[currentObs]['nodes'][nodeInObsIndex] == undefined) {
             let secondsForNewNode = 0;
-            if (subsessions[currentObs]['nodes'][nodeInObsIndex]){
+            if (subsessions[currentObs]['nodes'][nodeInObsIndex]) {
                 secondsForNewNode = subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds'];
             }
             subsessions[currentObs]['nodes'][nodeInObsIndex] = {
-                nodepathid : "0",
-                seconds : secondsForNewNode,
-                notes : null
+                nodepathid: "0",
+                seconds: secondsForNewNode,
+                notes: null
             };
         }
         try {
@@ -476,28 +478,33 @@ while ($d = mysqli_fetch_assoc($return)) {
             //console.log("pnid of current choice");
             //console.log(existingChoiceID);
             $("#choiceRadio" + existingChoiceID).prop("checked", true);
-        } catch{}
+        } catch {}
         //Try to load current timestamp
         try {
             let existingSeconds = parseInt(subsessions[currentObs]['nodes'][nodeInObsIndex]['seconds']);
             $("#timestamp_input_minutes").val(Math.floor(existingSeconds / 60));
             $("#timestamp_input_seconds").val(existingSeconds % 60);
-        } catch{}
+        } catch {}
         //Try to load current notes
         try {
             let existingNotes = subsessions[currentObs]['nodes'][nodeInObsIndex]['notes'];
             $("#notes_input").val(existingNotes);
-        }
-        catch(error){
+        } catch (error) {
             $("#notes_input").val("");
         }
     }
     //TODO : Finish handling this jazz cigar.
     function fetchMetaFields() {
-       let sessionTitle =  $("session_title").val();
-       let studentID = $("studentID").val();
-       let sessionDate = $("session_date").datepicker("getDate");
-       let sessionNotes = $("session_notes").val();
+        
+        let sessionMeta = {
+            sessionTitle = $("session_title").val(),
+            studentID = $("studentID").val(),
+            sessionDate = $("session_date").datepicker("getDate"),
+            sessionNotes = $("session_notes").val(),
+        };
+
+        console.log(sessionMeta);
+
     }
 
     // SECTION FOR CODE THAT NAVIGATES THE NODE EDITOR
@@ -522,7 +529,7 @@ while ($d = mysqli_fetch_assoc($return)) {
     function proceed() {
         //Get pnID of choice
         let selectionValue = $("#branch_radio_form").find('input[name="choiceRadio"]:checked').val();
-        
+
         //TODO: Check if extra data is needed for choice
         //TODO: If necessary, ask for extra data
 
@@ -566,7 +573,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         //Log what the node was before the change
         console.log("subsessions[currentObs]['nodes'][nodeInObsIndex] before: ");
         console.log(subsessions[currentObs]['nodes'][nodeInObsIndex]);
-        if(subsessions[currentObs]['nodes'][nodeInObsIndex] == undefined){
+        if (subsessions[currentObs]['nodes'][nodeInObsIndex] == undefined) {
             subsessions[currentObs]['nodes'][nodeInObsIndex] = {};
         }
 
@@ -588,7 +595,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         } catch {
             //There was no extra to delete
         }
-        
+
 
         //Log what the node is after the change
         console.log("subsessions[currentObs]['nodes'][nodeInObsIndex] after: ");
@@ -650,7 +657,7 @@ while ($d = mysqli_fetch_assoc($return)) {
         console.log(url);
         console.log(scramble);
         console.log(title);
-        let videoSRC = "/ccoivids/" + scramble +"_" + url;
+        let videoSRC = "/ccoivids/" + scramble + "_" + url;
         popoutWindow.src = videoSRC;
         popoutWindow.videoTitle = title;
 
