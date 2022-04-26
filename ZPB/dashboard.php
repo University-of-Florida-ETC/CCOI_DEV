@@ -56,7 +56,7 @@ $paths = getPaths(); //defined below
                                                 <div style="width:18%; display:flex; justify-content:space-between;">
                                                     <a class="btn-link session-edit" href="obz?id=<?= $currentSession['id']; ?>"><span class="oi oi-pencil" title="Edit Session" aria-hidden="true"></span></a>
                                                     <a class="btn-link" href="javascript:void(0)" onclick="deleteSession(<?= $currentSession['id']; ?>)"><span class="oi oi-trash" title="Delete Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart" title="View Visualizations" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="/visualizations.php"><span class="oi oi-pie-chart" title="View Visualizations" aria-hidden="true"></span></a>
                                                 </div>
                                             </li>
 <?php endforeach; ?>
