@@ -210,6 +210,13 @@ if( !empty($_POST['updateObsEl']) ) {
                 $return=mysqli_query($db,$query);
             }
         }
+
+//TODO FIXY FIXY PLS
+        if(!empty($_POST['updateMetaInfo'])){
+            foreach ($_POST['Meta'] as $metaInfo){
+                break;
+            }
+        }
         
     }
     
