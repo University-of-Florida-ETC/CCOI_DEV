@@ -342,7 +342,7 @@ if(isset($_POST['action']) && !empty($_POST['action'] && isset($_POST['baseURL']
 
 //AYO BRANDON CHECK THIS BAD BOY OUT
 //ZACK'S SUPER-FAMOUS CODE-OUT
-if( !empty($_POST['updateMeta']) ) {
+if( !empty($_GET['updateMeta']) ) {
     
     //TODO Verify if this is even necessary
     // For now, ignore videoid, and path.
