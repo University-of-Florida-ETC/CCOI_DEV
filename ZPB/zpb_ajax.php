@@ -347,7 +347,38 @@ if(isset($_POST['action']) && !empty($_POST['action'] && isset($_POST['baseURL']
     }
 }
 
+//AYO BRANDON CHECK THIS BAD BOY OUT
+//ZACK'S SUPER-FAMOUS CODE-OUT
+if( !empty($_POST['updateMeta']) ) {
 
+    $possibleValues = ['name', 'studentid', 'placetime', 'videoid', 'path', 'notes'];     
+    $receivedValues = [];
+    // Double check that all required values are present
+    foreach ($possibleValues as $index => $currentValue){
+        if(isset($_POST[$currentValue])){
+            $receivedValues[] = $_POST[$currentValue];
+        }
+        else {
+            unset($possibleValues[$index]);
+        }
+    }
+    $columnsToUpdate = implode(',',$possibleValues);
+    $newValues = implode(',', $receivedValues);
+
+    //var_dump($_POST);
+
+    if(isset($_POST['isPlayground'])){
+        $tbName = 'Playground';
+    }
+    else{
+        $tbName = 'Session';
+    }
+
+    $query="UPDATE tb{$tbName}s SET ({$columnsToUpdate}) = ({$newValues}) WHERE id = {$_POST['id']}";
+    $return=mysqli_query($db,$query);
+
+    echo $_POST['id'];
+}
 
 function fetchScramble($baseURL, $db) {
 
