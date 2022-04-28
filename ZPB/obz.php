@@ -314,7 +314,6 @@ while ($d = mysqli_fetch_assoc($return)) {
                     alert(msg);
                 },
                 error: function(err){
-                    console.log
                     console.log("hitting error");
                     alert(err);
                 }
