@@ -370,10 +370,11 @@ if( !empty($_GET['updateMeta']) ) {
         $tbName = 'Session';
     }
 
-    $query="UPDATE tb{$tbName}s SET 'name'={$_POST['name']}, studentid = {$_POST['studentid']}, placetime = {$_POST['placetime']}, notes = {$_POST['notes']} WHERE id = {$_GET['id']}";
+    $query="UPDATE tb{$tbName}s SET name={$_POST['name']}, studentid = {$_POST['studentid']}, placetime = {$_POST['placetime']}, notes = {$_POST['notes']} WHERE id = {$_GET['id']}";
     $return=mysqli_query($db,$query);
-
+    echo $return;
     echo $_GET['id'];
+    return $return;
 }
 
 function fetchScramble($baseURL, $db) {
