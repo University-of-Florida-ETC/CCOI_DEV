@@ -301,8 +301,9 @@ while ($d = mysqli_fetch_assoc($return)) {
         });
         //If this evaluates to true, we know that our sessionMeta has changes that need to be saved.
         if (sessionMeta.length !== 0) {
+            sendStr = sendStr +
             $.ajax({
-                url: '/ZPB/zpb_ajax.php&updateMeta=1',
+                url: '/ZPB/zpb_ajax.php?updateMeta=1&id=' + sessionID,
                 type: 'POST',
                 data: JSON.stringify(sessionMeta),
                 contentType: 'application/json; charset=utf-8',
@@ -310,7 +311,12 @@ while ($d = mysqli_fetch_assoc($return)) {
                 async: false,
                 success: function(msg) {
                     alert(msg);
+                },
+                error: function(err){
+                    alert(err);
                 }
+
+                
             });
         }
         console.log("sendStr:");
