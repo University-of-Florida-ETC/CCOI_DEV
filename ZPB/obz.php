@@ -519,7 +519,6 @@ while ($d = mysqli_fetch_assoc($return)) {
 
 
         console.log(sessionMeta);
-        return sessionMeta;
     }
 
     // SECTION FOR CODE THAT NAVIGATES THE NODE EDITOR
