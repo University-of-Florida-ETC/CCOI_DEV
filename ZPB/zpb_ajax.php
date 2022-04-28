@@ -361,7 +361,7 @@ if( !empty($_GET['updateMeta']) ) {
     $columnsToUpdate = implode(',',$possibleValues);
     $newValues = implode(',', $receivedValues);
 
-    //var_dump($_POST);
+    var_dump($_POST);
 
     if(isset($_POST['isPlayground'])){
         $tbName = 'Playground';
