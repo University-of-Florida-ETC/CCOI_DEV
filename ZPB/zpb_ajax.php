@@ -372,7 +372,7 @@ if( !empty($_GET['updateMeta']) ) {
 
     $query="UPDATE tb{$tbName}s SET name='".$_POST['name']."', studentid = {$_POST['studentid']}, placetime = '".$_POST['placetime']."', notes = '".$_POST['notes']."' WHERE id = {$_GET['id']}";
     $return=mysqli_query($db,$query);
-    echo "UPDATE tb{$tbName}s SET name='{$_POST['name']}', studentid = {$_POST['studentid']}, placetime = '{$_POST['placetime']}', notes = '{$_POST['notes']}' WHERE id = {$_GET['id']}";
+    echo $query;
     echo $_GET['id'];
 
 }
