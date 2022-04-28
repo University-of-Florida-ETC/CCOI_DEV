@@ -310,9 +310,11 @@ while ($d = mysqli_fetch_assoc($return)) {
                 dataType: 'json',
                 async: false,
                 success: function(msg) {
+                    console.log("success");
                     alert(msg);
                 },
                 error: function(err){
+                    console.log("hitting error");
                     alert(err);
                 }
 
