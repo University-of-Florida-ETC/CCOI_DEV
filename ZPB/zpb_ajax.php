@@ -343,7 +343,7 @@ if(isset($_POST['action']) && !empty($_POST['action'] && isset($_POST['baseURL']
 //AYO BRANDON CHECK THIS BAD BOY OUT
 //ZACK'S SUPER-FAMOUS CODE-OUT
 if( !empty($_GET['updateMeta']) ) {
-    
+    var_dump($_POST);
     //TODO Verify if this is even necessary
     // For now, ignore videoid, and path.
     // 'videoid', 'path',
@@ -361,7 +361,7 @@ if( !empty($_GET['updateMeta']) ) {
     $columnsToUpdate = implode(',',$possibleValues);
     $newValues = implode(',', $receivedValues);
 
-    var_dump($_POST);
+
 
     if(isset($_POST['isPlayground'])){
         $tbName = 'Playground';
