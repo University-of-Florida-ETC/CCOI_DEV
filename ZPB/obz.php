@@ -300,8 +300,18 @@ while ($d = mysqli_fetch_assoc($return)) {
             "observations": subsessions
         });
         //If this evaluates to true, we know that our sessionMeta has changes that need to be saved.
-        if(sessionMeta.length !== 0){
-            sendStr = sendStr + "&updateMetaInfo=1&" + $.param({"Meta":sessionMeta});
+        if (sessionMeta.length !== 0) {
+            $.ajax({
+                url: '/ZPB/zpb_ajax.php',
+                type: 'POST',
+                data: JSON.stringify(sessionMeta),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                async: false,
+                success: function(msg) {
+                    alert(msg);
+                }
+            });
         }
         console.log("sendStr:");
         console.log(sendStr);
@@ -501,13 +511,13 @@ while ($d = mysqli_fetch_assoc($return)) {
     //TODO : Finish handling this jazz cigar.
     function fetchMetaFields() {
         sessionMeta = {
-            sessionTitle : $("#session_title").val(),
-            studentID : $("#studentID").val(),
-            sessionDate : $("#session_date").val(),
-            sessionNotes : $("#session_notes").val(),
+            name: $("#session_title").val(),
+            studentid: $("#studentID").val(),
+            placetime: $("#session_date").val(),
+            notes: $("#session_notes").val(),
         };
 
-        
+
         console.log(sessionMeta);
         return sessionMeta;
     }

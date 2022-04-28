@@ -210,13 +210,6 @@ if( !empty($_POST['updateObsEl']) ) {
                 $return=mysqli_query($db,$query);
             }
         }
-
-//TODO FIXY FIXY PLS
-        if(!empty($_POST['updateMetaInfo'])){
-            foreach ($_POST['Meta'] as $metaInfo){
-                break;
-            }
-        }
         
     }
     
@@ -350,8 +343,11 @@ if(isset($_POST['action']) && !empty($_POST['action'] && isset($_POST['baseURL']
 //AYO BRANDON CHECK THIS BAD BOY OUT
 //ZACK'S SUPER-FAMOUS CODE-OUT
 if( !empty($_POST['updateMeta']) ) {
-
-    $possibleValues = ['name', 'studentid', 'placetime', 'videoid', 'path', 'notes'];     
+    
+    //TODO Verify if this is even necessary
+    // For now, ignore videoid, and path.
+    // 'videoid', 'path',
+    $possibleValues = ['name', 'studentid', 'placetime', 'notes'];     
     $receivedValues = [];
     // Double check that all required values are present
     foreach ($possibleValues as $index => $currentValue){
