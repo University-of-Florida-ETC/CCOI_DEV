@@ -342,7 +342,7 @@ if(isset($_POST['action']) && !empty($_POST['action'] && isset($_POST['baseURL']
 
 //AYO BRANDON CHECK THIS BAD BOY OUT
 //ZACK'S SUPER-FAMOUS CODE-OUT
-if( !empty($_GET['updateMeta']) ) {
+if( !empty($_POST['updateMeta']) ) {
     
     //TODO Verify if this is even necessary
     // For now, ignore videoid, and path.
@@ -372,9 +372,8 @@ if( !empty($_GET['updateMeta']) ) {
 
     $query="UPDATE tb{$tbName}s SET name='{$_POST['name']}', studentid = {$_POST['studentid']}, placetime = {$_POST['placetime']}, notes = '{$_POST['notes']}' WHERE id = {$_GET['id']}";
     $return=mysqli_query($db,$query);
-    echo $return;
-    echo $_GET['id'];
-    return $return;
+    echo $query;
+
 }
 
 function fetchScramble($baseURL, $db) {
