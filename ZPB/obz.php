@@ -516,10 +516,10 @@ while ($d = mysqli_fetch_assoc($return)) {
     //TODO : Finish handling this jazz cigar.
     function fetchMetaFields() {
         sessionMeta = {
-            name: $("#session_title").val(),
-            studentid: $("#studentID").val(),
-            placetime: $("#session_date").val(),
-            notes: $("#session_notes").val(),
+            'name': $("#session_title").val(),
+            'studentid': $("#studentID").val(),
+            'placetime': $("#session_date").val(),
+            'notes': $("#session_notes").val(),
         };
 
 
