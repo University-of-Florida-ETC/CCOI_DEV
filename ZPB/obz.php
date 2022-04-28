@@ -304,7 +304,7 @@ while ($d = mysqli_fetch_assoc($return)) {
             $.ajax({
                 url: '/ZPB/zpb_ajax.php?updateMeta=1&id=' + sessionID,
                 type: 'POST',
-                data: JSON.stringify(sessionMeta),
+                data: sessionMeta,
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 async: false,
@@ -315,9 +315,7 @@ while ($d = mysqli_fetch_assoc($return)) {
                 error: function(err){
                     console.log("hitting error");
                     alert(err);
-                }
-
-                
+                },
             });
         }
         console.log("sendStr:");
