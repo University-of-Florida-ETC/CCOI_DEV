@@ -304,7 +304,7 @@ while ($d = mysqli_fetch_assoc($return)) {
             $.ajax({
                 url: '/ZPB/zpb_ajax.php?updateMeta=1&id=' + sessionID,
                 type: 'POST',
-                data: sessionMeta,
+                data: JSON.stringify(sessionMeta),
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 async: false,
