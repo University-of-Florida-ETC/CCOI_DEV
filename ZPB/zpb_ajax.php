@@ -344,6 +344,13 @@ if(isset($_POST['action']) && !empty($_POST['action'] && isset($_POST['baseURL']
 //ZACK'S SUPER-FAMOUS CODE-OUT
 if( !empty($_GET['updateMeta']) ) {
     var_dump($_POST);
+    // Grab our POST data, sanitize tf out of it bruh. Like seriously make is SPARKLE. Glitter as gold. 
+    $id = (int) $_GET('id');
+    $name = $db->real_escape_string($_POST['name']);
+    $studentid = (int)$_POST['studentid']; //Cast to int to prevent injection
+    $placetime = $db->real_escape_string($_POST['placetime']);
+    $notes = $db->real_escape_string($_POST['notes']);
+
     //TODO Verify if this is even necessary
     // For now, ignore videoid, and path.
     // 'videoid', 'path',
@@ -370,7 +377,7 @@ if( !empty($_GET['updateMeta']) ) {
         $tbName = 'Session';
     }
 
-    $query="UPDATE tb{$tbName}s SET name='".$_POST['name']."', studentid = {$_POST['studentid']}, placetime = '".$_POST['placetime']."', notes = '".$_POST['notes']."' WHERE id = {$_GET['id']}";
+    $query="UPDATE tb{$tbName}s SET name='$name', studentid = $studentid, placetime = '$placetime', notes = '$notes' WHERE id = $id";
     $return=mysqli_query($db,$query);
     echo $query;
 
