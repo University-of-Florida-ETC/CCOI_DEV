@@ -344,7 +344,7 @@ if(isset($_POST['action']) && !empty($_POST['action'] && isset($_POST['baseURL']
 //ZACK'S SUPER-FAMOUS CODE-OUT
 if( !empty($_GET['updateMeta']) ) {
     var_dump($_POST);
-    // Grab our POST data, sanitize tf out of it bruh. Like seriously make is SPARKLE. Glitter as gold. 
+    // Grab our POST data, sanitize.
     $id = (int) $_GET('id');
     $name = $db->real_escape_string($_POST['name']);
     $studentid = (int)$_POST['studentid']; //Cast to int to prevent injection
@@ -354,19 +354,19 @@ if( !empty($_GET['updateMeta']) ) {
     //TODO Verify if this is even necessary
     // For now, ignore videoid, and path.
     // 'videoid', 'path',
-    $possibleValues = ['name', 'studentid', 'placetime', 'notes'];     
-    $receivedValues = [];
-    // Double check that all required values are present
-    foreach ($possibleValues as $index => $currentValue){
-        if(isset($_POST[$currentValue])){
-            $receivedValues[] = $_POST[$currentValue];
-        }
-        else {
-            unset($possibleValues[$index]);
-        }
-    }
-    $columnsToUpdate = implode(',',$possibleValues);
-    $newValues = implode(',', $receivedValues);
+    // $possibleValues = ['name', 'studentid', 'placetime', 'notes'];     
+    // $receivedValues = [];
+    // // Double check that all required values are present
+    // foreach ($possibleValues as $index => $currentValue){
+    //     if(isset($_POST[$currentValue])){
+    //         $receivedValues[] = $_POST[$currentValue];
+    //     }
+    //     else {
+    //         unset($possibleValues[$index]);
+    //     }
+    // }
+    // $columnsToUpdate = implode(',',$possibleValues);
+    // $newValues = implode(',', $receivedValues);
 
 
 
