@@ -345,7 +345,7 @@ if(isset($_POST['action']) && !empty($_POST['action'] && isset($_POST['baseURL']
 if( !empty($_GET['updateMeta']) ) {
     var_dump($_POST);
     // Grab our POST data, sanitize.
-    $id = (int) $_GET('id');
+    $id = (int)$_GET('id');
     $name = $db->real_escape_string($_POST['name']);
     $studentid = (int)$_POST['studentid']; //Cast to int to prevent injection
     $placetime = $db->real_escape_string($_POST['placetime']);
