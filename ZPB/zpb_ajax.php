@@ -33,15 +33,25 @@ if( !empty($_POST['newSession']) ) {
         $tbName = 'Session';
     }
 
-    $query="INSERT INTO tb{$tbName}s (pathid,name,studentid,videoid,placetime,createdon) VALUES ({$_POST['path']},'{$_POST['name']}','{$_POST['studentid']}',{$_POST['video']},'{$_POST['codingDate']}',NOW())";
+    //$_POST{'PATH}, $_POST['name'] $_POST['path'] $_POST['studentid'] $_POST['video'] $_POST{'codingDate}
+    //Filter all the $_POST Variables
+
+    $path = (int)$_POST['path'];
+    $name = $db->real_escape_string($_POST['name']);
+    $SID = (int)$_POST['studentid'];
+    $video = (int)$_POST['video'];
+    $codingDate = $db->real_escape_string($_POST['codingDate']);
+    
+
+    $query="INSERT INTO tb{$tbName}s (pathid,name,studentid,videoid,placetime,createdon) VALUES $path, $name, $SID, $video, $codingDate, NOW())";
         $return=mysqli_query($db,$query);
         $lastid=mysqli_insert_id($db);
         $returnData['id'] = $lastid;
-
+    //Confirm is $_SESSION can be relied on. 
     $query="INSERT INTO tbPeopleApp{$tbName}s (personid,appid,sessionid) VALUES ('{$_SESSION['pid']}','{$_SESSION['currentlyloadedapp']}','{$lastid}')";
         $return=mysqli_query($db,$query);
         $lastid=mysqli_insert_id($db);
-
+    //!TODO Zack: Is $_POST['pathid'] supposed to be $_POST[path]?
     $query="INSERT INTO tbActivityLog (action, onid, field, details, actby, acton) VALUES ('newobs','{$_POST['pathid']}','new','{$lastid}','{$_SESSION['pid']}',NOW())";
         $return=mysqli_query($db,$query);
 
