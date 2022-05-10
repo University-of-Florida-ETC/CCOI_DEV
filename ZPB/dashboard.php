@@ -26,9 +26,9 @@ $paths = getPaths(); //defined below
     console.log("sessionVars:");
     console.log(sessionVars);
     console.log("$id");
-    console.log($id);
+    console.log(<?= $id; ?>);
     console.log("$_SESSION['roles'][$id]['admin']");
-    console.log($_SESSION['roles'][$id]['admin']);
+    console.log(<?= $_SESSION['roles'][$id]['admin']; ?>);
 </script>
 <link rel="stylesheet" href="<?php echo $devprodroot; ?>/css/popup.css">
         <main role="main">
