@@ -16,7 +16,16 @@ else if($_SESSION['currentlyloadedapp'] < 1 || !in_array($_SESSION['currentlyloa
 $sessions = getSessions(); //defined below
 $videos = getVideos(); //defined below
 $paths = getPaths(); //defined below
+
 ?>
+<script>
+    var sessionVars = <?php echo json_encode($_SESSION); ?>;
+    if (sessionVars == null) {
+        sessionVars = {};
+    }
+    console.log("sessionVars:");
+    console.log(sessionVars);
+</script>
 <link rel="stylesheet" href="<?php echo $devprodroot; ?>/css/popup.css">
         <main role="main">
             <div class="container-fluid">
