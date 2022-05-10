@@ -182,17 +182,7 @@ $paths = getPaths();
                         <input id= "email" type="email" name='email' placeholder='user@email.com'><br>
                         <label for="password">Password</label>
                         <input id= "password" type="password" name='password'><br>
-<?php foreach ($videos as $index => $currentVideo): ?>
-                            <option value="<?= $currentVideo['id']; ?>"><?= $currentVideo['name']; ?></option>
-<?php endforeach; ?>
-                        </select><br>
-                        <label for="path">Path</label>
-                        <select id= "path" name='path'><br>
-<?php foreach ($paths as $index => $currentPath): ?>
-                            <option value="<?= $currentPath['id']; ?>"><?= $currentPath['name']; ?></option>
-<?php endforeach; ?>
-                        </select>
-                        <input id="sessionSubmit" style="margin-top: 2rem;" type='button' value='Create New Session' onclick="createNewSession()">
+                        <input id="userSubmit" style="margin-top: 2rem;" type='button' value='Add New User' onclick="createNewUser()">
                     </form>
                 </div><!--popup-->
                 <div id="sessionResponse" class="popup">
@@ -207,6 +197,20 @@ $paths = getPaths();
         <script src="/js/bootstrap.min.js"></script>
         <script>
             var derServer='https://ccoi-dev.education.ufl.edu/';
+
+            const blur = document.getElementById('blurOverlay');
+            const newSessWin = document.getElementById('newUser');
+            function blurScreen() {
+                blur.classList.toggle('blurred');
+            }
+            function showNewSess() {
+                newSessWin.classList.toggle('popped');
+            }
+            function closePopups() {
+                blur.classList.remove('blurred');
+                const currentPopup = document.getElementsByClassName("popped")[0];
+                currentPopup.classList.toggle("popped");
+            }
 
             function GetAjaxReturnObject(mimetype){
                 var xmlHttp=null;
@@ -225,6 +229,90 @@ $paths = getPaths();
                         return httpRequest.responseText;
                     }
                 }
+            }
+
+            function createNewUser() {
+                const formData = new FormData(document.getElementById("userForm"));
+                
+                formData.append('newUser', 1);
+                if (formData.get('name') == ""){
+                    formData.set('name', 'New Observation Set');
+                }
+                let sendStr = '';
+                let name = formData.get('name');
+                formData.forEach(function(value, key){
+                    if(value == ""){}
+                    else {
+                        sendStr += `&${key}=${value}`;
+                    }
+                });
+                sendStr = sendStr.substring(1);
+
+                
+                let tbName = 'research';
+                let extraText = '';
+                if(isPlayground){
+                    tbName = 'playground';
+                    //formData.set('isPlayground', "1");
+                    //dataObject['isPlayground'] = 1;
+                    extraText = '&isPlayground=1';
+                    sendStr += '&isPlayground=1';
+                }
+                
+                var xmlHttp=GetAjaxReturnObject('text/html');if (xmlHttp==null) {alert ("Your browser does not support AJAX!");return;}
+                xmlHttp.onreadystatechange = function() {
+                    var data=getHTML(xmlHttp);
+                    if(data){
+                        console.log("data returned: ");
+                        console.log(data);
+                        let returnedInt = parseInt(data);
+
+                        newSessWin.classList.remove('popped');
+                        let responseWindow = document.getElementById('sessionResponse');
+                        responseWindow.classList.add('popped');
+                        let responseText = document.getElementById('sessionResponseText');
+
+                        if (returnedInt == -1) {
+                            responseText.innerText = "There was an error creating that session.<br>Please refresh the page and try again.<br><br>If the problem persists, please contact an administrator.";
+                            //console.error("Missing required data");
+                        }
+                        else {
+                            responseText.innerText = "Session with name '"+name+"' has been created successfully.<br><br>It has been added to the bottom of your "+tbName+" session list.";
+                            let newEntry = document.createElement("li");
+                            newEntry.setAttribute("class", "session-listing my-2");
+                            newEntry.setAttribute("id", tbName+"-"+returnedInt);
+                            newEntry.setAttribute("style", "display:flex; flex-wrap:no-wrap;");
+                            /*
+                            newEntry.innerHTML = `<div class="row">
+                                                <div class="col-sm-9 col-12">
+                                                    <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}">${name}</a>
+                                                </div>
+                                                <div class="col-sm-3 col-12">
+                                                    <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
+                                                    <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                </div>
+                                            </div>`;
+                                            */
+                            newEntry.innerHTML = `  <div style="width:80%;">
+                                                        <a class="btn-link session-edit" href="obz?id=${returnedInt}${extraText}">${name}</a>
+                                                    </div>
+                                                    <div style="width:18%; display:flex; justify-content:space-between;">
+                                                        <a class="btn-link session-edit" href="obz?id=${returnedInt}${extraText}"><span class="oi oi-pencil" title="Edit Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)" onclick="deleteSession(${returnedInt})"><span class="oi oi-trash" title="Delete Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart" title="View Visualizations" aria-hidden="true"></span></a>
+                                                    </div>`;
+                            let playgroundList = document.getElementById(tbName+"_session_list");
+                            playgroundList.appendChild(newEntry);
+                        }
+                    }
+                }
+                //sendStr='newSession=1'+extraText+'&name='+name;
+                //sendStr=JSON.stringify(dataObject);
+                console.log("sendStr: "+sendStr);
+                
+                var url =  encodeURI(derServer+'ZPB/zpb_ajax.php?'+sendStr);			console.log(url);
+                xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
             }
 
             function createNewSession() {
