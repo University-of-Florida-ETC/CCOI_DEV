@@ -132,7 +132,7 @@ $paths = getPaths();
                                         <h1 class="red-font">Paths</h1>
                                     </div>
                                     <div class="col-md-4 col-12 pt-2">
-                                        <button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Create Path</button>
+                                        <button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="This feature is temporarily disabled" disabled="true">Create Path</button>
                                     </div>
                                 </div>
 
@@ -151,10 +151,10 @@ $paths = getPaths();
                                             <li class="path-listing">
                                                 <div class="row user pb-1">
                                                     <div class="col-sm-10">
-                                                        <input type="text" id="vidname-<?= $index ?>" name="vidname" style="width: 100%;" value="<?= $currentPath ?>">
+                                                        <input type="text" id="pathname-<?= $index ?>" name="pathname" style="width: 100%;" value="<?= $currentPath ?>">
                                                     </div>
                                                     <div class="col-sm-2">
-                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete User" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="This feature is temporarily disabled" aria-hidden="true" disabled="true"></span></a>
                                                     </div>
                                                 </div>
                                             </li>
