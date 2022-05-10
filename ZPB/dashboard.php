@@ -25,10 +25,10 @@ $paths = getPaths(); //defined below
     }
     console.log("sessionVars:");
     console.log(sessionVars);
-    console.log("$id");
-    console.log(<?= $id; ?>);
-    console.log("$_SESSION['roles'][$id]['admin']");
-    console.log(<?= $_SESSION['roles'][$id]['admin']; ?>);
+    console.log("$$_SESSION['currentlyloadedapp']");
+    console.log(<?= $$_SESSION['currentlyloadedapp']; ?>);
+    console.log("$_SESSION['roles'][$_SESSION['currentlyloadedapp']]['admin']");
+    console.log(<?= $_SESSION['roles'][$_SESSION['currentlyloadedapp']]['admin']; ?>);
 </script>
 <link rel="stylesheet" href="<?php echo $devprodroot; ?>/css/popup.css">
         <main role="main">
@@ -43,7 +43,7 @@ $paths = getPaths(); //defined below
                             </div>
                         </div>
                     </div>
-<?php elseif ( $_SESSION['roles'][$id]['admin'] == true): ?>
+<?php elseif ( $_SESSION['roles'][$_SESSION['currentlyloadedapp']]['admin'] == true): ?>
                     <div class="col-md-12">
                         <div id="session_go_back" class="row pt-3 pb-4">
                             <div class="col">
