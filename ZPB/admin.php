@@ -15,7 +15,7 @@ $videos = getVideos();
 //echo "<br>\$videos:"; var_dump($videos);
 $paths = getPaths();
 ?>
-
+<link rel="stylesheet" href="<?php echo $devprodroot; ?>/css/popup.css">
         <main role="main">
             <div class="container-fluid">
                 <div class="container">
@@ -88,7 +88,7 @@ $paths = getPaths();
                                         <h1 class="red-font">Videos</h1>
                                     </div>
                                     <div class="col-md-4 col-12 pt-2">
-                                        <button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start">Add Video</button>
+                                        <button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="This feature is temporarily disabled" disabled="true">Add Video</button>
                                     </div>
                                 </div>
 
@@ -110,13 +110,13 @@ $paths = getPaths();
                                             <li class="video-listing">
                                                 <div class="row user pb-1">
                                                     <div class="col-sm-10">
-                                                        <input type="text" id="vidname-<?= $index ?>" name="vidname" style="width: 100%;" value="<?= $currentVideo ?>">
+                                                        <input type="text" id="vidname-<?= $index ?>" name="vidname" style="width: 100%;" value="<?= $currentVideo ?>" disabled="true">
                                                     </div>
                                                     <div class="col-sm-1">
-                                                        <a class="btn-link session-edit" href="javascript:void(0)"><span class="oi oi-pencil px-2" title="Edit Video Name" aria-hidden="true"></span></a>
+                                                        <a class="btn-link session-edit" href="javascript:void(0)"><span class="oi oi-pencil px-2" title="This feature is temporarily disabled" aria-hidden="true" disabled="true"></span></a>
                                                     </div>
                                                     <div class="col-sm-1">
-                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete User" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="This feature is temporarily disabled" aria-hidden="true" disabled="true"></span></a>
                                                     </div>
                                                 </div>
                                             </li>
@@ -151,7 +151,7 @@ $paths = getPaths();
                                             <li class="path-listing">
                                                 <div class="row user pb-1">
                                                     <div class="col-sm-10">
-                                                        <input type="text" id="pathname-<?= $index ?>" name="pathname" style="width: 100%;" value="<?= $currentPath ?>">
+                                                        <input type="text" id="pathname-<?= $index ?>" name="pathname" style="width: 100%;" value="<?= $currentPath ?>" disabled="true">
                                                     </div>
                                                     <div class="col-sm-2">
                                                         <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="This feature is temporarily disabled" aria-hidden="true" disabled="true"></span></a>
@@ -167,7 +167,41 @@ $paths = getPaths();
                     </div>
                 </div>
             </div>
+            <div><!--popup stuff -->
+                <div id="blurOverlay" onclick="closePopups()"></div>
+
+                <div id="newUser" class="popup">
+                    <button type="button" class="exitPopup" onclick="closePopups()">✕</button>
+                    <h2>New User</h2>
+                    <form name="userForm" action="" method="post" id="userForm">
+                        <label for="firstname">First Name</label>
+                        <input id= "firstname" type="text" name='firstname' placeholder='First Name'><br>
+                        <label for="lastname">Last Name</label>
+                        <input id= "lastname" type="text" name='firslastnametname' placeholder='Last Name'><br>
+                        <label for="email">Email Address</label>
+                        <input id= "email" type="email" name='email' placeholder='user@email.com'><br>
+                        <label for="password">Password</label>
+                        <input id= "password" type="password" name='password'><br>
+<?php foreach ($videos as $index => $currentVideo): ?>
+                            <option value="<?= $currentVideo['id']; ?>"><?= $currentVideo['name']; ?></option>
+<?php endforeach; ?>
+                        </select><br>
+                        <label for="path">Path</label>
+                        <select id= "path" name='path'><br>
+<?php foreach ($paths as $index => $currentPath): ?>
+                            <option value="<?= $currentPath['id']; ?>"><?= $currentPath['name']; ?></option>
+<?php endforeach; ?>
+                        </select>
+                        <input id="sessionSubmit" style="margin-top: 2rem;" type='button' value='Create New Session' onclick="createNewSession()">
+                    </form>
+                </div><!--popup-->
+                <div id="sessionResponse" class="popup">
+                    <button type="button" class="exitPopup" onclick="closePopups()">✕</button>
+                    <p id="sessionResponseText"></p>
+                </div>
+            </div>
         </main>
+        
         <?php include 'includes/footer.php'; ?>
         <script src="/js/jquery-3.4.1.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
