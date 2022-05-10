@@ -30,6 +30,14 @@ $paths = getPaths(); //defined below
                             </div>
                         </div>
                     </div>
+<?php elseif ( $_SESSION['roles'][$id]['admin'] == true): ?>
+                    <div class="col-md-12">
+                        <div id="session_go_back" class="row pt-3 pb-4">
+                            <div class="col">
+                                <a class="underlined-btn" href="admin?id=<?= $id; ?>"><span class="oi oi-arrow-thick-left mr-2"></span><span class="btn-text">Go to Admin Panel</span></a>
+                            </div>
+                        </div>
+                    </div>
 <?php endif; ?>
                         <div class="col-md-8">
                             <div class="row pr-md-5">
