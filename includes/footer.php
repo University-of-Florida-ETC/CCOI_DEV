@@ -26,8 +26,8 @@
                 </div>
                 <div class="col-md-6 col-sm-12 py-3">
                     <div>
-                        <a href="https://education.ufl.edu" target="_blank" rel="noreferrer" style="display: block;"><img src="/assets/images/COE-logo-white.png" class="footer-logo mb-3" style="width: 70%;" alt="University of Florida College of Education logo"></a>
-                        <a href="https://education.ufl.edu/ctrl/" target="_blank" rel="noreferrer" style="display: block;"><img src="/assets/images/CTRL_Horizontal-Logo_White.png" class="footer-logo" style="width: 70%;" alt="Creative Research Technology Lab logo"></a>
+                        <a href="https://education.ufl.edu" target="_blank" rel="noreferrer" style="display: block;"><img src="./assets/images/COE-logo-white.png" class="footer-logo mb-3" style="width: 70%;" alt="University of Florida College of Education logo"></a>
+                        <a href="https://education.ufl.edu/ctrl/" target="_blank" rel="noreferrer" style="display: block;"><img src="./assets/images/CTRL_Horizontal-Logo_White.png" class="footer-logo" style="width: 70%;" alt="Creative Research Technology Lab logo"></a>
                     </div>
                 </div>
             </div>

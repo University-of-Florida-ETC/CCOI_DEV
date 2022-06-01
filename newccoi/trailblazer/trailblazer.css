@@ -1,0 +1,190 @@
+
+body{font-family:'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;}
+body {position:relative; min-height: 100%;}
+html {height: 100%;}
+
+
+
+
+
+div.showmarksoverlay {opacity:1; -webkit-animation:showmarksoverlay .5s 1; animation:showmarksoverlay .5s 1;}
+	@-webkit-keyframes showmarksoverlay {from {opacity:0;} to {opacity:1;}	}				@keyframes showmarksoverlay {from {opacity:0;} to {opacity:1;}}
+div.hidemarksoverlay {opacity:0; -webkit-animation:hidemarksoverlay .5s 1; animation:hidemarksoverlay .5s 1;}
+	@-webkit-keyframes hidemarksoverlay {from {opacity:1;} to {opacity:0;}	}				@keyframes hidemarksoverlay {from {opacity:1;} to {opacity:0;}}
+
+div#marks-overlay {background-color:#eceae3;position:absolute; top:0; left:0; width:100%;height:500%;z-index:602;di_splay:none;}
+div#marks-overlay2 {background-color:rgba(0,0,0,.3);position:fixed; top:0; left:0; width:100%;height:100%;z-index:604;display:none;}
+div#marks-overlay3 {background-color:rgba(0,0,0,.3);position:fixed; top:0; left:0; width:100%;height:100%;z-index:605;display:none;}
+
+div.pM_head {padding: 4px 4px 8px 12px; height: 32px; border-top-left-radius: 6px; border-top-right-radius: 6px; color: #e8e8e8; background: #aaa;}  /* -webkit-gradient(linear, left top, left bottom, from(#246998), to(#24405A));background: -moz-linear-gradient(top, #3b7ba7, #2D5C88); */
+div.pM_body {padding: 12px;}
+	input[type=button] {width: 210px; display:block; position: absolute; bottom: 12px; right: 12px; border: none; border-radius: 4px; font-size: 14px; padding: 8px; color: #e8e8e8; background-color: #aaa; cursor:pointer;}
+	input[type=text] {display:block; margin:6px 0; border-radius: 4px; border: 1px solid #aaa; font-size:18px; padding: 6px; width: 350px;}
+	textarea {display:block; margin:6px 0; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border: 1px solid #aaa; font-size:12px; line-height: 14px; padding: 6px; width: 350px;}
+
+div.platonicDraggable {position:absolute; left: 0px; top: 10px; border-radius: 4px; border: 1px solid #aaa; font-size:18px; width: 350px; height: 28px; cursor: row-resize; -webkit-transition: top 0.25s ease-out; transition: top 0.25s ease-out;}
+div.platonicDraggable div.draggableBody {position: relative; height: 28px; padding: 6px; width: 350px; -webkit-transition: height 0.25s ease-out; transition: height 0.25s ease-out;}
+div.platonicDraggable p.draggableText {margin:0 0 0 12px; font-size: 12px;}
+div.platonicDraggable div.choicetext {position:absolute; left: 0px; top: 0px; height: 28px; margin:0; width: 14px; line-height: 28px; text-align: center; border-top-left-radius: 4px; border-top-right-radius: 0; border-bottom-left-radius: 4px; border-bottom-right-radius: 0;}
+div.platonicDraggable div.choicehover {padding: 0 4px; position:absolute; left: 14px; top: 0px; display:none; text-align: left; margin: 0; width: 315px; height: 28px; line-height: 28px;}
+div.platonicDraggable div.nexttext {position:absolute; right: 11px; top: 0px; height: 28px; margin:0; width: 14px; line-height: 28px; text-align: center; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-left-radius:0; border-bottom-right-radius: 4px;}
+div#platonicDraggable {opacity:0; top:-100px;}
+
+
+p#instructions {margin: 0; color: #444; font-size: 14px; position: absolute; top: 10px; right: 10px; text-align: right;}
+p#title {margin: 0; color: #444; font-size: 26px; position: absolute; top: 10px; left: 10px;}
+
+svg#derarrow {display:none; position: absolute; top: 100px; left: 1200px; z-index: 700; transform-origin: 17% 50%;}
+
+
+div.platonicDraggable div.draggableExpanded {display:none; color: #444; top:0; left: -1px; border-radius: 4px; position:absolute; box-shadow: 0px 3px 10px #000; z-index:5000;}			/*  position:absolute; left: 0px; top: 0px;   */
+div.platonicDraggable div.draggableExpanded div.fulltitle {font-size: 14px; min-height: 28px; padding: 6px 0 6px 6px; margin:0; width: 346px; text-align: left; border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-left-radius: 0; border-bottom-right-radius: 0;}
+div.platonicDraggable div.draggableExpanded div.extravar {font-size: 12px; padding:6px 0 0 6px; border-left: 1px solid black; border-right: 1px solid black;}
+div.platonicDraggable div.draggableExpanded div.extrainst {font-size: 12px; padding:6px 0 0 6px; border-left: 1px solid black; border-right: 1px solid black;}  /* aside */
+div.platonicDraggable div.draggableExpanded div.nodegroup {font-size: 12px; padding:6px 0 0 6px; border-left: 1px solid black; border-right: 1px solid black;}
+div.platonicDraggable div.draggableExpanded div.choicegroup {font-size: 12px; padding:6px 0 0 6px; border-left: 1px solid black; border-right: 1px solid black;}
+div.platonicDraggable div.draggableExpanded div.nodeids {font-size: 12px; padding:6px 0 6px 6px; border-left-width: 1px; border-left-style: solid; border-right-width: 1px; border-right-style: solid; }	/* the 3em needs to expand to fit the next item    position:absolute; left: 0px; bottom: 0px;  */
+div.platonicDraggable div.draggableExpanded div.warning {display: none; font-size: 12px; color: #d20; font-weight: bold; padding:14px 0 14px 6px; border-left: 1px solid black; border-right: 1px solid black;}
+div.platonicDraggable div.draggableExpanded div.destination {font-size: 12px; color: white; padding:6px 0 6px 6px; margin:0; width: 346px; text-align: left; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;}
+
+
+div.platonicDraggable div.draggableEditor {display:none; color: #444; top:0; left: -1px; background-color: #e8e8e8; padding: 6px  0 0 10px; width: 340px; border: 1px solid #888; border-radius: 4px; position:absolute; box-shadow: 0px 3px 10px #000; z-index:5001;}
+div.platonicDraggable div.draggableEditor div.editorhead {font-size: 14px; min-height: 20px; background-color: #444; color: white; padding: 6px 0 4px 10px; margin: -8px 0 0 -10px; width: 342px; text-align: left; border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-left-radius: 0; border-bottom-right-radius: 0;}
+	div.platonicDraggable div.draggableEditor input[type=text] {width: 330px; margin: 0; font-size: 12px;}
+	div.platonicDraggable div.draggableEditor div.editfulltitle input[type=text]:focus {width: 800px;}
+	div.platonicDraggable div.draggableEditor select {width: 330px; height: 30px; margin: 0; font-size:12px; color:#444; border-radius: 4px; border-color: #888;}
+	
+	div.platonicDraggable div.draggableEditor input[type=button] {height: 24px; line-height: 9px; width: 160px; cursor:pointer; position:initial; margin: 16px 0 6px 0;}
+	div.platonicDraggable div.draggableEditor input[type=button].editBsubmit {background: -webkit-gradient(linear, left top, left bottom, from(#87b94d), to(#5d8c27)); background: -moz-linear-gradient(top, #87b94d, #5d8c27); float: right; margin-right: 10px;}
+	div.platonicDraggable div.draggableEditor input[type=button].editBclose {background: -webkit-gradient(linear, left top, left bottom, from(#e4bc3d), to(#b18605)); background: -moz-linear-gradient(top, #e4bc3d, #b18605); float: left; }
+	
+	div.platonicDraggable div.draggableEditor p {font-size: 12px; margin: 8px 0 0 0;}
+	
+div.platonicMega {width: 386px; he_ight: 600px; dis_play:none; position:absolute; top:100px; left:10px; border: 1px solid #666; border-radius: 8px; background-color:#f8f8f8; box-shadow: 0px 2px 6px #888;}
+div.platonicMega div.dragregion {position:relative; height: 405px;}
+div.platonicMega div.dragshadow {box-shadow: 0px 2px 8px #444; margin-top:-4px; margin-bottom:6px; margin-left:-4px; width: 358px; height: 44px; background-color: #e6f7d2 !important; line-height: 32px; cursor:row-resize !important;}
+div.platonicMega input#title {width: 345px; border-radius: 4px;}
+div.platonicMega input[type=button] {background: -webkit-gradient(linear, left top, left bottom, from(#87b94d), to(#5d8c27)); background: -moz-linear-gradient(top, #87b94d, #5d8c27); cursor:pointer;}
+
+div.platonicMega img#firstNode {position:absolute; top:-20px; left:-20px; width: 36px; height: 36px;}
+div.platonicMega p#draginfo {color:#889; width: 350px; margin:-6px 0; font-size:11px; line-height: 13px; color: #888; padding: 0;}
+div.pM_head p.headtext {float:left; margin:0; width: 342px;}
+div.pM_head p.colornumber {float:right; margin:0; width: 14px; font-size: 12px; font-weight: 700; border: 1px solid white; color: #e8e8e8; border-radius: 12px; padding: 2px; text-align: center;}
+
+
+
+
+div.platonicMega div.megaEditor {display:none; top:44px; left: 0; background-color: #e8e8e8; padding: 6px  0 0 10px; width: 375px; border: 1px solid #888; position:absolute; box-shadow: 0px 6px 6px #444; z-index:5002; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;}
+	div.platonicMega div.megaEditor input[type=text] {width: 366px; margin: 0; font-size: 12px;}
+	div.platonicMega div.megaEditor div.editfulltitle input[type=text]:focus {width: 800px;}
+	div.platonicMega div.megaEditor select {width: 366px; height: 30px; margin: 0; font-size:12px; color:#444; border-radius: 4px; border-color: #888;}
+	div.platonicMega div.megaEditor input[type=button] {height: 24px; line-height: 9px; width: 178px; cursor:pointer; position:initial; margin: 16px 0 6px 0;}
+	div.platonicMega div.megaEditor input[type=button].editBsubmit {background: -webkit-gradient(linear, left top, left bottom, from(#87b94d), to(#5d8c27)); background: -moz-linear-gradient(top, #87b94d, #5d8c27); float: right; margin-right: 10px;}
+	div.platonicMega div.megaEditor input[type=button].editBclose {background: -webkit-gradient(linear, left top, left bottom, from(#e4bc3d), to(#b18605)); background: -moz-linear-gradient(top, #e4bc3d, #b18605); float: left; }
+	div.platonicMega div.megaEditor p {font-size: 12px; margin: 8px 0 0 0;}
+
+
+div.pMgreen div.pM_head {background: -webkit-gradient(linear, left top, left bottom, from(#87b94d), to(#5d8c27)); background: -moz-linear-gradient(top, #87b94d, #5d8c27);}
+div.pMgreen div.platonicDraggable {background-color: #f3fde7; border-color: #5d8c27;}
+div.pMgreen div.platonicDraggable div.draggableExpanded {background-color: #f3fde7; border-color: #5d8c27;}
+	div.pMgreen div.platonicDraggable div.draggableExpanded div {border-color: #5d8c27;}
+div.pMgreen div.platonicDraggable div.fulltitle {background-color:#5d8c27; color: white;}
+div.pMgreen div.platonicDraggable div.choicehover {background-color:#5d8c27; color: white;}
+div.pMgreen div.platonicDraggable div.choicetext {background-color:#5d8c27; color: white;}
+div.pMgreen div.platonicDraggable div.nexttext {background-color:#5d8c27; color: white;}
+
+div.pMyellow div.pM_head {background: -webkit-gradient(linear, left top, left bottom, from(#e4bc3d), to(#b18605)); background: -moz-linear-gradient(top, #e4bc3d, #b18605);}
+div.pMyellow div.platonicDraggable {background-color: #fffce7; border-color: #b18605;}
+div.pMyellow div.platonicDraggable div.draggableExpanded {background-color: #fffce7; border-color: #b18605;}
+	div.pMyellow div.platonicDraggable div.draggableExpanded div {border-color: #b18605;}
+div.pMyellow div.platonicDraggable div.fulltitle {background-color:#b18605; color: white;}
+div.pMyellow div.platonicDraggable div.choicehover {background-color:#b18605; color: white;}
+div.pMyellow div.platonicDraggable div.choicetext {background-color:#b18605; color: white;}
+div.pMyellow div.platonicDraggable div.nexttext {background-color:#b18605; color: white;}
+
+div.pMblue div.pM_head {background: -webkit-gradient(linear, left top, left bottom, from(#52a3ff), to(#1c65b7)); background: -moz-linear-gradient(top, #52a3ff, #1c65b7);}
+div.pMblue div.platonicDraggable {background-color: #e7f4fd; border-color: #27678c;}
+div.pMblue div.platonicDraggable div.draggableExpanded {background-color: #e7f4fd; border-color: #27678c;}
+	div.pMblue div.platonicDraggable div.draggableExpanded div {border-color: #27678c;}
+div.pMblue div.platonicDraggable div.fulltitle {background-color:#27678c; color: white;}
+div.pMblue div.platonicDraggable div.choicehover {background-color:#27678c; color: white;}
+div.pMblue div.platonicDraggable div.choicetext {background-color:#27678c; color: white;}
+div.pMblue div.platonicDraggable div.nexttext {background-color:#27678c; color: white;}
+
+div.pMred div.pM_head {background: -webkit-gradient(linear, left top, left bottom, from(#e43d3d), to(#b10505)); background: -moz-linear-gradient(top, #e43d3d, #b10505);}
+div.pMred div.platonicDraggable {background-color: #ffeeee; border-right-color: #b10505;}
+div.pMred div.platonicDraggable div.draggableExpanded {background-color: #ffeeee; border-color: #b10505;}
+	div.pMred div.platonicDraggable div.draggableExpanded div {border-color: #b10505;}
+div.pMred div.platonicDraggable div.fulltitle {background-color:#b10505; color: white;}
+div.pMred div.platonicDraggable div.choicehover {background-color:#b10505; color: white;}
+div.pMred div.platonicDraggable div.choicetext {background-color:#b10505; color: white;}
+div.pMred div.platonicDraggable div.nexttext {background-color:#b10505; color: white;}
+
+div.pMpurple div.pM_head {background: -webkit-gradient(linear, left top, left bottom, from(#c552ff), to(#6d1cb7)); background: -moz-linear-gradient(top, #c552ff, #6d1cb7);}
+div.pMpurple div.platonicDraggable {background-color: #f3e7fd; border-color: #6d1cb7;}
+div.pMpurple div.platonicDraggable div.draggableExpanded {background-color: #f3e7fd; border-color: #6d1cb7;}
+	div.pMpurple div.platonicDraggable div.draggableExpanded div {border-color: #b16d1cb7505;}
+div.pMpurple div.platonicDraggable div.fulltitle {background-color:#6d1cb7; color: white;}
+div.pMpurple div.platonicDraggable div.choicehover {background-color:#6d1cb7; color: white;}
+div.pMpurple div.platonicDraggable div.choicetext {background-color:#6d1cb7; color: white;}
+div.pMpurple div.platonicDraggable div.nexttext {background-color:#6d1cb7; color: white;}
+
+div.pMaqua div.pM_head {background: -webkit-gradient(linear, left top, left bottom, from(#54c7c3), to(#1b8c8c)); background: -moz-linear-gradient(top, #54c7c3, #1b8c8c);}
+div.pMaqua div.platonicDraggable {background-color: #e7f9fd; border-color: #1b8c8c;}
+div.pMaqua div.platonicDraggable div.draggableExpanded {background-color: #e7f9fd; border-color: #1b8c8c;}
+	div.pMaqua div.platonicDraggable div.draggableExpanded div {border-color: #1b8c8c;}
+div.pMaqua div.platonicDraggable div.fulltitle {background-color:#1b8c8c; color: white;}
+div.pMaqua div.platonicDraggable div.choicehover {background-color:#1b8c8c; color: white;}
+div.pMaqua div.platonicDraggable div.choicetext {background-color:#1b8c8c; color: white;}
+div.pMaqua div.platonicDraggable div.nexttext {background-color:#1b8c8c; color: white;}
+
+div.pMgray div.pM_head {background: -webkit-gradient(linear, left top, left bottom, from(#aaa), to(#888)); background: -moz-linear-gradient(top, #aaa, #888);}
+div.pMgray div.platonicDraggable {background-color: #f0f0f0; border-color: #888;}
+div.pMgray div.platonicDraggable div.draggableExpanded {background-color: #f0f0f0; border-color: #888;}
+	div.pMgray div.platonicDraggable div.draggableExpanded div {border-color: #888;}
+div.pMgray div.platonicDraggable div.fulltitle {background-color:#888; color: white;}
+div.pMgray div.platonicDraggable div.choicehover {background-color:#888; color: white;}
+div.pMgray div.platonicDraggable div.choicetext {background-color:#888; color: white;}
+div.pMgray div.platonicDraggable div.nexttext {background-color:#888; color: white;}
+
+div.platonicDraggable div.nextgray {background-color:#666 !important;}
+div.platonicDraggable div.nextgreen {background-color:#5d8c27 !important;}
+div.platonicDraggable div.nextyellow {background-color:#b18605 !important;}
+div.platonicDraggable div.nextblue {background-color:#27678c !important;}
+div.platonicDraggable div.nextred {background-color:#b10505 !important;}
+div.platonicDraggable div.nextaqua {background-color:#11a9a9 !important;}
+div.platonicDraggable div.nextpurple {background-color:#6d1cb7 !important;}
+div.platonicDraggable div.nextterminate {background-color:#444 !important;}
+
+
+
+
+div#marks-overlay2 div#marks-overhead {padding: 4px 12px; height: 22px; border-top-left-radius: 6px; border-top-right-radius: 6px; color: #e8e8e8;}
+div#marks-overlay2 div#marks-overhead span {float:right;}
+div#marks-overlay2 div.marks-overcontent {width: 400px; height: 240px; position:absolute; top:50%; margin-top: -245px; left:50%; margin-left: -200px; border: 1px solid #666; border-radius: 8px; background-color:#f8f8f8; box-shadow: 0px 2px 48px #444;}
+div#marks-overlay2 div.marks-overcontent div#marks-overhead {background: -webkit-gradient(linear, left top, left bottom, from(#e43d3d), to(#b10505)); background: -moz-linear-gradient(top, #e43d3d, #b10505);}
+div#marks-overlay2 div.marks-overcontent div#marks-overbody {padding: 4px 12px; height: 196px; width: 398px;}
+
+div#marks-overlay3 div#marks-overhead {padding: 4px 12px; height: 22px; border-top-left-radius: 6px; border-top-right-radius: 6px; color: #e8e8e8;}
+div#marks-overlay3 div#marks-overhead span {float:right;}
+div#marks-overlay3 div.marks-overcontent {width: 400px; height: 240px; position:absolute; top:50%; margin-top: -245px; left:50%; margin-left: -200px; border: 1px solid #666; border-radius: 8px; background-color:#f8f8f8; box-shadow: 0px 2px 48px #444;}
+div#marks-overlay3 div.marks-overcontent div#marks-overhead {background: -webkit-gradient(linear, left top, left bottom, from(#52a3ff), to(#1c65b7)); background: -moz-linear-gradient(top, #52a3ff, #1c65b7);}
+div#marks-overlay3 div.marks-overcontent div#marks-overbody {padding: 4px 12px; height: 196px; width: 398px;}
+
+
+
+::placeholder {color: #aaa;}
+:-ms-input-placeholder {color: #aaa;}
+::-ms-input-placeholder {color: #aaa;}
+select:invalid { color: #aaa; }
+
+/*
+
+
+
+div.platonicDragg____able:hover div.draggableHover {opacity:100;}
+div.platonicDra____ggable div.draggableHover p {width: 14px; height: 28px; text-align:center;margin:0; line-height: 28px;}
+div.platonicDra____ggable div.draggableHover p.choicehover {padding: 0 4px; float:left; text-align: left; margin: 0; width: 330px; border-top-left-radius: 4px; border-top-right-radius: 0; border-bottom-left-radius: 4px; border-bottom-right-radius: 0;}
+div.platonicDra____ggable div.draggableHover p.nexthover {float:right; text-align: center; margin:0; width: 14px; border-top-left-radius: 0; border-top-right-radius: 4px; border-bottom-left-radius:0; border-bottom-right-radius: 4px;}
+	div.dragg___ableHover {line-height:28px; width: 350px; margin:0;  position: absolute; top:0; left: 0; display:none; font-size: 16px;}
+*/

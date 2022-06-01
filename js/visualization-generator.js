@@ -57,9 +57,9 @@ var ccoiVizGenerator = (function () {
 
             for(let j=0; j<steps.length-1; j++ ) {
                 sankeyObject.links[stepCounter] = {};
-                sankeyObject.links[stepCounter]["source"] = steps[j].nodeid;
-                sankeyObject.links[stepCounter]["target"] = steps[j+1].nodeid;
-                sankeyObject.links[stepCounter]["choice"] = ccoi.ccoiSchema.branches[steps[j].choiceid].description;
+                sankeyObject.links[stepCounter]["source"] = steps[j].node;
+                sankeyObject.links[stepCounter]["target"] = steps[j+1].node;
+                sankeyObject.links[stepCounter]["choice"] = ccoi.ccoiSchema.branches[steps[j].choice].description;
                 sankeyObject.links[stepCounter]["value"] = totalSec(steps[j+1].minutes, steps[j+1].seconds) - totalSec(steps[j].minutes, steps[j].seconds) + minimumHeight;
                 sankeyObject.links[stepCounter]["optimal"] = "yes";
                 sankeyObject.links[stepCounter]["startTime"] = totalSec(steps[j].minutes, steps[j].seconds);
@@ -67,20 +67,20 @@ var ccoiVizGenerator = (function () {
                 sankeyObject.links[stepCounter]["pathNum"] = i+1; // To avoid Path # 0
                 // If this step ends the path, get the description so we can understand how/why path ended
                 if (j+1 == steps.length-1) {
-                    sankeyObject.links[stepCounter]["endChoice"] = ccoi.ccoiSchema.branches[steps[j+1].choiceid].description;
+                    sankeyObject.links[stepCounter]["endChoice"] = ccoi.ccoiSchema.branches[steps[j+1].choice].description;
                 }
                 stepCounter++;
 
-                if(!traversedNodes.includes(steps[j].nodeid)) {
-                    traversedNodes[nodeCounter] = steps[j].nodeid;
+                if(!traversedNodes.includes(steps[j].node)) {
+                    traversedNodes[nodeCounter] = steps[j].node;
                     sankeyObject.nodes[nodeCounter] = {};
-                    sankeyObject.nodes[nodeCounter]["name"] = steps[j].nodeid;
+                    sankeyObject.nodes[nodeCounter]["name"] = steps[j].node;
                     sankeyObject.nodes[nodeCounter]["col"] = nodeCounter;
                     nodeCounter++;
-                } else if (!traversedNodes.includes(steps[j+1].nodeid)) {
-                    traversedNodes[nodeCounter] = steps[j+1].nodeid;
+                } else if (!traversedNodes.includes(steps[j+1].node)) {
+                    traversedNodes[nodeCounter] = steps[j+1].node;
                     sankeyObject.nodes[nodeCounter] = {};
-                    sankeyObject.nodes[nodeCounter]["name"] = steps[j+1].nodeid;
+                    sankeyObject.nodes[nodeCounter]["name"] = steps[j+1].node;
                     sankeyObject.nodes[nodeCounter]["col"] = nodeCounter;
                     nodeCounter++;
                 }
@@ -237,6 +237,11 @@ var ccoiVizGenerator = (function () {
                     .style("opacity", function (l) {
                         return l.source.name == thisName || l.target.name == thisName ? 1 : 0.7;
                     })
+                /*.transition()
+                  .style("stroke", function (l) {
+                    linksToColors(l.endTime);
+                    return l.source.name == thisName || l.target.name == thisName ? lastValue : "#dedede";
+                }).duration(1000)*/
 
                 node.selectAll("text")
                     .style("opacity", function (d) {
@@ -407,7 +412,7 @@ var ccoiVizGenerator = (function () {
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <span><strong><span class="oi oi-info"></span> Action: </strong>${d.choiceid}</span>
+                        <span><strong><span class="oi oi-info"></span> Action: </strong>${d.choice}</span>
                     </div>
                 </div>
                 ${d.endChoice ?
@@ -462,22 +467,22 @@ var ccoiVizGenerator = (function () {
     // Function to determine the path the decision will lead to and then increment that type of path counter
     function routeSwitch(choice, statTracker) {
         switch(choice) {
-            case "2":
-            case "4":
-            case "8":
+            case "52731b":
+            case "8e716f":
+            case "b31dcc":
                 isStudentDriven = true;
                 statTracker.studentDriven++;
                 break;
-            case "3":
+            case "21b330":
                 isStudentDriven = false;
                 statTracker.peerDriven++;
                 break;
-            case "5":
+            case "87dfa4":
                 isStudentDriven = false;
                 statTracker.adultDriven++;
                 break;
-            case "6":
-            case "7":
+            case "c83b4e":
+            case "666ca8":
                 isStudentDriven = false;
                 statTracker.independentCount++;
                 break;
@@ -518,15 +523,18 @@ var ccoiVizGenerator = (function () {
         let timelines = [];
         // Loop over every path in this session.
         session.paths.forEach(function (path, i, paths){
-            console.log(path.steps[0]);
-            let firstChoice = ccoi.ccoiSchema.getChoiceFromID(path.steps[0].choiceid);
+            let firstChoice = ccoi.ccoiSchema.getChoiceFromID(path.steps[0].choice);
 
+            // If we are using the default schema, we want to iterate StatTracker values based on the first choice
+            //let isIndependent = false;
+           // if(timelines[i].path_type == "Independent (non-computing)" || timelines[i].path_type == "Independent (non-computing)") {
+               // isIndependent = true;
+           // }
+            // && !isIndependents
             if(useDefaultSchema) {
-                routeSwitch(path.steps[0].choiceid, statTracker);
-                if(path.steps[0].choiceid == "2" || path.steps[0].choiceid == "4" || path.steps[0].choiceid == "8") {
-                    console.log("path.steps[0]");
-                    console.log(path.steps[0]);
-                }
+                console.log("path");
+                console.log(path);
+                routeSwitch(path.steps[0].choice, statTracker);
             }
 
             // If node_sub_group is set on the path's first choice, then this path uses a different method than the default to calculate time spent in specific task categories. We should use the createChoiceTimeline function to gather its timeline data.
@@ -545,18 +553,13 @@ var ccoiVizGenerator = (function () {
             let pathTimeline = createSubTimeline(path.steps, 0, statTracker);
             timelines = timelines.concat(pathTimeline);
 
-            if(isStudentDriven){ console.log(i + " " + timelines[i+1]);}
-
             // If we are in a student driven path we want to see if its an interactive path of interest
             if(isStudentDriven && timelines[i] && useDefaultSchema) {
                 console.log("path type");
                 console.log(timelines[i]);
-
                 interactiveTypeSwitch(timelines[i].path_type, timelines[i].duration, statTracker);
             }
         });
-        console.log("timelines");
-        console.log(timelines);
         return timelines;
     }
 
@@ -564,7 +567,7 @@ var ccoiVizGenerator = (function () {
      *  Helper function that divides a path into timelines using the node_sub_group property.
      */
     function createChoiceTimeline(currentStep, stepIndex, steps){
-        let choice = ccoi.ccoiSchema.getChoiceFromID(currentStep.choiceid);
+        let choice = ccoi.ccoiSchema.getChoiceFromID(currentStep.choice);
         let nodeGroups = ccoi.ccoiSchema.nodeGroups;
 
         // We need a "next step" to calculate the duration of this step. If this is the last step, skip.
@@ -575,7 +578,7 @@ var ccoiVizGenerator = (function () {
         let start_time = totalSec(currentStep.minutes, currentStep.seconds);
         let end_time = totalSec(nextStep.minutes, nextStep.seconds);
         let duration = end_time - start_time;
-        let stepInfo = [ccoi.ccoiSchema.getChoiceFromID(currentStep.choiceid), ccoi.ccoiSchema.getChoiceFromID(nextStep.choiceid)]
+        let stepInfo = [ccoi.ccoiSchema.getChoiceFromID(currentStep.choice), ccoi.ccoiSchema.getChoiceFromID(nextStep.choice)]
 
         let nodeGroup = nodeGroups.find((nodeGroup) => { return nodeGroup.machine_name == choice.node_sub_group});
         return {
@@ -617,15 +620,15 @@ var ccoiVizGenerator = (function () {
         }
 
         // Find next step that doesn't share this node's group
-        let currentNode = ccoi.ccoiSchema.getNode(currentStep.nodeid);
+        let currentNode = ccoi.ccoiSchema.getNode(currentStep.node);
 
         let currentNodeGroup = nodeGroups.find((nodeGroup) => { return nodeGroup.machine_name == currentNode.groups[0]});
         let endStepIndex = steps.findIndex((step, stepIndex) => {
-            return stepIndex > currentIndex && ccoi.ccoiSchema.getNode(step.nodeid).groups[0] != currentNodeGroup.machine_name;
+            return stepIndex > currentIndex && ccoi.ccoiSchema.getNode(step.node).groups[0] != currentNodeGroup.machine_name;
         });
         if(endStepIndex == -1) endStepIndex = steps.length -1;
         let endStep = steps[endStepIndex];
-        let endStepNode = ccoi.ccoiSchema.getNode(endStep.nodeid);
+        let endStepNode = ccoi.ccoiSchema.getNode(endStep.node);
 
         // Calculate duration of this segment
         // If the end step assumes_previous_timestamp, ignore this segment
@@ -643,17 +646,17 @@ var ccoiVizGenerator = (function () {
         let duration = end_time - start_time;
 
         for (let i=currentIndex; i<endStepIndex; i++){
-            stepsInfo.push(ccoi.ccoiSchema.getChoiceFromID(steps[i].choiceid));
+            stepsInfo.push(ccoi.ccoiSchema.getChoiceFromID(steps[i].choice));
 
             // If we're using the default schema, we want to use stat tracker
             if (useDefaultSchema){
                 // If this step is (un)solved, increment (un)solved and add time to (un)solved
-                switch (steps[i].choiceid) {
-                    case "96":
+                switch (steps[i].choice) {
+                    case "990d2d":
                         statTracker.solved++;
                         statTracker.solvedTime += duration;
                         break;
-                    case "95":
+                    case "ecb144":
                         statTracker.unsolved++;
                         statTracker.unsolvedTime += duration;
                         break;

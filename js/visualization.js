@@ -2,7 +2,7 @@
 
 $(function() {
 
-ccoi.callToAPI('/storage/ccoi-new.json').then(function(result) {
+ccoi.callToAPI('/storage/ccoi.json').then(function(result) {
     ccoi.ccoiSchema = ccoi.parseCCOI(result);
     // TODO: Change this if user has created a custom path schema
     ccoiVizGenerator.setUseDefaultSchema(true);

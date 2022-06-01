@@ -15,8 +15,6 @@ var DOM = {};
         'add_path_button',
         'reorder_paths_button',
         'finish_reorder_button',
-        //Brandon's addition of node_preview_list
-        'node_preview_list',
         'path_start',
         'path_choices',
         'path_select',
@@ -94,7 +92,7 @@ var DOM = {};
 var ccoi = (function (){
     var ccoiSchema;
 
-    function callToAPI(url, data= "", method = 'POST') {
+    function callToAPI(url, method = 'POST') {
         var xhr = new XMLHttpRequest();
         return new Promise(function(resolve, reject) {
             xhr.onreadystatechange = function() {
@@ -109,14 +107,13 @@ var ccoi = (function (){
                 }
             }
             xhr.open(method, url, true);
-            xhr.send(data);
+            xhr.send();
         });
     }
     
     function parseCCOI(response) {
 	
         var schema = JSON.parse(response);
-        console.log(schema);
 
         var nodeArray = schema.nodes;
         var nodesByID = {};
@@ -124,48 +121,55 @@ var ccoi = (function (){
 
         for(var i = 0; i < nodeArray.length; i++){
             var currentNode = nodeArray[i];
-            if(nodesByID[currentNode.node_id]) {
+            if(nodesByID[currentNode.node_id])
                 throw "Error: collision on node id "+currentNode.node_id;
-            }
             nodesByID[currentNode.node_id] = currentNode;
-            var pretty_counter = 0;
-            for(var j = 0; j < currentNode.branches.length; j++){
-                for(var k = 0; k < currentNode.branches[j].length; k++){
-                    var currentBranch = currentNode.branches[j][k];
-                    currentBranch.parent_node = currentNode.node_id;
-                    currentBranch.pretty_id = pretty_counter++;
-                    if(branchesByID[currentBranch.branch_new_id]) {
-                        throw "Error: collision on branch id "+currentBranch.branch_new_id;
+            if(currentNode.should_group_choices){
+                var pretty_counter = 0;
+                for(var j = 0; j < currentNode.branches.length; j++){
+                    for(var k = 0; k < currentNode.branches[j].length; k++){
+                        var currentBranch = currentNode.branches[j][k];
+                        currentBranch.parent_node = currentNode.node_id;
+                        currentBranch.pretty_id = pretty_counter++;
+                        if(branchesByID[currentBranch.branch_id])
+                            throw "Error: collision on branch id "+currentBranch.branch_id;
+                        branchesByID[currentBranch.branch_id] = currentBranch;
                     }
-                    branchesByID[currentBranch.branch_new_id] = currentBranch;
+                }
+            }
+            else if(currentNode.branches) {
+                for(var j = 0; j < currentNode.branches.length; j++){
+                    var currentBranch = currentNode.branches[j];
+                    currentBranch.parent_node = currentNode.node_id;
+                    currentBranch.pretty_id = j;
+                    if(branchesByID[currentBranch.branch_id])
+                        throw "Error: collision on branch id "+currentBranch.branch_id;
+                    branchesByID[currentBranch.branch_id] = currentBranch;
                 }
             }
         }
         schema.nodes = nodesByID;
         schema.branches = branchesByID;
 
-        // Returns the node for a given node ID, either new integer ID or old hex ID
-        schema.getNode = function(id) {
-            // New ID system that Mark setup
-            if(Number.isInteger(id)){
-                console.log("Passed is integer\n \n");
+        // Returns the node for a given node ID, either old integer ID or new hex ID
+        schema.getNode = function(id) {		
+            // Backstop for old system
+            if(Number.isInteger(id) && id <= 12){
                 for(var key in schema.nodes){
-                    if(schema.nodes[key].node_id == id) {
+                    if(schema.nodes[key].id == id)
                         return schema.nodes[key]
-                    }
                 }
                 throw "Error: no node found for node id "+id;
             }
 
-            // Old hex-id numbering system
+            // New hex-id numbering system
             if(schema.nodes[id]) return schema.nodes[id];
 
             throw "Error: no node found for node id "+id;
         }
 
         // Returns the choice for a given branch ID (hex IDs only)
-        schema.getChoiceFromID = function(id) {		
-            console.log("Here's the id we handed to getchoicefromID:" + id);		
+        schema.getChoiceFromID = function(id) {				
             // New hex-id numbering system
             if(schema.branches[id]) return schema.branches[id];
 

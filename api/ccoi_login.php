@@ -2,59 +2,25 @@
 	session_start();
 	if(!empty($_POST['useremail']) && !empty($_POST['password'])){
 	
-//		$db=mysqli_connect("localhost","ccoi_editor","8rW4jpfs67bD",'newccoi');
-//		if(!$db){$err=mysqli_error();		exit ("Error: could not connect to the CCOI Database! -- $access -- $err");}
-		include('./ccoi_dbhookup.php');
+		$db=mysqli_connect("localhost","ccoi_editor","8rW4jpfs67bD",'newccoi');
+		if(!$db){$err=mysqli_error();		exit ("Error: could not connect to the CCOI Database! -- $access -- $err");}
 		$washedemail=mysqli_real_escape_string($db,$_POST['useremail']);
 		$return=mysqli_query($db,"SELECT * FROM tbPeople WHERE email='$washedemail'");		$persondata=mysqli_fetch_assoc($return);
 
 		if( !password_verify($_POST['password'],$persondata['passhash']) ){
 			echo "login nogo";
 		}else{
-			//echo "yay, you're {$persondata['first']}!";			
-			$return=mysqli_query($db,"SELECT * FROM tbPersonAppRoles WHERE personid='{$persondata['id']}'");		// need to add      AND inactive IS NULL
+			//echo "yay, you're {$persondata['first']}!";
+			$return=mysqli_query($db,"SELECT * FROM tbPersonAppRoles WHERE personid='{$persondata['id']}'");
 			while($roledata=mysqli_fetch_assoc($return)){
-		//		$_SESSION['roles'][$roledata['role']]=true;
-				if(!in_array($roledata['appid'], $_SESSION['myappids'])){
-					$_SESSION['myappids'][] = $roledata['appid'];
-				}
-				switch($roledata['role']){
-					case 'superadmin': 	$_SESSION['roles'][$roledata['appid']]['superadmin']=true;		// highest level gets all lower levels -- no "break" for cases
-					case 'admin': 			$_SESSION['roles'][$roledata['appid']]['admin']=true;
-		//			case 'usermgr': 		$_SESSION['roles'][$roledata['appid']]['usermgr']=true;
-					case 'coder': 			$_SESSION['roles'][$roledata['appid']]['coder']=true;
-		//			case 'superadmin': 	$_SESSION['roles']['superadmin']=true;
-		//			case 'superadmin': 	$_SESSION['roles']['superadmin']=true;
-				}
-	//			if($roledata['role']=='admin'){$_SESSION['roles']['coder']=true;$_SESSION['roles']['usermgr']=true;$_SESSION['roles']['videosync']=true;}
+				$_SESSION['roles'][$roledata['role']]=true;
+				if($roledata['role']=='admin'){$_SESSION['roles']['coder']=true;$_SESSION['roles']['usermgr']=true;$_SESSION['roles']['videosync']=true;}
 			}
-
-			$allAppIds = implode(',',$_SESSION['myappids']);
-			$return=mysqli_query($db,"SELECT name FROM tbApps WHERE id IN ($allAppIds)");		// need to add      AND inactive IS NULL
-			while($appdata=mysqli_fetch_assoc($return)){
-				$_SESSION['myappnames'][]=$appdata['name'];
-			}
-			
-			$return=mysqli_query($db,"SELECT pas.*, s.* FROM tbPeopleAppSessions pas, tbSessions s WHERE pas.personid='{$persondata['id']}' AND pas.inactive IS NULL AND pas.sessionid=s.id AND s.inactive IS NULL");
-			while($data=mysqli_fetch_assoc($return)){$_SESSION['sessions'][$data['appid']][$data['sessionid']]=$data['name'];}
-			
-			$return=mysqli_query($db,"SELECT pap.*, pl.* FROM tbPeopleAppPlaygrounds pap, tbPlaygrounds pl WHERE pap.personid='{$persondata['id']}' AND pap.inactive IS NULL AND pap.sessionid=pl.id AND pl.inactive IS NULL");
-			while($data=mysqli_fetch_assoc($return)){$_SESSION['playgrounds'][$data['appid']][$data['sessionid']]=$data['name'];}
 			
 			$_SESSION['pid']=$persondata['id'];
 			$_SESSION['first']=$persondata['first'];
 			$_SESSION['last']=$persondata['last'];
 			$_SESSION['email']=$persondata['email'];
-			
-			if(count($_SESSION['myappids'])==1){
-				$_SESSION['currentlyloadedapp']=$_SESSION['myappids'][0];
-			}
-			else {
-				$_SESSION['currentlyloadedapp']=-1;
-			}
-			//$_SESSION['currentlyloadedapp']=1;		// CCOI is it for now
-			
-	//		$_SESSION['myapps'][1]=true;
 			
 			if(!empty($_SESSION['loginroute'])){
 				header("Location: {$_SESSION['loginroute']}");

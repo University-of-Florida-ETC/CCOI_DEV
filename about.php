@@ -62,7 +62,7 @@ include 'includes/header.php';
                                 <div class="card md-boxed-content grey-background">
                                     <div class="card-block">
                                         <h4 class="card-title">Citation</h4>
-                                        <p class="card-text">Creative Technology Research Lab (2019). <em>Collaborative Computing Observation Instrument (C-COI) Instructional Manual.</em> Retrieved from: ccoi.education.ufl.edu</p>
+                                        <p class="card-text">Creative Technology Research Lab Development Team. (2020). Collaborative Computing Observation Instrument (C-COI 4th Ed.). https://ccoi.education.ufl.edu/</p>
                                     </div>
                                 </div>
                             </div>

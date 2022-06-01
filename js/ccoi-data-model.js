@@ -12,10 +12,8 @@
  * @param {string} observer
  * @param {string} sessionNotes
  */
-
-//console.log("loaded");
 function CCOI_Session (name, date, studentID, prompted, paths, minutes, seconds, observer, sessionNotes) {
-  if (arguments.length === 1 && name.hasOwnProperty('id')) {
+  if (arguments.length === 1 && name.hasOwnProperty('_id')) {
     var obj = name;
     for (var prop in obj) {
       if (obj.hasOwnProperty(prop)) {
@@ -59,9 +57,9 @@ function CCOI_Session (name, date, studentID, prompted, paths, minutes, seconds,
     this.prompted = prompted || false;
     this.sessionNotes = sessionNotes || '';
     this.dirty = false;
-	
+
     this.paths = paths || [];
-	console.log(this.paths);
+
     // the last "valid" values for this session
     this.minutes = minutes || 0;
     this.seconds = seconds || 0;
@@ -73,17 +71,15 @@ function CCOI_Session (name, date, studentID, prompted, paths, minutes, seconds,
 
 // can't overload functions in JS so using janky arg.len check with renaming first param
 /**
- * @param {*}	node
- * @param {int} node_ID
- * @param {*}	choice
- * @param {int} choice_ID
+ *
+ * @param {*} node
+ * @param {*} choice
  * @param {int} minutes
  * @param {int} seconds
- * @param {int} totalSeconds
  * @param {string} extra
  * @param {string} notes
  */
-function CCOI_Step (node, node_ID, choice, choice_ID, ssnum, minutes, seconds, totalSeconds, extra, notes, stateIDStep) {
+function CCOI_Step (node, choice, minutes, seconds, extra, notes) {
   if (arguments.length === 1) {
     var obj = node;
     for (var prop in obj) {
@@ -93,29 +89,21 @@ function CCOI_Step (node, node_ID, choice, choice_ID, ssnum, minutes, seconds, t
     }
 
     this.nextNodeID = CCOI_Step_nextNodeID;
-    this.nextNodeIDInt = CCOI_Step_nextNodeID_int;
     this.branchDescription = CCOI_Step_branchDescription;
     this.extraType = CCOI_Step_extraType;
     this.output = CCOI_Step_output;
   } else {
-  	this.ssnum = ssnum || 0;
-	this.node = node || 0;
-    this.nodeid = node_ID || 0;
-	this.choice = choice || 0;
-    this.choiceid = choice_ID || 0;
-    //this.minutes = minutes || 0;
-    //this.seconds = seconds || 0;
-	this.totalSeconds = totalSeconds || 0;
-    this.extra = extra || null;
-    this.notes = notes || null;
-	this.stateIDStep = stateIDStep || 0;
+    this.node = node || 0;
+    this.choice = choice || 0;
+    this.minutes = minutes || 0;
+    this.seconds = seconds || 0;
+    this.extra = extra || '';
+    this.notes = notes || '';
 
     this.nextNodeID = CCOI_Step_nextNodeID;
-    this.nextNodeIDInt = CCOI_Step_nextNodeID_int;
     this.branchDescription = CCOI_Step_branchDescription;
     this.extraType = CCOI_Step_extraType;
     this.output = CCOI_Step_output;
-	this.pathNodeID = CCOI_Step_PathNodeID;
   }
 
   this.timeInSeconds = function () {
@@ -133,89 +121,6 @@ function concatPaths () {
   return collapsedEvents;
 }
 
-function CCOI_Step_AJAX (node, node_ID, choice, choice_ID, ssnum, nextNodeID, nextNodeIDInt, branchDescription, extraType, output, pathNodeID, totalSeconds, extra, notes, stateIDStep) { 
-	if (arguments.length === 1) {
-		var obj = node;
-		for (var prop in obj) {
-		  if (obj.hasOwnProperty(prop)) {
-			this[prop] = obj[prop];
-		  }
-		}
-	
-		this.nextNodeID = 0 || nextNodeID
-		this.nextNodeIDInt = 0 || nextNodeIDInt;
-		this.branchDescription = 'NULL' || branchDescription;
-		this.extraType = 'NULL' || extraType;
-		this.output = 'NULL' || output;
-	  } else {
-		  this.ssnum = ssnum || 0;
-		this.node = node || 0;
-		this.nodeid = node_ID || 0;
-		this.choice = choice || 0;
-		this.choiceid = choice_ID || 0;
-		//this.minutes = minutes || 0;
-		//this.seconds = seconds || 0;
-		this.totalSeconds = totalSeconds || 0;
-		this.extra = extra || null;
-		this.notes = notes || null;
-		this.stateIDStep = stateIDStep || 0;
-	
-		this.nextNodeID = 0 || nextNodeID;
-		this.nextNodeIDInt = 0 || nextNodeIDInt;
-		this.branchDescription = 'NULL' || branchDescription;
-		this.extraType = '' || extraType;
-		this.output = '' || output;
-		this.pathNodeID = pathNodeID || 0;
-	  }
-	
-
-}
-/**
- * This function takes two params, and will duplicate {base} onto {ajax}, populating the object method slots with filled values. I am so sorry about this.  
- * @param {object} base - the base array 
- * @param {object} ajax - the object you intend to use with AJAX
- * @return {object} ajaxReadyObject
- */
-function goGoAjax(base, ajax) {
-	//
-	//ajax.nextNodeID = base.nextNodeID();
-	//ajax.nextNodeIDInt = base.nextNodeIDInt();
-	//ajax.branchDescription = base.branchDescription();
-	//ajax.extraType = base.extraType();
-	//ajax.output = base.output();
-	//ajax.pathNodeID = base.pathNodeID();
-	//COMMENCE FIXY PROTOCOL
-	ajax.nodeid = base.nodeid;
-	ajax.ssnum = base.ssnum;
-	ajax.node = base.node;
-	ajax.choice = base.choice; 
-	ajax.choiceid = base.choiceid;
-	ajax.totalSeconds = base.totalSeconds;
-	ajax.extra = base.extra;
-	ajax.notes = base.notes; 
-	ajax.stateIDStep = base.stateIDStep;
-	
-	
-	if(base.isEdited != undefined){
-		ajax.isEdited = base.isEdited;
-	}
-
-	if(base.isNew != undefined){
-		ajax.isNew = base.isNew;
-	}
-
-	if(isNaN(base.timeInSeconds) == false ) {
-		ajax.timeInSeconds = base.timeInSeconds;
-	}
-
-	console.log("here is the AJAX version of CCOI_step after gogoajax");
-	console.log(ajax);
-	
-	
-	return ajax;
-}
-
-
 /**
  * Returns the branch JSON object from schema for a given selection
  *
@@ -223,25 +128,34 @@ function goGoAjax(base, ajax) {
  * @param {int} choice Index of chosen edge in schema
  */
 function getNodeFromChoice (nodeID, choice) {	
-	//new ID system that Mark setup
-	console.log("Get node from choice:" + choice);
-	console.log("This is your node ID:" + nodeID); 
+	// backstop for old node-choice system
 	if(Number.isInteger(choice) || choice < 100000){
 		var node = ccoi.ccoiSchema.getNode(nodeID);
-		let printableNode = JSON.stringify(node);
-		console.log("Here is the node json");
-		console.log(printableNode);
 		if(!node.branches){
 			throw "Error in getNodeFromChoice(): No branches in node "+nodeID;
 		}
-		if(ccoi.ccoiSchema.branches[choice]) {
-			return ccoi.ccoiSchema.branches[choice];
+		if (node.should_group_choices) {
+			var choiceIndex = choice;
+			var branches = node.branches;
+
+			for (var groupIndex = 0; groupIndex < branches.length; groupIndex++) {
+				var numChoices = branches[groupIndex].length;
+				if (choiceIndex < numChoices) {
+					return branches[groupIndex][choiceIndex];
+				} else {
+					choiceIndex -= numChoices;
+				}
+			}
+			// shouldn't happen
+			throw "Error in getNodeFromChoice(): No branch found with id "+choice;
+		} else if(choice < node.branches.length) {
+			return node.branches[choice];
 		}
 		else
-			throw "Error in getNodeFromChoice(): No branch found with id " + choice;
+			throw "Error in getNodeFromChoice(): No branch found with id "+choice;
 	}
 	
-	// old hex-choice system
+	// new hex-choice system
 	if(ccoi.ccoiSchema.branches[choice]){
 		return ccoi.ccoiSchema.branches[choice];
 	}
@@ -250,23 +164,10 @@ function getNodeFromChoice (nodeID, choice) {
 }
 
 /**
- * @returns {string} Returns the next node's hex ID from the schema
+ * @returns {string} Returns the next node's ID from the schema
  */
 function CCOI_Step_nextNodeID () {
-	console.log("nextNodeID print beginning:");
-	console.log(this.nodeid);
-	console.log(this.choiceid);
-	return this.choiceid === -1 ? null : getNodeFromChoice(this.nodeid, this.choiceid).next;
-}
-
-/**
- * @returns {string} Returns the next node's hex ID from the schema
- */
-function CCOI_Step_nextNodeID_int () {
-	console.log("beginning nextNodeID_int print: ")
-	console.log(this.nodeid);
-	console.log(this.choiceid);
-	return this.choiceid === -1 ? null : getNodeFromChoice(this.nodeid, this.choiceid).next_id;
+	return this.choice === -1 ? null : getNodeFromChoice(this.node, this.choice).next;
 }
 
 /**
@@ -275,26 +176,13 @@ function CCOI_Step_nextNodeID_int () {
 function CCOI_Step_branchDescription () {
 	var branchDescription;
 	try {
-		branchDescription = this.choiceid === -1 ? 'Other:' : getNodeFromChoice(this.nodeid, this.choiceid).description;
+		branchDescription = this.choice === -1 ? 'Other:' : getNodeFromChoice(this.node, this.choice).description;
 	}
 	catch (err) {
 		// The missing branch should already have been caught and noted
 		return "";
 	}
 	return branchDescription;
-}
-/**
- * Function used to obtain the pathNodeID, using the branch new_id.
- * @returns int
- */
-function CCOI_Step_PathNodeID () { 
-	let pathNodeID;
-	try {
-		pathNodeID = this.choiceid === -1 ? 'Other:' : getNodeFromChoice(this.nodeid, this.choiceid).branch_new_id; 
-	}
-	catch (err) {
-		return "Bruh this ain't workin like u thought it would!!!! FIX YO SHIZ!"
-	}
 }
 
 /**
@@ -304,7 +192,7 @@ function CCOI_Step_PathNodeID () {
  * @returns {string} If exists, returns the 'extra' field from the schema
  */
 function CCOI_Step_extraType () {
-  return this.choiceid === -1 ? '' : getNodeFromChoice(this.nodeid, this.choiceid).extra;
+  return this.choice === -1 ? '' : getNodeFromChoice(this.node, this.choice).extra;
 }
 
 /**
@@ -325,7 +213,7 @@ function NodeChoice (ccoiStep) {
 	
 	var node;
 	try {
-		node = ccoi.ccoiSchema.getNode(ccoiStep.nodeid);
+		node = ccoi.ccoiSchema.getNode(ccoiStep.node);
 	}
 	catch(err) {
 		return null;
@@ -334,13 +222,17 @@ function NodeChoice (ccoiStep) {
 		return null;
 	
 	try {
-		// new Integer system
-		choiceID = ChoiceID(ccoiStep.choiceid);
+		// backstop for old id system
+		if(Number.isInteger(ccoiStep.choice) && ccoiStep.choice <= 100000)
+			choiceID = ChoiceID(ccoiStep.choice);
+		// new (hex) id system
+		else 
+			choiceID = ccoi.ccoiSchema.getChoiceFromID(ccoiStep.choice).pretty_id;
 	}
 	catch(err) {
 		return node.id + '-' + "<strong class='emptyNode'>[DELETED BRANCH]</strong>";
 	}
-
+	
 	return node.id + '-' + choiceID;
 }
 
@@ -352,13 +244,9 @@ function NodeChoice (ccoiStep) {
  * @returns {string} A given step in a path
  */
 function CCOI_Step_output (plaintext) {
-	
-	/*This output text is old and crusty. Real output text should have total seconds, not minutes seconds. Epic fail!*/
-	/*var outputText = '(' + this.minutes + ':';
+	var outputText = '(' + this.minutes + ':';
 	if (this.seconds < 10) { outputText += '0'; }
-	outputText += this.seconds + ') ';*/
-
-	var outputText = '(' + this.totalSeconds + ')';
+	outputText += this.seconds + ') ';
 
 	var nodeChoice = NodeChoice(this);
 	if(nodeChoice)
@@ -368,7 +256,7 @@ function CCOI_Step_output (plaintext) {
 
 	if (this.extra !== null && this.extra !== undefined && this.extra !== '') { outputText += ' "' + this.extra + '"'; }
 
-	if (this.notes !== '' && this.notes !== null && this.notes != undefined) { outputText += ' [' + this.notes + ']'; }
+	if (this.notes !== '' && this.notes !== null) { outputText += ' [' + this.notes + ']'; }
 
 	var nextNodeID;
 	try {
