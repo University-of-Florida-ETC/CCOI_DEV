@@ -1,4 +1,3 @@
-FROM php:7.4-cli
-COPY . /usr/src/uf_ccoi_live
-WORKDIR /usr/src/uf_ccoi_live
-CMD [ "php", "./index.php" ]
+FROM php:7.4-apache
+RUN docker-php-ext-install mysqli
+RUN chmod -R a+r /var/www/html/
