@@ -1,6 +1,7 @@
 <?php
 $page = "home";
 include 'includes/header.php';
+echo "hello from docker";
 ?>
         <main role="main">
             <div class="container-fluid">
