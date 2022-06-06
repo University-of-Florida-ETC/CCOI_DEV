@@ -12,6 +12,9 @@ services:
       - 443:443
     volumes:
       - ./:/var/www/html/
+      - ./configs/certs/ssl-cert-snakeoil.pem:/etc/ssl/certs/ssl-cert-snakeoil.pem
+      - ./configs/certs/ssl-cert-snakeoil.key:/etc/ssl/private/ssl-cert-snakeoil.key
+      - ./configs/php.ini:/usr/local/etc/php/php.ini
 
   db:
     image: mysql
@@ -21,6 +24,7 @@ services:
       MYSQL_ROOT_PASSWORD: example
     volumes:
       - mysql-data:/var/lib/mysql
+      - ./configs/sql/newccoi_2022-06-02.sql:/newccoi.sql
 
   adminer:
     image: adminer
