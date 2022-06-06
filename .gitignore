@@ -100,3 +100,4 @@ styles/
 *.swp
 *.vi
 *~
+configs/php.ini
