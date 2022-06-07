@@ -101,3 +101,4 @@ styles/
 *.vi
 *~
 configs/php.ini
+newestccoi/api/ccoi_dbhookup.php
