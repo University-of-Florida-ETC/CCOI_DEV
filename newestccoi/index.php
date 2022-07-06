@@ -30,6 +30,7 @@ $paths = getPaths(); //defined below
     console.log(<?= $_SESSION['roles'][$_SESSION['currentlyloadedapp']]['admin']; ?>);
 </script>
 <link rel="stylesheet" href="<?php echo $devprodroot; ?>/css/popup.css">
+<link rel="stylesheet" href="popup.css">
         <main role="main">
             <div class="container-fluid">
                 <div class="container">
@@ -58,7 +59,9 @@ $paths = getPaths(); //defined below
                                     <h5 style="text-transform: none;" id="pageDesc">Select a session to view or edit the set</h5>
                                 </div>
                                 <div class="col-md-4 col-12 pt-2">
-                                    <button id="new_session_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start" onclick="blurScreen(); showNewSess();">Add Session</button>
+                                    <!--<button type="button" onclick="openDialog('dialog1', this)">Add Delivery Address</button>-->
+                                    <button id="new_session_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start" onclick="openDialog('newSessionDialog', this)">Add Session</button>
+                                    <!--<button id="new_session_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Click here to start" onclick="blurScreen(); showNewSess();">Add Session</button>-->
                                     <button id="save_session_button" type="button" class="btn btn-blue float-right disabled d-none" data-toggle="tooltip" data-html="true" title="Click here to save your session">Save Session</button>
                                 </div>
                             </div>
@@ -152,7 +155,190 @@ $paths = getPaths(); //defined below
                     </div>
                 </div>
             </div>
-            <div><!--popup stuff -->
+
+            <!-- ACCESSIBLE POPUP SHENANIGANS -->
+            <div id="dialog_layer" class="dialogs">
+
+                <div role="dialog" id="newSessionDialog" aria-labelledby="newSessionDialog_label" aria-modal="true" class="hidden">
+                    <h2 id="newSessionDialog_label" class="dialog_label pb-2 mb-4">Create New Session</h2>
+                    <div class="dialog_form">
+                        <form name="sessionForm" action="" method="post" id="sessionForm">
+                        <div class="dialog_form_item">
+                            <label>
+                            <span class="label_text">Session Name:</span>
+                            <input type="text" class="wide_input" name="name" placeholder="New Observation">
+                            </label>
+                        </div>
+                        <div class="dialog_form_item">
+                            <label>
+                            <span class="label_text">Student ID:</span>
+                            <input type="text" class="wide_input" name='studentid' placeholder='12345678'>
+                            </label>
+                        </div>
+                        <div class="dialog_form_item">
+                            <label>
+                            <span class="label_text">Coding Date:</span>
+                            <input type="date" class="wide_input" name='codingDate' placeholder='MM/DD/YYYY'>
+                            </label>
+                        </div>
+                        <div class="dialog_form_item">
+                            <label>
+                            <span class="label_text">Video:</span>
+                            <select class="wide_input" id= "video" name='video'>
+<?php foreach ($videos as $index => $currentVideo): ?>
+                                <option value="<?= $currentVideo['id']; ?>"><?= $currentVideo['name']; ?></option>
+<?php endforeach; ?>
+                            </select>
+                            </label>
+                        </div>
+                        <div class="dialog_form_item">
+                            <label>
+                            <span class="label_text">Path:</span>
+                            <select class="wide_input" id= "path" name='path'>
+<?php foreach ($paths as $index => $currentPath): ?>
+                            <option value="<?= $currentPath['id']; ?>"><?= $currentPath['name']; ?></option>
+<?php endforeach; ?>
+                            </select>
+                            </label>
+                        </div>
+                        </form>
+                    </div>
+                    <div class="dialog_form_actions">
+                        <button type="button" onclick="createNewSession(); closeDialog(this)" id="sessionSubmit" style="margin-top: 2rem;">Create Session</button>
+                        <button type="button" onclick="closeDialog(this)" style="height: fit-content;">Cancel</button>
+                    </div>
+                </div>
+
+                <div role="dialog" id="dialog1" aria-labelledby="dialog1_label" aria-modal="true" class="hidden">
+                    <h2 id="dialog1_label" class="dialog_label">Add Delivery Address</h2>
+                    <div class="dialog_form">
+                    <div class="dialog_form_item">
+                        <label>
+                        <span class="label_text">Street:</span>
+                        <input type="text" class="wide_input">
+                        </label>
+                    </div>
+                    <div class="dialog_form_item">
+                        <label>
+                        <span class="label_text">City:</span>
+                        <input type="text" class="city_input">
+                        </label>
+                    </div>
+                    <div class="dialog_form_item">
+                        <label>
+                        <span class="label_text">State:</span>
+                        <input type="text" class="state_input">
+                        </label>
+                    </div>
+                    <div class="dialog_form_item">
+                        <label>
+                        <span class="label_text">Zip:</span>
+                        <input type="text" class="zip_input">
+                        </label>
+                    </div>
+
+                    <div class="dialog_form_item">
+                        <label for="special_instructions">
+                        <span class="label_text">Special instructions:</span>
+                        </label>
+                        <input id="special_instructions" type="text" aria-describedby="special_instructions_desc" class="wide_input">
+                        <div class="label_info" id="special_instructions_desc">
+                        For example, gate code or other information to help the driver find you
+                        </div>
+                    </div>
+                    </div>
+                    <div class="dialog_form_actions">
+                        <button type="button" onclick="openDialog('dialog2', this, 'dialog2_para1')">Verify Address</button>
+                        <button type="button" onclick="replaceDialog('dialog3', undefined, 'dialog3_close_btn')">Add</button>
+                        <button type="button" onclick="closeDialog(this)">Cancel</button>
+                    </div>
+                </div>
+
+                
+                <div id="dialog2" role="dialog" aria-labelledby="dialog2_label" aria-describedby="dialog2_desc" aria-modal="true" class="hidden">
+                    <h2 id="dialog2_label" class="dialog_label">Verification Result</h2>
+                    <div id="dialog2_desc" class="dialog_desc">
+                    <p tabindex="-1" id="dialog2_para1">This is just a demonstration. If it were a real application, it would
+                        provide a message telling whether the entered address is valid.</p>
+                    <p>
+                        For demonstration purposes, this dialog has a lot of text. It demonstrates a
+                        scenario where:
+                    </p>
+                    <ul>
+                        <li>The first interactive element, the help link, is at the bottom of the dialog.</li>
+                        <li>If focus is placed on the first interactive element when the dialog opens, the
+                        validation message may not be visible.</li>
+                        <li>If the validation message is visible and the focus is on the help link, then
+                        the focus may not be visible.</li>
+                        <li>
+                        When the dialog opens, it is important that both:
+                        <ul>
+                            <li>The beginning of the text is visible so users do not have to scroll back to
+                            start reading.</li>
+                            <li>The keyboard focus always remains visible.</li>
+                        </ul>
+                        </li>
+                    </ul>
+                    <p>There are several ways to resolve this issue:</p>
+                    <ul>
+                        <li>Place an interactive element at the top of the dialog, e.g., a button or link.</li>
+                        <li>Make a static element focusable, e.g., the dialog title or the first block of
+                        text.</li>
+                    </ul>
+                    <p>
+                        Please <em>DO NOT </em> make the element with role dialog focusable!
+                    </p>
+                    <ul>
+                        <li>The larger a focusable element is, the more difficult it is to visually
+                        identify the location of focus, especially for users with a narrow field of view.</li>
+                        <li>The dialog has a visual border, so creating a clear visual indicator of focus
+                        when the entire dialog has focus is not very feasible.</li>
+                        <li>Screen readers read the label and content of focusable elements. The dialog
+                        contains its label and a lot of content! If a dialog like this one has focus, the
+                        actual focus is difficult to comprehend.</li>
+                    </ul>
+                    <p>
+                        In this dialog, the first paragraph has <code>tabindex=<q>-1</q></code>. The first
+                        paragraph is also contained inside the element that provides the dialog description, i.e., the element that is referenced
+                        by <code>aria-describedby</code>. With some screen readers, this may have one negative
+                        but relatively insignificant side effect when the dialog opens -- the first paragraph
+                        may be announced twice. Nonetheless, making the first paragraph focusable and setting
+                        the initial focus on it is the most broadly accessible option.
+                    </p>
+                    </div>
+                    <div class="dialog_form_actions">
+                    <a href="#" onclick="openDialog('dialog4', this)">link to help</a>
+                    <button type="button" onclick="openDialog('dialog4', this)">accepting an alternative form</button>
+                    <button type="button" onclick="closeDialog(this)">Close</button>
+                    </div>
+                </div>
+
+                
+                <div id="dialog3" role="dialog" aria-labelledby="dialog3_label" aria-describedby="dialog3_desc" aria-modal="true" class="hidden">
+                    <h2 id="dialog3_label" class="dialog_label">Address Added</h2>
+                    <p id="dialog3_desc" class="dialog_desc">
+                    The address you provided has been added to your list of delivery addresses. It is ready
+                    for immediate use. If you wish to remove it, you can do so from
+                    <a href="#" onclick="openDialog('dialog4', this)">your profile.</a>
+                    </p>
+                    <div class="dialog_form_actions">
+                    <button type="button" id="dialog3_close_btn" onclick="closeDialog(this)">OK</button>
+                    </div>
+                </div>
+
+                <div id="dialog4" role="dialog" aria-labelledby="dialog4_label" aria-describedby="dialog4_desc" class="hidden" aria-modal="true">
+                    <h2 id="dialog4_label" class="dialog_label">End of the Road!</h2>
+                    <p id="dialog4_desc" class="dialog_desc">
+                    You activated a fake link or button that goes nowhere!
+                    The link or button is present for demonstration purposes only.
+                    </p>
+                    <div class="dialog_form_actions">
+                    <button type="button" id="dialog4_close_btn" onclick="closeDialog(this)">Close</button>
+                    </div>
+                </div>
+            </div>
+            <!--
+            <div>
                 <div id="blurOverlay" onclick="closePopups()"></div>
 
                 <div id="newSession" class="popup">
@@ -179,12 +365,14 @@ $paths = getPaths(); //defined below
                         </select>
                         <input id="sessionSubmit" style="margin-top: 2rem;" type='button' value='Create New Session' onclick="createNewSession()">
                     </form>
-                </div><!--popup-->
+                </div>
                 <div id="sessionResponse" class="popup">
                     <button type="button" class="exitPopup" onclick="closePopups()">✕</button>
                     <p id="sessionResponseText"></p>
                 </div>
             </div>
+-->
+
         </main>
         <?php include 'includes/footer.php'; ?>
         <script src="/js/jquery-3.4.1.min.js"></script>
@@ -198,6 +386,7 @@ $paths = getPaths(); //defined below
         <script src="/js/ccoi.js"></script>
         <script src="/js/ccoi-data-model.js"></script>
         <script src="./js/zpbccoi.js"></script>-->
+        <script src="popup.js"></script>
         <script>
             var isPlayground = false;
 
@@ -354,43 +543,80 @@ $paths = getPaths(); //defined below
                         console.log(data);
                         let returnedInt = parseInt(data);
 
-                        newSessWin.classList.remove('popped');
-                        let responseWindow = document.getElementById('sessionResponse');
-                        responseWindow.classList.add('popped');
-                        let responseText = document.getElementById('sessionResponseText');
+                        if(false){ //OLD BEHAVIOR QUARANTINE
+                            newSessWin.classList.remove('popped');
+                            let responseWindow = document.getElementById('sessionResponse');
+                            responseWindow.classList.add('popped');
+                            let responseText = document.getElementById('sessionResponseText');
 
-                        if (returnedInt == -1) {
-                            responseText.innerText = "There was an error creating that session. <br> Please refresh the page and try again. <br> <br> If the problem persists, please contact an administrator.";
-                            //console.error("Missing required data");
-                        }
-                        else {
-                            responseText.innerHTML = "Session with name '"+name+"' has been created successfully. <br><br> It has been added to the bottom of your "+tbName+" session list.";
-                            let newEntry = document.createElement("li");
-                            newEntry.setAttribute("class", "session-listing my-2");
-                            newEntry.setAttribute("id", tbName+"-"+returnedInt);
-                            newEntry.setAttribute("style", "display:flex; flex-wrap:no-wrap;");
-                            /*
-                            newEntry.innerHTML = `<div class="row">
-                                                <div class="col-sm-9 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}">${name}</a>
-                                                </div>
-                                                <div class="col-sm-3 col-12">
-                                                    <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
-                                                    <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
-                                                </div>
-                                            </div>`;
-                                            */
-                            newEntry.innerHTML = `  <div style="width:84%;">
-                                                        <a class="btn-link session-edit" href="obz?id=${returnedInt}${extraText}">${name}</a>
+                            if (returnedInt == -1) {
+                                responseText.innerText = "There was an error creating that session. <br> Please refresh the page and try again. <br> <br> If the problem persists, please contact an administrator.";
+                                //console.error("Missing required data");
+                            }
+                            else {
+                                responseText.innerHTML = "Session with name '"+name+"' has been created successfully. <br><br> It has been added to the bottom of your "+tbName+" session list.";
+                                let newEntry = document.createElement("li");
+                                newEntry.setAttribute("class", "session-listing my-2");
+                                newEntry.setAttribute("id", tbName+"-"+returnedInt);
+                                newEntry.setAttribute("style", "display:flex; flex-wrap:no-wrap;");
+                                /*
+                                newEntry.innerHTML = `<div class="row">
+                                                    <div class="col-sm-9 col-12">
+                                                        <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}">${name}</a>
                                                     </div>
-                                                    <div style="width:14%; display:flex; justify-content:space-around;">
-                                                        <a class="btn-link session-edit" href="obz?id=${returnedInt}${extraText}"><span class="oi oi-pencil" title="Edit Session" aria-hidden="true"></span></a>
-                                                        <a class="btn-link" href="javascript:void(0)" onclick="deleteSession(${returnedInt})"><span class="oi oi-trash" title="Delete Session" aria-hidden="true"></span></a>
-                                                        <!--<a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart" title="View Visualizations" aria-hidden="true"></span></a>-->
-                                                    </div>`;
-                            let playgroundList = document.getElementById(tbName+"_session_list");
-                            playgroundList.appendChild(newEntry);
+                                                    <div class="col-sm-3 col-12">
+                                                        <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                    </div>
+                                                </div>`;
+                                                */
+                                newEntry.innerHTML = `  <div style="width:84%;">
+                                                            <a class="btn-link session-edit" href="obz?id=${returnedInt}${extraText}">${name}</a>
+                                                        </div>
+                                                        <div style="width:14%; display:flex; justify-content:space-around;">
+                                                            <a class="btn-link session-edit" href="obz?id=${returnedInt}${extraText}"><span class="oi oi-pencil" title="Edit Session" aria-hidden="true"></span></a>
+                                                            <a class="btn-link" href="javascript:void(0)" onclick="deleteSession(${returnedInt})"><span class="oi oi-trash" title="Delete Session" aria-hidden="true"></span></a>
+                                                            <!--<a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart" title="View Visualizations" aria-hidden="true"></span></a>-->
+                                                        </div>`;
+                                let playgroundList = document.getElementById(tbName+"_session_list");
+                                playgroundList.appendChild(newEntry);
+                            }
+                        }
+                        if(true){
+                            if (returnedInt == -1) {
+                                alert("There was an error creating that session, please refresh the page and try again. If the problem persists, please contact an administrator.");
+                                //console.error("Missing required data");
+                            }
+                            else {
+                                //responseText.innerHTML = "Session with name '"+name+"' has been created successfully. <br><br> It has been added to the bottom of your "+tbName+" session list.";
+                                let newEntry = document.createElement("li");
+                                newEntry.setAttribute("class", "session-listing my-2");
+                                newEntry.setAttribute("id", tbName+"-"+returnedInt);
+                                newEntry.setAttribute("style", "display:flex; flex-wrap:no-wrap;");
+                                /*
+                                newEntry.innerHTML = `<div class="row">
+                                                    <div class="col-sm-9 col-12">
+                                                        <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}">${name}</a>
+                                                    </div>
+                                                    <div class="col-sm-3 col-12">
+                                                        <a class="btn-link session-edit" href="observation?id=${returnedInt}${extraText}"><span class="oi oi-pencil px-2" title="Edit Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-trash px-2" title="Delete Session" aria-hidden="true"></span></a>
+                                                        <a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart px-2" title="View Visualizations" aria-hidden="true"></span></a>
+                                                    </div>
+                                                </div>`;
+                                                */
+                                newEntry.innerHTML = `  <div style="width:84%;">
+                                                            <a class="btn-link session-edit" href="obz?id=${returnedInt}${extraText}">${name}</a>
+                                                        </div>
+                                                        <div style="width:14%; display:flex; justify-content:space-around;">
+                                                            <a class="btn-link session-edit" href="obz?id=${returnedInt}${extraText}"><span class="oi oi-pencil" title="Edit Session" aria-hidden="true"></span></a>
+                                                            <a class="btn-link" href="javascript:void(0)" onclick="deleteSession(${returnedInt})"><span class="oi oi-trash" title="Delete Session" aria-hidden="true"></span></a>
+                                                            <!--<a class="btn-link" href="javascript:void(0)"><span class="oi oi-pie-chart" title="View Visualizations" aria-hidden="true"></span></a>-->
+                                                        </div>`;
+                                let playgroundList = document.getElementById(tbName+"_session_list");
+                                playgroundList.appendChild(newEntry);
+                            }
                         }
                     }
                 }

@@ -128,7 +128,7 @@ function scrubIt($target){
                                         <h1 class="red-font">Videos</h1>
                                     </div>
                                     <div class="col-md-4 col-12 pt-2">
-                                        <a href="api/ccoi_videomanager2?id=<?= $appid; ?>"><button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Go to video manager">Video Manager</button></a>
+                                        <a href="api/ccoi_videomanager2"><button id="new_user_button" type="button" class="btn btn-gold float-right" data-toggle="tooltip" data-html="true" title="Go to video manager">Video Manager</button></a>
                                     </div>
                                 </div>
 <!--

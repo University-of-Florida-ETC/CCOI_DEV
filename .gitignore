@@ -100,5 +100,5 @@ styles/
 *.swp
 *.vi
 *~
-configs/php.ini
+/configs/php.ini
 newestccoi/api/ccoi_dbhookup.php

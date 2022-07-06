@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
 $CCOI_requireslogin=true;
-$appid = $_GET['id'];
+//$appid = $_SESSION['currentlyloadedapp'];
 //include('./ccoi_session.php');		// header has this already
 //$db=mysqli_connect("localhost","ccoi_editor","8rW4jpfs67bD",'newerccoi');
 //if(!$db){$err=mysqli_error();		exit ("Error: could not connect to the CCOI Database! -- $access -- $err");}
@@ -30,12 +30,13 @@ if(!empty($_FILES['derfile'])){
 				$derteach=mysqli_real_escape_string($db,$_POST['teacher']);
 				$dercompno=mysqli_real_escape_string($db,$_POST['compno']);
 				$derurl=mysqli_real_escape_string($db,$origfilename);				// shouldnt need this with the preg_replace above, but hey...
+				$appid = mysqli_real_escape_string($db,$_POST['appid']);
 				$query="INSERT INTO tbVideos (appid,name,url,scramble,viddate,teacher,compno,videxists) VALUES ('$appid','$dername','$derurl','$scramblename','$derviddate','$derteach','$dercompno','1')";			// additional data can be provided through the video manager
 				$return=mysqli_query($db,$query);
-				if(mysqli_affected_rows($db)==1){$msg="{$_POST['name']} uploaded.";}else{$msg="Error in {$_POST['name']} upload.";}
-				echo $query;
+				if(mysqli_affected_rows($db)==1){$msg="<p>{$_POST['name']} uploaded.</p>";}else{$msg="<p>Error in {$_POST['name']} upload.</p>";}
+		//		echo $query;
 			}else{
-				echo 'XF';
+		//		echo 'XF';
 			}
 		}
 }
@@ -84,7 +85,7 @@ $extraCSS=<<<ENDCSS
 	div.derid {width: 40px; font-weight: bold; margin:0; float:left; text-align:right; padding-right:8px;}
 	
 	div#marks-overlay {background-color:rgba(0,0,0,.3);position:fixed; top:0; left:0; width:100%;height:100%;z-index:601;display:none;}
-	div#marks-overlay div#marks-overcontent {width: 376px;  height: 340px; position:absolute; top:50%; margin-top: -200px; left:50%; margin-left: -188px; border: 1px solid #666; padding: 20px; border-radius: 8px; background-color:#f8fbff; box-shadow: 0px 2px 48px #444;}
+	div#marks-overlay div#marks-overcontent {width: 376px;  height: 470px; position:absolute; top:50%; margin-top: -200px; left:50%; margin-left: -188px; border: 1px solid #666; padding: 20px; border-radius: 8px; background-color:#f8fbff; box-shadow: 0px 2px 48px #444;}
 	div#marks-overlay div#marks-overcontent input[type=text] {width: 330px; margin:3px 0; border-radius: 6px; border: 1px solid #ccc; padding: 2px 8px;}
 	div#new_video_button {background-color: #2b528e; width: 220px; float: right; border-radius: 24px; font-size: 18px; text-align:left; color: white; padding: 10px 10px 10px 16px; margin-top: 6px; cursor: pointer;}
 	div#new_video_button:hover {background-color: #ffb851; color: #444;}
@@ -92,10 +93,10 @@ $extraCSS=<<<ENDCSS
 	div#new_video_button span.oi {float:right; font-size: 24px; top: 4px;}
 </style>
 ENDCSS;
-
+$includeroot= $_SERVER['DOCUMENT_ROOT'];			$devprodroot='/newestccoi';			$serverroot=$_SERVER['SERVER_NAME'];
 $extraJS=<<<ENDJS
 <script language='javascript'>
-	var derServer='{$includeroot}{$devprodroot}/api/';
+	var derServer='{$devprodroot}/api/';
 	function GetAjaxReturnObject(mimetype){var xmlHttp=null; if (window.XMLHttpRequest) {xmlHttp = new XMLHttpRequest(); if (xmlHttp.overrideMimeType) {xmlHttp.overrideMimeType(mimetype);}} else if (window.ActiveXObject) {try {xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");}catch (e) {try {xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");}catch (e) {}}} return xmlHttp;}
 	function getHTML(httpRequest) {if (httpRequest.readyState===4) {if (httpRequest.status === 200) {return httpRequest.responseText;}}}
 	function doUpdate(e){
@@ -126,23 +127,36 @@ $extraJS=<<<ENDJS
 		}
 		var bit;		if(e.target.type=='checkbox'){bit=e.target.checked;}else{bit=e.target.value;}
 		var sendStr = 'whee=1&'+e.target.id+'='+bit;
-		var url = derServer+'ccoi_videomanager.php?'+sendStr;					console.log(url);
+		var url = derServer+'ccoi_videomanager2.php?'+sendStr;					console.log(url);
 		xmlHttp.open('POST', url, true);xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');xmlHttp.send(sendStr);
 	}
 	function blah(e){
 		var bit;		if(e.target.type=='checkbox'){bit=e.target.checked;}else{bit=e.target.value;}
 		console.log('clicked: '+e.target.id+' / '+bit);
 	}
+
+	function launchVideoPreview(scramble, url, title){
+		console.log("test1");
+		let popoutWindow = window.open("/video-player");
+		console.log("test2");
+		let videoSrc = "/ccoivids/" + scramble + "_" + url;
+		console.log("test3");
+		popoutWindow.src = videoSrc;
+		popoutWindow.videoTitle = title;
+	}
+
 </script>
 ENDJS;
 
 	include('../includes/header.php');
-	if( !($_SESSION['roles'][$appid]['admin']) ){
+	//echo "_SESSION['currentlyloadedapp'] = ".$_SESSION['currentlyloadedapp'];
+	//echo "query: ". "INSERT INTO tbVideos (appid,name,url,scramble,viddate,teacher,compno,videxists) VALUES ('{$_SESSION['currentlyloadedapp']}')";	; 
+	if( !($_SESSION['roles'][$_SESSION['currentlyloadedapp']]['admin']) ){
 		header("Location: {$devprodroot}");
 		//echo "get redirected, idiot";
 	}
 	else {
-		$_SESSION['currentlyloadedapp'] = $appid;
+		//$_SESSION['currentlyloadedapp'] = $appid;
 	}
 	echo "<div class='markoutercontent'><div class='markcontent'>\n";
 	
@@ -161,8 +175,10 @@ ENDJS;
 			$inactivechecked=' CHECKED';
 			$inactivechecked2=' inactivechecked';
 			$inactiveblock=' DISABLED';
-		}
-		if(!empty($p['videxists'])){$popoutlink="<a target='ccoi_popout2' href='{$devprodroot}/newvideo_popout.php?vid={$p['id']}'><span class='oi oi-external-link px-2' title='View Video'></span></a>";}else{$popoutlink='';}
+		}//'/ccoivids/{$p['scramble']}_{$p['url']}'
+		//href='/ccoivids/{$p['scramble']}_{$p['url']}'
+		//target='ccoi_popout2'
+		if(!empty($p['videxists'])){$popoutlink="<a onclick='launchVideoPreview(\"{$p['scramble']}\", \"{$p['url']}\", \"{$p['name']}\")'><span class='oi oi-external-link px-2' title='View Video'></span></a>";}else{$popoutlink='';}
 		echo "<div class='video'>{$gap}<div class='derid'>{$p['id']}</div> <input type='text' class='name' title='{$p['url']} / {$p['scramble']}' id='name_{$p['id']}' value='{$p['name']}'{$inactiveblock} />";
 		echo "<input type='text' class='viddate' id='viddate_{$p['id']}' value='{$p['viddate']}'{$inactiveblock} /><input type='text' class='teacher' id='teacher_{$p['id']}' value='{$p['teacher']}'{$inactiveblock} /><input type='text' class='compno' id='compno_{$p['id']}' value='{$p['compno']}'{$inactiveblock} />";
 		echo "{$popoutlink}<div class='checks'><span class='checkwrapperspan'><span class='inactivespan{$inactivechecked2}'>Inactive</span><input type='checkbox' id='inactive_{$p['id']}'{$inactivechecked} /></span></div>";
@@ -171,12 +187,13 @@ ENDJS;
 
 echo '</div></div>';
 
-	echo "<div id='marks-overlay'><div id='marks-overcontent'><h3>Upload New Video</h3><form method='POST' action='ccoi_videomanager.php' enctype='multipart/form-data'>";
-	echo "<input type='text' id='name' name='name' placeholder='Video Name' /><br />";
-	echo "<input type='text' id='viddate' name='viddate' placeholder='2020-01-01' /><br />";
-	echo "<input type='text' id='teacher' name='teacher' placeholder='Teacher Name' /><br />";
-	echo "<input type='text' id='compno' name='compno' placeholder='Computer #' /><br /><br />";
-	echo "<input type='file' id='derfile' name='derfile' /><br /><br /><input id='subby' type='submit' value='Upload Video' /><br /><span style='font-size: 10px;'>(DEV has a file size limit of 2Mb)</span></form></div></div>";
+	echo "<div id='marks-overlay'><div id='marks-overcontent'><h3>Upload New Video</h3><form method='POST' action='ccoi_videomanager2.php' enctype='multipart/form-data'>";
+	echo "<input type='hidden' id='appid' name='appid' value='{$_SESSION['currentlyloadedapp']}'";
+	echo "<label>Video Name<input type='text' id='name' name='name' placeholder='Programming Challenge Student 2' /></label><br />";
+	echo "<label>Date Recorded<input type='text' id='viddate' name='viddate' placeholder='2020-01-01' /></label><br />";
+	echo "<label>Teacher Name<input type='text' id='teacher' name='teacher' placeholder='Mr. Example' /></label><br />";
+	echo "<label>Student #<input type='text' id='compno' name='compno' placeholder='12345678' /></label><br /><br />";
+	echo "<label><input type='file' id='derfile' name='derfile' /><br /><br /><input id='subby' type='submit' value='Upload Video' /><br /><span style='font-size: 10px;'>(Current file size limit: 50MB)</span></form></div></div>";
 
 echo<<<ENDJS2
 <script language='javascript'>

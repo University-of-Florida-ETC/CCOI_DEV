@@ -1,6 +1,6 @@
 <?php
 //CCOI header file
-session_start();
+//session_start();
 $includeroot= $_SERVER['DOCUMENT_ROOT'];			$devprodroot='/newestccoi';			$serverroot=$_SERVER['SERVER_NAME'];		// this is DEV =====================  $devprodroot='/newccoi'; for prod
 include $includeroot.$devprodroot.'/api/ccoi_session.php';
 if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip'))
