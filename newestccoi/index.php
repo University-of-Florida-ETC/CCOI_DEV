@@ -508,7 +508,7 @@ $paths = getPaths(); //defined below
             }
 
             function createNewSession() {
-                const formData = new FormData(document.getElementById("sessionForm"));
+                let formData = new FormData(document.getElementById("sessionForm"));
                 
                 formData.append('newSession', 1);
                 if (formData.get('name') == ""){
@@ -516,9 +516,11 @@ $paths = getPaths(); //defined below
                 }
                 let sendStr = '';
                 let name = formData.get('name');
+                console.log("formData:");
                 formData.forEach(function(value, key){
                     if(value == ""){}
                     else {
+                        console.log(`${key} = ${value}`);
                         sendStr += `&${key}=${value}`;
                     }
                 });
@@ -673,6 +675,7 @@ function getSessions(){
             $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL");		
             while($d=mysqli_fetch_assoc($return)){$sessionids[]=$d['sessionid'];}
             $sidstext=implode(',',$sessionids);
+            var_dump($sessionids);
 
             //Get session IDs of research sessions
             $return=mysqli_query($db,"SELECT sessionid FROM tbPeopleAppSessions WHERE personid!='$uid' AND appid='{$_SESSION['currentlyloadedapp']}' AND inactive IS NULL AND id != '132'");		

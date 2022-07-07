@@ -21,12 +21,12 @@ function scrubIt($target){
 
 //TODO Scrub $_POST and $_GET with Mark's one liner and start pulling from $_SCRUBEBD within queries.
 if( !empty($_POST['newSession']) ) {
-    $possibleValues = ['name', 'studentid', 'date', 'video', 'path'];     //TODO: pathID and research/playground must be specified, currently no interface for that on front-end
+    $possibleValues = ['name', 'studentid', 'codingDate', 'video', 'path'];     //TODO: pathID and research/playground must be specified, currently no interface for that on front-end
     $defaultValues = array(
         'name' => 'New Observation Set',
-        'studentid'=> NULL,
-        'date'=> NULL,
-        'video'=> NULL,
+        'studentid'=> '',
+        'date'=> '',
+        'video'=> '',
         'path'=> 1
     );
     

@@ -53,12 +53,17 @@ function scrubIt($target){
         <main role="main">
             <div class="container-fluid">
                 <div class="container">
-                    <div id="session_go_back" class="row pt-3 pb-5 d-none">
+                    <div id="go_to_groups" class="row pt-4 pb-2">
+                        <div class="col">
+                            <a class="underlined-btn" href="group"><span class="oi oi-arrow-thick-left mr-2"></span><span class="btn-text">Select a Different Research Group</span></a>
+                        </div>
+                    </div>
+                    <div id="session_go_back" class="row py-3">
                         <div class="col">
                             <a class="underlined-btn" href="/newestccoi/"><span class="oi oi-arrow-thick-left mr-2"></span><span class="btn-text">Back to Session Select</span></a>
                         </div>
                     </div>
-                    <div class="row py-5" style="min-width: 600px;">
+                    <div class="row pt-4" style="min-width: 600px;">
                         <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-8 col-12">

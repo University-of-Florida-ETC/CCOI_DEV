@@ -102,3 +102,5 @@ styles/
 *~
 /configs/php.ini
 /newestccoi/api/ccoi_dbhookup.php
+docker-compose.yml
+configs/sql/newerccoi_2022-07-06.sql
